@@ -1,9 +1,9 @@
 <template>
   <nav>
     <div class="header">
-      <router-link to="">Ham</router-link>
-      <router-link :to="{ name: 'Home' }">BOCO</router-link>
-      <router-link :to="{ name: 'NotificationsComponent' }">Not</router-link>
+      <img class="hamburgerMenu" src="@/assets/hamburger.svg" alt="Ham" />
+      <router-link class="homeLink" :to="{ name: 'Home' }">BOCO</router-link>
+      <img class="notificationIcon" src="@/assets/notification.svg" alt="Not" />
     </div>
   </nav>
   <router-view />
@@ -19,7 +19,7 @@
 }
 
 nav {
-  padding: 30px;
+  padding: 30px 5px;
 }
 
 nav a {
@@ -35,5 +35,14 @@ nav a.router-link-exact-active {
 .header {
   display: flex;
   justify-content: space-between;
+}
+.hamburgerMenu {
+  width: 3rem;
+}
+.homeLink {
+  font-size: 40px;
+}
+.notificationIcon {
+  width: 3rem;
 }
 </style>
