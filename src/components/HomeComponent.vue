@@ -1,5 +1,5 @@
 <template>
-  <div>Hei</div>
+  <div class="welcomeMessage">Din side for å leie!</div>
 </template>
 
 <script>
@@ -23,5 +23,10 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.welcomeMessage {
+  font-size: 40px;
+  padding: 40px 10px;
 }
 </style>
