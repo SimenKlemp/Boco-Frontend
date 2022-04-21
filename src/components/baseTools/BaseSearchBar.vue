@@ -44,4 +44,8 @@ input {
   border-radius: 10px;
   font-size: 20px;
 }
+
+.input:active {
+  border: none;
+}
 </style>

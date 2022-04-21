@@ -1,5 +1,8 @@
 <template>
-  <div class="container">BoCo</div>
+  <div class="container">
+    <img id="image" src="@/assets/bocologo.png" alt="" />
+    <div class="footerMeta">Her er masse info</div>
+  </div>
 </template>
 
 <script>
@@ -10,6 +13,13 @@ export default {
 
 <style scoped>
 .container {
+}
+.footerMeta {
   border-top: solid black;
+}
+
+#image {
+  padding: 1rem;
+  width: 22%;
 }
 </style>
