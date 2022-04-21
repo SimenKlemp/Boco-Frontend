@@ -38,12 +38,12 @@ nav a.router-link-exact-active {
   justify-content: space-between;
 }
 .hamburgerMenu {
-  width: 3rem;
+  width: 2rem;
 }
 .homeLink {
   font-size: 40px;
 }
 .notificationIcon {
-  width: 3rem;
+  width: 2rem;
 }
 </style>

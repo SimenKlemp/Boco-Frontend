@@ -5,18 +5,22 @@
       <h3>Nyeste annonser</h3>
       <p>Se de nyeste annonsene på boco</p>
     </div>
-    <div class="items"></div>
+    <div class="items">
+      <ItemCardSquare></ItemCardSquare>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import HomeComponent from "@/components/HomeComponent.vue";
+import ItemCardSquare from "@/components/itemCards/ItemCardSquare";
 
 export default {
   name: "HomeView",
   components: {
     HomeComponent,
+    ItemCardSquare,
   },
 };
 </script>
