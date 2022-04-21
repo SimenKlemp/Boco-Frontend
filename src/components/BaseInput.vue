@@ -51,5 +51,7 @@ export default {
 input {
   border: none;
   border-bottom: 1px solid black;
+  width: 100%;
+  font-size: medium;
 }
 </style>

@@ -7,7 +7,13 @@
       <router-link class="homeLink" :to="{ name: 'Home' }">
         <img src="@/assets/bocologo.png" alt="Logo" />
       </router-link>
-      <img class="notificationIcon" src="@/assets/notification.svg" alt="Not" />
+      <router-link class="homeLink" :to="{ name: 'LoginComponent' }">
+        <img
+          class="notificationIcon"
+          src="@/assets/notification.svg"
+          alt="Not"
+        />
+      </router-link>
     </div>
   </nav>
   <router-view />

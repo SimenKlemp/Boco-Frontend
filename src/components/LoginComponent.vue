@@ -2,25 +2,9 @@
   <div id="RegContainer">
     <form @submit.prevent="login">
       <div id="registerTitle">
-        <label>Registrer deg!</label>
+        <label>Logg inn:</label>
       </div>
 
-      <label class="h">Personalia</label>
-
-      <BaseInput
-        id="firstName"
-        class="mb-4"
-        type="firstName"
-        v-model="firstName"
-        placeholder="Fornavn"
-      />
-      <BaseInput
-        id="lastName"
-        class="mb-4"
-        type="lastName"
-        v-model="lastName"
-        placeholder="Etternavn"
-      />
       <BaseInput
         id="email"
         class="mb-4"
@@ -36,30 +20,7 @@
         placeholder="Passord"
       />
 
-      <label class="h">Adresse</label>
-
-      <BaseInput
-        id="address"
-        class="mb-4"
-        type="address"
-        v-model="address"
-        placeholder="Gateadresse"
-      />
-      <BaseInput
-        id="postalcode"
-        class="mb-4"
-        type="postalcode"
-        v-model="postalcode"
-        placeholder="Postkode"
-      />
-      <BaseInput
-        id="city"
-        class="mb-4"
-        type="city"
-        v-model="city"
-        placeholder="Poststed"
-      />
-      <button v-on:click="handleClickSignin_2">Registrer</button>
+      <button v-on:click="handleClickSignin_2">Logg inn</button>
 
       <label id="loginstatusLabel">{{ loginStatus }}</label>
     </form>
@@ -77,13 +38,8 @@ export default {
   },
   data() {
     return {
-      firstName: "",
-      lastName: "",
       email: "",
       password: "",
-      address: "",
-      postalcode: "",
-      city: "",
     };
   },
   methods: {
@@ -117,9 +73,6 @@ export default {
 #registerTitle {
   font-size: x-large;
   font-weight: bold;
-}
-.h {
-  font-size: large;
 }
 form {
   padding: 0px 30px 0px 30px;
