@@ -7,8 +7,18 @@
     </div>
   </nav>
   <router-view />
+  <FooterComponent></FooterComponent>
 </template>
 
+<script>
+import FooterComponent from "@/components/FooterComponent";
+
+export default {
+  components: {
+    FooterComponent,
+  },
+};
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
