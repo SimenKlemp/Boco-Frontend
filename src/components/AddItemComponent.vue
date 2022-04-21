@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import BaseInput from "./BaseInput.vue";
+import BaseInput from "./baseTools/BaseInput.vue";
 
 export default {
   name: "AddItemComponent",
