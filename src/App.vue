@@ -1,19 +1,14 @@
 <template>
   <nav>
     <div class="header">
-      <router-link class="homeLink" :to="{ name: 'RegistrationComponent' }">
-        <img class="hamburgerMenu" src="@/assets/hamburger.svg" alt="Ham" />
-      </router-link>
+      <img class="hamburgerMenu" src="@/assets/hamburger.svg" alt="Ham" />
+      <router-link :to="{ name: 'RegistrationComponent' }">reg</router-link>
+      <router-link :to="{ name: 'LoginComponent' }">login</router-link>
+      <router-link :to="{ name: 'AddItemComponent' }">add</router-link>
       <router-link class="homeLink" :to="{ name: 'Home' }">
         <img src="@/assets/bocologo.png" alt="Logo" />
       </router-link>
-      <router-link class="homeLink" :to="{ name: 'LoginComponent' }">
-        <img
-          class="notificationIcon"
-          src="@/assets/notification.svg"
-          alt="Not"
-        />
-      </router-link>
+      <img class="notificationIcon" src="@/assets/notification.svg" alt="Not" />
     </div>
   </nav>
   <router-view />

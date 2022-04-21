@@ -32,7 +32,7 @@ import BaseInput from "./BaseInput.vue";
 import axios from "axios";
 
 export default {
-  name: "RegistrationComponent",
+  name: "LoginComponent",
   components: {
     BaseInput,
   },
