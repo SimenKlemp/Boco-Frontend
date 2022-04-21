@@ -13,12 +13,11 @@ export default {
 
 <style scoped>
 .container {
-
 }
 .footerMeta {
   border-top: solid black;
 }
-#footerContainer{
+#footerContainer {
   padding-bottom: 20px;
 }
 #image {
