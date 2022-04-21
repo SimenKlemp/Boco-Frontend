@@ -1,8 +1,12 @@
 <template>
   <nav>
     <div class="header">
-      <img class="hamburgerMenu" src="@/assets/hamburger.svg" alt="Ham" />
-      <router-link class="homeLink" :to="{ name: 'Home' }">BOCO</router-link>
+      <router-link class="homeLink" :to="{ name: 'RegistrationComponent' }">
+        <img class="hamburgerMenu" src="@/assets/hamburger.svg" alt="Ham" />
+      </router-link>
+      <router-link class="homeLink" :to="{ name: 'Home' }">
+        <img src="@/assets/bocologo.png" alt="Logo" />
+      </router-link>
       <img class="notificationIcon" src="@/assets/notification.svg" alt="Not" />
     </div>
   </nav>
