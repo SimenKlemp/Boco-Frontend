@@ -1,5 +1,12 @@
 <template>
   <HomeComponent></HomeComponent>
+  <div class="itemsContainer">
+    <div class="itemsHeader">
+      <h3>Nyeste annonser</h3>
+      <p>Se de nyeste annonsene på boco</p>
+    </div>
+    <div class="items"></div>
+  </div>
 </template>
 
 <script>
@@ -13,3 +20,20 @@ export default {
   },
 };
 </script>
+<style scoped>
+h3 {
+  font-size: 29px;
+  margin-bottom: 5px;
+}
+p {
+  margin-top: 0;
+  color: #575757;
+}
+
+.itemsHeader {
+  text-align: left;
+}
+.itemsContainer {
+  margin: 10px;
+}
+</style>

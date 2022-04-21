@@ -19,7 +19,6 @@
 }
 
 nav {
-  padding: 30px 5px;
 }
 
 nav a {
@@ -33,7 +32,9 @@ nav a.router-link-exact-active {
 }
 
 .header {
+  position: absolute;
   display: flex;
+  width: 95%;
   justify-content: space-between;
 }
 .hamburgerMenu {

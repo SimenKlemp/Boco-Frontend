@@ -1,11 +1,14 @@
 <template>
-  <div class="welcomeMessage">Din side for å leie!</div>
-  <form class="form" @submit.prevent="submit">
-    <BaseSearchBar :label="'Søk...'"></BaseSearchBar>
-    <button class="searchButton">
-      <img src="@/assets/hamburger.svg" alt="" />
-    </button>
-  </form>
+  <div class="mainContent">
+    <div class="welcomeMessage">Din side for å leie!</div>
+    <form class="form" @submit.prevent="submit">
+      <BaseSearchBar :label="'Søk...'"></BaseSearchBar>
+      <button class="searchButton">
+        <img src="@/assets/hamburger.svg" alt="" />
+      </button>
+    </form>
+    <p>Bærekraft</p>
+  </div>
 </template>
 
 <script>
@@ -40,10 +43,16 @@ a {
   color: #42b983;
 }
 
+.mainContent {
+  border: solid black;
+  width: 100%;
+  padding-bottom: 5rem;
+  border-bottom: solid 10px #034363;
+}
 .welcomeMessage {
   font-size: 40px;
   padding: 40px 10px;
-  margin: 2rem 0;
+  margin: 5rem 0 2rem 0;
 }
 
 .form {
