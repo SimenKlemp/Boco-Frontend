@@ -21,9 +21,14 @@
     </div>
     <div class="hamburgerMeta">
       <div class="hamburgerActions">
-        <router-link :to="{ name: 'HomeView' }">Hjem</router-link>
+        <router-link @click="emitRouteChange" :to="{ name: 'HomeView' }"
+          >Hjem</router-link
+        >
         <div>Min profil</div>
-        <router-link id="routerLink" :to="{ name: 'AddItemComponent' }"
+        <router-link
+          @click="emitRouteChange"
+          id="routerLink"
+          :to="{ name: 'AddItemComponent' }"
           >Lei ut</router-link
         >
         <div>Mine annonser</div>
@@ -43,6 +48,11 @@
 <script>
 export default {
   name: "HamburgerMenu",
+  methods: {
+    emitRouteChange() {
+      this.$emit("routeChange");
+    },
+  },
 };
 </script>
 

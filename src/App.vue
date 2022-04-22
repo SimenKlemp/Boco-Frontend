@@ -1,6 +1,6 @@
 <template>
   <div v-if="hamburgerClicked">
-    <HamburgerMenu></HamburgerMenu>
+    <HamburgerMenu @routeChange="toggleHamburgerMenu"></HamburgerMenu>
     <div @click="toggleHamburgerMenu" class="cover"></div>
   </div>
   <header v-if="!isHome">
@@ -79,11 +79,6 @@ export default {
     toggleHamburgerMenu() {
       console.log("Hamburger clicked");
       this.hamburgerClicked = !this.hamburgerClicked;
-    },
-  },
-  watch: {
-    $route() {
-      this.toggleHamburgerMenu();
     },
   },
 };
