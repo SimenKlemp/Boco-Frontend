@@ -14,6 +14,7 @@ export default {
 
     // For demo purposes assign range from the current date
     onMounted(() => {
+      console.log("hei");
       const startDate = new Date();
       const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
       date.value = [startDate, endDate];
