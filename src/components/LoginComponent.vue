@@ -1,9 +1,7 @@
 <template>
   <div id="RegContainer">
     <form @submit.prevent="login">
-      <div id="registerTitle">
-        <label>Logg inn:</label>
-      </div>
+      <h1>Logg inn:</h1>
 
       <BaseInput
         id="email"
@@ -20,7 +18,10 @@
         placeholder="Passord"
       />
 
-      <button v-on:click="handleClickSignin_2">Logg inn</button>
+      <BaseButton
+          id="login"
+          text="Logg inn"
+      />
 
       <label id="loginstatusLabel">{{ loginStatus }}</label>
     </form>
@@ -28,12 +29,14 @@
 </template>
 
 <script>
-import BaseInput from "./BaseInput.vue";
+import BaseInput from "./baseTools/BaseInput.vue";
 import axios from "axios";
+import BaseButton from "@/components/baseTools/BaseButton";
 
 export default {
   name: "LoginComponent",
   components: {
+    BaseButton,
     BaseInput,
   },
   data() {
@@ -70,21 +73,10 @@ export default {
 </script>
 
 <style scoped>
-#registerTitle {
-  font-size: x-large;
-  font-weight: bold;
-}
 form {
   padding: 0px 30px 0px 30px;
 }
 form > * {
   margin-bottom: 10px;
-}
-button {
-  width: 100%;
-  font-size: medium;
-  padding: 10px;
-  border-radius: 7px;
-  margin-top: 10px;
 }
 </style>

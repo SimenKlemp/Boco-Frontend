@@ -1,9 +1,7 @@
 <template>
   <div id="RegContainer">
     <form @submit.prevent="login">
-      <div id="registerTitle">
-        <label>Opprett annonse:</label>
-      </div>
+      <h1>Opprett annonse:</h1>
 
       <BaseInput
         id="title"
@@ -21,66 +19,75 @@
         placeholder="Beskrivelse av produkt/gjenstand..."
       ></textarea>
 
-      <button id="addImage">Legg til bilder</button>
+      <BaseButton
+          id="addPhotos"
+          text="Legg til bilder"
+      />
+      <div id="info">
+        <h2>Sted</h2>
+        <div>
+          <label :for="address" class="h3">Gateadresse</label>
+          <BaseInput
+              id="address"
+              class="mb-4"
+              type="address"
+              v-model="address"
+              placeholder="Gateadresse"
+          />
+        </div>
 
-      <label class="h2">Sted</label>
-      <div>
-        <label :for="address" class="h3">Gateadresse</label>
+        <div class="postalAddress">
+          <div>
+            <label :for="postalcode" class="h3">Postnummer</label>
+            <BaseInput
+                id="postalcode"
+                class="mb-4"
+                type="postalcode"
+                v-model="postalcode"
+                placeholder="Postnr"
+            />
+          </div>
+
+          <div>
+            <label :for="city" class="h3">Poststed</label>
+            <BaseInput
+                id="city"
+                class="mb-4"
+                type="city"
+                v-model="city"
+                placeholder="Poststed"
+            />
+          </div>
+        </div>
+
+        <h2>Pris</h2>
+
+        <label :for="price" class="h3">Pris per dag</label>
         <BaseInput
-          id="address"
-          class="mb-4"
-          type="address"
-          v-model="address"
-          placeholder="Gateadresse"
+            id="price"
+            class="mb-4"
+            type="price"
+            v-model="price"
+            placeholder="Pris per dag"
         />
       </div>
 
-      <div class="postalAddress">
-        <div>
-          <label :for="postalcode" class="h3">Postkode</label>
-          <BaseInput
-            id="postalcode"
-            class="mb-4"
-            type="postalcode"
-            v-model="postalcode"
-            placeholder="Postkode"
-          />
-        </div>
-
-        <div>
-          <label :for="city" class="h3">Poststed</label>
-          <BaseInput
-            id="city"
-            class="mb-4"
-            type="city"
-            v-model="city"
-            placeholder="Poststed"
-          />
-        </div>
-      </div>
-
-      <label class="h2">Pris</label>
-
-      <label :for="price" class="h3">Pris per dag</label>
-      <BaseInput
-        id="price"
-        class="mb-4"
-        type="price"
-        v-model="price"
-        placeholder="Pris per dag"
+      <BaseButton
+          id="publish"
+          text="Publiser"
       />
-
-      <button>Publiser annonse</button>
     </form>
   </div>
 </template>
 
 <script>
-import BaseInput from "./BaseInput.vue";
+import BaseInput from "./baseTools/BaseInput.vue";
+import BaseButton from "@/components/baseTools/BaseButton";
 
 export default {
   name: "AddItemComponent",
   components: {
+    BaseButton,
     BaseInput,
   },
   data() {
@@ -97,10 +104,6 @@ export default {
 </script>
 
 <style scoped>
-#registerTitle {
-  font-size: x-large;
-  font-weight: bold;
-}
 form {
   padding: 0px 30px 0px 30px;
 }
@@ -108,28 +111,25 @@ form > * {
   margin-bottom: 10px;
   display: block;
 }
-button {
-  width: 100%;
-  font-size: medium;
-  padding: 10px;
-  border-radius: 7px;
-  margin-top: 10px;
-}
-.h2 {
-  font-size: large;
-  font-weight: bold;
-}
 /deep/ #title {
   font-size: x-large;
 }
 #description {
   font-size: medium;
-  border-radius: 7px;
+  border-radius: 15px;
   width: 100%;
   height: 150px;
 }
 .postalAddress {
   display: flex;
-  justify-content: space-between;
+}
+#info {
+  text-align: left;
+}
+#info > * {
+  padding-bottom: 10px;
+}
+/deep/ #postalcode {
+  width: 87px;
 }
 </style>
