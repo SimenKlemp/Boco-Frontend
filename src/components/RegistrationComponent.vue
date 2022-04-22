@@ -1,11 +1,9 @@
 <template>
   <div id="RegContainer">
     <form @submit.prevent="submit">
-      <div id="registerTitle">
-        <label>Registrer deg!</label>
-      </div>
+      <h1>Registrer deg!</h1>
 
-      <label class="h">Personalia</label>
+      <h2>Personalia</h2>
 
       <BaseInput
         id="firstName"
@@ -48,7 +46,7 @@
         v$.$errors[0].$message
       }}</BaseErrorMessage>
 
-      <label class="h">Adresse</label>
+      <h2>Adresse</h2>
 
       <BaseInput
         id="address"
@@ -80,7 +78,11 @@
       <BaseErrorMessage v-if="v$.city.$error">{{
         v$.$errors[0].$message
       }}</BaseErrorMessage>
-      <button v-on:click="handleClickSignin_2">Registrer</button>
+
+      <BaseButton
+          id="registration"
+          text="Registrer"
+      />
 
       <label id="loginstatusLabel">{{ loginStatus }}</label>
     </form>
@@ -89,7 +91,8 @@
 
 <script>
 import BaseInput from "./baseTools/BaseInput.vue";
-import BaseErrorMessage from "@/components/BaseErrorMessage";
+import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
+import BaseButton from "@/components/baseTools/BaseButton";
 import useVuelidate from "@vuelidate/core";
 import { email, required } from "@vuelidate/validators";
 
@@ -98,6 +101,7 @@ export default {
   components: {
     BaseInput,
     BaseErrorMessage,
+    BaseButton
   },
   setup() {
     return {
@@ -162,24 +166,10 @@ export default {
 </script>
 
 <style scoped>
-#registerTitle {
-  font-size: x-large;
-  font-weight: bold;
-}
-.h {
-  font-size: large;
-}
 form {
   padding: 0px 30px 0px 30px;
 }
 form > * {
   margin-bottom: 10px;
-}
-button {
-  width: 100%;
-  font-size: medium;
-  padding: 10px;
-  border-radius: 7px;
-  margin-top: 10px;
 }
 </style>

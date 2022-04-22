@@ -123,4 +123,14 @@ nav a.router-link-exact-active {
   --lightblue: #8ecae6;
   --orange: #fb8500;
 }
+h1 {
+  font-size: x-large;
+  font-weight: bold;
+  color: var(--indigo);
+}
+h2 {
+  font-size: large;
+  color: var(--indigo);
+  font-weight: normal;
+}
 </style>

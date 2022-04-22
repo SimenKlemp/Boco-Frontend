@@ -50,7 +50,7 @@ export default {
 <style scoped>
 input {
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--lightblue);
   width: 100%;
   font-size: medium;
 }
