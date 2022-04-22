@@ -114,8 +114,8 @@ nav a.router-link-exact-active {
 :root {
   --indigo: #034363;
   --blue: #126782;
-  --lightblue: #8ECAE6;
-  --orange: #FB8500;
+  --lightblue: #8ecae6;
+  --orange: #fb8500;
 }
 h1 {
   font-size: x-large;
