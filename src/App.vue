@@ -1,20 +1,26 @@
 <template>
+  <div v-if="hamburgerClicked">
+    <HamburgerMenu></HamburgerMenu>
+    <div @click="toggleHamburgerMenu" class="cover"></div>
+  </div>
   <header v-if="!isHome">
     <nav>
       <div class="header">
-        <svg
-          class="hamburgerMenu"
-          xmlns="http://www.w3.org/2000/svg"
-          version="1.1"
-          viewBox="0 0 32 32"
-          x="0px"
-          y="0px"
-        >
-          <title>menu</title>
-          <path
-            d="M1.158 3.441c-0.005 0-0.010 0-0.016 0-0.631 0-1.142 0.511-1.142 1.142s0.511 1.142 1.142 1.142c0.006 0 0.011 0 0.017 0h29.683c0.005 0 0.010 0 0.016 0 0.631 0 1.142-0.511 1.142-1.142s-0.511-1.142-1.142-1.142c-0.006 0-0.011 0-0.017 0zM1.158 14.858c-0.005 0-0.010 0-0.016 0-0.631 0-1.142 0.511-1.142 1.142s0.511 1.142 1.142 1.142c0.006 0 0.011 0 0.017 0h29.683c0.005 0 0.010 0 0.016 0 0.631 0 1.142-0.511 1.142-1.142s-0.511-1.142-1.142-1.142c-0.006 0-0.011 0-0.017 0zM1.158 26.275c-0.005 0-0.010 0-0.016 0-0.631 0-1.142 0.511-1.142 1.142s0.511 1.142 1.142 1.142c0.006 0 0.011 0 0.017 0h29.683c0.005 0 0.010 0 0.016 0 0.631 0 1.142-0.511 1.142-1.142s-0.511-1.142-1.142-1.142c-0.006 0-0.011 0-0.017 0z"
-          ></path>
-        </svg>
+        <button @click="toggleHamburgerMenu" class="hamburgerButton">
+          <svg
+            class="hamburgerMenu"
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            viewBox="0 0 32 32"
+            x="0px"
+            y="0px"
+          >
+            <title>menu</title>
+            <path
+              d="M1.158 3.441c-0.005 0-0.010 0-0.016 0-0.631 0-1.142 0.511-1.142 1.142s0.511 1.142 1.142 1.142c0.006 0 0.011 0 0.017 0h29.683c0.005 0 0.010 0 0.016 0 0.631 0 1.142-0.511 1.142-1.142s-0.511-1.142-1.142-1.142c-0.006 0-0.011 0-0.017 0zM1.158 14.858c-0.005 0-0.010 0-0.016 0-0.631 0-1.142 0.511-1.142 1.142s0.511 1.142 1.142 1.142c0.006 0 0.011 0 0.017 0h29.683c0.005 0 0.010 0 0.016 0 0.631 0 1.142-0.511 1.142-1.142s-0.511-1.142-1.142-1.142c-0.006 0-0.011 0-0.017 0zM1.158 26.275c-0.005 0-0.010 0-0.016 0-0.631 0-1.142 0.511-1.142 1.142s0.511 1.142 1.142 1.142c0.006 0 0.011 0 0.017 0h29.683c0.005 0 0.010 0 0.016 0 0.631 0 1.142-0.511 1.142-1.142s-0.511-1.142-1.142-1.142c-0.006 0-0.011 0-0.017 0z"
+            ></path>
+          </svg>
+        </button>
         <button @click="goToHome" class="homeLink">
           <img class="logoImage" src="@/assets/bocologo.png" alt="" />
         </button>
@@ -43,16 +49,23 @@
       </div>
     </nav>
   </header>
-  <router-view />
+  <router-view @toggleHamburgerMenu="toggleHamburgerMenu" />
   <FooterComponent></FooterComponent>
 </template>
 
 <script>
 import FooterComponent from "@/components/FooterComponent";
+import HamburgerMenu from "@/components/HamburgerMenu";
 
 export default {
+  data() {
+    return {
+      hamburgerClicked: false,
+    };
+  },
   components: {
     FooterComponent,
+    HamburgerMenu,
   },
   computed: {
     isHome() {
@@ -62,6 +75,15 @@ export default {
   methods: {
     goToHome() {
       this.$router.push({ name: "HomeView" });
+    },
+    toggleHamburgerMenu() {
+      console.log("Hamburger clicked");
+      this.hamburgerClicked = !this.hamburgerClicked;
+    },
+  },
+  watch: {
+    $route() {
+      this.toggleHamburgerMenu();
     },
   },
 };
@@ -90,6 +112,17 @@ nav a.router-link-exact-active {
 * {
   margin: 0;
 }
+.cover {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: black;
+  opacity: 50%;
+  top: 0;
+  left: 0;
+  z-index: 70;
+}
+
 .header {
   display: flex;
   width: 90%;
@@ -99,6 +132,12 @@ nav a.router-link-exact-active {
 }
 .hamburgerMenu {
   width: 2.5rem;
+}
+.hamburgerButton {
+  width: 2.5rem;
+  padding: 0;
+  background: none;
+  border: none;
 }
 .homeLink {
   font-size: 40px;
