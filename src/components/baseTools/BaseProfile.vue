@@ -33,7 +33,7 @@ export default {
 
 <style scoped>
 .container {
-  border: solid black;
+  border: solid black 1px;
   border-radius: 15px;
   display: flex;
 }

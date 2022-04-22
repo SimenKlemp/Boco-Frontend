@@ -118,7 +118,13 @@
     <div class="profileContainer">
       <BaseProfile></BaseProfile>
     </div>
-    <div class="description">Denne er fin</div>
+    <div class="description">
+      <h3 class="descriptionTitle">Beskrivelse</h3>
+      <p id="descriptionText">
+        Motorsag fra Stihl, den er oransje og ligger på gulvet. Den er i god
+        stand og er bensindrevet. Kan ikke leies onsdager og lørdager
+      </p>
+    </div>
   </div>
 </template>
 
@@ -141,6 +147,7 @@ p {
 }
 
 .container {
+  margin: 1rem 0;
 }
 .imageCarousel {
   height: 20rem;
@@ -189,6 +196,12 @@ p {
 .profileContainer {
 }
 .description {
+  text-align: left;
+  margin: 0 1rem 0 1rem;
+}
+.descriptionTitle {
+  font-size: 24px;
+  margin: 24px 0 10px 0;
 }
 
 #productImage {
@@ -197,5 +210,8 @@ p {
 }
 #pricetag {
   font-size: 20px;
+}
+#descriptionText {
+  color: #333333;
 }
 </style>
