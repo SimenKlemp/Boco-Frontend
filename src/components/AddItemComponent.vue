@@ -34,7 +34,7 @@
         v$.$errors[2].$message
       }}</BaseErrorMessage>
 
-      <button type="button" @click="addPhotos">Legg til bilder</button>
+
       <div id="info">
         <h2>Sted</h2>
         <div>
@@ -166,16 +166,16 @@ export default {
           category: this.category,
           description: this.description,
           postOffice: this.city,
-          postalCode: this.postalCode,
+          postalCode: this.postalcode,
           price: this.price,
           streetAddress: this.address,
           title: this.title,
-          userId: 2, //hent userId fra state
+          userId: this.$store.state.userInfo.userId,
         };
 
         let itemResponse = doRegisterItem(itemRequest, this.$store.state.token);
-        if (itemResponse.status === 200) {
-          this.$router.push({ name: "HomeView" });
+        if (itemResponse.status === 201) {
+          await this.$router.push({ name: "HomeView" });
         }
       }
     },
