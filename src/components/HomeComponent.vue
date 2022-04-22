@@ -52,7 +52,7 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: var(--blue);
 }
 p {
   color: white;
@@ -66,7 +66,7 @@ p {
   overflow: hidden;
   width: 100%;
   padding: 20px 20px 5rem;
-  border-bottom: solid 10px #034363;
+  border-bottom: solid 10px var(--indigo);
 }
 .welcomeMessage {
   font-size: 40px;

@@ -101,4 +101,10 @@ nav a.router-link-exact-active {
 .logoImage {
   width: 8rem;
 }
+:root {
+  --indigo: #034363;
+  --blue: #126782;
+  --lightblue: #8ECAE6;
+  --orange: #FB8500;
+}
 </style>
