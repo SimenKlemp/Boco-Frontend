@@ -1,0 +1,218 @@
+<template>
+  <div class="container">
+    <div class="imageCarousel">
+      <img id="productImage" src="../assets/Motorsag.png" alt="" />
+    </div>
+    <div class="info">
+      <div class="productMeta">
+        <h1>Motorsag fra Stihl</h1>
+        <div class="location">
+          <svg
+            class="positionMarker"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            x="0px"
+            y="0px"
+            viewBox="0 0 96 96"
+            enable-background="new 0 0 96 96"
+            xml:space="preserve"
+          >
+            <path
+              d="M48,9C31.86,9,18.73,22.131,18.73,38.271c0,14.13,23.756,41.948,28.518,47.381L48,86.512l0.752-0.857  c4.762-5.432,28.518-33.24,28.518-47.383C77.27,22.131,64.14,9,48,9z M48,48c-5.374,0-9.73-4.356-9.73-9.73s4.356-9.73,9.73-9.73  s9.73,4.356,9.73,9.73S53.374,48,48,48z"
+            ></path>
+          </svg>
+          <p>Trondheim</p>
+        </div>
+        <div class="rating">
+          <svg
+            class="stars"
+            xmlns="http://www.w3.org/2000/svg"
+            width="162.031"
+            height="30.079"
+            viewBox="0 0 162.031 30.079"
+          >
+            <g
+              id="Group_12"
+              data-name="Group 12"
+              transform="translate(-15 -527.501)"
+            >
+              <g
+                id="filled_star"
+                data-name="filled star"
+                transform="translate(2.96 -437.071)"
+              >
+                <path
+                  id="Path_1"
+                  data-name="Path 1"
+                  d="M26.29,966.153l3.227,9.682a.751.751,0,0,0,.714.517H40.54l-8.387,6.134a.751.751,0,0,0-.271.838l3.227,10.014-8.375-6.122a.751.751,0,0,0-.887,0l-8.375,6.122L20.7,983.324a.751.751,0,0,0-.271-.838l-8.387-6.134H22.349a.751.751,0,0,0,.714-.517l3.227-9.682Z"
+                  fill="#fb8500"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g
+                id="filled_star-2"
+                data-name="filled star"
+                transform="translate(35.96 -437.071)"
+              >
+                <path
+                  id="Path_1-2"
+                  data-name="Path 1"
+                  d="M26.29,966.153l3.227,9.682a.751.751,0,0,0,.714.517H40.54l-8.387,6.134a.751.751,0,0,0-.271.838l3.227,10.014-8.375-6.122a.751.751,0,0,0-.887,0l-8.375,6.122L20.7,983.324a.751.751,0,0,0-.271-.838l-8.387-6.134H22.349a.751.751,0,0,0,.714-.517l3.227-9.682Z"
+                  fill="#fb8500"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g
+                id="filled_star-3"
+                data-name="filled star"
+                transform="translate(68.96 -437.071)"
+              >
+                <path
+                  id="Path_1-3"
+                  data-name="Path 1"
+                  d="M26.29,966.153l3.227,9.682a.751.751,0,0,0,.714.517H40.54l-8.387,6.134a.751.751,0,0,0-.271.838l3.227,10.014-8.375-6.122a.751.751,0,0,0-.887,0l-8.375,6.122L20.7,983.324a.751.751,0,0,0-.271-.838l-8.387-6.134H22.349a.751.751,0,0,0,.714-.517l3.227-9.682Z"
+                  fill="#fb8500"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g
+                id="filled_star-4"
+                data-name="filled star"
+                transform="translate(101.96 -437.071)"
+              >
+                <path
+                  id="Path_1-4"
+                  data-name="Path 1"
+                  d="M26.29,966.153l3.227,9.682a.751.751,0,0,0,.714.517H40.54l-8.387,6.134a.751.751,0,0,0-.271.838l3.227,10.014-8.375-6.122a.751.751,0,0,0-.887,0l-8.375,6.122L20.7,983.324a.751.751,0,0,0-.271-.838l-8.387-6.134H22.349a.751.751,0,0,0,.714-.517l3.227-9.682Z"
+                  fill="#fb8500"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g
+                id="filled_star-5"
+                data-name="filled star"
+                transform="translate(134.96 -437.071)"
+              >
+                <path
+                  id="Path_1-5"
+                  data-name="Path 1"
+                  d="M26.29,966.153l3.227,9.682a.751.751,0,0,0,.714.517H40.54l-8.387,6.134a.751.751,0,0,0-.271.838l3.227,10.014-8.375-6.122a.751.751,0,0,0-.887,0l-8.375,6.122L20.7,983.324a.751.751,0,0,0-.271-.838l-8.387-6.134H22.349a.751.751,0,0,0,.714-.517l3.227-9.682Z"
+                  fill="none"
+                  stroke="#fb8500"
+                  stroke-width="1"
+                  fill-rule="evenodd"
+                />
+              </g>
+            </g>
+          </svg>
+          <p class="ratingSummary">(4/5)</p>
+        </div>
+        <div class="price">
+          <p>Dagsleie</p>
+          <p id="pricetag">200 kr/dag</p>
+        </div>
+      </div>
+    </div>
+    <div class="requestContainer">Forespør</div>
+    <div class="profileContainer">
+      <BaseProfile></BaseProfile>
+    </div>
+    <div class="description">
+      <h3 class="descriptionTitle">Beskrivelse</h3>
+      <p id="descriptionText">
+        Motorsag fra Stihl, den er oransje og ligger på gulvet. Den er i god
+        stand og er bensindrevet. Kan ikke leies onsdager og lørdager
+      </p>
+    </div>
+  </div>
+</template>
+
+<script>
+import BaseProfile from "@/components/baseTools/BaseProfile";
+export default {
+  name: "ProductDetails",
+  components: {
+    BaseProfile,
+  },
+};
+</script>
+
+<style scoped>
+h1 {
+  color: black;
+}
+p {
+  margin: 5px 0;
+}
+
+.container {
+  margin: 1rem 0;
+}
+.imageCarousel {
+  height: 20rem;
+  width: 100%;
+  margin: 1rem 0;
+}
+.info {
+  margin: 0 1rem 0 1rem;
+}
+.productMeta {
+  text-align: left;
+}
+.location {
+  display: flex;
+  height: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.positionMarker {
+  fill: #fb8500;
+  height: 100%;
+  margin: 0 0.5rem 0 -3px;
+}
+.rating {
+  display: flex;
+  height: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.stars {
+  height: 100%;
+  margin: 0 0.5rem 0 -1.15rem;
+}
+.ratingSummary {
+  font-size: 20px;
+  margin: 0;
+  padding-bottom: 2px;
+}
+.price {
+  margin-bottom: 0.5rem;
+}
+.price p {
+  font-size: 24px;
+  font-weight: bold;
+}
+.requestContainer {
+}
+.profileContainer {
+  margin: 0 1rem 0 1rem;
+}
+.description {
+  text-align: left;
+  margin: 0 1rem 0 1rem;
+}
+.descriptionTitle {
+  font-size: 24px;
+  margin: 24px 0 10px 0;
+}
+
+#productImage {
+  width: 100%;
+  height: 100%;
+}
+#pricetag {
+  font-size: 20px;
+}
+#descriptionText {
+  color: #333333;
+}
+</style>

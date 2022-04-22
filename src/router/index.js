@@ -1,14 +1,15 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import NotificationsComponent from "@/components/NotificationsComponent";
 import RegistrationComponent from "@/components/RegistrationComponent";
 import LoginComponent from "@/components/LoginComponent";
 import AddItemComponent from "@/components/AddItemComponent";
+import ProductDetails from "@/views/ProductDetails";
 
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "HomeView",
     component: HomeView,
   },
   {
@@ -32,6 +33,11 @@ const routes = [
     component: AddItemComponent,
   },
   {
+    path: "/product-details",
+    name: "ProductDetails",
+    component: ProductDetails,
+  },
+  {
     path: "/about",
     name: "about",
     // route level code-splitting
@@ -43,7 +49,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 
