@@ -62,7 +62,7 @@ h4 {
 }
 img {
   width: 170px;
-  border-radius: 11px;
+  border-radius: 10px;
 }
 .itemMeta {
   text-align: left;

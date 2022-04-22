@@ -22,7 +22,6 @@
       /><BaseErrorMessage v-if="v$.category.$error">{{
         v$.$errors[1].$message
       }}</BaseErrorMessage>
-      <button type="button" @click="addPhotos">Legg til bilde</button>
       <textarea
         id="description"
         class="mb-4"
@@ -34,6 +33,7 @@
         v$.$errors[2].$message
       }}</BaseErrorMessage>
 
+      <BaseButton id="addPhotos" @click="addPhotos" text="Legg til bilder" />
       <div id="info">
         <h2>Sted</h2>
         <div>
@@ -44,7 +44,7 @@
             type="address"
             v-model="address"
             placeholder="Gateadresse"
-          />/><BaseErrorMessage v-if="v$.address.$error">{{
+          /><BaseErrorMessage v-if="v$.address.$error">{{
             v$.$errors[3].$message
           }}</BaseErrorMessage>
         </div>
@@ -58,7 +58,7 @@
               type="postalcode"
               v-model="postalcode"
               placeholder="Postnr"
-            />/><BaseErrorMessage v-if="v$.postalcode.$error">{{
+            /><BaseErrorMessage v-if="v$.postalcode.$error">{{
               v$.$errors[4].$message
             }}</BaseErrorMessage>
           </div>
@@ -71,7 +71,7 @@
               type="city"
               v-model="city"
               placeholder="Poststed"
-            />/><BaseErrorMessage v-if="v$.city.$error">{{
+            /><BaseErrorMessage v-if="v$.city.$error">{{
               v$.$errors[5].$message
             }}</BaseErrorMessage>
           </div>
@@ -86,7 +86,7 @@
           type="price"
           v-model="price"
           placeholder="Pris per dag"
-        />/><BaseErrorMessage v-if="v$.price.$error">{{
+        /><BaseErrorMessage v-if="v$.price.$error">{{
           v$.$errors[6].$message
         }}</BaseErrorMessage>
       </div>
