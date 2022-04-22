@@ -40,15 +40,14 @@ const routes = [
     component: ProductDetails,
   },
   {
-<<<<<<< src/router/index.js
     path: "/request-hire",
     name: "RequestComponent",
     component: RequestComponent,
-=======
+  },
+  {
     path: "/my-profile",
     name: "MyProfile",
     component: MyProfile,
->>>>>>> src/router/index.js
   },
   {
     path: "/about",
