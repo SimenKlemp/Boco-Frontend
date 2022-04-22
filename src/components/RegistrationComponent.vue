@@ -6,23 +6,16 @@
       <h2>Personalia</h2>
 
       <BaseInput
-        id="firstName"
+        id="name"
         class="mb-4"
         type="firstName"
-        v-model="firstName"
-        placeholder="Fornavn"
+        v-model="name"
+        placeholder="Navn"
         :errorMessage="v$.$errors[1]"
       />
-      <BaseErrorMessage v-if="v$.firstName.$error">{{
+      <BaseErrorMessage v-if="v$.name.$error">{{
         v$.$errors[0].$message
       }}</BaseErrorMessage>
-      <BaseInput
-        id="lastName"
-        class="mb-4"
-        type="lastName"
-        v-model="lastName"
-        placeholder="Etternavn"
-      />
       <BaseInput
         id="email"
         class="mb-4"
@@ -32,7 +25,7 @@
         :errorMessage="v$.$errors[2]"
       />
       <BaseErrorMessage v-if="v$.email.$error">{{
-        v$.$errors[0].$message
+        v$.$errors[1].$message
       }}</BaseErrorMessage>
       <BaseInput
         id="password"
@@ -43,7 +36,7 @@
         :errorMessage="v$.$errors[3]"
       />
       <BaseErrorMessage v-if="v$.password.$error">{{
-        v$.$errors[0].$message
+        v$.$errors[2].$message
       }}</BaseErrorMessage>
 
       <h2>Adresse</h2>
@@ -56,7 +49,7 @@
         placeholder="Gateadresse"
       />
       <BaseErrorMessage v-if="v$.address.$error">{{
-        v$.$errors[0].$message
+        v$.$errors[3].$message
       }}</BaseErrorMessage>
       <BaseInput
         id="postalcode"
@@ -66,7 +59,7 @@
         placeholder="Postkode"
       />
       <BaseErrorMessage v-if="v$.postalcode.$error">{{
-        v$.$errors[0].$message
+        v$.$errors[4].$message
       }}</BaseErrorMessage>
       <BaseInput
         id="city"
@@ -76,32 +69,28 @@
         placeholder="Poststed"
       />
       <BaseErrorMessage v-if="v$.city.$error">{{
-        v$.$errors[0].$message
+        v$.$errors[5].$message
       }}</BaseErrorMessage>
 
-      <BaseButton
-          id="registration"
-          text="Registrer"
-      />
-
-      <label id="loginstatusLabel">{{ loginStatus }}</label>
+      <BaseButton v-on:click="submit" text="Registerer" />
     </form>
   </div>
 </template>
 
 <script>
-import BaseInput from "./baseTools/BaseInput.vue";
-import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
+import BaseInput from "@/components/baseTools/BaseInput";
 import BaseButton from "@/components/baseTools/BaseButton";
+import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import useVuelidate from "@vuelidate/core";
-import { email, required } from "@vuelidate/validators";
+import { email, required, helpers } from "@vuelidate/validators";
+import { doRegistration } from "@/service/apiService";
 
 export default {
   name: "RegistrationComponent",
   components: {
     BaseInput,
     BaseErrorMessage,
-    BaseButton
+    BaseButton,
   },
   setup() {
     return {
@@ -110,8 +99,7 @@ export default {
   },
   data() {
     return {
-      firstName: "",
-      lastName: "",
+      name: "",
       email: "",
       password: "",
       address: "",
@@ -121,13 +109,25 @@ export default {
   },
   validations() {
     return {
-      firstName: { required },
-      lastName: { required },
-      email: { required, email },
-      password: { required },
-      address: { required },
-      postalcode: { required },
-      city: { required },
+      name: {
+        required: helpers.withMessage("Navn er påkrevd", required),
+      },
+      email: {
+        required: helpers.withMessage("Email er påkrevd", required),
+        email,
+      },
+      password: {
+        required: helpers.withMessage("Passord er påkrevd", required),
+      },
+      address: {
+        required: helpers.withMessage("Adresse er påkrevd", required),
+      },
+      postalcode: {
+        required: helpers.withMessage("Postkode er påkrevd", required),
+      },
+      city: {
+        required: helpers.withMessage("By er påkrevd", required),
+      },
     };
   },
   methods: {
@@ -136,27 +136,29 @@ export default {
       console.log(this.v$);
       if (!this.v$.$error) {
         const reqisterUserRequest = {
-          firstname: this.firstname,
-          lastname: this.lastname,
+          name: this.name,
+          isPerson: true,
+          address: this.address,
           email: this.email,
           password: this.password,
-          address: this.address,
           postalcode: this.postalcode,
           city: this.city,
         };
+        let loginResponse = await doRegistration(reqisterUserRequest);
 
-        console.log(reqisterUserRequest);
+        if (loginResponse.status === 200) {
+          this.$store.dispatch("storeUser", loginResponse.data.userInfo);
 
-        /*
-        await this.$store.dispatch("createSubjectQueue", reqisterUserRequest);
-        this.$store.dispatch(
-          "getSubjectQueueUser",
-          reqisterUserRequest.subjectId
-        );
-        await this.$store.dispatch("getAllSubjectQueues");
-        await this.$router.push({ name: "QueueList" });
+          switch (loginResponse.data.userInfo.role) {
+            case "USer":
+              //TODO: push til min side!! -->
+              this.$router.push({ name: "HomeView" });
+              break;
 
-         */
+            default:
+              alert("Something went wrong with the authentication!");
+          }
+        }
       } else {
         alert("Alle felter må være fylt ut");
       }
