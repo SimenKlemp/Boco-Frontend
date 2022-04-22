@@ -22,7 +22,7 @@
           </svg>
         </button>
         <button @click="goToHome" class="homeLink">
-          <img class="logoImage" src="@/assets/bocologo.png" alt="" />
+          <img class="logoImage" :src="require('../src/assets/bocologo.png')" alt="" />
         </button>
         <svg
           class="notificationIcon"
