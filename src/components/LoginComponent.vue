@@ -12,7 +12,7 @@
       </h5>
     </div>
     <div id="RegContainer">
-      <form @submit.prevent="doLogin">
+      <form @submit.prevent="submit">
         <div id="registerTitle">
           <label>Logg inn:</label>
         </div>
@@ -63,16 +63,14 @@ export default {
     };
   },
   methods: {
-    async doLogin() {
+    async submit() {
       let loginResponse = await doLogin(this.email, this.password);
 
-      console.log(loginResponse);
+      if (loginResponse.status === 200) {
+        this.$store.dispatch("storeUser", loginResponse.data.userInfo);
 
-      if (loginResponse.role !== "") {
-        this.$store.dispatch("storeUser", loginResponse);
-
-        switch (loginResponse.role) {
-          case "User":
+        switch (loginResponse.data.userInfo.role) {
+          case "USER":
             //TODO: push til min side!! -->
             this.$router.push({ name: "HomeView" });
             break;
@@ -126,35 +124,5 @@ form {
 }
 form > * {
   margin-bottom: 10px;
-}
-
-.mybtn {
-  align-items: center;
-  padding: 10px;
-  width: 180px;
-  color: white;
-  background-color: black;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  border-radius: 6px;
-  font-weight: 700;
-}
-.mybtn:hover {
-  -webkit-transform: scale(1.02);
-  transform: scale(1.02);
-  box-shadow: 0 7px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-.mybtn:active {
-  -webkit-transform: scale(1);
-  transform: scale(1);
-  box-shadow: none;
-}
-.mybtn:focus {
-  outline: 0;
-}
-.mybtn:disabled {
-  -webkit-transform: scale(1);
-  transform: scale(1);
-  box-shadow: none;
 }
 </style>

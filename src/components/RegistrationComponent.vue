@@ -137,23 +137,20 @@ export default {
       if (!this.v$.$error) {
         const reqisterUserRequest = {
           name: this.name,
+          isPerson: true,
+          address: this.address,
           email: this.email,
           password: this.password,
-          address: this.address,
           postalcode: this.postalcode,
           city: this.city,
         };
         let loginResponse = await doRegistration(reqisterUserRequest);
 
-        if (loginResponse.status === "Success") {
-          this.$store.dispatch("storeUser", loginResponse);
+        if (loginResponse.status === 200) {
+          this.$store.dispatch("storeUser", loginResponse.data.userInfo);
 
-          switch (loginResponse.role) {
-            case "Admin":
-              this.$router.push({ name: "AdminView" });
-              break;
-
-            case "User":
+          switch (loginResponse.data.userInfo.role) {
+            case "USer":
               //TODO: push til min side!! -->
               this.$router.push({ name: "HomeView" });
               break;

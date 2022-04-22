@@ -7,10 +7,9 @@ export async function doLogin(email, password) {
   };
 
   return axios
-    .post(`http://localhost:8080/api/login`, loginRequest)
+    .post(`http://localhost:8080/api/user/login`, loginRequest)
     .then((response) => {
-      console.log(response.data);
-      return response.data;
+      return response;
     })
     .catch((err) => {
       console.log(err);
@@ -18,9 +17,9 @@ export async function doLogin(email, password) {
 }
 export async function doRegistration(registerUserRequest) {
   return axios
-    .post(`http://localhost:8080/api/login`, registerUserRequest)
+    .post(`http://localhost:8080/api/user/login`, registerUserRequest)
     .then((response) => {
-      return response.data;
+      return response;
     })
     .catch((err) => {
       console.log(err);
