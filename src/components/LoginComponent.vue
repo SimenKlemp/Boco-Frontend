@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import BaseInput from "./BaseInput.vue";
+import BaseInput from "./baseTools/BaseInput.vue";
 import axios from "axios";
 
 export default {
