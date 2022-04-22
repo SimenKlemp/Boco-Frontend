@@ -1,4 +1,5 @@
 <template>
+  <div class="cover"></div>
   <header v-if="!isHome">
     <nav>
       <div class="header">
@@ -51,6 +52,11 @@
 import FooterComponent from "@/components/FooterComponent";
 
 export default {
+  data() {
+    return {
+      hamburgerClicked: false,
+    };
+  },
   components: {
     FooterComponent,
   },
@@ -114,7 +120,7 @@ nav a.router-link-exact-active {
 :root {
   --indigo: #034363;
   --blue: #126782;
-  --lightblue: #8ECAE6;
-  --orange: #FB8500;
+  --lightblue: #8ecae6;
+  --orange: #fb8500;
 }
 </style>

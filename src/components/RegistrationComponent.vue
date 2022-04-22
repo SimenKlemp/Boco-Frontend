@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import BaseInput from "./BaseInput.vue";
+import BaseInput from "./baseTools/BaseInput.vue";
 import BaseErrorMessage from "@/components/BaseErrorMessage";
 import useVuelidate from "@vuelidate/core";
 import { email, required } from "@vuelidate/validators";

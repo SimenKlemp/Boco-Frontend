@@ -65,7 +65,6 @@ p {
   background-size: 750px;
   overflow: hidden;
   width: 100%;
-  padding: 20px 20px 5rem;
   border-bottom: solid 10px var(--indigo);
 }
 .welcomeMessage {
