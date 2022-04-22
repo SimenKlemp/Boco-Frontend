@@ -87,7 +87,9 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
-
+* {
+  margin: 0;
+}
 .header {
   display: flex;
   width: 90%;
@@ -108,5 +110,11 @@ nav a.router-link-exact-active {
 }
 .logoImage {
   width: 8rem;
+}
+:root {
+  --indigo: #034363;
+  --blue: #126782;
+  --lightblue: #8ECAE6;
+  --orange: #FB8500;
 }
 </style>

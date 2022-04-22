@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" id="footerContainer">
     <img id="image" src="@/assets/bocologo.png" alt="" />
     <div class="footerMeta">Her er masse info</div>
   </div>
@@ -17,7 +17,9 @@ export default {
 .footerMeta {
   border-top: solid black;
 }
-
+#footerContainer {
+  padding-bottom: 20px;
+}
 #image {
   padding: 1rem;
   width: 22%;

@@ -52,22 +52,21 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: var(--blue);
 }
 p {
   color: white;
 }
 
 .mainContent {
-  border: solid black;
   background-image: url("../assets/Woman-hiker-relaxing-at-the-top-of-the-mountain-and-looking-up-at-a-Norwegian-fjord.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 750px;
   overflow: hidden;
   width: 100%;
-  padding-bottom: 5rem;
-  border-bottom: solid 10px #034363;
+  padding: 20px 20px 5rem;
+  border-bottom: solid 10px var(--indigo);
 }
 .welcomeMessage {
   font-size: 40px;
