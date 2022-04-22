@@ -1,5 +1,5 @@
 <template>
-  <button :for="id"><img v-if="img" src="img">{{ text }}</button>
+  <button :for="id"><img v-if="img" src="img" />{{ text }}</button>
 </template>
 
 <script>
@@ -17,9 +17,9 @@ export default {
     img: {
       type: String,
       default: "",
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

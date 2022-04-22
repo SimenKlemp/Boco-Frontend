@@ -18,10 +18,7 @@
         placeholder="Passord"
       />
 
-      <BaseButton
-          id="login"
-          text="Logg inn"
-      />
+      <BaseButton id="login" text="Logg inn" />
 
       <label id="loginstatusLabel">{{ loginStatus }}</label>
     </form>
