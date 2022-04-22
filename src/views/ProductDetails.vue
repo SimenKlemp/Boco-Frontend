@@ -114,7 +114,13 @@
         </div>
       </div>
     </div>
-    <div class="requestContainer">Forespør</div>
+    <div class="requestContainer">
+      <BaseButton
+        class="baseButton"
+        :id="'requestButton'"
+        :text="'Send forespørsel'"
+      ></BaseButton>
+    </div>
     <div class="profileContainer">
       <BaseProfile></BaseProfile>
     </div>
@@ -130,10 +136,12 @@
 
 <script>
 import BaseProfile from "@/components/baseTools/BaseProfile";
+import BaseButton from "@/components/baseTools/BaseButton";
 export default {
   name: "ProductDetails",
   components: {
     BaseProfile,
+    BaseButton,
   },
 };
 </script>
@@ -192,6 +200,11 @@ p {
   font-weight: bold;
 }
 .requestContainer {
+  height: 2.5rem;
+  margin: 1rem 1rem 2.5rem 1rem;
+}
+.baseButton {
+  height: 100%;
 }
 .profileContainer {
   margin: 0 1rem 0 1rem;

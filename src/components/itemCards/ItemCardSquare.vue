@@ -2,7 +2,10 @@
   <div class="itemCardContainer">
     <div v-for="(item, index) in items" :key="index" class="itemCard">
       <div class="imageContainer">
-        Image
+        <img
+          :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')"
+          alt="motorsag"
+        />
         <p id="priceTag">{{ item.price }} kr/dag</p>
       </div>
       <div class="itemMeta">
@@ -51,11 +54,15 @@ h4 {
   position: relative;
   display: grid;
   grid-template-rows: 70% 10% 20%;
-  height: 11rem;
-  width: 11rem;
-  border: solid black;
+  height: 180px;
+  width: 170px;
+  border: 1px solid #707070;
   border-radius: 10px;
   margin-bottom: 2rem;
+}
+img {
+  width: 170px;
+  border-radius: 10px;
 }
 .itemMeta {
   text-align: left;
