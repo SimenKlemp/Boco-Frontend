@@ -34,6 +34,7 @@
         v$.$errors[2].$message
       }}</BaseErrorMessage>
 
+      <BaseButton id="addPhotos" text="Legg til bilder" />
       <div id="info">
         <h2>Sted</h2>
         <div>

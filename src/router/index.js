@@ -5,6 +5,7 @@ import RegistrationComponent from "@/components/RegistrationComponent";
 import LoginComponent from "@/components/LoginComponent";
 import AddItemComponent from "@/components/AddItemComponent";
 import ProductDetails from "@/views/ProductDetails";
+import RequestComponent from "@/components/RequestComponent";
 import MyProfile from "@/views/MyProfile";
 
 const routes = [
@@ -29,7 +30,7 @@ const routes = [
     component: LoginComponent,
   },
   {
-    path: "/addItem",
+    path: "/add-item",
     name: "AddItemComponent",
     component: AddItemComponent,
   },
@@ -39,9 +40,15 @@ const routes = [
     component: ProductDetails,
   },
   {
+<<<<<<< src/router/index.js
+    path: "/request-hire",
+    name: "RequestComponent",
+    component: RequestComponent,
+=======
     path: "/my-profile",
     name: "MyProfile",
     component: MyProfile,
+>>>>>>> src/router/index.js
   },
   {
     path: "/about",
