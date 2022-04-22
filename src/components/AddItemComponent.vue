@@ -12,6 +12,16 @@
       /><BaseErrorMessage v-if="v$.title.$error">{{
         v$.$errors[0].$message
       }}</BaseErrorMessage>
+      <h2>Kategori</h2>
+      <BaseInput
+        id="category"
+        class="mb-4"
+        type="category"
+        v-model="category"
+        placeholder="Kategori"
+      /><BaseErrorMessage v-if="v$.category.$error">{{
+        v$.$errors[1].$message
+      }}</BaseErrorMessage>
 
       <textarea
         id="description"
@@ -21,7 +31,7 @@
         placeholder="Beskrivelse av produkt/gjenstand..."
       ></textarea
       ><BaseErrorMessage v-if="v$.description.$error">{{
-        v$.$errors[1].$message
+        v$.$errors[2].$message
       }}</BaseErrorMessage>
 
       <button type="button" @click="addPhotos">Legg til bilder</button>
@@ -36,7 +46,7 @@
             v-model="address"
             placeholder="Gateadresse"
           />/><BaseErrorMessage v-if="v$.address.$error">{{
-            v$.$errors[2].$message
+            v$.$errors[3].$message
           }}</BaseErrorMessage>
         </div>
 
@@ -50,7 +60,7 @@
               v-model="postalcode"
               placeholder="Postnr"
             />/><BaseErrorMessage v-if="v$.postalcode.$error">{{
-              v$.$errors[3].$message
+              v$.$errors[4].$message
             }}</BaseErrorMessage>
           </div>
 
@@ -63,7 +73,7 @@
               v-model="city"
               placeholder="Poststed"
             />/><BaseErrorMessage v-if="v$.city.$error">{{
-              v$.$errors[4].$message
+              v$.$errors[5].$message
             }}</BaseErrorMessage>
           </div>
         </div>
@@ -78,7 +88,7 @@
           v-model="price"
           placeholder="Pris per dag"
         />/><BaseErrorMessage v-if="v$.price.$error">{{
-          v$.$errors[5].$message
+          v$.$errors[6].$message
         }}</BaseErrorMessage>
       </div>
 
@@ -93,6 +103,7 @@ import BaseButton from "@/components/baseTools/BaseButton";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import useVuelidate from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
+import { doRegisterItem } from "@/service/apiService";
 
 export default {
   name: "AddItemComponent",
@@ -109,6 +120,7 @@ export default {
   data() {
     return {
       title: "",
+      category: "",
       description: "",
       address: "",
       postalcode: "",
@@ -120,6 +132,9 @@ export default {
     return {
       title: {
         required: helpers.withMessage("Navn er påkrevd", required),
+      },
+      category: {
+        required: helpers.withMessage("Kategori er påkrevd", required),
       },
       description: {
         required: helpers.withMessage(
@@ -147,6 +162,21 @@ export default {
       console.log(this.v$);
       // eslint-disable-next-line no-empty
       if (!this.v$.$error) {
+        const itemRequest = {
+          category: this.category,
+          description: this.description,
+          postOffice: this.city,
+          postalCode: this.postalCode,
+          price: this.price,
+          streetAddress: this.address,
+          title: this.title,
+          userId: 2, //hent userId fra state
+        };
+
+        let itemResponse = doRegisterItem(itemRequest, this.$store.state.token);
+        if (itemResponse.status === 200) {
+          this.$router.push({ name: "HomeView" });
+        }
       }
     },
     addPhotos() {
