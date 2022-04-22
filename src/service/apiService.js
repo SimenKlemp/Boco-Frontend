@@ -25,3 +25,17 @@ export async function doRegistration(registerUserRequest) {
       console.log(err);
     });
 }
+export async function doRegisterItem(itemRequest, token) {
+  return axios
+    .post(`http://localhost:8080/api/item/register`, itemRequest, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
