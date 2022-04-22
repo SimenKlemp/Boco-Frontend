@@ -5,6 +5,7 @@ import RegistrationComponent from "@/components/RegistrationComponent";
 import LoginComponent from "@/components/LoginComponent";
 import AddItemComponent from "@/components/AddItemComponent";
 import ProductDetails from "@/views/ProductDetails";
+import MyProfile from "@/views/MyProfile";
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: "/product-details",
     name: "ProductDetails",
     component: ProductDetails,
+  },
+  {
+    path: "/my-profile",
+    name: "MyProfile",
+    component: MyProfile,
   },
   {
     path: "/about",
