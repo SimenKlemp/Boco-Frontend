@@ -79,10 +79,7 @@
         v$.$errors[0].$message
       }}</BaseErrorMessage>
 
-      <BaseButton
-          id="registration"
-          text="Registrer"
-      />
+      <BaseButton id="registration" text="Registrer" />
 
       <label id="loginstatusLabel">{{ loginStatus }}</label>
     </form>
@@ -101,7 +98,7 @@ export default {
   components: {
     BaseInput,
     BaseErrorMessage,
-    BaseButton
+    BaseButton,
   },
   setup() {
     return {

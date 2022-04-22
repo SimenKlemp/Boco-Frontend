@@ -19,20 +19,17 @@
         placeholder="Beskrivelse av produkt/gjenstand..."
       ></textarea>
 
-      <BaseButton
-          id="addPhotos"
-          text="Legg til bilder"
-      />
+      <BaseButton id="addPhotos" text="Legg til bilder" />
       <div id="info">
         <h2>Sted</h2>
         <div>
           <label :for="address" class="h3">Gateadresse</label>
           <BaseInput
-              id="address"
-              class="mb-4"
-              type="address"
-              v-model="address"
-              placeholder="Gateadresse"
+            id="address"
+            class="mb-4"
+            type="address"
+            v-model="address"
+            placeholder="Gateadresse"
           />
         </div>
 
@@ -40,22 +37,22 @@
           <div>
             <label :for="postalcode" class="h3">Postnummer</label>
             <BaseInput
-                id="postalcode"
-                class="mb-4"
-                type="postalcode"
-                v-model="postalcode"
-                placeholder="Postnr"
+              id="postalcode"
+              class="mb-4"
+              type="postalcode"
+              v-model="postalcode"
+              placeholder="Postnr"
             />
           </div>
 
           <div>
             <label :for="city" class="h3">Poststed</label>
             <BaseInput
-                id="city"
-                class="mb-4"
-                type="city"
-                v-model="city"
-                placeholder="Poststed"
+              id="city"
+              class="mb-4"
+              type="city"
+              v-model="city"
+              placeholder="Poststed"
             />
           </div>
         </div>
@@ -64,18 +61,15 @@
 
         <label :for="price" class="h3">Pris per dag</label>
         <BaseInput
-            id="price"
-            class="mb-4"
-            type="price"
-            v-model="price"
-            placeholder="Pris per dag"
+          id="price"
+          class="mb-4"
+          type="price"
+          v-model="price"
+          placeholder="Pris per dag"
         />
       </div>
 
-      <BaseButton
-          id="publish"
-          text="Publiser"
-      />
+      <BaseButton id="publish" text="Publiser" />
     </form>
   </div>
 </template>
