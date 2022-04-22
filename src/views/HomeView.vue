@@ -18,7 +18,11 @@
           </svg>
         </button>
         <button class="homeLink">
-          <img class="logoImage" :src="require('../assets/bocologo_white.png')" alt="boco" />
+          <img
+            class="logoImage"
+            :src="require('../assets/bocologo_white.png')"
+            alt="boco"
+          />
         </button>
         <svg
           class="notificationIcon"

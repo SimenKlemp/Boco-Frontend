@@ -17,7 +17,7 @@ export async function doLogin(email, password) {
 }
 export async function doRegistration(registerUserRequest) {
   return axios
-    .post(`http://localhost:8080/api/user/login`, registerUserRequest)
+    .post(`http://localhost:8080/api/user/register`, registerUserRequest)
     .then((response) => {
       return response;
     })

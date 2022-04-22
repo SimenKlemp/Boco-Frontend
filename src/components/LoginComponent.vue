@@ -4,11 +4,8 @@
       <h1 id="loginTitle">Velkommen!</h1>
     </div>
     <div>
-      <h5
-        id="LoginError"
-        v-if="this.$store.state.userInfo.loginStatus === 'Fail'"
-      >
-        Wrong password or username!
+      <h5 id="LoginError" v-if="this.$store.state.userInfo.status === 204">
+        Feil brukernavn eller passord!
       </h5>
     </div>
     <div id="RegContainer">
@@ -34,9 +31,9 @@
 
         <BaseButton v-on:click="doLogin" text="Sign in" />
 
-        <div v-if="this.$store.state.userInfo.loginStatus === 'Fail'">
-          <router-link to="/register"
-            >If you do not have a user allready, click here to
+        <div v-if="this.$store.state.userInfo.status === 204">
+          <router-link to="/registration"
+            >If you do not have a user already, click here to
             register</router-link
           >
         </div>

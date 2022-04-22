@@ -136,13 +136,13 @@ export default {
       console.log(this.v$);
       if (!this.v$.$error) {
         const reqisterUserRequest = {
-          name: this.name,
-          isPerson: true,
-          address: this.address,
           email: this.email,
+          name: this.name,
           password: this.password,
-          postalcode: this.postalcode,
-          city: this.city,
+          person: true,
+          postOffice: this.city,
+          postalCode: this.postalcode,
+          streetAddress: this.address,
         };
         let loginResponse = await doRegistration(reqisterUserRequest);
 
@@ -150,7 +150,7 @@ export default {
           this.$store.dispatch("storeUser", loginResponse.data.userInfo);
 
           switch (loginResponse.data.userInfo.role) {
-            case "USer":
+            case "USER":
               //TODO: push til min side!! -->
               this.$router.push({ name: "HomeView" });
               break;
