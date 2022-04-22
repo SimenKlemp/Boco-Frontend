@@ -22,7 +22,7 @@
       /><BaseErrorMessage v-if="v$.category.$error">{{
         v$.$errors[1].$message
       }}</BaseErrorMessage>
-
+      <button type="button" @click="addPhotos">Legg til bilde</button>
       <textarea
         id="description"
         class="mb-4"
@@ -33,7 +33,6 @@
       ><BaseErrorMessage v-if="v$.description.$error">{{
         v$.$errors[2].$message
       }}</BaseErrorMessage>
-
 
       <div id="info">
         <h2>Sted</h2>
@@ -174,9 +173,8 @@ export default {
         };
 
         let itemResponse = doRegisterItem(itemRequest, this.$store.state.token);
-        if (itemResponse.status === 201) {
-          await this.$router.push({ name: "HomeView" });
-        }
+        console.log(itemResponse.status);
+        await this.$router.push({ name: "HomeView" });
       }
     },
     addPhotos() {
