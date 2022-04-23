@@ -34,7 +34,6 @@
         v$.$errors[2].$message
       }}</BaseErrorMessage>
 
-
       <div id="info">
         <h2>Sted</h2>
         <div>
