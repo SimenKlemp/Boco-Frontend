@@ -23,7 +23,7 @@
     <div class="hamburgerMeta">
       <div class="hamburgerActions">
         <div @click="emitRouteChange('HomeView')">Hjem</div>
-        <div @click="emitRouteChange('MyProfile')">Min profil</div>
+        <div @click="goMyProfile">Min profil</div>
         <div
           @click="emitRouteChange('AddItemComponent')"
           id="routerLink"
@@ -66,6 +66,7 @@ export default {
       } else {
         this.$router.push({ name: "LoginComponent" });
       }
+      this.$emit("routeChange");
     },
   },
   computed: {

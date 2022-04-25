@@ -15,7 +15,7 @@
           fill="#126782"
         />
       </svg>
-      <h2 class="name">{{ $store.state.userInfo.name }}</h2>
+      <h2 class="name">{{ user.name }}</h2>
       <div class="verified">
         <svg
           class="verifiedIcon"
@@ -65,7 +65,7 @@
                 fill="#fb8500"
               />
             </svg>
-            <div class="personalInfoText">navn.navnesen@gmail.com</div>
+            <div class="personalInfoText">{{ user.email }}</div>
           </div>
           <div class="addressContainer">
             <svg
@@ -83,7 +83,10 @@
                 d="M48,9C31.86,9,18.73,22.131,18.73,38.271c0,14.13,23.756,41.948,28.518,47.381L48,86.512l0.752-0.857  c4.762-5.432,28.518-33.24,28.518-47.383C77.27,22.131,64.14,9,48,9z M48,48c-5.374,0-9.73-4.356-9.73-9.73s4.356-9.73,9.73-9.73  s9.73,4.356,9.73,9.73S53.374,48,48,48z"
               ></path>
             </svg>
-            <div class="personalInfoTextAddress">Adressa 7000 Trondheim</div>
+            <div class="personalInfoTextAddress">
+              {{ user.streetAddress }} {{ user.postalCode }}
+              {{ user.postOffice }}
+            </div>
           </div>
         </div>
         <svg
@@ -99,67 +102,6 @@
             transform="translate(-1.98 -3.099)"
             fill="#034363"
             fill-rule="evenodd"
-          />
-        </svg>
-      </BaseCardHorizontal>
-      <BaseCardHorizontal>
-        <svg
-          class="sideIcon extraPadding"
-          xmlns="http://www.w3.org/2000/svg"
-          width="35.768"
-          height="40.046"
-          viewBox="0 0 35.768 40.046"
-        >
-          <g
-            id="Group_53"
-            data-name="Group 53"
-            transform="translate(-44 -515.5)"
-          >
-            <path
-              id="Path_11"
-              data-name="Path 11"
-              d="M36.377,23.793V6.279A4.279,4.279,0,0,0,32.1,2H9.279A4.279,4.279,0,0,0,5,6.279v27.1a4.279,4.279,0,0,0,4.279,4.279H22.514A9.984,9.984,0,1,0,36.377,23.793ZM9.279,34.8a1.426,1.426,0,0,1-1.426-1.426V6.279A1.426,1.426,0,0,1,9.279,4.852H32.1a1.426,1.426,0,0,1,1.426,1.426v16.1H33.41A9.984,9.984,0,0,0,21.074,34.718v.114Zm21.393,4.279A7.131,7.131,0,0,1,24.5,35.5a6.931,6.931,0,0,1-.956-3.551,7.131,7.131,0,0,1,7.131-7.131,6.9,6.9,0,0,1,3.566.97,7.131,7.131,0,0,1-3.566,13.292Z"
-              transform="translate(39 513.5)"
-            />
-            <path
-              id="Path_12"
-              data-name="Path 12"
-              d="M25.926,20.609,23.3,24.531l-.713-1.07a1.426,1.426,0,0,0-2.368,1.569l1.9,2.852a1.426,1.426,0,0,0,2.382,0l3.794-5.7a1.426,1.426,0,0,0-2.368-1.569Z"
-              transform="translate(45.415 521.205)"
-            />
-            <path
-              id="Path_13"
-              data-name="Path 13"
-              d="M10.426,8.852h11.41a1.426,1.426,0,0,0,0-2.852H10.426a1.426,1.426,0,0,0,0,2.852Z"
-              transform="translate(40.705 515.205)"
-            />
-            <path
-              id="Path_14"
-              data-name="Path 14"
-              d="M10.426,12.852h11.41a1.426,1.426,0,0,0,0-2.852H10.426a1.426,1.426,0,0,0,0,2.852Z"
-              transform="translate(40.705 516.91)"
-            />
-            <path
-              id="Path_15"
-              data-name="Path 15"
-              d="M21.836,14H10.426a1.426,1.426,0,0,0,0,2.852h11.41a1.426,1.426,0,0,0,0-2.852Z"
-              transform="translate(40.705 518.615)"
-            />
-          </g>
-        </svg>
-        <div class="actionInfoText">Mine leieforhold</div>
-        <svg
-          class="sideIconRight"
-          xmlns="http://www.w3.org/2000/svg"
-          width="11.676"
-          height="20"
-          viewBox="0 0 11.676 20"
-        >
-          <path
-            id="Path_8"
-            data-name="Path 8"
-            d="M32.219,986.143l-1,.956-9,8.639,2,2.081,8-7.683,8,7.683,2-2.081-9-8.639Z"
-            transform="translate(997.819 -22.219) rotate(90)"
           />
         </svg>
       </BaseCardHorizontal>
@@ -231,6 +173,67 @@
           />
         </svg>
       </BaseCardHorizontal>
+      <BaseCardHorizontal>
+        <svg
+          class="sideIcon extraPadding"
+          xmlns="http://www.w3.org/2000/svg"
+          width="35.768"
+          height="40.046"
+          viewBox="0 0 35.768 40.046"
+        >
+          <g
+            id="Group_53"
+            data-name="Group 53"
+            transform="translate(-44 -515.5)"
+          >
+            <path
+              id="Path_11"
+              data-name="Path 11"
+              d="M36.377,23.793V6.279A4.279,4.279,0,0,0,32.1,2H9.279A4.279,4.279,0,0,0,5,6.279v27.1a4.279,4.279,0,0,0,4.279,4.279H22.514A9.984,9.984,0,1,0,36.377,23.793ZM9.279,34.8a1.426,1.426,0,0,1-1.426-1.426V6.279A1.426,1.426,0,0,1,9.279,4.852H32.1a1.426,1.426,0,0,1,1.426,1.426v16.1H33.41A9.984,9.984,0,0,0,21.074,34.718v.114Zm21.393,4.279A7.131,7.131,0,0,1,24.5,35.5a6.931,6.931,0,0,1-.956-3.551,7.131,7.131,0,0,1,7.131-7.131,6.9,6.9,0,0,1,3.566.97,7.131,7.131,0,0,1-3.566,13.292Z"
+              transform="translate(39 513.5)"
+            />
+            <path
+              id="Path_12"
+              data-name="Path 12"
+              d="M25.926,20.609,23.3,24.531l-.713-1.07a1.426,1.426,0,0,0-2.368,1.569l1.9,2.852a1.426,1.426,0,0,0,2.382,0l3.794-5.7a1.426,1.426,0,0,0-2.368-1.569Z"
+              transform="translate(45.415 521.205)"
+            />
+            <path
+              id="Path_13"
+              data-name="Path 13"
+              d="M10.426,8.852h11.41a1.426,1.426,0,0,0,0-2.852H10.426a1.426,1.426,0,0,0,0,2.852Z"
+              transform="translate(40.705 515.205)"
+            />
+            <path
+              id="Path_14"
+              data-name="Path 14"
+              d="M10.426,12.852h11.41a1.426,1.426,0,0,0,0-2.852H10.426a1.426,1.426,0,0,0,0,2.852Z"
+              transform="translate(40.705 516.91)"
+            />
+            <path
+              id="Path_15"
+              data-name="Path 15"
+              d="M21.836,14H10.426a1.426,1.426,0,0,0,0,2.852h11.41a1.426,1.426,0,0,0,0-2.852Z"
+              transform="translate(40.705 518.615)"
+            />
+          </g>
+        </svg>
+        <div class="actionInfoText">Mine leieforhold</div>
+        <svg
+          class="sideIconRight"
+          xmlns="http://www.w3.org/2000/svg"
+          width="11.676"
+          height="20"
+          viewBox="0 0 11.676 20"
+        >
+          <path
+            id="Path_8"
+            data-name="Path 8"
+            d="M32.219,986.143l-1,.956-9,8.639,2,2.081,8-7.683,8,7.683,2-2.081-9-8.639Z"
+            transform="translate(997.819 -22.219) rotate(90)"
+          />
+        </svg>
+      </BaseCardHorizontal>
     </div>
   </div>
 </template>
@@ -241,6 +244,11 @@ export default {
   name: "MyProfile",
   components: {
     BaseCardHorizontal,
+  },
+  computed: {
+    user() {
+      return this.$store.state.userInfo;
+    },
   },
 };
 </script>
