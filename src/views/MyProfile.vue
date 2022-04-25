@@ -15,7 +15,7 @@
           fill="#126782"
         />
       </svg>
-      <h2 class="name">Navn Navnesen</h2>
+      <h2 class="name">{{ $store.state.userInfo.name }}</h2>
       <div class="verified">
         <svg
           class="verifiedIcon"
