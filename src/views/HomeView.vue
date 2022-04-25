@@ -56,7 +56,11 @@
       <p>Se de nyeste annonsene på boco</p>
     </div>
     <div class="items">
-      <ItemCardSquare></ItemCardSquare>
+      <ItemCardSquare
+          v-for="item in items"
+          :key="item.itemId"
+          @click="seeItem(item)"
+      ></ItemCardSquare>
     </div>
   </div>
 </template>
@@ -72,10 +76,19 @@ export default {
     HomeComponent,
     ItemCardSquare,
   },
+  computed: {
+    items() {
+      return this.$store.state.items;
+    },
+  },
   methods: {
     emitToggleHamburgerMenu() {
       this.$emit("toggleHamburgerMenu");
     },
+    async seeItem(item){
+      await this.$store.dispatch("setItem", item);
+      await this.$router.push({name: "ProductDetails"})
+    }
   },
 };
 </script>

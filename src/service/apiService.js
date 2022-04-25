@@ -39,3 +39,14 @@ export async function doRegisterItem(itemRequest, token) {
       console.log(err);
     });
 }
+export function getItems(token) {
+  return axios
+      .get("http://localhost:8080/api/item/all", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response) => {
+        return response.data;
+      });
+}

@@ -1,6 +1,5 @@
 <template>
   <div class="itemCardContainer">
-    <div v-for="(item, index) in items" :key="index" class="itemCard">
       <div class="imageContainer">
         <img
           :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')"
@@ -14,22 +13,17 @@
           <h4>{{ item.title }}</h4>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "ItemCardSquare",
-  data() {
-    return {
-      items: [
-        { image: null, price: 200, place: "Trondheim", title: "Motorsag" },
-        { image: null, price: 200, place: "Trondheim", title: "Sykkel" },
-        { image: null, price: 200, place: "Trondheim", title: "Ski" },
-        { image: null, price: 200, place: "Trondheim", title: "Kajakk" },
-      ],
-    };
+  props: {
+    item: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>

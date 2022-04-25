@@ -143,6 +143,16 @@ export default {
     BaseProfile,
     BaseButton,
   },
+  data () {
+    return {
+      product: {
+
+        title: String,
+        description: String,
+
+      }
+    }
+  }
 };
 </script>
 
