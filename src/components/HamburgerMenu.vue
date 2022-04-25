@@ -36,7 +36,10 @@
       </div>
       <div class="hamburgerSupport">
         <div>FAQ</div>
-        <div @click="emitRouteChange('AddFeedbackWebPageComponent')">Send tilbakemelding</div>
+        <div @click="emitRouteChange('AddFeedbackWebPageComponent')">
+          Send tilbakemelding
+        </div>
+        <div @click="emitRouteChange('FeedbackView')">Se tilbakemeldinger</div>
       </div>
       <div class="hamburgerLog">
         <div @click="logout" v-if="isLoggedIn">Logg ut</div>

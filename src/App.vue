@@ -121,7 +121,8 @@ nav a.router-link-exact-active {
   left: 0;
   z-index: 70;
 }
-input, textarea{
+input,
+textarea {
   display: block;
   width: 100%;
 }

@@ -127,7 +127,7 @@
     </div>
     <div class="description">
       <h3 class="descriptionTitle">Beskrivelse</h3>
-      <p id="descriptionText">{{item.description}}</p>
+      <p id="descriptionText">{{ item.description }}</p>
     </div>
   </div>
 </template>
@@ -148,9 +148,9 @@ export default {
   },
   methods: {
     async goToRequest(item) {
-      await this.$router.push({name: "RequestComponent"})
-    }
-  }
+      await this.$router.push({ name: "RequestComponent" });
+    },
+  },
 };
 </script>
 

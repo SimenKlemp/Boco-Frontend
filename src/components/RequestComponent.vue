@@ -1,7 +1,7 @@
 <template>
   <div id="RequestContainer">
     <h1>Forespør leie:</h1>
-    <ItemCardHorizontal :item="item"/>
+    <ItemCardHorizontal :item="item" />
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
       <Datepicker v-model="dates" />

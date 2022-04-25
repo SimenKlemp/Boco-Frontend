@@ -23,7 +23,7 @@ import BaseButton from "@/components/baseTools/BaseButton";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import useVuelidate from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
-import {doRegisterFeedbackWebPage, doRegisterItem} from "@/service/apiService";
+import { doRegisterFeedbackWebPage } from "@/service/apiService";
 
 export default {
   name: "AddFeedbackWebPageComponent",
@@ -44,10 +44,7 @@ export default {
   validations() {
     return {
       description: {
-        required: helpers.withMessage(
-            "En tilbakemelding er påkrevd",
-            required
-        ),
+        required: helpers.withMessage("En tilbakemelding er påkrevd", required),
       },
     };
   },
@@ -58,19 +55,19 @@ export default {
       // eslint-disable-next-line no-empty
       if (!this.v$.$error) {
         const feedbackRequest = {
-          description: this.description,
+          message: this.description,
           userId: this.$store.state.userInfo.userId,
         };
 
-        let feedbackResponse = doRegisterFeedbackWebPage(
+        console.log(this.description);
+        console.log(this.$store.state.userInfo.userId);
+
+        let feedbackResponse = await doRegisterFeedbackWebPage(
           feedbackRequest,
           this.$store.state.token
         );
         console.log(feedbackResponse.status);
       }
-    },
-    addPhotos() {
-      alert("Legger til bilder");
     },
   },
 };

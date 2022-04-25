@@ -8,6 +8,7 @@ import ProductDetails from "@/views/ProductDetails";
 import RequestComponent from "@/components/RequestComponent";
 import MyProfile from "@/views/MyProfile";
 import AddFeedbackWebPageComponent from "@/components/AddFeedbackWebPageComponent";
+import FeedbackView from "@/views/FeedbackView";
 
 const routes = [
   {
@@ -54,6 +55,11 @@ const routes = [
     path: "/add-feedbackWebPage",
     name: "AddFeedbackWebPageComponent",
     component: AddFeedbackWebPageComponent,
+  },
+  {
+    path: "/get-feedbackWebPage",
+    name: "FeedbackView",
+    component: FeedbackView,
   },
   {
     path: "/about",
