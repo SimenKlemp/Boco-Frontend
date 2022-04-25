@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { getItems } from "@/service/apiService";
+import {getItems, updateItem} from "@/service/apiService";
 
 const getDefaultState = () => {
   return {
@@ -29,7 +29,7 @@ export default createStore({
     },
     SET_ITEM(state, item) {
       state.currentItem = item;
-    },
+    }
   },
   actions: {
     resetState({ commit }) {
@@ -53,6 +53,9 @@ export default createStore({
     setItem({ commit }, item) {
       commit("SET_ITEM", item);
     },
+    updateItem(item) {
+      updateItem(item, state.currentItem.itemId, state.token);
+    }
   },
   modules: {},
 });
