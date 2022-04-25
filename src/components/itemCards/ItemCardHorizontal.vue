@@ -141,6 +141,7 @@ img {
   max-width: 150px;
   width: 100%;
   border-radius: 15px 0 0 15px;
+  height: 100%;
 }
 .icons {
   fill: var(--orange);
