@@ -32,8 +32,7 @@
       ><BaseErrorMessage v-if="v$.description.$error">{{
         v$.$errors[2].$message
       }}</BaseErrorMessage>
-
-      <BaseButton id="addPhotos" @click="addPhotos" text="Legg til bilder" />
+      <upload-image></upload-image>
       <div id="info">
         <h2>Sted</h2>
         <div>
@@ -103,6 +102,7 @@ import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import useVuelidate from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
 import { doRegisterItem } from "@/service/apiService";
+import UploadImage from "@/components/UploadImage";
 
 export default {
   name: "AddItemComponent",
@@ -110,6 +110,7 @@ export default {
     BaseButton,
     BaseInput,
     BaseErrorMessage,
+    UploadImage,
   },
   setup() {
     return {
@@ -170,15 +171,13 @@ export default {
           streetAddress: this.address,
           title: this.title,
           userId: this.$store.state.userInfo.userId,
+          imageId: this.$store.state.currentImageId,
         };
 
         let itemResponse = doRegisterItem(itemRequest, this.$store.state.token);
         console.log(itemResponse.status);
         await this.$router.push({ name: "HomeView" });
       }
-    },
-    addPhotos() {
-      alert("Legger til bilder");
     },
   },
 };
