@@ -6,33 +6,30 @@
       <h2>Tidsperiode</h2>
       <Datepicker />
       <h2>Leveringsalternativer</h2>
-      <input class="radio" id="collect" type="radio" name="radio"/>
+      <input class="radio" id="collect" type="radio" name="radio" />
       <label for="collect">Hente selv</label>
-      <input class="radio" id="deliver" type="radio" name="radio"/>
+      <input class="radio" id="deliver" type="radio" name="radio" />
       <label for="deliver">Hjemlevering</label>
       <h2>Melding til utleier</h2>
       <textarea
-          id="message"
-          class="mb-4"
-          type="message"
-          v-model="message"
-          placeholder="Melding til utleier..."
+        id="message"
+        class="mb-4"
+        type="message"
+        v-model="message"
+        placeholder="Melding til utleier..."
       ></textarea>
-      <BaseButton
-          id="request"
-          text="Forespør leie"
-      />
+      <BaseButton id="request" text="Forespør leie" />
     </form>
   </div>
 </template>
 
 <script>
 import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
-import Datepicker from "@/components/baseTools/Datepicker";
+import Datepicker from "@/components/baseTools/DatepickerComponent";
 import BaseButton from "@/components/baseTools/BaseButton";
 export default {
   name: "RequestComponent",
-  components: {BaseButton, Datepicker, ItemCardHorizontal },
+  components: { BaseButton, Datepicker, ItemCardHorizontal },
 };
 </script>
 
