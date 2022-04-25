@@ -4,7 +4,7 @@
       <h1>Registrer deg!</h1>
 
       <h2>Personalia</h2>
-
+      <label>Fullt navn</label>
       <BaseInput
         id="name"
         class="mb-4"
@@ -16,6 +16,7 @@
       <BaseErrorMessage v-if="v$.name.$error">{{
         v$.$errors[0].$message
       }}</BaseErrorMessage>
+      <label>E-post</label>
       <BaseInput
         id="email"
         class="mb-4"
@@ -27,6 +28,7 @@
       <BaseErrorMessage v-if="v$.email.$error">{{
         v$.$errors[1].$message
       }}</BaseErrorMessage>
+      <label>Passord</label>
       <BaseInput
         id="password"
         class="mb-4"
@@ -39,8 +41,8 @@
         v$.$errors[2].$message
       }}</BaseErrorMessage>
 
-      <h2>Adresse</h2>
-
+      <h2>Sted</h2>
+      <label>Adresse</label>
       <BaseInput
         id="address"
         class="mb-4"
@@ -51,6 +53,7 @@
       <BaseErrorMessage v-if="v$.address.$error">{{
         v$.$errors[3].$message
       }}</BaseErrorMessage>
+      <label>Postnummer</label>
       <BaseInput
         id="postalcode"
         class="mb-4"
@@ -61,6 +64,7 @@
       <BaseErrorMessage v-if="v$.postalcode.$error">{{
         v$.$errors[4].$message
       }}</BaseErrorMessage>
+      <label>Poststed</label>
       <BaseInput
         id="city"
         class="mb-4"
@@ -72,7 +76,7 @@
         v$.$errors[5].$message
       }}</BaseErrorMessage>
 
-      <BaseButton v-on:click="submit" text="Registerer" />
+      <BaseButton v-on:click="submit" text="Registrer deg" id="registerButton"/>
     </form>
   </div>
 </template>
@@ -169,9 +173,39 @@ export default {
 
 <style scoped>
 form {
-  padding: 0px 30px 0px 30px;
+  padding: 0 20px;
+
 }
 form > * {
   margin-bottom: 10px;
+}
+
+h1{
+  color: black;
+  font-weight: 500;
+  font-size: 28px;
+  margin-bottom: 15px;
+
+}
+h2{
+  color: black;
+  font-weight: 400;
+  font-size: 25px;
+  text-align: left;
+  margin-left: 15px;
+  margin-bottom: 20px;
+}
+.mb-4{
+  margin-bottom: 20px;
+}
+label{
+  float: left;
+  margin-left: 15px;
+  color: black;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+button{
+  margin-top:30px;
 }
 </style>

@@ -25,7 +25,8 @@ export default {
 <style scoped>
 button {
   width: 100%;
-  font-size: medium;
+  font-size: 16px;
+  font-weight: 500;
   padding: 10px;
   border-radius: 15px;
   margin-top: 10px;

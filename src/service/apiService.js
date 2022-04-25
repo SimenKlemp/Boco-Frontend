@@ -7,7 +7,7 @@ export async function doLogin(email, password) {
   };
 
   return axios
-    .post(`http://localhost:8080/api/user/login`, loginRequest)
+    .post(`http://localhost:8085/api/user/login`, loginRequest)
     .then((response) => {
       return response;
     })
@@ -17,7 +17,7 @@ export async function doLogin(email, password) {
 }
 export async function doRegistration(registerUserRequest) {
   return axios
-    .post(`http://localhost:8080/api/user/register`, registerUserRequest)
+    .post(`http://localhost:8085/api/user/register`, registerUserRequest)
     .then((response) => {
       return response;
     })
@@ -27,7 +27,7 @@ export async function doRegistration(registerUserRequest) {
 }
 export async function doRegisterItem(itemRequest, token) {
   return axios
-    .post(`http://localhost:8080/api/item/register`, itemRequest, {
+    .post(`http://localhost:8085/api/item/register`, itemRequest, {
       headers: {
         Authorization: "Bearer " + token,
       },
