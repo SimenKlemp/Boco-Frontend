@@ -53,6 +53,26 @@ export async function doRentalRequest(registerRentalRequest, token) {
       console.log(err);
     });
 }
+class UploadFilesService {
+  upload(file, token) {
+    let formData = new FormData();
+
+    formData.append("image", file);
+
+    return axios.post("http://localhost:8085/api/image/upload", formData, {
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  }
+
+  getImage(imageId) {
+    return axios.get("http://localhost:8085/api/image/" + imageId);
+  }
+}
+
+export default new UploadFilesService();
 export function getItems() {
   return axios.get("http://localhost:8085/api/item/all").then((response) => {
     return response.data;
@@ -74,4 +94,28 @@ export function deleteItem(item) {
   return axios.delete("http://localhost:8085/api/item/delete/" + item.itemId, ).then((response) => {
     return response.data;
   });
+}
+
+export function getMyItems(userId, token) {
+  return axios
+    .get("http://localhost:8085/api/item/get-my/" + userId, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+}
+
+export function getMyRentals(userId, token) {
+  return axios
+    .get("http://localhost:8085/api/rental/get-my/" + userId, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
 }

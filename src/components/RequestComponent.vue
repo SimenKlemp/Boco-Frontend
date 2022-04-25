@@ -1,13 +1,12 @@
 <template>
   <div id="RequestContainer">
     <h1>Forespør leie:</h1>
-    <ItemCardHorizontal :item="item"/>
+    <ItemCardHorizontal :item="item" />
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
       <Datepicker v-model="dates" />
-      <h2>Leveringsalternativer</h2>
-      <div>
-        <!--TODO: add v-if both options available, if not, cannot choose-->
+      <h2 id="deliverTitle">Leveringsalternativer</h2>
+      <div id="radioContainer">
         <BaseRadioGroup
           v-model="deliveryOption"
           name="deliveryOption"
@@ -25,7 +24,12 @@
       <BaseErrorMessage v-if="v$.message.$error">{{
         v$.$errors[0].$message
       }}</BaseErrorMessage>
-
+      <div id="descriptionInfo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+          <path id="noun-info-3126147" d="M17.5,5A12.5,12.5,0,1,0,30,17.5,12.5,12.5,0,0,0,17.5,5Zm2.094,18.354a6.263,6.263,0,0,1-2.185,2.072,3.774,3.774,0,0,1-1.781.381c-1.615-.134-2.365-1.351-1.66-3.287l2.123-5.833c.458-1.259.014-1.642-.349-1.651q-.649-.012-1.551,1.216a.32.32,0,1,1-.522-.37,6.263,6.263,0,0,1,2.185-2.072,3.775,3.775,0,0,1,1.781-.381c1.615.134,2.365,1.351,1.66,3.287l-2.123,5.833c-.458,1.259-.014,1.642.349,1.651q.649.012,1.551-1.216a.32.32,0,1,1,.522.37Zm1.7-12.142a1.51,1.51,0,1,1-.9-1.935,1.51,1.51,0,0,1,.9,1.935Z" transform="translate(-5 -5)" fill="#126782"/>
+        </svg>
+        <p>Lurt å inkludere ønsket hente/leverings tidspunkt, eller andre detaljer</p>
+      </div>
       <BaseButton id="request" text="Forespør leie" />
     </form>
   </div>
@@ -91,7 +95,7 @@ export default {
 
         const reqisterRentalRequest = {
           endDate: "2022-04-25T07:32:23.293Z",
-          itemId: 19, //get correct itemid
+          itemId: this.$store.state.currentItem.itemId,
           message: this.message,
           startDate: "2022-04-25T07:32:23.294Z",
           userId: this.$store.state.userInfo.userId,
@@ -101,6 +105,7 @@ export default {
           reqisterRentalRequest,
           this.$store.state.token
         );
+        await this.$router.push({ name: "MyRentals" });
         console.log(response);
       } else {
         alert("Alle felter må være fylt inn");
@@ -114,13 +119,41 @@ export default {
 .radio:checked ~ .checkmark {
   background-color: var(--blue);
 }
+#RequestContainer{
+  padding: 0 15px;
+}
+#radioContainer{
+  margin-top:10px;
+  margin-bottom: 15px;
+}
 #message {
   font-size: medium;
   border-radius: 15px;
   width: 100%;
   height: 150px;
 }
+h2 {
+  font-size: 24px;
+  font-weight: 500;
+  color: black;
+  margin-bottom: 25px;
+}
 form {
   text-align: left;
+}
+#deliverTitle {
+  margin-top: 20px;
+}
+textarea {
+  margin-bottom: 20px;
+}
+#descriptionInfo{
+  display: flex;
+  font-size: 14px;
+  color: #707070;
+  margin-bottom: 30px;
+}
+#descriptionInfo svg{
+  margin-right: 10px  ;
 }
 </style>

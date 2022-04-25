@@ -76,7 +76,11 @@
         v$.$errors[5].$message
       }}</BaseErrorMessage>
 
-      <BaseButton v-on:click="submit" text="Registrer deg" id="registerButton"/>
+      <BaseButton
+        v-on:click="submit"
+        text="Registrer deg"
+        id="registerButton"
+      />
     </form>
   </div>
 </template>
@@ -174,20 +178,18 @@ export default {
 <style scoped>
 form {
   padding: 0 20px;
-
 }
 form > * {
   margin-bottom: 10px;
 }
 
-h1{
+h1 {
   color: black;
   font-weight: 500;
   font-size: 28px;
   margin-bottom: 15px;
-
 }
-h2{
+h2 {
   color: black;
   font-weight: 400;
   font-size: 25px;
@@ -195,17 +197,17 @@ h2{
   margin-left: 15px;
   margin-bottom: 20px;
 }
-.mb-4{
+.mb-4 {
   margin-bottom: 20px;
 }
-label{
+label {
   float: left;
   margin-left: 15px;
   color: black;
   font-weight: 500;
   margin-bottom: 5px;
 }
-button{
-  margin-top:30px;
+button {
+  margin-top: 30px;
 }
 </style>

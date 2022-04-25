@@ -47,4 +47,7 @@ export default {
 .horizontal {
   margin-right: 20px;
 }
+label {
+  font-size: 16px;
+}
 </style>

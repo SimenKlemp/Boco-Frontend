@@ -57,7 +57,7 @@
     </div>
     <div class="items">
       <ItemCardSquare
-        v-for="item in items"
+        v-for="item in items.slice(0,4)"
         :key="item.itemId"
         :item="item"
         @click="seeItem(item)"
@@ -98,12 +98,15 @@ export default {
 </script>
 <style scoped>
 h3 {
-  font-size: 29px;
+  font-size: 22px;
   margin-bottom: 5px;
+  font-weight: 500;
 }
 p {
   margin-top: 0;
   color: #575757;
+  font-size: 14px;
+  margin-bottom: 15px;
 }
 
 .header {
