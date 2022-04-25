@@ -32,12 +32,14 @@ export default {
 
 <style scoped>
 p {
-  margin: 2px 0 2px 0;
+  margin: 5px 0 2px 0;
   font-size: 11px;
+  color: #707070;
 }
 h4 {
   margin: 5px 0 0 0;
   font-size: 16px;
+  font-weight: 400;
 }
 
 .itemCardContainer {
@@ -49,33 +51,39 @@ h4 {
 .itemCard {
   position: relative;
   display: grid;
-  grid-template-rows: 70% 10% 20%;
-  height: 180px;
+  grid-template-rows: 128px 23px 50px;
   width: 170px;
-  border: 1px solid #707070;
+  height: 200px;
+  border: none;
   border-radius: 10px;
   margin-bottom: 2rem;
+  box-shadow: 0 3px 6px #00000029;
 }
 img {
-  width: 170px;
-  border-radius: 10px;
+  width: 10.625rem;
+  border-radius: 10px 10px 0 0;
 }
 .itemMeta {
   text-align: left;
 }
 .itemInfo {
-  padding-left: 1rem;
+  padding-left: 10px;
+  padding-bottom: 5px;
 }
-
+.imageContainer{
+  height: 8rem;
+}
 #priceTag {
   position: absolute;
-  background: #707070;
-  border-radius: 0 15px 0 10px;
+  background: #126782;
+  border-radius: 0 10px 0 0;
   color: white;
   text-align: left;
-  padding: 0 1rem 0 1rem;
+  padding: 3px 10px;
   width: fit-content;
-  bottom: 51px;
+  bottom: 71px;
   font-size: 12px;
+  font-weight: 500;
 }
+
 </style>

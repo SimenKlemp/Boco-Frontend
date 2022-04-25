@@ -15,13 +15,13 @@ export default {
 .container {
 }
 .footerMeta {
-  border-top: solid black;
+  border-top: solid #707070 1px;
 }
 #footerContainer {
-  padding-bottom: 20px;
+  padding: 0 15px 20px 15px;
 }
 #image {
   padding: 1rem;
-  width: 22%;
+  width: 100px;
 }
 </style>

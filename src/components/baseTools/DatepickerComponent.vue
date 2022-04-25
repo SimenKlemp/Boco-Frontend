@@ -5,7 +5,7 @@
 <script>
 import Datepicker from "@vuepic/vue-datepicker";
 import { ref, onMounted } from "vue";
-import '@vuepic/vue-datepicker/src/VueDatePicker/style/main.scss';
+import "@vuepic/vue-datepicker/src/VueDatePicker/style/main.scss";
 
 export default {
   components: { Datepicker },
@@ -25,5 +25,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-</style>
+<style scoped></style>
