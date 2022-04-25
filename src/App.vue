@@ -93,7 +93,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 
 nav {
@@ -128,6 +127,7 @@ nav a.router-link-exact-active {
   justify-content: space-between;
   padding: 1rem 20px 1rem 20px;
   margin-right: -10px;
+  margin-bottom: 1rem;
 }
 .hamburgerMenu {
   width: 2.5rem;
