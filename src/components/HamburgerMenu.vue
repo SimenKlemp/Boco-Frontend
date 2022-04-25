@@ -8,6 +8,7 @@
           width="45"
           height="45"
           viewBox="0 0 45 45"
+          v-if="isLoggedIn"
         >
           <path
             id="noun-profile-1995071"
@@ -16,25 +17,32 @@
             fill="#fff"
           />
         </svg>
-        <p class="name">Navn Navnesen</p>
+        <p class="name">{{ this.$store.state.userInfo.name }}</p>
       </div>
     </div>
     <div class="hamburgerMeta">
       <div class="hamburgerActions">
         <div @click="emitRouteChange('HomeView')">Hjem</div>
         <div @click="emitRouteChange('MyProfile')">Min profil</div>
-        <div @click="emitRouteChange('AddItemComponent')" id="routerLink">
+        <div
+          @click="emitRouteChange('AddItemComponent')"
+          id="routerLink"
+          v-if="isLoggedIn"
+        >
           Lei ut
         </div>
-        <div>Mine annonser</div>
-        <div>Mine leieforhold</div>
+        <div v-if="isLoggedIn">Mine annonser</div>
+        <div v-if="isLoggedIn">Mine leieforhold</div>
       </div>
       <div class="hamburgerSupport">
         <div>FAQ</div>
         <div @click="emitRouteChange('AddFeedbackWebPageComponent')">Send tilbakemelding</div>
       </div>
       <div class="hamburgerLog">
-        <div>Logg ut</div>
+        <div @click="logout" v-if="isLoggedIn">Logg ut</div>
+        <div @click="emitRouteChange('LoginComponent')" v-if="!isLoggedIn">
+          Logg inn
+        </div>
       </div>
     </div>
   </div>
@@ -47,6 +55,22 @@ export default {
     emitRouteChange(to) {
       this.$router.push({ name: to });
       this.$emit("routeChange");
+    },
+    logout() {
+      this.$store.dispatch("resetState");
+      this.$router.push({ name: "HomeView" });
+    },
+    goMyProfile() {
+      if (this.isLoggedIn) {
+        this.$router.push({ name: "MyProfile" });
+      } else {
+        this.$router.push({ name: "LoginComponent" });
+      }
+    },
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.token !== null;
     },
   },
 };

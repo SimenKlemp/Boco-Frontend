@@ -1,12 +1,12 @@
 <template>
   <div class="itemCardContainer">
-    <div v-for="(item, index) in items" :key="index" class="itemCard">
-      <div class="imageContainer">Image</div>
+    <div class="itemCard">
+      <div class="imageContainer"><img :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')"></div>
       <div class="itemMeta">
         <div class="itemInfo">
           <h4>{{ item.title }}</h4>
-          <div class="info">
-            <svg
+          <div class="info" id="positionInfo">
+          <svg
               class="icons"
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -16,12 +16,12 @@
               viewBox="0 0 96 96"
               enable-background="new 0 0 96 96"
               xml:space="preserve"
-            >
+          >
               <path
-                d="M48,9C31.86,9,18.73,22.131,18.73,38.271c0,14.13,23.756,41.948,28.518,47.381L48,86.512l0.752-0.857  c4.762-5.432,28.518-33.24,28.518-47.383C77.27,22.131,64.14,9,48,9z M48,48c-5.374,0-9.73-4.356-9.73-9.73s4.356-9.73,9.73-9.73  s9.73,4.356,9.73,9.73S53.374,48,48,48z"
+                  d="M48,9C31.86,9,18.73,22.131,18.73,38.271c0,14.13,23.756,41.948,28.518,47.381L48,86.512l0.752-0.857  c4.762-5.432,28.518-33.24,28.518-47.383C77.27,22.131,64.14,9,48,9z M48,48c-5.374,0-9.73-4.356-9.73-9.73s4.356-9.73,9.73-9.73  s9.73,4.356,9.73,9.73S53.374,48,48,48z"
               ></path>
             </svg>
-            <p>{{ item.place }}</p>
+            <p>{{ item.postOffice }}</p>
           </div>
           <div class="info">
             <svg
@@ -60,32 +60,32 @@
                 ></path>
               </g>
             </svg>
-            <p>{{ item.rating }}/5</p>
+            <!--TODO: add rating when this is in database-->
+            <p>3/5</p>
           </div>
           <div class="info">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 14 14" >
+              <g id="noun-coin-3324289" transform="translate(-230.91 -122.91)">
+                <path id="Path_9" data-name="Path 9" d="M13.91,6.91a7,7,0,1,0,7,7A7,7,0,0,0,13.91,6.91ZM14.4,16.957h-.067v.784a.418.418,0,0,1-.837,0v-.784h-.915a.418.418,0,1,1,0-.837H14.4a.9.9,0,0,0,0-1.791h-.971a1.733,1.733,0,0,1,0-3.465h.067v-.784a.418.418,0,0,1,.837,0v.784h.915a.418.418,0,1,1,0,.837H13.425a.9.9,0,1,0,0,1.791H14.4a1.733,1.733,0,1,1,0,3.465Z" transform="translate(224 116)" fill="#fb8500"/>
+              </g>
+            </svg>
+
             <p>{{ item.price }} kr/dag</p>
           </div>
         </div>
+        </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
 export default {
   name: "ItemCardHorizontal",
-  data() {
-    return {
-      items: [
-        {
-          image: null,
-          price: 200,
-          place: "Trondheim",
-          title: "Motorsag",
-          rating: 3.5,
-        },
-      ],
-    };
+  props: {
+    item: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>
@@ -98,23 +98,24 @@ p {
 h4 {
   margin: 5px 0 0 0;
   font-size: 16px;
+  font-weight: 400;
 }
 
 .itemCardContainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   padding: 1rem;
 }
 .itemCard {
   position: relative;
   display: grid;
-  grid-template-columns: 35% 65%;
-  height: 6rem;
+  grid-template-columns: 37% 63%;
+  height: 108px;
   width: 100%;
-  border: solid black;
+  border: none;
   border-radius: 15px;
   margin-bottom: 2rem;
+  box-shadow: 0 3px 10px #00000029;
 }
 .itemMeta {
   text-align: left;
@@ -123,7 +124,11 @@ h4 {
   padding-left: 1rem;
 }
 .imageContainer {
-  background-color: var(--orange);
+}
+img{
+  max-width: 150px;
+  width: 100%;
+  border-radius: 15px 0 0 15px;
 }
 .icons {
   fill: var(--orange);
@@ -133,5 +138,13 @@ h4 {
 .info {
   display: flex;
   flex-direction: row;
+}
+#positionInfo{
+  padding-top: 15px;
+}
+#priceRatingContainer{
+  display: grid;
+  grid-template-columns: 30% 50%;
+  margin-top: 10px;
 }
 </style>
