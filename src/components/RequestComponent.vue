@@ -7,6 +7,7 @@
       <Datepicker v-model="dates" />
       <h2>Leveringsalternativer</h2>
       <div>
+        <!--TODO: add v-if both options available, if not, cannot choose-->
         <BaseRadioGroup
           v-model="deliveryOption"
           name="deliveryOption"
