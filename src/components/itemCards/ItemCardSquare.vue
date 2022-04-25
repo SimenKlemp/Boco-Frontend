@@ -10,7 +10,7 @@
       </div>
       <div class="itemMeta">
         <div class="itemInfo">
-          <p>{{ item.place }}</p>
+          <p>{{ item.postOffice }}</p>
           <h4>{{ item.title }}</h4>
         </div>
       </div>

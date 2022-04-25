@@ -1,7 +1,7 @@
 <template>
   <div id="RequestContainer">
     <h1>Forespør leie:</h1>
-    <ItemCardHorizontal />
+    <ItemCardHorizontal :item="item"/>
     <form>
       <h2>Tidsperiode</h2>
       <Datepicker />
@@ -33,6 +33,11 @@ import BaseButton from "@/components/baseTools/BaseButton";
 export default {
   name: "RequestComponent",
   components: {BaseButton, Datepicker, ItemCardHorizontal },
+  computed: {
+    item() {
+      return this.$store.state.currentItem;
+    },
+  }
 };
 </script>
 
