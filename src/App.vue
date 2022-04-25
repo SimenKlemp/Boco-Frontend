@@ -125,6 +125,9 @@ input, textarea{
   display: block;
   width: 100%;
 }
+header svg{
+fill: #034363;
+}
 .header {
   display: flex;
   width: 90%;

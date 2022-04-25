@@ -5,7 +5,7 @@
     </div>
     <div class="info">
       <div class="productMeta">
-        <h1>{{ item.title }}</h1>
+        <div id="ratingLocationContainer">
         <div class="location">
           <svg
             class="positionMarker"
@@ -108,9 +108,12 @@
           </svg>
           <p class="ratingSummary">(4/5)</p>
         </div>
+        </div>
+
+        <h1>{{ item.title }}</h1>
         <div class="price">
-          <p>Dagsleie</p>
-          <p id="pricetag">{{ item.price }} kr / dag</p>
+          <p id="priceTitle">Dagsleie</p>
+          <p id="pricetag">{{ item.price }} kr</p>
         </div>
       </div>
     </div>
@@ -184,12 +187,13 @@ p {
 .positionMarker {
   fill: #fb8500;
   height: 100%;
-  margin: 0 0.5rem 0 -3px;
+  margin: 3px 5px 0 -1px;
 }
 .rating {
   display: flex;
   height: 1.5rem;
   margin-bottom: 1.5rem;
+  grid-column: 3;
 }
 .stars {
   height: 100%;
@@ -231,9 +235,18 @@ p {
   height: 100%;
 }
 #pricetag {
-  font-size: 20px;
+  font-size: 26px;
+  font-weight: 500;
 }
 #descriptionText {
   color: #333333;
+}
+#ratingLocationContainer{
+  display: grid;
+  grid-template-columns: 40% 20% 40%;
+}
+#priceTitle{
+  font-size: 16px;
+  font-weight: 400;
 }
 </style>
