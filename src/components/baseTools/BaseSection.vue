@@ -22,6 +22,7 @@
       :key="item.itemId"
       class="items"
       :item="item"
+      @click.stop="goToItem(item)"
     ></ItemCardHorizontal>
   </div>
 </template>
@@ -55,6 +56,10 @@ export default {
       } else {
         this.dataItems = null;
       }
+    },
+    goToItem(item) {
+      this.$store.dispatch("setItem", item);
+      this.$router.push({ name: "ProductDetails" });
     },
   },
 };

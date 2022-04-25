@@ -100,7 +100,7 @@ export default {
           reqisterRentalRequest,
           this.$store.state.token
         );
-        this.$router.push({ name: "MyRentals" });
+        await this.$router.push({ name: "MyRentals" });
         console.log(response);
       } else {
         alert("Alle felter må være fylt inn");

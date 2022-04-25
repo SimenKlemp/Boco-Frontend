@@ -6,108 +6,108 @@
     <div class="info">
       <div class="productMeta">
         <div id="ratingLocationContainer">
-        <div class="location">
-          <svg
-            class="positionMarker"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            version="1.1"
-            x="0px"
-            y="0px"
-            viewBox="0 0 96 96"
-            enable-background="new 0 0 96 96"
-            xml:space="preserve"
-          >
-            <path
-              d="M48,9C31.86,9,18.73,22.131,18.73,38.271c0,14.13,23.756,41.948,28.518,47.381L48,86.512l0.752-0.857  c4.762-5.432,28.518-33.24,28.518-47.383C77.27,22.131,64.14,9,48,9z M48,48c-5.374,0-9.73-4.356-9.73-9.73s4.356-9.73,9.73-9.73  s9.73,4.356,9.73,9.73S53.374,48,48,48z"
-            ></path>
-          </svg>
-          <p>{{ item.postOffice }}</p>
-        </div>
-        <div class="rating">
-          <svg
-            class="stars"
-            xmlns="http://www.w3.org/2000/svg"
-            width="162.031"
-            height="30.079"
-            viewBox="0 0 162.031 30.079"
-          >
-            <g
-              id="Group_12"
-              data-name="Group 12"
-              transform="translate(-15 -527.501)"
+          <div class="location">
+            <svg
+              class="positionMarker"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              version="1.1"
+              x="0px"
+              y="0px"
+              viewBox="0 0 96 96"
+              enable-background="new 0 0 96 96"
+              xml:space="preserve"
+            >
+              <path
+                d="M48,9C31.86,9,18.73,22.131,18.73,38.271c0,14.13,23.756,41.948,28.518,47.381L48,86.512l0.752-0.857  c4.762-5.432,28.518-33.24,28.518-47.383C77.27,22.131,64.14,9,48,9z M48,48c-5.374,0-9.73-4.356-9.73-9.73s4.356-9.73,9.73-9.73  s9.73,4.356,9.73,9.73S53.374,48,48,48z"
+              ></path>
+            </svg>
+            <p>{{ item.postOffice }}</p>
+          </div>
+          <div class="rating">
+            <svg
+              class="stars"
+              xmlns="http://www.w3.org/2000/svg"
+              width="162.031"
+              height="30.079"
+              viewBox="0 0 162.031 30.079"
             >
               <g
-                id="filled_star"
-                data-name="filled star"
-                transform="translate(2.96 -437.071)"
+                id="Group_12"
+                data-name="Group 12"
+                transform="translate(-15 -527.501)"
               >
-                <path
-                  id="Path_1"
-                  data-name="Path 1"
-                  d="M26.29,966.153l3.227,9.682a.751.751,0,0,0,.714.517H40.54l-8.387,6.134a.751.751,0,0,0-.271.838l3.227,10.014-8.375-6.122a.751.751,0,0,0-.887,0l-8.375,6.122L20.7,983.324a.751.751,0,0,0-.271-.838l-8.387-6.134H22.349a.751.751,0,0,0,.714-.517l3.227-9.682Z"
-                  fill="#fb8500"
-                  fill-rule="evenodd"
-                />
+                <g
+                  id="filled_star"
+                  data-name="filled star"
+                  transform="translate(2.96 -437.071)"
+                >
+                  <path
+                    id="Path_1"
+                    data-name="Path 1"
+                    d="M26.29,966.153l3.227,9.682a.751.751,0,0,0,.714.517H40.54l-8.387,6.134a.751.751,0,0,0-.271.838l3.227,10.014-8.375-6.122a.751.751,0,0,0-.887,0l-8.375,6.122L20.7,983.324a.751.751,0,0,0-.271-.838l-8.387-6.134H22.349a.751.751,0,0,0,.714-.517l3.227-9.682Z"
+                    fill="#fb8500"
+                    fill-rule="evenodd"
+                  />
+                </g>
+                <g
+                  id="filled_star-2"
+                  data-name="filled star"
+                  transform="translate(35.96 -437.071)"
+                >
+                  <path
+                    id="Path_1-2"
+                    data-name="Path 1"
+                    d="M26.29,966.153l3.227,9.682a.751.751,0,0,0,.714.517H40.54l-8.387,6.134a.751.751,0,0,0-.271.838l3.227,10.014-8.375-6.122a.751.751,0,0,0-.887,0l-8.375,6.122L20.7,983.324a.751.751,0,0,0-.271-.838l-8.387-6.134H22.349a.751.751,0,0,0,.714-.517l3.227-9.682Z"
+                    fill="#fb8500"
+                    fill-rule="evenodd"
+                  />
+                </g>
+                <g
+                  id="filled_star-3"
+                  data-name="filled star"
+                  transform="translate(68.96 -437.071)"
+                >
+                  <path
+                    id="Path_1-3"
+                    data-name="Path 1"
+                    d="M26.29,966.153l3.227,9.682a.751.751,0,0,0,.714.517H40.54l-8.387,6.134a.751.751,0,0,0-.271.838l3.227,10.014-8.375-6.122a.751.751,0,0,0-.887,0l-8.375,6.122L20.7,983.324a.751.751,0,0,0-.271-.838l-8.387-6.134H22.349a.751.751,0,0,0,.714-.517l3.227-9.682Z"
+                    fill="#fb8500"
+                    fill-rule="evenodd"
+                  />
+                </g>
+                <g
+                  id="filled_star-4"
+                  data-name="filled star"
+                  transform="translate(101.96 -437.071)"
+                >
+                  <path
+                    id="Path_1-4"
+                    data-name="Path 1"
+                    d="M26.29,966.153l3.227,9.682a.751.751,0,0,0,.714.517H40.54l-8.387,6.134a.751.751,0,0,0-.271.838l3.227,10.014-8.375-6.122a.751.751,0,0,0-.887,0l-8.375,6.122L20.7,983.324a.751.751,0,0,0-.271-.838l-8.387-6.134H22.349a.751.751,0,0,0,.714-.517l3.227-9.682Z"
+                    fill="#fb8500"
+                    fill-rule="evenodd"
+                  />
+                </g>
+                <g
+                  id="filled_star-5"
+                  data-name="filled star"
+                  transform="translate(134.96 -437.071)"
+                >
+                  <path
+                    id="Path_1-5"
+                    data-name="Path 1"
+                    d="M26.29,966.153l3.227,9.682a.751.751,0,0,0,.714.517H40.54l-8.387,6.134a.751.751,0,0,0-.271.838l3.227,10.014-8.375-6.122a.751.751,0,0,0-.887,0l-8.375,6.122L20.7,983.324a.751.751,0,0,0-.271-.838l-8.387-6.134H22.349a.751.751,0,0,0,.714-.517l3.227-9.682Z"
+                    fill="none"
+                    stroke="#fb8500"
+                    stroke-width="1"
+                    fill-rule="evenodd"
+                  />
+                </g>
               </g>
-              <g
-                id="filled_star-2"
-                data-name="filled star"
-                transform="translate(35.96 -437.071)"
-              >
-                <path
-                  id="Path_1-2"
-                  data-name="Path 1"
-                  d="M26.29,966.153l3.227,9.682a.751.751,0,0,0,.714.517H40.54l-8.387,6.134a.751.751,0,0,0-.271.838l3.227,10.014-8.375-6.122a.751.751,0,0,0-.887,0l-8.375,6.122L20.7,983.324a.751.751,0,0,0-.271-.838l-8.387-6.134H22.349a.751.751,0,0,0,.714-.517l3.227-9.682Z"
-                  fill="#fb8500"
-                  fill-rule="evenodd"
-                />
-              </g>
-              <g
-                id="filled_star-3"
-                data-name="filled star"
-                transform="translate(68.96 -437.071)"
-              >
-                <path
-                  id="Path_1-3"
-                  data-name="Path 1"
-                  d="M26.29,966.153l3.227,9.682a.751.751,0,0,0,.714.517H40.54l-8.387,6.134a.751.751,0,0,0-.271.838l3.227,10.014-8.375-6.122a.751.751,0,0,0-.887,0l-8.375,6.122L20.7,983.324a.751.751,0,0,0-.271-.838l-8.387-6.134H22.349a.751.751,0,0,0,.714-.517l3.227-9.682Z"
-                  fill="#fb8500"
-                  fill-rule="evenodd"
-                />
-              </g>
-              <g
-                id="filled_star-4"
-                data-name="filled star"
-                transform="translate(101.96 -437.071)"
-              >
-                <path
-                  id="Path_1-4"
-                  data-name="Path 1"
-                  d="M26.29,966.153l3.227,9.682a.751.751,0,0,0,.714.517H40.54l-8.387,6.134a.751.751,0,0,0-.271.838l3.227,10.014-8.375-6.122a.751.751,0,0,0-.887,0l-8.375,6.122L20.7,983.324a.751.751,0,0,0-.271-.838l-8.387-6.134H22.349a.751.751,0,0,0,.714-.517l3.227-9.682Z"
-                  fill="#fb8500"
-                  fill-rule="evenodd"
-                />
-              </g>
-              <g
-                id="filled_star-5"
-                data-name="filled star"
-                transform="translate(134.96 -437.071)"
-              >
-                <path
-                  id="Path_1-5"
-                  data-name="Path 1"
-                  d="M26.29,966.153l3.227,9.682a.751.751,0,0,0,.714.517H40.54l-8.387,6.134a.751.751,0,0,0-.271.838l3.227,10.014-8.375-6.122a.751.751,0,0,0-.887,0l-8.375,6.122L20.7,983.324a.751.751,0,0,0-.271-.838l-8.387-6.134H22.349a.751.751,0,0,0,.714-.517l3.227-9.682Z"
-                  fill="none"
-                  stroke="#fb8500"
-                  stroke-width="1"
-                  fill-rule="evenodd"
-                />
-              </g>
-            </g>
-          </svg>
-          <p class="ratingSummary">(4/5)</p>
-        </div>
+            </svg>
+            <p class="ratingSummary">(4/5)</p>
+          </div>
         </div>
 
         <h1>{{ item.title }}</h1>
@@ -119,10 +119,17 @@
     </div>
     <div class="requestContainer">
       <BaseButton
+        v-if="!isMyAd"
         class="baseButton"
         :id="'requestButton'"
         :text="'Send forespørsel'"
         @click="goToRequest(item)"
+      ></BaseButton>
+      <BaseButton
+        v-else
+        class="baseButton"
+        :id="'editButton'"
+        :text="'Endre annonse'"
       ></BaseButton>
     </div>
     <div class="profileContainer">
@@ -147,6 +154,9 @@ export default {
   computed: {
     item() {
       return this.$store.state.currentItem;
+    },
+    isMyAd() {
+      return this.item.user.userId === this.$store.state.userInfo.userId;
     },
   },
   methods: {
@@ -246,11 +256,11 @@ p {
 #descriptionText {
   color: #333333;
 }
-#ratingLocationContainer{
+#ratingLocationContainer {
   display: grid;
   grid-template-columns: 40% 20% 40%;
 }
-#priceTitle{
+#priceTitle {
   font-size: 16px;
   font-weight: 400;
 }

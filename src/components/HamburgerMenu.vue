@@ -34,7 +34,9 @@
         <div @click="emitRouteChange('MyAds')" v-if="isLoggedIn">
           Mine annonser
         </div>
-        <div v-if="isLoggedIn">Mine leieforhold</div>
+        <div @click="emitRouteChange('MyRentals')" v-if="isLoggedIn">
+          Mine leieforhold
+        </div>
       </div>
       <div class="hamburgerSupport">
         <div>FAQ</div>
