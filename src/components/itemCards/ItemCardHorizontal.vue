@@ -4,7 +4,6 @@
       <div class="imageContainer"><img :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')"></div>
       <div class="itemMeta">
         <div class="itemInfo">
-          <h4>{{ item.title }}</h4>
           <div class="info" id="positionInfo">
           <svg
               class="icons"
@@ -81,7 +80,7 @@ h4 {
 .itemCard {
   position: relative;
   display: grid;
-  grid-template-columns: 37% 63%;
+  grid-template-columns: 39.5% 60.5%;
   height: 108px;
   width: 100%;
   border: none;
