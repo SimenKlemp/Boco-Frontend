@@ -53,3 +53,8 @@ export async function doRentalRequest(registerRentalRequest, token) {
       console.log(err);
     });
 }
+export function getItems() {
+  return axios.get("http://localhost:8085/api/item/all").then((response) => {
+    return response.data;
+  });
+}

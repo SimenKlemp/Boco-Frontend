@@ -1,7 +1,7 @@
 <template>
   <div id="RequestContainer">
     <h1>Forespør leie:</h1>
-    <ItemCardHorizontal />
+    <ItemCardHorizontal :item="item"/>
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
       <Datepicker v-model="dates" />
@@ -48,6 +48,11 @@ export default {
     Datepicker,
     ItemCardHorizontal,
     BaseErrorMessage,
+  },
+  computed: {
+    item() {
+      return this.$store.state.currentItem;
+    },
   },
   setup() {
     return {

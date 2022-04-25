@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div class="profileImage">
+      <!--TODO: change to image, add v-if image-->
       <svg
         class="image"
         xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +18,7 @@
       </svg>
     </div>
     <div class="profileMeta">
-      <p class="name">Navn Navnesen</p>
+      <p class="name">{{ user.name }}</p>
       <div class="verified">
         <svg
           class="verifiedIcon"
@@ -41,6 +42,12 @@
 <script>
 export default {
   name: "BaseProfile",
+  props: {
+    user: {
+      type: Object,
+      required: true
+    }
+  }
 };
 </script>
 
