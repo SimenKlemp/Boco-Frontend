@@ -12,8 +12,6 @@ export default {
 
 <style scoped>
 .container {
-  margin: 1rem;
-  border: solid #707070 2px;
   border-radius: 20px;
   display: flex;
   height: 5.25rem;
