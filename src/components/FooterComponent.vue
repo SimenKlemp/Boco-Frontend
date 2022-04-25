@@ -1,6 +1,6 @@
 <template>
   <div class="container" id="footerContainer">
-    <img id="image" src="@/assets/bocologo.png" alt="" />
+    <img id="image" :src="require('../assets/bocologo.png')" alt="" />
     <div class="footerMeta">Her er masse info</div>
   </div>
 </template>
