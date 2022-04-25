@@ -39,3 +39,18 @@ export async function doRegisterItem(itemRequest, token) {
       console.log(err);
     });
 }
+
+export async function doRegisterFeedbackWebPage(feedbackRequest, token) {
+  return axios
+      .post(`http://localhost:8085/api/feedbackWebPage/registerFeedback`, feedbackRequest, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response) => {
+        return response;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+}

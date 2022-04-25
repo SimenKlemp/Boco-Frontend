@@ -31,7 +31,7 @@
       </div>
       <div class="hamburgerSupport">
         <div>FAQ</div>
-        <div>Send tilbakemelding</div>
+        <div @click="emitRouteChange('AddFeedbackWebPageComponent')">Send tilbakemelding</div>
       </div>
       <div class="hamburgerLog">
         <div>Logg ut</div>

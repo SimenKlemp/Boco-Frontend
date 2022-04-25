@@ -7,6 +7,7 @@ import AddItemComponent from "@/components/AddItemComponent";
 import ProductDetails from "@/views/ProductDetails";
 import RequestComponent from "@/components/RequestComponent";
 import MyProfile from "@/views/MyProfile";
+import AddFeedbackWebPageComponent from "@/components/AddFeedbackWebPageComponent";
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
     path: "/my-profile",
     name: "MyProfile",
     component: MyProfile,
+  },
+  {
+    path: "/add-feedbackWebPage",
+    name: "AddFeedbackWebPageComponent",
+    component: AddFeedbackWebPageComponent,
   },
   {
     path: "/about",
