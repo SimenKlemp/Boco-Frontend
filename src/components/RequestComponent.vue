@@ -32,14 +32,13 @@
 
 <script>
 import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
-import Datepicker from "@/components/baseTools/Datepicker";
+import Datepicker from "@/components/baseTools/DatepickerComponent";
 import BaseButton from "@/components/baseTools/BaseButton";
 import BaseRadioGroup from "@/components/baseTools/BaseRadioGroup";
 import useVuelidate from "@vuelidate/core";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import { helpers, required } from "@vuelidate/validators";
 import { doRentalRequest } from "@/service/apiService";
-
 
 export default {
   name: "RequestComponent",
