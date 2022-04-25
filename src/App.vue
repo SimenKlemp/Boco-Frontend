@@ -109,6 +109,7 @@ nav a.router-link-exact-active {
 }
 * {
   margin: 0;
+  font-family: Roboto, sans-serif;
 }
 .cover {
   position: fixed;
@@ -120,7 +121,10 @@ nav a.router-link-exact-active {
   left: 0;
   z-index: 70;
 }
-
+input, textarea{
+  display: block;
+  width: 100%;
+}
 .header {
   display: flex;
   width: 90%;
