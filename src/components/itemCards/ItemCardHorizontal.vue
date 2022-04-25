@@ -20,10 +20,8 @@
                   d="M48,9C31.86,9,18.73,22.131,18.73,38.271c0,14.13,23.756,41.948,28.518,47.381L48,86.512l0.752-0.857  c4.762-5.432,28.518-33.24,28.518-47.383C77.27,22.131,64.14,9,48,9z M48,48c-5.374,0-9.73-4.356-9.73-9.73s4.356-9.73,9.73-9.73  s9.73,4.356,9.73,9.73S53.374,48,48,48z"
               ></path>
             </svg>
-          <p>{{ item.place }}</p>
-        </div>
-          <h4>{{ item.title }}</h4>
-        <div id="priceRatingContainer">
+            <p>{{ item.postOffice }}</p>
+          </div>
           <div class="info">
             <svg
               class="icons"
@@ -61,7 +59,8 @@
                 ></path>
               </g>
             </svg>
-            <p>{{ item.rating }}/5</p>
+            <!--TODO: add rating when this is in database-->
+            <p>3/5</p>
           </div>
           <div class="info">
             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 14 14" >
@@ -82,18 +81,11 @@
 <script>
 export default {
   name: "ItemCardHorizontal",
-  data() {
-    return {
-      items: [
-        {
-          image: null,
-          price: 200,
-          place: "Trondheim",
-          title: "Motorsag fra stihl i god stand",
-          rating: 3.5,
-        },
-      ],
-    };
+  props: {
+    item: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>

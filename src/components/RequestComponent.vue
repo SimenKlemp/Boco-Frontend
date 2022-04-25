@@ -1,7 +1,7 @@
 <template>
   <div id="RequestContainer">
     <h1>Forespør leie:</h1>
-    <ItemCardHorizontal />
+    <ItemCardHorizontal :item="item"/>
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
       <Datepicker v-model="dates" />
@@ -42,6 +42,14 @@ import { doRentalRequest } from "@/service/apiService";
 
 export default {
   name: "RequestComponent",
+<<<<<<< src/components/RequestComponent.vue
+  components: {BaseButton, Datepicker, ItemCardHorizontal },
+  computed: {
+    item() {
+      return this.$store.state.currentItem;
+    },
+  }
+=======
   components: {
     BaseButton,
     BaseRadioGroup,
@@ -101,6 +109,7 @@ export default {
       }
     },
   },
+>>>>>>> src/components/RequestComponent.vue
 };
 </script>
 

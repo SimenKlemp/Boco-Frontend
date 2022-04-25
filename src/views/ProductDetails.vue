@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <div class="imageCarousel">
-      <img id="productImage" src="../assets/Motorsag.png" alt="" />
+      <img id="productImage" :src="require('../assets/Motorsag.png')" alt="" />
     </div>
     <div class="info">
       <div class="productMeta">
-        <h1>Motorsag fra Stihl</h1>
+        <h1>{{ item.title }}</h1>
         <div class="location">
           <svg
             class="positionMarker"
@@ -22,7 +22,7 @@
               d="M48,9C31.86,9,18.73,22.131,18.73,38.271c0,14.13,23.756,41.948,28.518,47.381L48,86.512l0.752-0.857  c4.762-5.432,28.518-33.24,28.518-47.383C77.27,22.131,64.14,9,48,9z M48,48c-5.374,0-9.73-4.356-9.73-9.73s4.356-9.73,9.73-9.73  s9.73,4.356,9.73,9.73S53.374,48,48,48z"
             ></path>
           </svg>
-          <p>Trondheim</p>
+          <p>{{ item.postOffice }}</p>
         </div>
         <div class="rating">
           <svg
@@ -110,7 +110,7 @@
         </div>
         <div class="price">
           <p>Dagsleie</p>
-          <p id="pricetag">200 kr/dag</p>
+          <p id="pricetag">{{ item.price }} kr / dag</p>
         </div>
       </div>
     </div>
@@ -119,17 +119,15 @@
         class="baseButton"
         :id="'requestButton'"
         :text="'Send forespørsel'"
+        @click="goToRequest(item)"
       ></BaseButton>
     </div>
     <div class="profileContainer">
-      <BaseProfile></BaseProfile>
+      <BaseProfile :user="item.user"></BaseProfile>
     </div>
     <div class="description">
       <h3 class="descriptionTitle">Beskrivelse</h3>
-      <p id="descriptionText">
-        Motorsag fra Stihl, den er oransje og ligger på gulvet. Den er i god
-        stand og er bensindrevet. Kan ikke leies onsdager og lørdager
-      </p>
+      <p id="descriptionText">{{item.description}}</p>
     </div>
   </div>
 </template>
@@ -143,6 +141,16 @@ export default {
     BaseProfile,
     BaseButton,
   },
+  computed: {
+    item() {
+      return this.$store.state.currentItem;
+    },
+  },
+  methods: {
+    async goToRequest(item) {
+      await this.$router.push({name: "RequestComponent"})
+    }
+  }
 };
 </script>
 
