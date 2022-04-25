@@ -24,7 +24,12 @@ export default {
   data() {
     return {
       items: [
-        { image: null, price: 200, place: "Trondheim", title: "Motorsag fra Stihl i god stand " },
+        {
+          image: null,
+          price: 200,
+          place: "Trondheim",
+          title: "Motorsag fra Stihl i god stand ",
+        },
         { image: null, price: 200, place: "Trondheim", title: "Sykkel" },
         { image: null, price: 200, place: "Trondheim", title: "Ski" },
         { image: null, price: 200, place: "Trondheim", title: "Kajakk" },
@@ -74,7 +79,7 @@ img {
   padding-left: 10px;
   padding-bottom: 5px;
 }
-.imageContainer{
+.imageContainer {
   height: 8rem;
 }
 #priceTag {
@@ -89,5 +94,4 @@ img {
   font-size: 12px;
   font-weight: 500;
 }
-
 </style>

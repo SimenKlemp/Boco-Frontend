@@ -41,7 +41,7 @@ export async function doRegisterItem(itemRequest, token) {
 }
 export async function doRentalRequest(registerRentalRequest, token) {
   return axios
-    .post(`http://localhost:8080/api/rental/register`, registerRentalRequest, {
+    .post(`http://localhost:8085/api/rental/register`, registerRentalRequest, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -53,3 +53,23 @@ export async function doRentalRequest(registerRentalRequest, token) {
       console.log(err);
     });
 }
+class UploadFilesService {
+  upload(file, token) {
+    let formData = new FormData();
+
+    formData.append("image", file);
+
+    return axios.post("http://localhost:8085/api/image/upload", formData, {
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  }
+
+  getImage(imageId) {
+    return axios.get("http://localhost:8085/api/image/" + imageId);
+  }
+}
+
+export default new UploadFilesService();

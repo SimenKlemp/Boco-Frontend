@@ -4,6 +4,7 @@ const getDefaultState = () => {
   return {
     token: null,
     userInfo: {},
+    currentImageId: null,
   };
 };
 const state = getDefaultState();
@@ -21,6 +22,9 @@ export default createStore({
     ADD_TOKEN(state, token) {
       state.token = token;
     },
+    SET_IMAGE_ID(state, currentImageId) {
+      state.currentImageId = currentImageId;
+    },
   },
   actions: {
     resetState({ commit }) {
@@ -31,6 +35,9 @@ export default createStore({
     },
     storeToken({ commit }, token) {
       commit("ADD_TOKEN", token);
+    },
+    setCurrentImageId({ commit }, currentImageId) {
+      commit("SET_IMAGE_ID", currentImageId);
     },
   },
   modules: {},
