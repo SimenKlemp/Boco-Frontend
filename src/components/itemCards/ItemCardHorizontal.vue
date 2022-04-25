@@ -4,6 +4,7 @@
       <div class="imageContainer"><img :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')"></div>
       <div class="itemMeta">
         <div class="itemInfo">
+          <h4>{{ item.title }}</h4>
           <div class="info" id="positionInfo">
           <svg
               class="icons"
@@ -75,7 +76,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
