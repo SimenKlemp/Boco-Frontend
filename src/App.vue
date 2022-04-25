@@ -160,13 +160,21 @@ input, textarea{
   --orange: #fb8500;
 }
 h1 {
-  font-size: x-large;
-  font-weight: bold;
-  color: var(--indigo);
+  font-size: 28px;
+  font-weight: 500;
+  color:black;
 }
 h2 {
-  font-size: large;
-  color: var(--indigo);
-  font-weight: normal;
+  font-size: 24px;
+  color:black;
+  font-weight: 500;
 }
+textarea{
+  max-width: 388px;
+  border:none;
+  background-color: #f4f4f4;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
 </style>
