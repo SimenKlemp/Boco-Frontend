@@ -73,3 +73,8 @@ class UploadFilesService {
 }
 
 export default new UploadFilesService();
+export function getItems() {
+  return axios.get("http://localhost:8085/api/item/all").then((response) => {
+    return response.data;
+  });
+}

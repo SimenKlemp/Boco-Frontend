@@ -1,6 +1,6 @@
 <template>
   <div class="itemCardContainer">
-    <div v-for="(item, index) in items" :key="index" class="itemCard">
+    <div class="itemCard">
       <div class="imageContainer">
         <img
           :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')"
@@ -10,7 +10,7 @@
       </div>
       <div class="itemMeta">
         <div class="itemInfo">
-          <p>{{ item.place }}</p>
+          <p>{{ item.postOffice }}</p>
           <h4>{{ item.title }}</h4>
         </div>
       </div>
@@ -21,20 +21,11 @@
 <script>
 export default {
   name: "ItemCardSquare",
-  data() {
-    return {
-      items: [
-        {
-          image: null,
-          price: 200,
-          place: "Trondheim",
-          title: "Motorsag fra Stihl i god stand ",
-        },
-        { image: null, price: 200, place: "Trondheim", title: "Sykkel" },
-        { image: null, price: 200, place: "Trondheim", title: "Ski" },
-        { image: null, price: 200, place: "Trondheim", title: "Kajakk" },
-      ],
-    };
+  props: {
+    item: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>
@@ -79,7 +70,7 @@ img {
   padding-left: 10px;
   padding-bottom: 5px;
 }
-.imageContainer {
+.imageContainer{
   height: 8rem;
 }
 #priceTag {
@@ -94,4 +85,5 @@ img {
   font-size: 12px;
   font-weight: 500;
 }
+
 </style>

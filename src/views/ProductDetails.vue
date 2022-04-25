@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <div class="imageCarousel">
-      <img id="productImage" src="../assets/Motorsag.png" alt="" />
+      <img id="productImage" :src="require('../assets/Motorsag.png')" alt="" />
     </div>
     <div class="info">
       <div class="productMeta">
-        <h1>Motorsag fra Stihl</h1>
+        <div id="ratingLocationContainer">
         <div class="location">
           <svg
             class="positionMarker"
@@ -22,7 +22,7 @@
               d="M48,9C31.86,9,18.73,22.131,18.73,38.271c0,14.13,23.756,41.948,28.518,47.381L48,86.512l0.752-0.857  c4.762-5.432,28.518-33.24,28.518-47.383C77.27,22.131,64.14,9,48,9z M48,48c-5.374,0-9.73-4.356-9.73-9.73s4.356-9.73,9.73-9.73  s9.73,4.356,9.73,9.73S53.374,48,48,48z"
             ></path>
           </svg>
-          <p>Trondheim</p>
+          <p>{{ item.postOffice }}</p>
         </div>
         <div class="rating">
           <svg
@@ -108,9 +108,12 @@
           </svg>
           <p class="ratingSummary">(4/5)</p>
         </div>
+        </div>
+
+        <h1>{{ item.title }}</h1>
         <div class="price">
-          <p>Dagsleie</p>
-          <p id="pricetag">200 kr/dag</p>
+          <p id="priceTitle">Dagsleie</p>
+          <p id="pricetag">{{ item.price }} kr</p>
         </div>
       </div>
     </div>
@@ -119,17 +122,15 @@
         class="baseButton"
         :id="'requestButton'"
         :text="'Send forespørsel'"
+        @click="goToRequest(item)"
       ></BaseButton>
     </div>
     <div class="profileContainer">
-      <BaseProfile></BaseProfile>
+      <BaseProfile :user="item.user"></BaseProfile>
     </div>
     <div class="description">
       <h3 class="descriptionTitle">Beskrivelse</h3>
-      <p id="descriptionText">
-        Motorsag fra Stihl, den er oransje og ligger på gulvet. Den er i god
-        stand og er bensindrevet. Kan ikke leies onsdager og lørdager
-      </p>
+      <p id="descriptionText">{{item.description}}</p>
     </div>
   </div>
 </template>
@@ -143,6 +144,16 @@ export default {
     BaseProfile,
     BaseButton,
   },
+  computed: {
+    item() {
+      return this.$store.state.currentItem;
+    },
+  },
+  methods: {
+    async goToRequest(item) {
+      await this.$router.push({name: "RequestComponent"})
+    }
+  }
 };
 </script>
 
@@ -176,12 +187,13 @@ p {
 .positionMarker {
   fill: #fb8500;
   height: 100%;
-  margin: 0 0.5rem 0 -3px;
+  margin: 3px 5px 0 -1px;
 }
 .rating {
   display: flex;
   height: 1.5rem;
   margin-bottom: 1.5rem;
+  grid-column: 3;
 }
 .stars {
   height: 100%;
@@ -223,9 +235,18 @@ p {
   height: 100%;
 }
 #pricetag {
-  font-size: 20px;
+  font-size: 26px;
+  font-weight: 500;
 }
 #descriptionText {
   color: #333333;
+}
+#ratingLocationContainer{
+  display: grid;
+  grid-template-columns: 40% 20% 40%;
+}
+#priceTitle{
+  font-size: 16px;
+  font-weight: 400;
 }
 </style>

@@ -1,10 +1,13 @@
 import { createStore } from "vuex";
+import { getItems } from "@/service/apiService";
 
 const getDefaultState = () => {
   return {
     token: null,
+    currentItem: null,
     userInfo: {},
     currentImageId: null,
+    items: [],
   };
 };
 const state = getDefaultState();
@@ -25,6 +28,12 @@ export default createStore({
     SET_IMAGE_ID(state, currentImageId) {
       state.currentImageId = currentImageId;
     },
+    SET_ITEMS(state, response) {
+      state.items = response;
+    },
+    SET_ITEM(state, item) {
+      state.currentItem = item;
+    },
   },
   actions: {
     resetState({ commit }) {
@@ -38,6 +47,18 @@ export default createStore({
     },
     setCurrentImageId({ commit }, currentImageId) {
       commit("SET_IMAGE_ID", currentImageId);
+    },
+    getItems({ commit }) {
+      getItems(this.state.token)
+        .then((response) => {
+          commit("SET_ITEMS", response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    setItem({ commit }, item) {
+      commit("SET_ITEM", item);
     },
   },
   modules: {},

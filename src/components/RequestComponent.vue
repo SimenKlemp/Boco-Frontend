@@ -1,12 +1,12 @@
 <template>
   <div id="RequestContainer">
     <h1>Forespør leie:</h1>
-    <ItemCardHorizontal />
+    <ItemCardHorizontal :item="item"/>
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
       <Datepicker v-model="dates" />
-      <h2>Leveringsalternativer</h2>
-      <div>
+      <h2 id="deliverTitle">Leveringsalternativer</h2>
+      <div id="radioContainer">
         <BaseRadioGroup
           v-model="deliveryOption"
           name="deliveryOption"
@@ -14,7 +14,7 @@
         />
       </div>
       <h2>Melding til utleier</h2>
-      <textarea
+       <textarea
         id="message"
         class="mb-4"
         type="message"
@@ -48,6 +48,11 @@ export default {
     Datepicker,
     ItemCardHorizontal,
     BaseErrorMessage,
+  },
+  computed: {
+    item() {
+      return this.$store.state.currentItem;
+    },
   },
   setup() {
     return {
@@ -108,13 +113,32 @@ export default {
 .radio:checked ~ .checkmark {
   background-color: var(--blue);
 }
+#RequestContainer{
+  padding: 0 15px;
+}
+#radioContainer{
+  margin-top:10px;
+  margin-bottom: 15px;
+}
 #message {
   font-size: medium;
   border-radius: 15px;
   width: 100%;
   height: 150px;
 }
+h2{
+  font-size: 24px;
+  font-weight: 500;
+  color: black;
+  margin-bottom: 25px;
+}
 form {
   text-align: left;
+}
+#deliverTitle{
+  margin-top:20px;
+}
+textarea{
+  margin-bottom: 30px;
 }
 </style>
