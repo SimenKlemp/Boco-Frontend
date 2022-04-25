@@ -56,7 +56,7 @@ h4 {
   height: 200px;
   border: none;
   border-radius: 10px;
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
   box-shadow: 0 3px 6px #00000029;
 }
 img {
