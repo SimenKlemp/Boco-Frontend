@@ -57,7 +57,7 @@
     </div>
     <div class="items">
       <ItemCardSquare
-        v-for="item in items.slice(0,4)"
+        v-for="item in items.slice(0, 4)"
         :key="item.itemId"
         :item="item"
         @click="seeItem(item)"
