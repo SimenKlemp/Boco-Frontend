@@ -17,13 +17,24 @@
         />
       </svg>
     </div>
-    <ItemCardHorizontal
-      v-for="item in dataItems"
-      :key="item.itemId"
-      class="items"
-      :item="item"
-      @click.stop="goToItem(item)"
-    ></ItemCardHorizontal>
+    <div v-if="items">
+      <ItemCardHorizontal
+        v-for="item in dataItems"
+        :key="item.itemId"
+        class="items"
+        :item="item"
+        @click.stop="goToItem(item)"
+      ></ItemCardHorizontal>
+    </div>
+    <div v-else>
+      <ItemCardHorizontal
+        v-for="item in dataItems"
+        :key="item.item.itemId"
+        class="items"
+        :item="item.item"
+        @click.stop="goToItem(item.item)"
+      ></ItemCardHorizontal>
+    </div>
   </div>
 </template>
 
@@ -46,13 +57,21 @@ export default {
     },
     items: {
       type: Array,
-      required: false,
+      default: null,
+    },
+    rentals: {
+      type: Array,
+      default: null,
     },
   },
   methods: {
     toggleItems() {
       if (this.dataItems === null) {
-        this.dataItems = this.items;
+        if (this.items) {
+          this.dataItems = this.items;
+        } else {
+          this.dataItems = this.rentals;
+        }
       } else {
         this.dataItems = null;
       }
@@ -62,6 +81,7 @@ export default {
       this.$router.push({ name: "ProductDetails" });
     },
   },
+  computed: {},
 };
 </script>
 
