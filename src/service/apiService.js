@@ -70,3 +70,11 @@ export function getMyItems(userId, token) {
       return response.data;
     });
 }
+
+export function getMyRentals(userId, token) {
+  return axios.get("http://localhost:8085/api/item/get-my/" + userId, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+}
