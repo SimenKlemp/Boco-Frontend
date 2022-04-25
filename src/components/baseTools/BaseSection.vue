@@ -23,7 +23,7 @@
         :key="item.itemId"
         class="items"
         :item="item"
-        @click.stop="goToItem(item)"
+        @click.stop="goToRentals(item)"
       ></ItemCardHorizontal>
     </div>
     <div v-else>
@@ -79,6 +79,10 @@ export default {
     goToItem(item) {
       this.$store.dispatch("setItem", item);
       this.$router.push({ name: "ProductDetails" });
+    },
+    goToRentals(item) {
+      this.$store.dispatch("setItem", item);
+      this.$router.push({ name: "RentalsReceived" });
     },
   },
   computed: {},

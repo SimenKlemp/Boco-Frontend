@@ -9,6 +9,7 @@ import RequestComponent from "@/components/RequestComponent";
 import MyProfile from "@/views/MyProfile";
 import MyAds from "@/views/MyAds";
 import MyRentals from "@/views/MyRentals";
+import RentalsReceived from "@/views/RentalsReceived";
 
 const routes = [
   {
@@ -60,6 +61,11 @@ const routes = [
     path: "/my-rentals",
     name: "MyRentals",
     component: MyRentals,
+  },
+  {
+    path: "/rentals",
+    name: "RentalsReceived",
+    component: RentalsReceived,
   },
   {
     path: "/about",

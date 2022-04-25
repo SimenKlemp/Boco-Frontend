@@ -102,3 +102,15 @@ export function getMyRentals(userId, token) {
       return response.data;
     });
 }
+
+export function getRentalsForItem(itemId, token) {
+  return axios
+    .get("http://localhost:8085/api/rental/for-item/" + itemId, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+}
