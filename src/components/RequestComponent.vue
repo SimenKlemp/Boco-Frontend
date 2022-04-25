@@ -1,7 +1,7 @@
 <template>
   <div id="RequestContainer">
     <h1>Forespør leie:</h1>
-    <ItemCardHorizontal :item="item"/>
+    <ItemCardHorizontal :item="item" />
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
       <Datepicker v-model="dates" />
@@ -14,7 +14,7 @@
         />
       </div>
       <h2>Melding til utleier</h2>
-       <textarea
+      <textarea
         id="message"
         class="mb-4"
         type="message"
@@ -90,7 +90,7 @@ export default {
 
         const reqisterRentalRequest = {
           endDate: "2022-04-25T07:32:23.293Z",
-          itemId: 19, //get correct itemid
+          itemId: this.$store.state.currentItem.itemId,
           message: this.message,
           startDate: "2022-04-25T07:32:23.294Z",
           userId: this.$store.state.userInfo.userId,
@@ -100,6 +100,7 @@ export default {
           reqisterRentalRequest,
           this.$store.state.token
         );
+        await this.$router.push({ name: "MyRentals" });
         console.log(response);
       } else {
         alert("Alle felter må være fylt inn");
@@ -113,11 +114,11 @@ export default {
 .radio:checked ~ .checkmark {
   background-color: var(--blue);
 }
-#RequestContainer{
+#RequestContainer {
   padding: 0 15px;
 }
-#radioContainer{
-  margin-top:10px;
+#radioContainer {
+  margin-top: 10px;
   margin-bottom: 15px;
 }
 #message {
@@ -126,7 +127,7 @@ export default {
   width: 100%;
   height: 150px;
 }
-h2{
+h2 {
   font-size: 24px;
   font-weight: 500;
   color: black;
@@ -135,10 +136,10 @@ h2{
 form {
   text-align: left;
 }
-#deliverTitle{
-  margin-top:20px;
+#deliverTitle {
+  margin-top: 20px;
 }
-textarea{
+textarea {
   margin-bottom: 30px;
 }
 </style>
