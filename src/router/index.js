@@ -7,6 +7,7 @@ import AddItemComponent from "@/components/AddItemComponent";
 import ProductDetails from "@/views/ProductDetails";
 import RequestComponent from "@/components/RequestComponent";
 import MyProfile from "@/views/MyProfile";
+import MyAds from "@/views/MyAds";
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
     path: "/my-profile",
     name: "MyProfile",
     component: MyProfile,
+  },
+  {
+    path: "/my-ads",
+    name: "MyAds",
+    component: MyAds,
   },
   {
     path: "/about",
