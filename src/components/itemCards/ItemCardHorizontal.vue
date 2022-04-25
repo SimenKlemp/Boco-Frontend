@@ -2,7 +2,15 @@
   <div class="itemCardContainer">
     <div class="itemCard">
       <div class="imageContainer">
-        <img :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')" />
+        <img
+          v-if="item.imageId === -1"
+          :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')"
+          alt="motorsag"
+        />
+        <img
+          v-if="item.imageId !== -1"
+          :src="'http://localhost:8085/api/image/' + item.imageId"
+        />
       </div>
       <div class="itemMeta">
         <div class="itemInfo">

@@ -6,6 +6,7 @@ const getDefaultState = () => {
     token: null,
     currentItem: null,
     userInfo: {},
+    currentImageId: null,
     items: [],
     myItems: [],
     myRentals: [],
@@ -25,6 +26,9 @@ export default createStore({
     },
     ADD_TOKEN(state, token) {
       state.token = token;
+    },
+    SET_IMAGE_ID(state, currentImageId) {
+      state.currentImageId = currentImageId;
     },
     SET_ITEMS(state, response) {
       state.items = response;
@@ -48,6 +52,9 @@ export default createStore({
     },
     storeToken({ commit }, token) {
       commit("ADD_TOKEN", token);
+    },
+    setCurrentImageId({ commit }, currentImageId) {
+      commit("SET_IMAGE_ID", currentImageId);
     },
     getItems({ commit }) {
       getItems(this.state.token)

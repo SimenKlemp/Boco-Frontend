@@ -70,7 +70,7 @@ img {
   padding-left: 10px;
   padding-bottom: 5px;
 }
-.imageContainer{
+.imageContainer {
   height: 8rem;
 }
 #priceTag {
@@ -85,5 +85,4 @@ img {
   font-size: 12px;
   font-weight: 500;
 }
-
 </style>
