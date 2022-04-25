@@ -1,12 +1,12 @@
 import { createStore } from "vuex";
-import {getItems} from "@/service/apiService";
+import { getItems } from "@/service/apiService";
 
 const getDefaultState = () => {
   return {
     token: null,
     currentItem: null,
     userInfo: {},
-    items: []
+    items: [],
   };
 };
 const state = getDefaultState();
@@ -26,7 +26,7 @@ export default createStore({
     },
     SET_ITEM(state, item) {
       state.currentItem = item;
-    }
+    },
   },
   actions: {
     storeUser({ commit }, userInfo) {
@@ -36,17 +36,17 @@ export default createStore({
       commit("ADD_TOKEN", token);
     },
     getItems({ commit }) {
-      getItems()
-          .then((response) => {
-            commit("SET_ITEMS", response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+      getItems(this.state.token)
+        .then((response) => {
+          commit("SET_ITEMS", response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     setItem({ commit }, item) {
       commit("SET_ITEM", item);
-    }
+    },
   },
   modules: {},
 });

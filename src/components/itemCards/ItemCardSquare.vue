@@ -1,5 +1,6 @@
 <template>
   <div class="itemCardContainer">
+    <div class="itemCard">
       <div class="imageContainer">
         <img
           :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')"
@@ -13,6 +14,7 @@
           <h4>{{ item.title }}</h4>
         </div>
       </div>
+    </div>
   </div>
 </template>
 

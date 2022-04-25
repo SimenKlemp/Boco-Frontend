@@ -57,9 +57,10 @@
     </div>
     <div class="items">
       <ItemCardSquare
-          v-for="item in items"
-          :key="item.itemId"
-          @click="seeItem(item)"
+        v-for="item in items"
+        :key="item.itemId"
+        :item="item"
+        @click="seeItem(item)"
       ></ItemCardSquare>
     </div>
   </div>
@@ -85,10 +86,13 @@ export default {
     emitToggleHamburgerMenu() {
       this.$emit("toggleHamburgerMenu");
     },
-    async seeItem(item){
+    async seeItem(item) {
       await this.$store.dispatch("setItem", item);
-      await this.$router.push({name: "ProductDetails"})
-    }
+      await this.$router.push({ name: "ProductDetails" });
+    },
+  },
+  created() {
+    this.$store.dispatch("getItems");
   },
 };
 </script>
@@ -137,5 +141,9 @@ p {
 }
 .itemsContainer {
   margin: 10px;
+}
+.items {
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>
