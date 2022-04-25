@@ -1,6 +1,6 @@
 <template>
   <div class="itemCardContainer">
-    <div v-for="(item, index) in items" :key="index" class="itemCard">
+    <div class="itemCard">
       <div class="imageContainer"><img :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')"></div>
       <div class="itemMeta">
         <div class="itemInfo">

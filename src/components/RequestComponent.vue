@@ -42,20 +42,17 @@ import { doRentalRequest } from "@/service/apiService";
 
 export default {
   name: "RequestComponent",
-<<<<<<< src/components/RequestComponent.vue
-  components: {BaseButton, Datepicker, ItemCardHorizontal },
-  computed: {
-    item() {
-      return this.$store.state.currentItem;
-    },
-  }
-=======
   components: {
     BaseButton,
     BaseRadioGroup,
     Datepicker,
     ItemCardHorizontal,
     BaseErrorMessage,
+  },
+  computed: {
+    item() {
+      return this.$store.state.currentItem;
+    },
   },
   setup() {
     return {
@@ -109,7 +106,6 @@ export default {
       }
     },
   },
->>>>>>> src/components/RequestComponent.vue
 };
 </script>
 
