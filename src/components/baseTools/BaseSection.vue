@@ -16,15 +16,29 @@
       />
     </svg>
   </div>
+  <ItemCardHorizontal
+    v-for="item in items"
+    :key="item.itemId"
+    class="items"
+    :item="item"
+  ></ItemCardHorizontal>
 </template>
 
 <script>
+import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
 export default {
   name: "BaseSection",
+  components: {
+    ItemCardHorizontal,
+  },
   props: {
     title: {
       type: String,
       required: true,
+    },
+    items: {
+      type: Array,
+      required: false,
     },
   },
 };

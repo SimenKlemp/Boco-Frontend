@@ -2,7 +2,7 @@
   <div class="container">
     <h1>Mine annonser</h1>
     <div class="actions">
-      <BaseSection :title="'Venter på svar'"></BaseSection>
+      <BaseSection :items="items" :title="'Venter på svar'"></BaseSection>
       <BaseSection :title="'Aktive leieforhold'"></BaseSection>
       <BaseSection :title="'Avsluttede leieforhold'"></BaseSection>
     </div>
@@ -15,6 +15,14 @@ export default {
   name: "MyAds",
   components: {
     BaseSection,
+  },
+  computed: {
+    items() {
+      return this.$store.state.myItems;
+    },
+  },
+  mounted() {
+    this.$store.dispatch("fetchMyItems");
   },
 };
 </script>

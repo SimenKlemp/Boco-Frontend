@@ -58,3 +58,15 @@ export function getItems() {
     return response.data;
   });
 }
+
+export function getMyItems(userId, token) {
+  return axios
+    .get("http://localhost:8085/api/item/get-my/" + userId, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+}
