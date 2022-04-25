@@ -41,7 +41,7 @@ export async function doRegisterItem(itemRequest, token) {
 }
 export async function doRentalRequest(registerRentalRequest, token) {
   return axios
-    .post(`http://localhost:8080/api/rental/register`, registerRentalRequest, {
+    .post(`http://localhost:8085/api/rental/register`, registerRentalRequest, {
       headers: {
         Authorization: "Bearer " + token,
       },

@@ -2,9 +2,9 @@
   <div class="container">
     <h1>Mine annonser</h1>
     <div class="actions">
-      <BaseSection :items="items" :title="'Venter på svar'"></BaseSection>
+      <BaseSection :title="'Annonser'" :items="items"></BaseSection>
       <BaseSection :title="'Aktive leieforhold'"></BaseSection>
-      <BaseSection :title="'Avsluttede leieforhold'"></BaseSection>
+      <BaseSection :title="'Arkiverte annonser'"></BaseSection>
     </div>
   </div>
 </template>
