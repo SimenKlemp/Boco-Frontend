@@ -22,60 +22,32 @@
             </svg>
             <p>{{ item.postOffice }}</p>
           </div>
+          <h3>{{item.title}}</h3>
+          <div id="priceRatingContainer">
           <div class="info">
-            <svg
-              class="icons"
-              xmlns:dc="http://purl.org/dc/elements/1.1/"
-              xmlns:cc="http://creativecommons.org/ns#"
-              xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-              xmlns:svg="http://www.w3.org/2000/svg"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-              xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-              version="1.1"
-              x="0px"
-              y="0px"
-              viewBox="0 0 100 100"
-            >
-              <g transform="translate(0,-952.36218)">
-                <path
-                  style="
-                    text-indent: 0;
-                    text-transform: none;
-                    direction: ltr;
-                    block-progression: tb;
-                    baseline-shift: baseline;
-                    color: #000000;
-                    enable-background: accumulate;
-                  "
-                  d="m 50.000003,966.15342 8.59599,25.79072 a 1.999897,2.000113 0 0 0 1.90293,1.3782 l 27.461215,0 -22.342996,16.34066 a 1.999897,2.000113 0 0 0 -0.7218,2.2312 l 8.59599,26.6767 -22.310199,-16.3079 a 1.999897,2.000113 0 0 0 -2.362251,0 l -22.310199,16.3079 8.59599,-26.6767 a 1.999897,2.000113 0 0 0 -0.7218,-2.2312 l -22.34301,-16.34066 27.461229,0 a 1.999897,2.000113 0 0 0 1.90293,-1.3782 l 8.59598,-25.79072 z"
-                  fill-opacity="1"
-                  fill-rule="evenodd"
-                  stroke="none"
-                  marker="none"
-                  visibility="visible"
-                  display="inline"
-                  overflow="visible"
-                ></path>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15.726" height="15" viewBox="0 0 15.726 15">
+              <g id="filled_star" data-name="filled star" transform="translate(0 0)">
+                <path id="Path_1" data-name="Path 1" d="M19.9,966.153l1.781,5.342a.414.414,0,0,0,.394.285h5.688l-4.628,3.385a.414.414,0,0,0-.15.462l1.781,5.526-4.621-3.378a.414.414,0,0,0-.489,0l-4.621,3.378,1.781-5.526a.414.414,0,0,0-.15-.462l-4.628-3.385h5.688a.414.414,0,0,0,.394-.285l1.78-5.342Z" transform="translate(-12.04 -966.153)" fill="#fb8500" fill-rule="evenodd"/>
               </g>
             </svg>
+
             <!--TODO: add rating when this is in database-->
             <p>3/5</p>
           </div>
+
           <div class="info">
             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 14 14" >
               <g id="noun-coin-3324289" transform="translate(-230.91 -122.91)">
                 <path id="Path_9" data-name="Path 9" d="M13.91,6.91a7,7,0,1,0,7,7A7,7,0,0,0,13.91,6.91ZM14.4,16.957h-.067v.784a.418.418,0,0,1-.837,0v-.784h-.915a.418.418,0,1,1,0-.837H14.4a.9.9,0,0,0,0-1.791h-.971a1.733,1.733,0,0,1,0-3.465h.067v-.784a.418.418,0,0,1,.837,0v.784h.915a.418.418,0,1,1,0,.837H13.425a.9.9,0,1,0,0,1.791H14.4a1.733,1.733,0,1,1,0,3.465Z" transform="translate(224 116)" fill="#fb8500"/>
               </g>
             </svg>
-
             <p>{{ item.price }} kr/dag</p>
-          </div>
+          </div></div>
         </div>
         </div>
       </div>
     </div>
-  </div>
+
 </template>
 
 <script>
@@ -109,7 +81,7 @@ h4 {
 .itemCard {
   position: relative;
   display: grid;
-  grid-template-columns: 37% 63%;
+  grid-template-columns: 39.5% 60.5%;
   height: 108px;
   width: 100%;
   border: none;
@@ -146,5 +118,9 @@ img{
   display: grid;
   grid-template-columns: 30% 50%;
   margin-top: 10px;
+}
+h3{
+  font-size: 16px;
+  font-weight: 400;
 }
 </style>
