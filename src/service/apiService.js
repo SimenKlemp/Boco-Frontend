@@ -39,3 +39,17 @@ export async function doRegisterItem(itemRequest, token) {
       console.log(err);
     });
 }
+export async function doRentalRequest(registerRentalRequest, token) {
+  return axios
+    .post(`http://localhost:8080/api/rental/register`, registerRentalRequest, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
