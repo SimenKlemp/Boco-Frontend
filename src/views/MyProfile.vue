@@ -157,7 +157,13 @@
             />
           </g>
         </svg>
-        <div class="actionInfoText" id="extraPadding">Mine annonser</div>
+        <div
+          @click="goToPage('MyAds')"
+          class="actionInfoText"
+          id="extraPadding"
+        >
+          Mine annonser
+        </div>
         <svg
           class="sideIconRight"
           xmlns="http://www.w3.org/2000/svg"
@@ -218,7 +224,9 @@
             />
           </g>
         </svg>
-        <div class="actionInfoText">Mine leieforhold</div>
+        <div @click="goToPage('MyRentals')" class="actionInfoText">
+          Mine leieforhold
+        </div>
         <svg
           class="sideIconRight"
           xmlns="http://www.w3.org/2000/svg"
@@ -248,6 +256,11 @@ export default {
   computed: {
     user() {
       return this.$store.state.userInfo;
+    },
+  },
+  methods: {
+    goToPage(to) {
+      this.$router.push({ name: to });
     },
   },
 };
