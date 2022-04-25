@@ -53,7 +53,8 @@ export default {
 
 <style scoped>
 .container {
-  border: solid black 1px;
+  border: none;
+  background-color: #f4f4f4;
   border-radius: 15px;
   display: flex;
 }
@@ -67,9 +68,10 @@ export default {
   margin: 1rem 1rem 1rem 0;
 }
 .name {
-  font-size: 20px;
-  font-weight: bold;
-  margin: -0.3rem 0 0 0;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: left;
+  margin-left: 2px;
 }
 .verified {
   display: flex;

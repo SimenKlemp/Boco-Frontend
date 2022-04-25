@@ -1,12 +1,17 @@
 import { createStore } from "vuex";
 import { getFeedbacks, getItems } from "@/service/apiService";
+import { getItems, getMyItems, getMyRentals } from "@/service/apiService";
+import { updateItem } from "@/service/apiService";
 
 const getDefaultState = () => {
   return {
     token: null,
     currentItem: null,
     userInfo: {},
+    currentImageId: null,
     items: [],
+    myItems: [],
+    myRentals: [],
     feedbacks: [],
   };
 };
@@ -25,6 +30,9 @@ export default createStore({
     ADD_TOKEN(state, token) {
       state.token = token;
     },
+    SET_IMAGE_ID(state, currentImageId) {
+      state.currentImageId = currentImageId;
+    },
     SET_ITEMS(state, response) {
       state.items = response;
     },
@@ -33,6 +41,12 @@ export default createStore({
     },
     SET_FEEDBACKS(state, feedbacks) {
       state.feedbacks = feedbacks;
+    },
+    SET_MY_ITEMS(state, items) {
+      state.myItems = items;
+    },
+    SET_MY_RENTALS(state, rentals) {
+      state.myRentals = rentals;
     },
   },
   actions: {
@@ -44,6 +58,9 @@ export default createStore({
     },
     storeToken({ commit }, token) {
       commit("ADD_TOKEN", token);
+    },
+    setCurrentImageId({ commit }, currentImageId) {
+      commit("SET_IMAGE_ID", currentImageId);
     },
     getItems({ commit }) {
       getItems(this.state.token)
@@ -65,6 +82,23 @@ export default createStore({
         .catch((error) => {
           console.log(error);
         });
+    },
+    async fetchMyItems({ commit }) {
+      let items = await getMyItems(
+        this.state.userInfo.userId,
+        this.state.token
+      );
+      commit("SET_MY_ITEMS", items);
+    },
+    async fetchMyRentals({ commit }) {
+      let rentals = await getMyRentals(
+        this.state.userInfo.userId,
+        this.state.token
+      );
+      commit("SET_MY_RENTALS", rentals);
+    },
+    updateItem(item) {
+      updateItem(item, state.currentItem.itemId, state.token);
     },
   },
   modules: {},

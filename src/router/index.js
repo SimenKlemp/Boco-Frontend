@@ -7,6 +7,9 @@ import AddItemComponent from "@/components/AddItemComponent";
 import ProductDetails from "@/views/ProductDetails";
 import RequestComponent from "@/components/RequestComponent";
 import MyProfile from "@/views/MyProfile";
+import MyAds from "@/views/MyAds";
+import MyRentals from "@/views/MyRentals";
+import RentalsReceived from "@/views/RentalsReceived";
 import AddFeedbackWebPageComponent from "@/components/AddFeedbackWebPageComponent";
 import FeedbackView from "@/views/FeedbackView";
 
@@ -60,6 +63,21 @@ const routes = [
     path: "/get-feedbackWebPage",
     name: "FeedbackView",
     component: FeedbackView,
+  },
+  {
+    path: "/my-ads",
+    name: "MyAds",
+    component: MyAds,
+  },
+  {
+    path: "/my-rentals",
+    name: "MyRentals",
+    component: MyRentals,
+  },
+  {
+    path: "/rentals",
+    name: "RentalsReceived",
+    component: RentalsReceived,
   },
   {
     path: "/about",

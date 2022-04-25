@@ -1,7 +1,6 @@
 <template>
   <div class="mainContent">
-    <div class="welcomeMessage">Din side for å leie!</div>
-    <p>Tenk bærekraft! Lei istedenfor å kjøpe!</p>
+    <div class="welcomeMessage">Lei i stedet for å kjøpe!</div>
     <form class="form" @submit.prevent="submit">
       <BaseSearchBar :label="'Søk...'"></BaseSearchBar>
       <button class="searchButton">
@@ -19,7 +18,6 @@
         </svg>
       </button>
     </form>
-    <p>Bærekraft</p>
   </div>
 </template>
 
@@ -42,6 +40,7 @@ export default {
 <style scoped>
 h3 {
   margin: 40px 0 0;
+  font-size: 22px;
 }
 ul {
   list-style-type: none;
@@ -65,11 +64,13 @@ p {
   background-size: 750px;
   overflow: hidden;
   width: 100%;
-  border-bottom: solid 10px var(--indigo);
+  margin-bottom: 30px;
+  height: 500px;
 }
 .welcomeMessage {
   font-size: 40px;
-  padding: 40px 10px;
+  font-weight: 500;
+  padding: 40px 70px;
   margin: 5rem 0 2rem 0;
 }
 
@@ -81,7 +82,7 @@ p {
   grid-template-columns: 85% 15%;
   height: 4rem;
   width: 95%;
-  margin: 0 auto;
+  margin: 70px auto 0;
 }
 .searchButton {
   border: none;

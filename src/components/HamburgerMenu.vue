@@ -23,7 +23,7 @@
     <div class="hamburgerMeta">
       <div class="hamburgerActions">
         <div @click="emitRouteChange('HomeView')">Hjem</div>
-        <div @click="emitRouteChange('MyProfile')">Min profil</div>
+        <div @click="goMyProfile">Min profil</div>
         <div
           @click="emitRouteChange('AddItemComponent')"
           id="routerLink"
@@ -31,8 +31,12 @@
         >
           Lei ut
         </div>
-        <div v-if="isLoggedIn">Mine annonser</div>
-        <div v-if="isLoggedIn">Mine leieforhold</div>
+        <div @click="emitRouteChange('MyAds')" v-if="isLoggedIn">
+          Mine annonser
+        </div>
+        <div @click="emitRouteChange('MyRentals')" v-if="isLoggedIn">
+          Mine leieforhold
+        </div>
       </div>
       <div class="hamburgerSupport">
         <div>FAQ</div>
@@ -69,6 +73,7 @@ export default {
       } else {
         this.$router.push({ name: "LoginComponent" });
       }
+      this.$emit("routeChange");
     },
   },
   computed: {
