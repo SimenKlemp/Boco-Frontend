@@ -126,8 +126,8 @@ textarea {
   display: block;
   width: 100%;
 }
-header svg{
-fill: #034363;
+header svg {
+  fill: #034363;
 }
 .header {
   display: flex;
@@ -166,19 +166,18 @@ fill: #034363;
 h1 {
   font-size: 28px;
   font-weight: 500;
-  color:black;
+  color: black;
 }
 h2 {
   font-size: 24px;
-  color:black;
+  color: black;
   font-weight: 500;
 }
-textarea{
+textarea {
   max-width: 388px;
-  border:none;
+  border: none;
   background-color: #f4f4f4;
   padding-top: 10px;
   padding-left: 10px;
 }
-
 </style>

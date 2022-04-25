@@ -1,5 +1,4 @@
 <template>
-
   <label class="radio" :for="uuid" v-if="label">{{ label }}</label>
   <input
     type="radio"
@@ -38,12 +37,11 @@ export default {
 };
 </script>
 <style scoped>
-input{
+input {
   display: inline-block;
   max-width: 25px;
-  border:0;
+  border: 0;
   height: 20px;
   margin-left: 5px;
 }
-
 </style>

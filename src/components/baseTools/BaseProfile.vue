@@ -45,16 +45,16 @@ export default {
   props: {
     user: {
       type: Object,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>
 
 <style scoped>
 .container {
-  border:none;
-  background-color: #F4F4F4;
+  border: none;
+  background-color: #f4f4f4;
   border-radius: 15px;
   display: flex;
 }
