@@ -1,5 +1,11 @@
 import { createStore } from "vuex";
-import { doRegisterItem, getFeedbacks, getItems, getUsers, search } from "@/service/apiService";
+import {
+  doRegisterItem,
+  getFeedbacks,
+  getItems,
+  getUsers,
+  search,
+} from "@/service/apiService";
 import { getMyItems, getMyRentals } from "@/service/apiService";
 import { updateItem, deleteItem } from "@/service/apiService";
 
@@ -128,14 +134,13 @@ export default createStore({
     },
     getSearchedItems({ commit }, searchRequest) {
       search(searchRequest)
-          .then((response) => {
-            commit("SET_ITEMS", response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      },
-
+        .then((response) => {
+          commit("SET_ITEMS", response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   modules: {},
 });

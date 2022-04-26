@@ -47,6 +47,7 @@
     <div class="actions">
       <BaseCardHorizontal>
         <svg
+          v-if="!hasProfileImage"
           class="sideIcon"
           xmlns="http://www.w3.org/2000/svg"
           width="45"
@@ -60,6 +61,16 @@
             fill="#126782"
           />
         </svg>
+        <img
+          v-if="hasProfileImage"
+          class="actualProfileImage small"
+          :src="
+            'http://localhost:8085/api/image/' +
+            this.$store.state.userInfo.imageId
+          "
+          alt=""
+        />
+
         <div class="personalInfoContainer">
           <div class="emailContainer">
             <svg
@@ -362,6 +373,10 @@ export default {
   border-radius: 50%;
   width: 9rem;
   height: 9rem;
+}
+.small {
+  width: 4rem;
+  height: 4rem;
 }
 
 #extraPadding {

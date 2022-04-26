@@ -71,6 +71,7 @@
             v-model="oldPassword"
             placeholder="Gammelt passord"
             :errorMessage="v$.$errors[3]"
+            @click="editPassword"
           />
           <BaseErrorMessage v-if="v$.oldPassword.$error">{{
             v$.$errors[2].$message
@@ -82,6 +83,7 @@
             v-model="newPassword"
             placeholder="Nytt passord"
             :errorMessage="v$.$errors[4]"
+            v-if="passwordPressed"
           />
           <BaseErrorMessage v-if="v$.newPassword.$error">{{
             v$.$errors[3].$message
@@ -93,6 +95,7 @@
             v-model="repeatNewPassword"
             placeholder="Gjenta nytt passord"
             :errorMessage="v$.$errors[5]"
+            v-if="passwordPressed"
           />
           <BaseErrorMessage v-if="v$.repeatNewPassword.$error">{{
             v$.$errors[4].$message
@@ -206,17 +209,9 @@ export default {
         ),
       },
       newPassword: {
-        required: helpers.withMessage(
-          "Må skrive inn et nytt passord",
-          required
-        ),
         minLength: minLength(6),
       },
       repeatNewPassword: {
-        required: helpers.withMessage(
-          "Må skrive det nye passordet igjen",
-          required
-        ),
         sameAsPassword: sameAs(this.newPassword),
       },
       address: {
@@ -262,26 +257,47 @@ export default {
                   this.message = "Could not upload the image! " + err;
                   this.currentImage = undefined;
                 });
-              const editUserRequest = {
-                email: this.email,
-                imageId: this.$store.state.currentImageId,
-                isPerson: true,
-                name: this.name,
-                password: this.newPassword,
-                postOffice: this.city,
-                postalCode: this.postalcode,
-                streetAddress: this.address,
-              };
 
-              let response = await doEditUser(
-                editUserRequest,
-                this.$store.state.userInfo.userId,
-                this.$store.state.token
-              );
+              if (this.newPassword === "") {
+                const editUserRequest = {
+                  email: this.email,
+                  imageId: this.$store.state.currentImageId,
+                  isPerson: true,
+                  name: this.name,
+                  postOffice: this.city,
+                  postalCode: this.postalcode,
+                  streetAddress: this.address,
+                };
 
-              this.$store.dispatch("storeUser", response.data.userInfo);
+                let response = await doEditUser(
+                  editUserRequest,
+                  this.$store.state.userInfo.userId,
+                  this.$store.state.token
+                );
 
-              await this.$router.push({ name: "MyProfile" });
+                this.$store.dispatch("storeUser", response.data.userInfo);
+              } else {
+                const editUserRequest = {
+                  email: this.email,
+                  imageId: this.$store.state.currentImageId,
+                  isPerson: true,
+                  name: this.name,
+                  password: this.newPassword,
+                  postOffice: this.city,
+                  postalCode: this.postalcode,
+                  streetAddress: this.address,
+                };
+
+                let response = await doEditUser(
+                  editUserRequest,
+                  this.$store.state.userInfo.userId,
+                  this.$store.state.token
+                );
+
+                this.$store.dispatch("storeUser", response.data.userInfo);
+              }
+              this.$router.push({ name: "MyProfile" });
+              this.$emit("routeChange");
             }
           }
         );
