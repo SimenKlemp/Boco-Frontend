@@ -2,7 +2,7 @@
   <div class="mainContent">
     <div class="welcomeMessage">Lei i stedet for å kjøpe!</div>
     <form class="form" @submit.prevent="submit">
-      <BaseSearchBar :label="'Søk...'"></BaseSearchBar>
+      <BaseSearchBar :label="'Søk...'" v-model="searchSentence"></BaseSearchBar>
       <button class="searchButton">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -28,9 +28,21 @@ export default {
   components: {
     BaseSearchBar,
   },
+  data() {
+    return {
+      searchSentence: "",
+      page: 0,
+      pageSize: 30,
+    };
+  },
   methods: {
     submit() {
-      console.log("submitted");
+      const searchRequest = {
+        text: this.searchSentence,
+        page: this.page,
+        pageSize: this.pageSize,
+      };
+      this.$store.dispatch("getSearchedItems", searchRequest);
     },
   },
 };

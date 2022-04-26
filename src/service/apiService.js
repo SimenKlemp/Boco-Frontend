@@ -74,7 +74,7 @@ class UploadFilesService {
 
 export default new UploadFilesService();
 export function getItems() {
-  return axios.get("http://localhost:8085/api/item/all").then((response) => {
+  return axios.get("http://localhost:8085/api/item/all/0/25").then((response) => {
     return response.data;
   });
 }
@@ -192,4 +192,17 @@ export function updateRoleUsers(token, userId) {
             return response.data;
         });
 }
+
+
+export function search(searchRequest) {
+    return axios
+        .put("http://localhost:8085/api/item/search", searchRequest)
+        .then((response) => {
+            console.log(response.data);
+            return response.data;
+        });
+}
+
+
+
 
