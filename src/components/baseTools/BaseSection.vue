@@ -4,6 +4,7 @@
       <div class="title">{{ title }}</div>
       <svg
         class="dropdownIcon"
+        :class="{ dropDown: isDropped }"
         xmlns="http://www.w3.org/2000/svg"
         width="11.676"
         height="20"
@@ -45,6 +46,7 @@ export default {
   data() {
     return {
       dataItems: null,
+      isDropped: false,
     };
   },
   components: {
@@ -66,7 +68,9 @@ export default {
   },
   methods: {
     toggleItems() {
-      if (this.dataItems === null) {
+      this.isDropped = !this.isDropped;
+
+      if (this.isDropped) {
         if (this.items) {
           this.dataItems = this.items;
         } else {
@@ -85,7 +89,6 @@ export default {
       this.$router.push({ name: "RentalsReceived" });
     },
   },
-  computed: {},
 };
 </script>
 
@@ -107,5 +110,9 @@ export default {
   height: 1.5rem;
   width: 1rem;
   padding: 1rem;
+  transition: 0.1s ease-out;
+}
+.dropDown {
+  transform: rotate(90deg);
 }
 </style>

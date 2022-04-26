@@ -187,6 +187,42 @@ export function getRentalsForItem(itemId, token) {
     });
 }
 
+export function acceptRental(rentalId, token) {
+  return axios
+    .put("http://localhost:8085/api/rental/accept/" + rentalId, null, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+}
+
+export function rejectRental(rentalId, token) {
+  return axios
+    .put("http://localhost:8085/api/rental/reject/" + rentalId, null, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+}
+
+export function cancelRental(rentalId, token) {
+  return axios
+    .put("http://localhost:8085/api/rental/cancel/" + rentalId, null, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+}
+
 export function getUsers(token) {
   return axios
     .get("http://localhost:8085/api/user/getUsers", {
