@@ -126,8 +126,8 @@ h4 {
   width: 100%;
   border: none;
   border-radius: 15px;
-  margin-bottom: 2rem;
   box-shadow: 0 3px 10px #00000029;
+  padding-bottom: 4px;
 }
 .itemMeta {
   text-align: left;
@@ -136,6 +136,7 @@ h4 {
   padding-left: 1rem;
 }
 .imageContainer {
+  border-radius: 15px 0 0 15px;
 }
 img {
   max-width: 150px;
