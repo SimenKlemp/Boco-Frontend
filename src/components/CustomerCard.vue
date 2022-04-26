@@ -1,5 +1,5 @@
 <template>
-  <div class="customerContainer">
+  <div @click="toggleDropdown" class="customerContainer">
     <div class="profileContainer">
       <svg
         class="profileImage"
@@ -16,8 +16,8 @@
         />
       </svg>
       <div class="profileInfo">
-        <h3 class="name">Navn navnesen</h3>
-        <div class="email">navn.navnesen@gmail.com</div>
+        <h3 class="name">{{ rental.user.name }}</h3>
+        <div class="email">{{ rental.user.email }}</div>
       </div>
     </div>
     <div class="metaContainer">
@@ -60,12 +60,19 @@
       <div class="right">
         <div class="dateContainer" id="fromDate">
           <div class="dateText">Fra dato:</div>
-          <div class="date">21.04.22</div>
+          <div class="date">{{ rental.startDate.slice(0, 10) }}</div>
         </div>
         <div class="dateContainer">
           <div class="dateText">Til dato:</div>
-          <div class="date">23.04.22</div>
+          <div class="date">{{ rental.endDate.slice(0, 10) }}</div>
         </div>
+      </div>
+    </div>
+    <div v-if="dropDownClicked" class="dropDown">
+      <div class="dropDownText">{{ rental.message }}</div>
+      <div class="buttons">
+        <div id="acceptButton" class="button">BEKREFT</div>
+        <div class="button">AVVIS</div>
       </div>
     </div>
   </div>
@@ -74,6 +81,22 @@
 <script>
 export default {
   name: "CustomerCard",
+  data() {
+    return {
+      dropDownClicked: false,
+    };
+  },
+  props: {
+    rental: {
+      type: Object,
+      required: true,
+    },
+  },
+  methods: {
+    toggleDropdown() {
+      this.dropDownClicked = !this.dropDownClicked;
+    },
+  },
 };
 </script>
 
@@ -125,6 +148,29 @@ export default {
   margin-left: 1rem;
 }
 
+.dropDown {
+  margin: 1.5rem 0 1rem 0;
+}
+.dropDownText {
+  margin-bottom: 2rem;
+}
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0 0.5rem;
+}
+.button {
+  border-radius: 10px;
+  background: #e21313;
+  width: 7.5rem;
+  text-align: center;
+  color: white;
+  padding: 0.7rem 1rem;
+}
+
+#acceptButton {
+  background: #37b43f;
+}
 #fromDate {
   margin-bottom: 0.5rem;
 }

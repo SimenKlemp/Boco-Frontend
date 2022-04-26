@@ -7,7 +7,11 @@
     </div>
     <div class="customers">
       <h1 id="customersTitle">Mine kunder</h1>
-      <CustomerCard></CustomerCard>
+      <CustomerCard
+        :rental="rental"
+        v-for="rental in rentals"
+        :key="rental.rentalId"
+      ></CustomerCard>
     </div>
   </div>
 </template>
@@ -15,8 +19,15 @@
 <script>
 import CustomerCard from "@/components/CustomerCard";
 import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
+import { getRentalsForItem } from "@/service/apiService";
+
 export default {
   name: "RentalsReceived",
+  data() {
+    return {
+      rentals: null,
+    };
+  },
   components: {
     ItemCardHorizontal,
     CustomerCard,
@@ -25,6 +36,12 @@ export default {
     item() {
       return this.$store.state.currentItem;
     },
+  },
+  async mounted() {
+    this.rentals = await getRentalsForItem(
+      this.$store.state.currentItem.itemId,
+      this.$store.state.token
+    );
   },
 };
 </script>
