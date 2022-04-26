@@ -79,6 +79,38 @@ export function getItems() {
   });
 }
 
+export async function doRegisterFeedbackWebPage(feedbackRequest, token) {
+  return axios
+    .post(
+      "http://localhost:8085/api/feedbackWebPage/registerFeedback",
+      feedbackRequest,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export function getFeedbacks(token) {
+  return axios
+    .get("http://localhost:8085/api/feedbackWebPage/getFeedbacks", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    });
+}
+
 export function updateItem(item, itemId, token) {
   return axios
     .put("http://localhost:8085/api/item/update/" + itemId, item, {

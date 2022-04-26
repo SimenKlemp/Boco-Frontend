@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import { getFeedbacks, getItems } from "@/service/apiService";
 import { getItems, getMyItems, getMyRentals } from "@/service/apiService";
 import { updateItem } from "@/service/apiService";
 
@@ -11,6 +12,7 @@ const getDefaultState = () => {
     items: [],
     myItems: [],
     myRentals: [],
+    feedbacks: [],
   };
 };
 const state = getDefaultState();
@@ -36,6 +38,9 @@ export default createStore({
     },
     SET_ITEM(state, item) {
       state.currentItem = item;
+    },
+    SET_FEEDBACKS(state, feedbacks) {
+      state.feedbacks = feedbacks;
     },
     SET_MY_ITEMS(state, items) {
       state.myItems = items;
@@ -68,6 +73,15 @@ export default createStore({
     },
     setItem({ commit }, item) {
       commit("SET_ITEM", item);
+    },
+    getFeedbacks({ commit }) {
+      getFeedbacks(this.state.token)
+        .then((response) => {
+          commit("SET_FEEDBACKS", response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     async fetchMyItems({ commit }) {
       let items = await getMyItems(
