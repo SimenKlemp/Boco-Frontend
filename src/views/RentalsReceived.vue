@@ -12,6 +12,7 @@
         v-for="rental in rentals"
         :key="rental.rentalId"
         @rentalAction="updateRental"
+        @cardUpdate="updatePage"
       ></CustomerCard>
     </div>
   </div>
@@ -60,12 +61,16 @@ export default {
         console.log(rentalResponse.status);
       }
     },
+    async updatePage() {
+      this.rentals = await getRentalsForItem(
+        this.$store.state.currentItem.itemId,
+        this.$store.state.token
+      );
+      console.log("page updated");
+    },
   },
-  async mounted() {
-    this.rentals = await getRentalsForItem(
-      this.$store.state.currentItem.itemId,
-      this.$store.state.token
-    );
+  mounted() {
+    this.updatePage();
   },
 };
 </script>
