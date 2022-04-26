@@ -2,7 +2,7 @@
   <div @click="toggleDropdown" class="customerContainer">
     <div class="profileContainer">
       <svg
-        class="profileImage"
+         class="profileImage"
         xmlns="http://www.w3.org/2000/svg"
         width="45"
         height="45"

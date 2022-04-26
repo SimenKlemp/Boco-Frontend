@@ -215,7 +215,7 @@ export default {
           imageId: this.$store.state.currentImageId,
         };
         await this.$store.dispatch("updateItem", itemRequest);
-        await this.$router.push({ name: "HomeView" });
+        //await this.$router.push({ name: "HomeView" });
       }
     },
     async saveItem() {
