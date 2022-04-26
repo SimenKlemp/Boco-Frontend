@@ -37,6 +37,9 @@
         <div @click="emitRouteChange('MyRentals')" v-if="isLoggedIn">
           Mine leieforhold
         </div>
+        <div v-if="this.$store.state.userInfo.role === 'ADMIN'" @click="emitRouteChange('UserView')">
+          Se alle brukere
+        </div>
       </div>
       <div class="hamburgerSupport">
         <div>FAQ</div>

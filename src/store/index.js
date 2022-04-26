@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { getFeedbacks, getItems } from "@/service/apiService";
+import {getFeedbacks, getItems, getUsers} from "@/service/apiService";
 import { getMyItems, getMyRentals } from "@/service/apiService";
 import { updateItem } from "@/service/apiService";
 
@@ -13,6 +13,7 @@ const getDefaultState = () => {
     myItems: [],
     myRentals: [],
     feedbacks: [],
+    users: [],
   };
 };
 const state = getDefaultState();
@@ -47,6 +48,9 @@ export default createStore({
     },
     SET_MY_RENTALS(state, rentals) {
       state.myRentals = rentals;
+    },
+    SET_USERS(state, users) {
+      state.users = users;
     },
   },
   actions: {
@@ -100,6 +104,16 @@ export default createStore({
     updateItem(item) {
       updateItem(item, state.currentItem.itemId, state.token);
     },
+    getUsers({ commit }) {
+      getUsers(this.state.token)
+          .then((response) => {
+            commit("SET_USERS", response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
+
   },
   modules: {},
 });

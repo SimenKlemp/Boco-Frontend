@@ -1,7 +1,7 @@
 <template>
   <div class="feedbackCardContainer">
     <div class="feedbackCard">
-      <p>{{ feedback.user.userId }}</p>
+      <h3>{{ feedback.user.name }}</h3>
       <h4>{{ feedback.message }}</h4>
     </div>
   </div>
@@ -41,11 +41,13 @@ h4 {
   position: relative;
   display: grid;
   grid-template-rows: 128px 23px 50px;
-  width: 170px;
+  width: 100%;
   height: 200px;
   border: none;
   border-radius: 10px;
   margin-bottom: 2rem;
   box-shadow: 0 3px 6px #00000029;
+  margin: 0 auto;
+  padding-top: 2rem;
 }
 </style>
