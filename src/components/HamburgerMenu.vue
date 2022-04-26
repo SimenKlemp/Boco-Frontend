@@ -37,14 +37,27 @@
         <div @click="emitRouteChange('MyRentals')" v-if="isLoggedIn">
           Mine leieforhold
         </div>
-        <div v-if="this.$store.state.userInfo.role === 'ADMIN'" @click="emitRouteChange('UserView')">
+        <div
+          v-if="this.$store.state.userInfo.role === 'ADMIN'"
+          @click="emitRouteChange('UserView')"
+        >
           Se alle brukere
         </div>
       </div>
       <div class="hamburgerSupport">
         <div>FAQ</div>
-        <div v-if="this.$store.state.userInfo.role === 'USER'" @click="goSendFeedback"> Send tilbakemelding </div>
-        <div v-if="this.$store.state.userInfo.role === 'ADMIN'" @click="emitRouteChange('FeedbackView')">Se tilbakemeldinger</div>
+        <div
+          v-if="this.$store.state.userInfo.role === 'USER'"
+          @click="goSendFeedback"
+        >
+          Send tilbakemelding
+        </div>
+        <div
+          v-if="this.$store.state.userInfo.role === 'ADMIN'"
+          @click="emitRouteChange('FeedbackView')"
+        >
+          Se tilbakemeldinger
+        </div>
       </div>
       <div class="hamburgerLog">
         <div @click="logout" v-if="isLoggedIn">Logg ut</div>
@@ -57,13 +70,12 @@
 </template>
 
 <script>
-
 export default {
   name: "HamburgerMenu",
   methods: {
     emitRouteChange(to) {
-      if (to === 'AddItemComponent') {
-        console.log("set currentItem to null")
+      if (to === "AddItemComponent") {
+        console.log("set currentItem to null");
         this.$store.dispatch("setItem", "");
       }
       this.$router.push({ name: to });

@@ -1,11 +1,11 @@
 <template>
   <input
-      type="checkbox"
-      :checked="modelValue === value"
-      :value="value"
-      :id="uuid"
+    type="checkbox"
+    :checked="modelValue === value"
+    :value="value"
+    :id="uuid"
   />
-<!--  v-bind="$attrs"
+  <!--  v-bind="$attrs"
   @change="$emit('update:modelValue', value)"-->
   <label class="radio" :for="uuid" v-if="label">{{ label }}</label>
 </template>

@@ -1,17 +1,30 @@
 <template>
   <div class="questionContainer" @click="toggleAnswer">
     <div>
-      <h3>{{title}}</h3>
-      <div :class="{svg: disabled}" id="svgdiv">
-        <svg    xmlns="http://www.w3.org/2000/svg" width="13.056" height="22.364" viewBox="0 0 13.056 22.364">
-          <g id="noun-arrow-2284415" transform="translate(999.199 -22.219) rotate(90)">
-            <path id="Path_8" data-name="Path 8" d="M33.4,986.143l-1.119,1.069-10.063,9.66,2.239,2.327,8.943-8.591,8.943,8.591,2.239-2.327-10.063-9.66Z" transform="translate(0)"/>
+      <h3>{{ title }}</h3>
+      <div :class="{ svg: disabled }" id="svgdiv">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="13.056"
+          height="22.364"
+          viewBox="0 0 13.056 22.364"
+        >
+          <g
+            id="noun-arrow-2284415"
+            transform="translate(999.199 -22.219) rotate(90)"
+          >
+            <path
+              id="Path_8"
+              data-name="Path 8"
+              d="M33.4,986.143l-1.119,1.069-10.063,9.66,2.239,2.327,8.943-8.591,8.943,8.591,2.239-2.327-10.063-9.66Z"
+              transform="translate(0)"
+            />
           </g>
         </svg>
       </div>
     </div>
     <transition>
-      <p v-if="show">{{description}}</p>
+      <p v-if="show">{{ description }}</p>
     </transition>
   </div>
 </template>
@@ -19,52 +32,49 @@
 <script>
 export default {
   name: "baseQuestion",
-  data(){
-    return{
-      show:false,
-      disabled:false,
-    }
+  data() {
+    return {
+      show: false,
+      disabled: false,
+    };
   },
   methods: {
     toggleAnswer() {
-      this.disabled = !this.disabled
-      this.show=!this.show
-    }
-  },
-  props:{
-    title:{
-      type:String,
-      default:"",
+      this.disabled = !this.disabled;
+      this.show = !this.show;
     },
-    description:{
-      type:String,
-      default:"",
-    }
-
-  }
-}
+  },
+  props: {
+    title: {
+      type: String,
+      default: "",
+    },
+    description: {
+      type: String,
+      default: "",
+    },
+  },
+};
 </script>
 
 <style scoped>
-
-.questionContainer{
-  border-bottom:solid #707070 1px;
+.questionContainer {
+  border-bottom: solid #707070 1px;
 
   background-color: white;
-
 }
-p{
+p {
   background-color: white;
   padding-bottom: 20px;
 }
-h3{
+h3 {
   background-color: white;
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 18px;
 }
-transition{
+transition {
   background-color: white;
   overflow: hidden;
 }
@@ -73,29 +83,28 @@ transition{
   transition: all 1s ease-in-out;
   height: 100px;
   background-color: white;
-
 }
 
-.svg{
+.svg {
   width: 20px;
   display: inline-block;
   animation: spin forwards 1s;
-
 }
 @keyframes spin {
-  100%{ transform: rotate(90deg);
-  }}
+  100% {
+    transform: rotate(90deg);
+  }
+}
 
 .v-enter-from,
 .v-leave-to {
   background-color: white;
   height: 0;
 }
-#svgdiv{
+#svgdiv {
   width: 15px;
   display: inline-block;
   margin-left: 20px;
   margin-top: 10px;
 }
-
 </style>

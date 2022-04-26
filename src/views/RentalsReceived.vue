@@ -3,7 +3,10 @@
     <div class="infoContainer">
       <h1>Mottatte forespørsler</h1>
       <p>Forespurt gjenstand</p>
-      <ItemCardHorizontal :item="item" @click.stop="goToItem"></ItemCardHorizontal>
+      <ItemCardHorizontal
+        :item="item"
+        @click.stop="goToItem"
+      ></ItemCardHorizontal>
     </div>
     <div class="customers">
       <h1 id="customersTitle">Mine kunder</h1>
@@ -28,9 +31,9 @@ export default {
   },
   methods: {
     goToItem() {
-      this.$router.push({ name: "ProductDetails" })
-    }
-  }
+      this.$router.push({ name: "ProductDetails" });
+    },
+  },
 };
 </script>
 

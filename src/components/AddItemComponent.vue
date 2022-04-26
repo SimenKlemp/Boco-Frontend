@@ -1,7 +1,7 @@
 <template>
   <div id="RegContainer">
     <form @submit.prevent="submit">
-      <h1 v-if="newAd===true">Opprett annonse:</h1>
+      <h1 v-if="newAd === true">Opprett annonse:</h1>
       <h1 v-else>Rediger annonse:</h1>
 
       <BaseInput
@@ -80,9 +80,9 @@
           <h2 id="deliverTitle">Leveringsalternativer</h2>
           <div id="checkboxContainer">
             <BaseCheckboxGroup
-                v-model="deliveryOption"
-                name="deliveryOption"
-                :options="deliveryOptions"
+              v-model="deliveryOption"
+              name="deliveryOption"
+              :options="deliveryOptions"
             />
           </div>
         </div>
@@ -101,7 +101,12 @@
         }}</BaseErrorMessage>
       </div>
 
-      <BaseButton v-if="newAd===true" v-on:click="submit" id="publish" text="Publiser" />
+      <BaseButton
+        v-if="newAd === true"
+        v-on:click="submit"
+        id="publish"
+        text="Publiser"
+      />
       <div v-else>
         <BaseButton v-on:click="saveItem" id="save" text="Lagre endringer" />
         <BaseButton v-on:click="deleteItem" id="delete" text="Slett annonse" />
@@ -116,7 +121,6 @@ import BaseButton from "@/components/baseTools/BaseButton";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import useVuelidate from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
-import {doRegisterItem} from "@/service/apiService";
 import UploadImage from "@/components/UploadImage";
 import BaseCheckboxGroup from "@/components/baseTools/BaseCheckboxGroup";
 
@@ -149,8 +153,16 @@ export default {
       deliveryOption: 0,
       //TODO: fiks slik at deliveryoptions checker av boksene hvis true
       deliveryOptions: [
-        { label: "Hjemmelevering", value: 0, checked: this.$store.state.currentItem.isDeliverable },
-        { label: "Hente", value: 1, checked: this.$store.state.currentItem.isPickupable },
+        {
+          label: "Hjemmelevering",
+          value: 0,
+          checked: this.$store.state.currentItem.isDeliverable,
+        },
+        {
+          label: "Hente",
+          value: 1,
+          checked: this.$store.state.currentItem.isPickupable,
+        },
       ],
     };
   },
@@ -191,8 +203,8 @@ export default {
         const itemRequest = {
           category: this.category,
           description: this.description,
-          isPickupable: this.isPickupable,
           isDeliverable: this.isDeliverable,
+          isPickupable: this.isPickupable,
           postOffice: this.city,
           postalCode: this.postalcode,
           price: this.price,
@@ -202,7 +214,7 @@ export default {
           userId: this.$store.state.userInfo.userId,
           imageId: this.$store.state.currentImageId,
         };
-        await this.$store.dispatch('updateItem', itemRequest);
+        await this.$store.dispatch("updateItem", itemRequest);
         await this.$router.push({ name: "HomeView" });
       }
     },
@@ -222,20 +234,19 @@ export default {
           title: this.title,
           userId: this.$store.state.userInfo.userId,
         };
-        await this.$store.dispatch('updateItem', itemUpdated);
+        await this.$store.dispatch("updateItem", itemUpdated);
         await this.$router.push({ name: "ProductDetails" });
       }
     },
     async deleteItem() {
-      await this.$store.dispatch('deleteItem');
+      await this.$store.dispatch("deleteItem");
       await this.$router.push({ name: "MyAds" });
-
     },
     newAd() {
       //TODO: fiks slik at denne funksjonen funker
-      console.log("new add")
+      console.log("new add");
       return this.$store.state.currentItem === "";
-    }
+    },
   },
 };
 </script>

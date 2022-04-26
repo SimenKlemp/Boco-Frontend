@@ -142,9 +142,9 @@ export function updateItem(item, itemId, token) {
 export function deleteItem(itemId, token) {
   return axios
     .delete("http://localhost:8085/api/item/delete/" + itemId, {
-        headers: {
-            Authorization: "Bearer " + token,
-        },
+      headers: {
+        Authorization: "Bearer " + token,
+      },
     })
     .then((response) => {
       return response.data;
@@ -188,28 +188,27 @@ export function getRentalsForItem(itemId, token) {
 }
 
 export function getUsers(token) {
-    return axios
-        .get("http://localhost:8085/api/user/getUsers", {
-            headers: {
-                Authorization: "Bearer " + token,
-            },
-        })
-        .then((response) => {
-            console.log(response.data);
-            return response.data;
-        });
+  return axios
+    .get("http://localhost:8085/api/user/getUsers", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    });
 }
 
 export function updateRoleUsers(token, userId) {
-    return axios
-        .put("http://localhost:8085/api/user/updateUserAdmin/" + userId, null, {
-            headers: {
-                Authorization: "Bearer " + token,
-            },
-        })
-        .then((response) => {
-            console.log(response.data);
-            return response.data;
-        });
+  return axios
+    .put("http://localhost:8085/api/user/updateUserAdmin/" + userId, null, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    });
 }
-
