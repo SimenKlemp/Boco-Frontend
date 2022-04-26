@@ -2,6 +2,7 @@
   <div class="container">
     <div class="profileContainer">
       <svg
+        v-if="!hasProfileImage"
         class="image"
         xmlns="http://www.w3.org/2000/svg"
         width="45"
@@ -15,6 +16,16 @@
           fill="#126782"
         />
       </svg>
+      <img
+        v-if="hasProfileImage"
+        class="actualProfileImage"
+        :src="
+          'http://localhost:8085/api/image/' +
+          this.$store.state.userInfo.imageId
+        "
+        alt=""
+      />
+
       <h2 class="name">{{ user.name }}</h2>
       <div class="verified">
         <svg
@@ -95,6 +106,7 @@
           width="20.065"
           height="19.599"
           viewBox="0 0 20.065 19.599"
+          @click="goToPage('EditUserData')"
         >
           <path
             id="np_edit_4779758_000000"
@@ -257,6 +269,9 @@ export default {
     user() {
       return this.$store.state.userInfo;
     },
+    hasProfileImage() {
+      return this.$store.state.userInfo.imageId !== -1;
+    },
   },
   methods: {
     goToPage(to) {
@@ -342,6 +357,11 @@ export default {
 }
 .actionInfoText {
   padding: 2rem 6.2rem 2rem 0;
+}
+.actualProfileImage {
+  border-radius: 50%;
+  width: 9rem;
+  height: 9rem;
 }
 
 #extraPadding {

@@ -3,8 +3,8 @@
     <h1>Mine annonser</h1>
     <div class="actions">
       <BaseSection :title="'Annonser'" :items="items"></BaseSection>
-      <BaseSection :title="'Aktive leieforhold'"></BaseSection>
-      <BaseSection :title="'Arkiverte annonser'"></BaseSection>
+      <BaseSection :title="'Aktive leieforhold'" :items="items"></BaseSection>
+      <BaseSection :title="'Arkiverte annonser'" :items="items"></BaseSection>
     </div>
   </div>
 </template>

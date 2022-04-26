@@ -1,14 +1,20 @@
 <template>
   <div class="userCardContainer">
     <div class="userCard">
-      <h4>{{ user.name }} </h4>
+      <h4>{{ user.name }}</h4>
       <h4>{{ user.email }}</h4>
       <h4>{{ user.role }}</h4>
-      <div v-if="this.$store.state.userInfo.role === 'ADMIN'" class="queue-button">
-        <BaseButton @click.stop="updateRoleUser" id="updateRoleUser" text="Endre brukerdata" />
+      <div
+        v-if="this.$store.state.userInfo.role === 'ADMIN'"
+        class="queue-button"
+      >
+        <BaseButton
+          @click.stop="updateRoleUser"
+          id="updateRoleUser"
+          text="Endre brukerdata"
+        />
       </div>
     </div>
-
   </div>
 </template>
 
@@ -16,9 +22,8 @@
 import BaseButton from "@/components/baseTools/BaseButton";
 
 export default {
-
   name: "UserCard",
-  components: {BaseButton},
+  components: { BaseButton },
   props: {
     user: {
       type: Object,
@@ -59,7 +64,6 @@ h4 {
   height: 200px;
   border: none;
   border-radius: 10px;
-  margin-bottom: 2rem;
   box-shadow: 0 3px 6px #00000029;
   margin: 0 auto;
 }

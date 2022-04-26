@@ -1,12 +1,18 @@
 import { createStore } from "vuex";
+import {
+  doRegisterItem,
+  getFeedbacks,
+  getItems,
+  getUsers,
+} from "@/service/apiService";
 import { getFeedbacks, getItems, getUsers, search } from "@/service/apiService";
 import { getMyItems, getMyRentals } from "@/service/apiService";
-import { updateItem } from "@/service/apiService";
+import { updateItem, deleteItem } from "@/service/apiService";
 
 const getDefaultState = () => {
   return {
     token: null,
-    currentItem: null,
+    currentItem: "",
     userInfo: {},
     currentImageId: null,
     items: [],
@@ -66,8 +72,8 @@ export default createStore({
     setCurrentImageId({ commit }, currentImageId) {
       commit("SET_IMAGE_ID", currentImageId);
     },
-    getItems({ commit }) {
-      getItems(this.state.token)
+    getItems({ commit }, pageObject) {
+      getItems(pageObject.page, pageObject.pageSize)
         .then((response) => {
           commit("SET_ITEMS", response);
         })
@@ -101,17 +107,30 @@ export default createStore({
       );
       commit("SET_MY_RENTALS", rentals);
     },
-    updateItem(item) {
-      updateItem(item, state.currentItem.itemId, state.token);
+    async updateItem({ commit }, item) {
+      await updateItem(item, state.currentItem.itemId, this.state.token);
+      commit("SET_ITEM", item);
+    },
+    async deleteItem({ commit }) {
+      await deleteItem(state.currentItem.itemId, this.state.token);
+      commit("SET_ITEM", null);
+    },
+    async registerItem({ commit }, item) {
+      await doRegisterItem(
+        item,
+        state.currentItem.itemId,
+        this.$store.state.token
+      );
+      commit("SET_ITEM", item);
     },
     getUsers({ commit }) {
       getUsers(this.state.token)
-          .then((response) => {
-            commit("SET_USERS", response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        .then((response) => {
+          commit("SET_USERS", response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     getSearchedItems({ commit }, searchRequest) {
       search(searchRequest)

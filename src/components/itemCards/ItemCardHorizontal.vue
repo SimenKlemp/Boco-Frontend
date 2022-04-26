@@ -3,14 +3,11 @@
     <div class="itemCard">
       <div class="imageContainer">
         <img
-          v-if="item.imageId === -1"
+          v-if="item.imageId === -1 || item.imageId === null"
           :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')"
           alt="motorsag"
         />
-        <img
-          v-if="item.imageId !== -1"
-          :src="'http://localhost:8085/api/image/' + item.imageId"
-        />
+        <img v-else :src="'http://localhost:8085/api/image/' + item.imageId" />
       </div>
       <div class="itemMeta">
         <div class="itemInfo">

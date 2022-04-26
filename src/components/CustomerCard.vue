@@ -1,5 +1,5 @@
 <template>
-  <div class="customerContainer">
+  <div @click="toggleDropdown" class="customerContainer">
     <div class="profileContainer">
       <svg
         class="profileImage"
@@ -16,12 +16,7 @@
         />
       </svg>
       <div class="profileInfo">
-        <h3 class="name">Navn navnesen</h3>
-        <div class="email">navn.navnesen@gmail.com</div>
-      </div>
-    </div>
-    <div class="metaContainer">
-      <div class="left">
+        <h3 class="name">{{ rental.user.name }}</h3>
         <div class="verifiedContainer">
           <svg
             class="verifiedIcon"
@@ -37,6 +32,80 @@
             ></path>
           </svg>
           <div class="verifiedText">Verifisert</div>
+        </div>
+      </div>
+    </div>
+    <div class="metaContainer">
+      <div class="left">
+        <div class="statusContainer">
+          <svg
+            v-if="status === 'Aktiv'"
+            class="statusIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+          >
+            <g id="noun-timer-2095142" transform="translate(-12.47 -12.47)">
+              <path
+                id="Path_45"
+                data-name="Path 45"
+                d="M23.47,33.47a10,10,0,1,1,10-10,10,10,0,0,1-10,10Zm0-19.855a9.855,9.855,0,1,0,9.855,9.855A9.855,9.855,0,0,0,23.47,13.615Z"
+                transform="translate(0)"
+                fill="#034363"
+                stroke="#034363"
+                stroke-width="2"
+              />
+              <path
+                id="Path_46"
+                data-name="Path 46"
+                d="M27.539,27.537h0V19.07a8.525,8.525,0,0,0-2.19.287,8.492,8.492,0,0,0-5.99,5.99,8.508,8.508,0,0,0,0,4.38,8.492,8.492,0,0,0,5.99,5.99,8.508,8.508,0,0,0,4.38,0,8.511,8.511,0,0,0,5.141-3.947Z"
+                transform="translate(-4.069 -4.067)"
+                fill="#034363"
+              />
+            </g>
+          </svg>
+          <svg
+            v-if="status === 'Avventer'"
+            class="statusIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+          >
+            <g id="_05" data-name="05" transform="translate(-2 -2)">
+              <path
+                id="Path_43"
+                data-name="Path 43"
+                d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
+                fill="#fd9e02"
+              />
+              <path
+                id="Path_44"
+                data-name="Path 44"
+                d="M12,6a1,1,0,0,0-1,1v4.59l-2.71,2.7A1,1,0,1,0,9.7,15.7l3-3A1,1,0,0,0,13,12V7A1,1,0,0,0,12,6Z"
+                fill="#fd9e02"
+              />
+            </g>
+          </svg>
+          <svg
+            v-if="status === 'Akseptert'"
+            class="statusIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20.004"
+            viewBox="0 0 20 20.004"
+          >
+            <g id="noun-checkmark-2573373" transform="translate(-1.002 -0.999)">
+              <path
+                id="Path_42"
+                data-name="Path 42"
+                d="M18.072,18.076a10,10,0,1,0-14.14,0A10,10,0,0,0,18.072,18.076ZM6.183,11.212a.63.63,0,0,1,.888,0l2.038,2.032L14.934,7.43a.636.636,0,0,1,.888.006.623.623,0,0,1,0,.881L9.546,14.569a.6.6,0,0,1-.438.181.614.614,0,0,1-.444-.181L6.183,12.1A.63.63,0,0,1,6.183,11.212Z"
+                fill="#37b43f"
+              />
+            </g>
+          </svg>
+          <div class="status">{{ status }}</div>
         </div>
         <div class="pickupContainer">
           <svg
@@ -60,13 +129,29 @@
       <div class="right">
         <div class="dateContainer" id="fromDate">
           <div class="dateText">Fra dato:</div>
-          <div class="date">21.04.22</div>
+          <div class="date">{{ rental.startDate.slice(0, 10) }}</div>
         </div>
         <div class="dateContainer">
           <div class="dateText">Til dato:</div>
-          <div class="date">23.04.22</div>
+          <div class="date">{{ rental.endDate.slice(0, 10) }}</div>
         </div>
       </div>
+    </div>
+    <div v-if="dropDownClicked && !isAccepted" class="dropDown">
+      <div class="dropDownText">{{ rental.message }}</div>
+      <div class="buttons">
+        <div
+          @click.stop="emitRentalAction('Accept')"
+          id="acceptButton"
+          class="button"
+        >
+          BEKREFT
+        </div>
+        <div @click.stop="emitRentalAction('Reject')" class="button">AVVIS</div>
+      </div>
+    </div>
+    <div v-if="dropDownClicked && isAccepted" class="alternateDropDown">
+      <div class="button" id="cancelButton">Kanseller</div>
     </div>
   </div>
 </template>
@@ -74,6 +159,48 @@
 <script>
 export default {
   name: "CustomerCard",
+  data() {
+    return {
+      dropDownClicked: false,
+    };
+  },
+  props: {
+    rental: {
+      type: Object,
+      required: true,
+    },
+  },
+  methods: {
+    toggleDropdown() {
+      this.dropDownClicked = !this.dropDownClicked;
+      this.$emit("cardUpdate");
+    },
+    emitRentalAction(type) {
+      this.$emit("rentalAction", this.rental, type);
+      this.toggleDropdown();
+    },
+  },
+  computed: {
+    isAccepted() {
+      return (
+        this.rental.status === "ACTIVE" || this.rental.status === "ACCEPTED"
+      );
+    },
+    status() {
+      switch (this.rental.status) {
+        case "ACCEPTED":
+          return "Akseptert";
+        case "ACTIVE":
+          return "Aktiv";
+        case "PENDING":
+          return "Avventer";
+        case "REJECTED":
+          return "Avvist";
+        default:
+          return "Default";
+      }
+    },
+  },
 };
 </script>
 
@@ -83,6 +210,7 @@ export default {
   border-radius: 20px;
   box-shadow: 0 3px 6px #00000029;
   padding: 1rem;
+  margin-bottom: 2rem;
 }
 .profileContainer {
   display: flex;
@@ -99,20 +227,26 @@ export default {
 }
 .verifiedContainer {
   display: flex;
-  margin-bottom: 0.5rem;
 }
 .verifiedIcon {
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 1.1rem;
+  height: 1.1rem;
   fill: #8ecae6;
   margin-right: 0.5rem;
 }
 .pickupContainer {
   display: flex;
 }
+.statusContainer {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+.statusIcon {
+  margin-right: 0.455rem;
+}
 .positionMarker {
-  height: 1.2rem;
-  width: 1.2rem;
+  height: 1.3rem;
+  width: 1.3rem;
   fill: #fb8500;
   margin-right: 0.5rem;
 }
@@ -125,7 +259,37 @@ export default {
   margin-left: 1rem;
 }
 
+.dropDown {
+  margin: 1.5rem 0 1rem 0;
+}
+.dropDownText {
+  margin-bottom: 2rem;
+}
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0 0.5rem;
+}
+.button {
+  border-radius: 10px;
+  background: #e21313;
+  width: 7.5rem;
+  text-align: center;
+  color: white;
+  padding: 0.7rem 1rem;
+}
+
+.alternateDropDown {
+  margin: 2rem 0 1rem 0;
+}
+
+#acceptButton {
+  background: #37b43f;
+}
 #fromDate {
   margin-bottom: 0.5rem;
+}
+#cancelButton {
+  margin: 0 auto;
 }
 </style>
