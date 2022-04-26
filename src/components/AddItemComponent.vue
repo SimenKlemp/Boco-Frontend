@@ -1,7 +1,8 @@
 <template>
   <div id="RegContainer">
     <form @submit.prevent="submit">
-      <h1>Opprett annonse:</h1>
+      <h1 v-if="newAd===true">Opprett annonse:</h1>
+      <h1 v-else>Rediger annonse:</h1>
 
       <BaseInput
         id="title"
@@ -90,7 +91,11 @@
         }}</BaseErrorMessage>
       </div>
 
-      <BaseButton v-on:click="submit" id="publish" text="Publiser" />
+      <BaseButton v-if="newAd===true" v-on:click="submit" id="publish" text="Publiser" />
+      <div v-else>
+        <BaseButton v-on:click="saveItem" id="save" text="Lagre endringer" />
+        <BaseButton v-on:click="deleteItem" id="delete" text="Slett annonse" />
+      </div>
     </form>
   </div>
 </template>
@@ -101,7 +106,7 @@ import BaseButton from "@/components/baseTools/BaseButton";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import useVuelidate from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
-import { doRegisterItem } from "@/service/apiService";
+import {doRegisterItem} from "@/service/apiService";
 import UploadImage from "@/components/UploadImage";
 
 export default {
@@ -119,13 +124,13 @@ export default {
   },
   data() {
     return {
-      title: "",
-      category: "",
-      description: "",
-      address: "",
-      postalcode: "",
-      city: "",
-      price: "",
+      title: this.$store.state.currentItem.title,
+      category: this.$store.state.currentItem.category,
+      description: this.$store.state.currentItem.description,
+      address: this.$store.state.currentItem.streetAddress,
+      postalcode: this.$store.state.currentItem.postalCode,
+      city: this.$store.state.currentItem.postOffice,
+      price: this.$store.state.currentItem.price,
     };
   },
   validations() {
@@ -173,12 +178,34 @@ export default {
           userId: this.$store.state.userInfo.userId,
           imageId: this.$store.state.currentImageId,
         };
-
-        let itemResponse = doRegisterItem(itemRequest, this.$store.state.token);
-        console.log(itemResponse.status);
+        await this.$store.dispatch('updateItem', itemRequest);
         await this.$router.push({ name: "HomeView" });
       }
     },
+    async saveItem() {
+      if (!this.v$.$error) {
+        const itemUpdated = {
+          category: this.category,
+          description: this.description,
+          postOffice: this.city,
+          postalCode: this.postalcode,
+          price: this.price,
+          streetAddress: this.address,
+          title: this.title,
+          userId: this.$store.state.userInfo.userId,
+        };
+        await this.$store.dispatch('updateItem', itemUpdated);
+        await this.$router.push({ name: "ProductDetails" });
+      }
+    },
+    async deleteItem() {
+      await this.$store.dispatch('deleteItem');
+      await this.$router.push({ name: "HomeView" });
+
+    },
+    newAd() {
+      return this.$store.state.currentItem === "";
+    }
   },
 };
 </script>

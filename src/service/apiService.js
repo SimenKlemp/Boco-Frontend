@@ -123,9 +123,9 @@ export function updateItem(item, itemId, token) {
     });
 }
 
-export function deleteItem(item) {
+export function deleteItem(itemId) {
   return axios
-    .delete("http://localhost:8085/api/item/delete/" + item.itemId)
+    .delete("http://localhost:8085/api/item/delete/" + itemId)
     .then((response) => {
       return response.data;
     });
