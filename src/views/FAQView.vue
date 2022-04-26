@@ -70,4 +70,7 @@ h1{
   border-bottom: 1px solid #707070;
   padding-bottom: 10px;
 }
+.questionContainer{
+  background-color: white;
+}
 </style>
