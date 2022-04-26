@@ -171,7 +171,7 @@ export default {
     },
     async goToEditAd() {
       await this.$router.push({ name: "AddItemComponent" });
-    }
+    },
   },
 };
 </script>

@@ -1,19 +1,19 @@
 <template>
   <component
-      v-for="option in options"
-      :key="option.value"
-      :is="vertical ? 'div' : 'span'"
-      :class="{
+    v-for="option in options"
+    :key="option.value"
+    :is="vertical ? 'div' : 'span'"
+    :class="{
       horizontal: !vertical,
     }"
   >
     <!--TODO: fix checkbox to be able to check more than one box-->
     <BaseCheckbox
-        :label="option.label"
-        :checked="option.checked"
-        :modelValue="modelValue"
-        :name="name"
-        @update:modelValue="$emit('update:modelValue', $event)"
+      :label="option.label"
+      :checked="option.checked"
+      :modelValue="modelValue"
+      :name="name"
+      @update:modelValue="$emit('update:modelValue', $event)"
     />
   </component>
 </template>
@@ -22,7 +22,7 @@
 import BaseCheckbox from "@/components/baseTools/BaseCheckbox";
 
 export default {
-  components: {BaseCheckbox },
+  components: { BaseCheckbox },
   props: {
     options: {
       type: Array,

@@ -37,7 +37,10 @@
         <div @click="emitRouteChange('MyRentals')" v-if="isLoggedIn">
           Mine leieforhold
         </div>
-        <div v-if="this.$store.state.userInfo.role === 'ADMIN'" @click="emitRouteChange('UserView')">
+        <div
+          v-if="this.$store.state.userInfo.role === 'ADMIN'"
+          @click="emitRouteChange('UserView')"
+        >
           Se alle brukere
         </div>
       </div>
@@ -67,13 +70,12 @@
 </template>
 
 <script>
-
 export default {
   name: "HamburgerMenu",
   methods: {
     emitRouteChange(to) {
-      if (to === 'AddItemComponent') {
-        console.log("set currentItem to null")
+      if (to === "AddItemComponent") {
+        console.log("set currentItem to null");
         this.$store.dispatch("setItem", "");
       }
       this.$router.push({ name: to });

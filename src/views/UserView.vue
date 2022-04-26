@@ -1,10 +1,10 @@
 <template>
   <div class="feedbacks">
     <UserCard
-        v-for="user in users"
-        :key="user.userId"
-        :user="user"
-        @updateRoleUser = updateRoleUser
+      v-for="user in users"
+      :key="user.userId"
+      :user="user"
+      @updateRoleUser="updateRoleUser"
     ></UserCard>
   </div>
 </template>
@@ -24,10 +24,9 @@ export default {
     },
   },
   methods: {
-    async updateRoleUser(userId){
-
+    async updateRoleUser(userId) {
       await updateRoleUsers(this.$store.state.token, userId);
-    }
+    },
   },
   created() {
     this.$store.dispatch("getUsers");
