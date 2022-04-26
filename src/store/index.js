@@ -1,11 +1,5 @@
 import { createStore } from "vuex";
-import {
-  doRegisterItem,
-  getFeedbacks,
-  getItems,
-  getUsers,
-} from "@/service/apiService";
-import { getFeedbacks, getItems, getUsers, search } from "@/service/apiService";
+import { doRegisterItem, getFeedbacks, getItems, getUsers, search } from "@/service/apiService";
 import { getMyItems, getMyRentals } from "@/service/apiService";
 import { updateItem, deleteItem } from "@/service/apiService";
 
