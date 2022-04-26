@@ -12,6 +12,7 @@ import MyRentals from "@/views/MyRentals";
 import RentalsReceived from "@/views/RentalsReceived";
 import AddFeedbackWebPageComponent from "@/components/AddFeedbackWebPageComponent";
 import FeedbackView from "@/views/FeedbackView";
+import UserView from "@/views/UserView";
 
 const routes = [
   {
@@ -78,6 +79,11 @@ const routes = [
     path: "/rentals",
     name: "RentalsReceived",
     component: RentalsReceived,
+  },
+  {
+    path: "/users",
+    name: "UserView",
+    component: UserView,
   },
   {
     path: "/about",

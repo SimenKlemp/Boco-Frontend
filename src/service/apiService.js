@@ -166,3 +166,30 @@ export function getRentalsForItem(itemId, token) {
       return response.data;
     });
 }
+
+export function getUsers(token) {
+    return axios
+        .get("http://localhost:8085/api/user/getUsers", {
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        })
+        .then((response) => {
+            console.log(response.data);
+            return response.data;
+        });
+}
+
+export function updateRoleUsers(token, userId) {
+    return axios
+        .put("http://localhost:8085/api/user/updateUserAdmin/" + userId, null, {
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        })
+        .then((response) => {
+            console.log(response.data);
+            return response.data;
+        });
+}
+
