@@ -18,7 +18,7 @@
       </svg>
       <img
         v-if="hasProfileImage"
-        class="preview my-3 actualProfileImage"
+        class="actualProfileImage"
         :src="
           'http://localhost:8085/api/image/' +
           this.$store.state.userInfo.imageId
@@ -357,6 +357,11 @@ export default {
 }
 .actionInfoText {
   padding: 2rem 6.2rem 2rem 0;
+}
+.actualProfileImage {
+  border-radius: 50%;
+  width: 9rem;
+  height: 9rem;
 }
 
 #extraPadding {

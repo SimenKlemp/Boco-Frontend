@@ -3,6 +3,15 @@
     <form @submit.prevent="submit">
       <div class="addImageContainer">
         <img
+          v-if="hasProfileImage && !previewImage"
+          class="actualProfileImage"
+          :src="
+            'http://localhost:8085/api/image/' +
+            this.$store.state.userInfo.imageId
+          "
+          alt=""
+        />
+        <img
           v-if="previewImage"
           class="preview my-3 actualProfileImage"
           :src="previewImage"
@@ -10,7 +19,7 @@
         />
 
         <img
-          v-if="!previewImage"
+          v-if="!previewImage && !hasProfileImage"
           id="nounprofile"
           :src="require('../assets/noun-profile-1995071.svg')"
           alt=""
@@ -56,50 +65,37 @@
         <div class="password">
           <label>Password</label>
           <BaseInput
-            id="password"
-            class="mb-4"
-            type="password"
-            v-model="password"
-            v-if="!passwordPressed"
-            placeholder="password"
-            :errorMessage="v$.$errors[3]"
-            @click="editPassword"
-          />
-          <BaseInput
             id="oldPassword"
             class="mb-4"
             type="password"
             v-model="oldPassword"
-            v-if="passwordPressed"
             placeholder="Gammelt passord"
             :errorMessage="v$.$errors[3]"
           />
           <BaseErrorMessage v-if="v$.oldPassword.$error">{{
-            v$.$errors[6].$message
+            v$.$errors[2].$message
           }}</BaseErrorMessage>
           <BaseInput
             id="newPassword"
             class="mb-4"
             type="password"
             v-model="newPassword"
-            v-if="passwordPressed"
             placeholder="Nytt passord"
-            :errorMessage="v$.$errors[3]"
+            :errorMessage="v$.$errors[4]"
           />
           <BaseErrorMessage v-if="v$.newPassword.$error">{{
-            v$.$errors[7].$message
+            v$.$errors[3].$message
           }}</BaseErrorMessage>
           <BaseInput
             id="repeatNewPassword"
             class="mb-4"
             type="password"
             v-model="repeatNewPassword"
-            v-if="passwordPressed"
             placeholder="Gjenta nytt passord"
-            :errorMessage="v$.$errors[3]"
+            :errorMessage="v$.$errors[5]"
           />
           <BaseErrorMessage v-if="v$.repeatNewPassword.$error">{{
-            v$.$errors[8].$message
+            v$.$errors[4].$message
           }}</BaseErrorMessage>
         </div>
 
@@ -113,7 +109,7 @@
           placeholder="Gateadresse"
         />
         <BaseErrorMessage v-if="v$.address.$error">{{
-          v$.$errors[3].$message
+          v$.$errors[5].$message
         }}</BaseErrorMessage>
         <label>Postnummer</label>
         <BaseInput
@@ -124,7 +120,7 @@
           placeholder="Postkode"
         />
         <BaseErrorMessage v-if="v$.postalcode.$error">{{
-          v$.$errors[4].$message
+          v$.$errors[6].$message
         }}</BaseErrorMessage>
         <label>Poststed</label>
         <BaseInput
@@ -135,15 +131,15 @@
           placeholder="Poststed"
         />
         <BaseErrorMessage v-if="v$.city.$error">{{
-          v$.$errors[5].$message
+          v$.$errors[7].$message
         }}</BaseErrorMessage>
-
-        <BaseButton
-          v-on:click="submit"
-          text="Lagre endringer"
-          id="registerButton"
-        />
       </div>
+      <BaseButton
+        @click="submit"
+        text="Lagre endringer"
+        id="registerButton"
+        :disabled="isError"
+      />
     </form>
   </div>
 </template>
@@ -157,8 +153,8 @@ import {
   email,
   required,
   helpers,
-  minLength,
   sameAs,
+  minLength,
 } from "@vuelidate/validators";
 import UploadService, { doEditUser, doLogin } from "@/service/apiService";
 export default {
@@ -203,6 +199,26 @@ export default {
         required: helpers.withMessage("Email er påkrevd", required),
         email,
       },
+      oldPassword: {
+        required: helpers.withMessage(
+          "Må skrive inn gammelt passord",
+          required
+        ),
+      },
+      newPassword: {
+        required: helpers.withMessage(
+          "Må skrive inn et nytt passord",
+          required
+        ),
+        minLength: minLength(6),
+      },
+      repeatNewPassword: {
+        required: helpers.withMessage(
+          "Må skrive det nye passordet igjen",
+          required
+        ),
+        sameAsPassword: sameAs(this.newPassword),
+      },
       address: {
         required: helpers.withMessage("Adresse er påkrevd", required),
       },
@@ -212,65 +228,63 @@ export default {
       city: {
         required: helpers.withMessage("By er påkrevd", required),
       },
-      oldPassword: {
-        required: helpers.withMessage(
-          "Må skrive inn gammelt passord",
-          required
-        ),
-      },
-      newPassword: {
-        required: helpers.withMessage("Må skrive inn nytt passord", required),
-        minLength: minLength(6),
-      },
-      repeatNewPassword: {
-        required: helpers.withMessage("Må gjenta passord!", required),
-        minLength: minLength(6),
-        sameAsPassword: sameAs(this.newPassword),
-      },
     };
+  },
+  computed: {
+    hasProfileImage() {
+      return this.$store.state.userInfo.imageId !== -1;
+    },
+    isError() {
+      if (this.v$.$error) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   methods: {
     async submit() {
       this.v$.$validate();
       console.log(this.v$);
       if (!this.v$.$error) {
-        let loginResponse = await doLogin(
-          this.$store.state.userInfo.email,
-          this.oldPassword
-        );
+        await doLogin(this.$store.state.userInfo.email, this.oldPassword).then(
+          async (loginResponse) => {
+            if (loginResponse.status === 200) {
+              await UploadService.upload(
+                this.currentImage,
+                this.$store.state.token
+              )
+                .then((response) => {
+                  this.$store.dispatch("setCurrentImageId", response.data);
+                })
+                .catch((err) => {
+                  this.progress = 0;
+                  this.message = "Could not upload the image! " + err;
+                  this.currentImage = undefined;
+                });
+              const editUserRequest = {
+                email: this.email,
+                imageId: this.$store.state.currentImageId,
+                isPerson: true,
+                name: this.name,
+                password: this.newPassword,
+                postOffice: this.city,
+                postalCode: this.postalcode,
+                streetAddress: this.address,
+              };
 
-        if (loginResponse.status === 200) {
-          UploadService.upload(this.currentImage, this.$store.state.token)
-            .then((response) => {
-              this.$store.dispatch("setCurrentImageId", response.data);
-            })
-            .catch((err) => {
-              this.progress = 0;
-              this.message = "Could not upload the image! " + err;
-              this.currentImage = undefined;
-            });
-          const editUserRequest = {
-            email: this.email,
-            imageId: this.$store.state.currentImageId,
-            isPerson: true,
-            name: this.name,
-            password: this.newPassword,
-            postOffice: this.city,
-            postalCode: this.postalcode,
-            streetAddress: this.address,
-          };
-          let response = await doEditUser(
-            editUserRequest,
-            this.$store.state.userInfo.userId,
-            this.$store.state.token
-          );
+              let response = await doEditUser(
+                editUserRequest,
+                this.$store.state.userInfo.userId,
+                this.$store.state.token
+              );
 
-          if (response.status === 200) {
-            this.$store.dispatch("storeUser", response.data.userInfo);
+              this.$store.dispatch("storeUser", response.data.userInfo);
 
-            await this.$router.push({ name: "MyProfile" });
+              await this.$router.push({ name: "MyProfile" });
+            }
           }
-        }
+        );
       } else {
         alert("Alle felter må være riktig utfylt");
       }

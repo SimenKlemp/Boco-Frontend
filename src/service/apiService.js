@@ -33,6 +33,7 @@ export async function doEditUser(editUserRequest, userId, token) {
       },
     })
     .then((response) => {
+      console.log(response);
       return response;
     })
     .catch((err) => {

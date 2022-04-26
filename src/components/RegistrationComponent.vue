@@ -77,9 +77,10 @@
       }}</BaseErrorMessage>
 
       <BaseButton
-        v-on:click="submit"
+        @click="submit"
         text="Registrer deg"
         id="registerButton"
+        :disabled="isError"
       />
     </form>
   </div>
@@ -137,6 +138,15 @@ export default {
         required: helpers.withMessage("By er påkrevd", required),
       },
     };
+  },
+  computed: {
+    isError() {
+      if (this.v$.$error) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   methods: {
     async submit() {
