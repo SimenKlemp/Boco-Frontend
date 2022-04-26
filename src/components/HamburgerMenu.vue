@@ -8,7 +8,7 @@
           width="45"
           height="45"
           viewBox="0 0 45 45"
-          v-if="isLoggedIn"
+          v-if="isLoggedIn && !hasProfileImage"
         >
           <path
             id="noun-profile-1995071"
@@ -17,6 +17,15 @@
             fill="#fff"
           />
         </svg>
+        <img
+          v-if="isLoggedIn && hasProfileImage"
+          class="actualProfileImage"
+          :src="
+            'http://localhost:8085/api/image/' +
+            this.$store.state.userInfo.imageId
+          "
+          alt=""
+        />
         <p class="name">{{ this.$store.state.userInfo.name }}</p>
       </div>
     </div>
@@ -106,6 +115,9 @@ export default {
     isLoggedIn() {
       return this.$store.state.token !== null;
     },
+    hasProfileImage() {
+      return this.$store.state.userInfo.imageId !== -1;
+    },
   },
 };
 </script>
@@ -155,6 +167,11 @@ export default {
   border-bottom: solid black 1px;
 }
 .hamburgerLog {
+}
+.actualProfileImage {
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
 }
 
 #routerLink {
