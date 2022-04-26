@@ -232,6 +232,8 @@ export default {
 
     },
     newAd() {
+      //TODO: fiks slik at denne funksjonen funker
+      console.log("new add")
       return this.$store.state.currentItem === "";
     }
   },
