@@ -1,7 +1,7 @@
 <template>
   <div class="hamburgerContainer">
     <div class="profile">
-      <div class="profileContainer">
+      <div @click="goMyProfile" class="profileContainer">
         <svg
           class="profileImage"
           xmlns="http://www.w3.org/2000/svg"
@@ -40,8 +40,18 @@
       </div>
       <div class="hamburgerSupport">
         <div>FAQ</div>
-        <div v-if="this.$store.state.userInfo.role === 'USER'" @click="goSendFeedback"> Send tilbakemelding </div>
-        <div v-if="this.$store.state.userInfo.role === 'ADMIN'" @click="emitRouteChange('FeedbackView')">Se tilbakemeldinger</div>
+        <div
+          v-if="this.$store.state.userInfo.role === 'USER'"
+          @click="goSendFeedback"
+        >
+          Send tilbakemelding
+        </div>
+        <div
+          v-if="this.$store.state.userInfo.role === 'ADMIN'"
+          @click="emitRouteChange('FeedbackView')"
+        >
+          Se tilbakemeldinger
+        </div>
       </div>
       <div class="hamburgerLog">
         <div @click="logout" v-if="isLoggedIn">Logg ut</div>
