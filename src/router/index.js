@@ -13,6 +13,8 @@ import RentalsReceived from "@/views/RentalsReceived";
 import AddFeedbackWebPageComponent from "@/components/AddFeedbackWebPageComponent";
 import FeedbackView from "@/views/FeedbackView";
 import EditUserData from "@/components/EditUserData";
+import UserView from "@/views/UserView";
+import FAQView from "@/views/FAQView";
 
 const routes = [
   {
@@ -79,6 +81,16 @@ const routes = [
     path: "/rentals",
     name: "RentalsReceived",
     component: RentalsReceived,
+  },
+  {
+    path: "/users",
+    name: "UserView",
+    component: UserView,
+  },
+  {
+    path: "/faq",
+    name: "faq",
+    component: FAQView,
   },
   {
     path: "/edit-userdata",

@@ -73,6 +73,10 @@ export default {
             this.$router.push({ name: "HomeView" });
             break;
 
+          case "ADMIN":
+            this.$router.push({ name: "HomeView" });
+            break;
+
           default:
             alert("Something went wrong with the authentication!");
         }

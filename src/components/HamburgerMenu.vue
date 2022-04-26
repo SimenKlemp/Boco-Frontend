@@ -37,13 +37,14 @@
         <div @click="emitRouteChange('MyRentals')" v-if="isLoggedIn">
           Mine leieforhold
         </div>
+        <div v-if="this.$store.state.userInfo.role === 'ADMIN'" @click="emitRouteChange('UserView')">
+          Se alle brukere
+        </div>
       </div>
       <div class="hamburgerSupport">
         <div>FAQ</div>
-        <div @click="emitRouteChange('AddFeedbackWebPageComponent')">
-          Send tilbakemelding
-        </div>
-        <div @click="emitRouteChange('FeedbackView')">Se tilbakemeldinger</div>
+        <div v-if="this.$store.state.userInfo.role === 'USER'" @click="goSendFeedback"> Send tilbakemelding </div>
+        <div v-if="this.$store.state.userInfo.role === 'ADMIN'" @click="emitRouteChange('FeedbackView')">Se tilbakemeldinger</div>
       </div>
       <div class="hamburgerLog">
         <div @click="logout" v-if="isLoggedIn">Logg ut</div>
@@ -56,10 +57,15 @@
 </template>
 
 <script>
+
 export default {
   name: "HamburgerMenu",
   methods: {
     emitRouteChange(to) {
+      if (to === 'AddItemComponent') {
+        console.log("set currentItem to null")
+        this.$store.dispatch("setItem", "");
+      }
       this.$router.push({ name: to });
       this.$emit("routeChange");
     },
@@ -70,6 +76,14 @@ export default {
     goMyProfile() {
       if (this.isLoggedIn) {
         this.$router.push({ name: "MyProfile" });
+      } else {
+        this.$router.push({ name: "LoginComponent" });
+      }
+      this.$emit("routeChange");
+    },
+    goSendFeedback() {
+      if (this.isLoggedIn) {
+        this.$router.push({ name: "AddFeedbackWebPageComponent" });
       } else {
         this.$router.push({ name: "LoginComponent" });
       }

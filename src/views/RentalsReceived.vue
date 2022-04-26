@@ -1,29 +1,36 @@
 <template>
   <div class="container">
-    <div class="metaContainer">
+    <div class="infoContainer">
       <h1>Mottatte forespørsler</h1>
       <p>Forespurt gjenstand</p>
-      <ItemCardHorizontal :item="item"></ItemCardHorizontal>
+      <ItemCardHorizontal :item="item" @click.stop="goToItem"></ItemCardHorizontal>
     </div>
-    <div class="customerContainer">
+    <div class="customers">
       <h1 id="customersTitle">Mine kunder</h1>
-      <div>Card goes here</div>
+      <CustomerCard></CustomerCard>
     </div>
   </div>
 </template>
 
 <script>
+import CustomerCard from "@/components/CustomerCard";
 import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
 export default {
   name: "RentalsReceived",
   components: {
     ItemCardHorizontal,
+    CustomerCard,
   },
   computed: {
     item() {
       return this.$store.state.currentItem;
     },
   },
+  methods: {
+    goToItem() {
+      this.$router.push({ name: "ProductDetails" })
+    }
+  }
 };
 </script>
 
@@ -31,17 +38,20 @@ export default {
 h1 {
   margin-bottom: 1rem;
 }
+p {
+  font-size: 20px;
+}
 
 .container {
   margin-bottom: 2rem;
   text-align: left;
 }
-.metaContainer {
+.infoContainer {
   margin: 0 1rem 1rem 1rem;
 }
-.customerContainer {
+.customers {
   background: #e5ecf1;
-  padding: 0 1rem 1rem 1rem;
+  padding: 1rem;
 }
 
 #customersTitle {
