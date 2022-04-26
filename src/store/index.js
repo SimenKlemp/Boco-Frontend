@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 import { getFeedbacks, getItems } from "@/service/apiService";
-import { getItems, getMyItems, getMyRentals } from "@/service/apiService";
+import { getMyItems, getMyRentals } from "@/service/apiService";
 import { updateItem } from "@/service/apiService";
 
 const getDefaultState = () => {
