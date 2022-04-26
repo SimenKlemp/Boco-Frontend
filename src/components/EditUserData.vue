@@ -65,9 +65,6 @@
             :errorMessage="v$.$errors[3]"
             @click="editPassword"
           />
-          <BaseErrorMessage v-if="v$.password.$error">{{
-            v$.$errors[1].$message
-          }}</BaseErrorMessage>
           <BaseInput
             id="oldPassword"
             class="mb-4"
@@ -77,6 +74,9 @@
             placeholder="Gammelt passord"
             :errorMessage="v$.$errors[3]"
           />
+          <BaseErrorMessage v-if="v$.oldPassword.$error">{{
+            v$.$errors[6].$message
+          }}</BaseErrorMessage>
           <BaseInput
             id="newPassword"
             class="mb-4"
@@ -86,6 +86,9 @@
             placeholder="Nytt passord"
             :errorMessage="v$.$errors[3]"
           />
+          <BaseErrorMessage v-if="v$.newPassword.$error">{{
+            v$.$errors[7].$message
+          }}</BaseErrorMessage>
           <BaseInput
             id="repeatNewPassword"
             class="mb-4"
@@ -95,6 +98,9 @@
             placeholder="Gjenta nytt passord"
             :errorMessage="v$.$errors[3]"
           />
+          <BaseErrorMessage v-if="v$.repeatNewPassword.$error">{{
+            v$.$errors[8].$message
+          }}</BaseErrorMessage>
         </div>
 
         <h2>Adresse</h2>
@@ -147,8 +153,14 @@ import BaseInput from "@/components/baseTools/BaseInput";
 import BaseButton from "@/components/baseTools/BaseButton";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import useVuelidate from "@vuelidate/core";
-import { email, required, helpers } from "@vuelidate/validators";
-import UploadService, { doEditUser } from "@/service/apiService";
+import {
+  email,
+  required,
+  helpers,
+  minLength,
+  sameAs,
+} from "@vuelidate/validators";
+import UploadService, { doEditUser, doLogin } from "@/service/apiService";
 export default {
   name: "EditUserData",
   components: {
@@ -166,6 +178,9 @@ export default {
       name: this.$store.state.userInfo.name,
       email: this.$store.state.userInfo.email,
       password: "",
+      oldPassword: "",
+      newPassword: "",
+      repeatNewPassword: "",
       address: this.$store.state.userInfo.streetAddress,
       postalcode: this.$store.state.userInfo.postalCode,
       city: this.$store.state.userInfo.postOffice,
@@ -188,9 +203,6 @@ export default {
         required: helpers.withMessage("Email er påkrevd", required),
         email,
       },
-      password: {
-        required: helpers.withMessage("Adresse er påkrevd", required),
-      },
       address: {
         required: helpers.withMessage("Adresse er påkrevd", required),
       },
@@ -200,46 +212,67 @@ export default {
       city: {
         required: helpers.withMessage("By er påkrevd", required),
       },
+      oldPassword: {
+        required: helpers.withMessage(
+          "Må skrive inn gammelt passord",
+          required
+        ),
+      },
+      newPassword: {
+        required: helpers.withMessage("Må skrive inn nytt passord", required),
+        minLength: minLength(6),
+      },
+      repeatNewPassword: {
+        required: helpers.withMessage("Må gjenta passord!", required),
+        minLength: minLength(6),
+        sameAsPassword: sameAs(this.newPassword),
+      },
     };
   },
   methods: {
     async submit() {
       this.v$.$validate();
       console.log(this.v$);
-
-      UploadService.upload(this.currentImage, this.$store.state.token)
-        .then((response) => {
-          this.$store.dispatch("setCurrentImageId", response.data);
-        })
-        .catch((err) => {
-          this.progress = 0;
-          this.message = "Could not upload the image! " + err;
-          this.currentImage = undefined;
-        });
-
       if (!this.v$.$error) {
-        const editUserRequest = {
-          email: this.email,
-          imageId: this.$store.state.currentImageId,
-          isPerson: true,
-          name: this.name,
-          postOffice: this.city,
-          postalCode: this.postalcode,
-          streetAddress: this.address,
-        };
-        let response = await doEditUser(
-          editUserRequest,
-          this.$store.state.userInfo.userId,
-          this.$store.state.token
+        let loginResponse = await doLogin(
+          this.$store.state.userInfo.email,
+          this.oldPassword
         );
 
-        if (response.status === 200) {
-          this.$store.dispatch("storeUser", response.data.userInfo);
+        if (loginResponse.status === 200) {
+          UploadService.upload(this.currentImage, this.$store.state.token)
+            .then((response) => {
+              this.$store.dispatch("setCurrentImageId", response.data);
+            })
+            .catch((err) => {
+              this.progress = 0;
+              this.message = "Could not upload the image! " + err;
+              this.currentImage = undefined;
+            });
+          const editUserRequest = {
+            email: this.email,
+            imageId: this.$store.state.currentImageId,
+            isPerson: true,
+            name: this.name,
+            password: this.newPassword,
+            postOffice: this.city,
+            postalCode: this.postalcode,
+            streetAddress: this.address,
+          };
+          let response = await doEditUser(
+            editUserRequest,
+            this.$store.state.userInfo.userId,
+            this.$store.state.token
+          );
 
-          await this.$router.push({ name: "MyProfile" });
+          if (response.status === 200) {
+            this.$store.dispatch("storeUser", response.data.userInfo);
+
+            await this.$router.push({ name: "MyProfile" });
+          }
         }
       } else {
-        alert("Alle felter må være fylt ut");
+        alert("Alle felter må være riktig utfylt");
       }
     },
     selectImage() {
@@ -273,7 +306,6 @@ form > * {
   background: linear-gradient(top, #f9f9f9, #e3e3e3);
   border: 1px solid #999;
   border-radius: 3px;
-  padding: 5px 8px;
   outline: none;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -281,6 +313,7 @@ form > * {
   text-shadow: 1px 1px #fff;
   font-weight: 700;
   font-size: 10pt;
+  margin: 0 auto;
 }
 .actualProfileImage {
   border-radius: 50%;
