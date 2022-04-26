@@ -2,7 +2,7 @@
   <div @click="toggleDropdown" class="customerContainer">
     <div class="profileContainer">
       <svg
-         class="profileImage"
+        class="profileImage"
         xmlns="http://www.w3.org/2000/svg"
         width="45"
         height="45"
@@ -137,20 +137,20 @@
         </div>
       </div>
     </div>
-    <div v-if="dropDownClicked && !isActive" class="dropDown">
+    <div v-if="dropDownClicked && !isAccepted" class="dropDown">
       <div class="dropDownText">{{ rental.message }}</div>
       <div class="buttons">
         <div
-          @click="emitRentalAction('Accept')"
+          @click.stop="emitRentalAction('Accept')"
           id="acceptButton"
           class="button"
         >
           BEKREFT
         </div>
-        <div @click="emitRentalAction('Reject')" class="button">AVVIS</div>
+        <div @click.stop="emitRentalAction('Reject')" class="button">AVVIS</div>
       </div>
     </div>
-    <div v-if="dropDownClicked && isActive" class="alternateDropDown">
+    <div v-if="dropDownClicked && isAccepted" class="alternateDropDown">
       <div class="button" id="cancelButton">Kanseller</div>
     </div>
   </div>
@@ -177,11 +177,14 @@ export default {
     },
     emitRentalAction(type) {
       this.$emit("rentalAction", this.rental, type);
+      this.toggleDropdown();
     },
   },
   computed: {
-    isActive() {
-      return this.rental.status === "ACTIVE";
+    isAccepted() {
+      return (
+        this.rental.status === "ACTIVE" || this.rental.status === "ACCEPTED"
+      );
     },
     status() {
       switch (this.rental.status) {

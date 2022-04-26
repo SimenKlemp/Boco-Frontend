@@ -89,10 +89,12 @@ class UploadFilesService {
 }
 
 export default new UploadFilesService();
-export function getItems() {
-  return axios.get("http://localhost:8085/api/item/all").then((response) => {
-    return response.data;
-  });
+export function getItems(page, pageSize) {
+  return axios
+    .get("http://localhost:8085/api/item/all/" + page + "/" + pageSize)
+    .then((response) => {
+      return response.data;
+    });
 }
 
 export async function doRegisterFeedbackWebPage(feedbackRequest, token) {

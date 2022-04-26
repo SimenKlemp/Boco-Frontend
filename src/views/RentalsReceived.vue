@@ -66,6 +66,7 @@ export default {
         );
         console.log(rentalResponse.status);
       }
+      await this.updatePage();
     },
     async updatePage() {
       this.rentals = await getRentalsForItem(

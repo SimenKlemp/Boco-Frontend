@@ -71,8 +71,8 @@ export default createStore({
     setCurrentImageId({ commit }, currentImageId) {
       commit("SET_IMAGE_ID", currentImageId);
     },
-    getItems({ commit }) {
-      getItems(this.state.token)
+    getItems({ commit }, pageObject) {
+      getItems(pageObject.page, pageObject.pageSize)
         .then((response) => {
           commit("SET_ITEMS", response);
         })
