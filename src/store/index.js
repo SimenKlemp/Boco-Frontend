@@ -1,12 +1,12 @@
 import { createStore } from "vuex";
-import {getFeedbacks, getItems, getUsers} from "@/service/apiService";
+import {doRegisterItem, getFeedbacks, getItems, getUsers} from "@/service/apiService";
 import { getMyItems, getMyRentals } from "@/service/apiService";
-import { updateItem } from "@/service/apiService";
+import { updateItem, deleteItem } from "@/service/apiService";
 
 const getDefaultState = () => {
   return {
     token: null,
-    currentItem: null,
+    currentItem: "",
     userInfo: {},
     currentImageId: null,
     items: [],
@@ -101,8 +101,17 @@ export default createStore({
       );
       commit("SET_MY_RENTALS", rentals);
     },
-    updateItem(item) {
-      updateItem(item, state.currentItem.itemId, state.token);
+    async updateItem({ commit }, item) {
+      await updateItem(item, state.currentItem.itemId, state.token);
+      commit("SET_ITEM", item);
+    },
+    async deleteItem({ commit }) {
+      await deleteItem(state.currentItem.itemId, state.token);
+      commit("SET_ITEM", null);
+    },
+    async registerItem({ commit }, item) {
+      await doRegisterItem(item, state.currentItem.itemId, this.$store.state.token);
+      commit("SET_ITEM", item);
     },
     getUsers({ commit }) {
       getUsers(this.state.token)

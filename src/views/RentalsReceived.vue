@@ -3,7 +3,7 @@
     <div class="infoContainer">
       <h1>Mottatte forespørsler</h1>
       <p>Forespurt gjenstand</p>
-      <ItemCardHorizontal :item="item"></ItemCardHorizontal>
+      <ItemCardHorizontal :item="item" @click.stop="goToItem"></ItemCardHorizontal>
     </div>
     <div class="customers">
       <h1 id="customersTitle">Mine kunder</h1>
@@ -43,6 +43,11 @@ export default {
       return this.$store.state.currentItem;
     },
   },
+  methods: {
+    goToItem() {
+      this.$router.push({ name: "ProductDetails" })
+    }
+  }
   methods: {
     async updateRental(rental, type) {
       if (type === "Accept") {

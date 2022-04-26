@@ -123,9 +123,13 @@ export function updateItem(item, itemId, token) {
     });
 }
 
-export function deleteItem(item) {
+export function deleteItem(itemId, token) {
   return axios
-    .delete("http://localhost:8085/api/item/delete/" + item.itemId)
+    .delete("http://localhost:8085/api/item/delete/" + itemId, {
+        headers: {
+            Authorization: "Bearer " + token,
+        },
+    })
     .then((response) => {
       return response.data;
     });

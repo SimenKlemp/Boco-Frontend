@@ -119,7 +119,7 @@
     </div>
     <div class="requestContainer">
       <BaseButton
-        v-if="!isMyAd"
+        v-if="isMyAd"
         class="baseButton"
         :id="'requestButton'"
         :text="'Send forespørsel'"
@@ -130,6 +130,7 @@
         class="baseButton"
         :id="'editButton'"
         :text="'Endre annonse'"
+        @click="goToEditAd(item)"
       ></BaseButton>
     </div>
     <div class="profileContainer">
@@ -156,7 +157,7 @@ export default {
       return this.$store.state.currentItem;
     },
     isMyAd() {
-      return this.item.user.userId === this.$store.state.userInfo.userId;
+      return this.item.userId === this.$store.state.userInfo.userId;
     },
   },
   methods: {
@@ -168,6 +169,9 @@ export default {
         await this.$router.push({ name: "LoginComponent" });
       }
     },
+    async goToEditAd() {
+      await this.$router.push({ name: "AddItemComponent" });
+    }
   },
 };
 </script>

@@ -106,12 +106,15 @@ export default {
         console.log(this.dates);
         //Need to split dates to get access to start and end date
 
+        console.log(this.deliveryOption);
+
         const reqisterRentalRequest = {
           endDate: "2022-04-25T07:32:23.293Z",
           itemId: this.$store.state.currentItem.itemId,
           message: this.message,
           startDate: "2022-04-25T07:32:23.294Z",
           userId: this.$store.state.userInfo.userId,
+          deliveryInfo: this.deliveryOption,
         };
 
         let response = await doRentalRequest(
