@@ -11,6 +11,7 @@
         :rental="rental"
         v-for="rental in rentals"
         :key="rental.rentalId"
+        @rentalAction="updateRental"
       ></CustomerCard>
     </div>
   </div>
@@ -19,7 +20,11 @@
 <script>
 import CustomerCard from "@/components/CustomerCard";
 import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
-import { getRentalsForItem } from "@/service/apiService";
+import {
+  acceptRental,
+  getRentalsForItem,
+  rejectRental,
+} from "@/service/apiService";
 
 export default {
   name: "RentalsReceived",
@@ -35,6 +40,25 @@ export default {
   computed: {
     item() {
       return this.$store.state.currentItem;
+    },
+  },
+  methods: {
+    async updateRental(rental, type) {
+      if (type === "Accept") {
+        console.log("Rental accepted");
+        let rentalResponse = await acceptRental(
+          rental.rentalId,
+          this.$store.state.token
+        );
+        console.log(rentalResponse.status);
+      } else {
+        console.log("Rental rejected");
+        let rentalResponse = await rejectRental(
+          rental.rentalId,
+          this.$store.state.token
+        );
+        console.log(rentalResponse.status);
+      }
     },
   },
   async mounted() {

@@ -71,8 +71,14 @@
     <div v-if="dropDownClicked" class="dropDown">
       <div class="dropDownText">{{ rental.message }}</div>
       <div class="buttons">
-        <div id="acceptButton" class="button">BEKREFT</div>
-        <div class="button">AVVIS</div>
+        <div
+          @click="emitRentalAction('Accept')"
+          id="acceptButton"
+          class="button"
+        >
+          BEKREFT
+        </div>
+        <div @click="emitRentalAction('Reject')" class="button">AVVIS</div>
       </div>
     </div>
   </div>
@@ -95,6 +101,9 @@ export default {
   methods: {
     toggleDropdown() {
       this.dropDownClicked = !this.dropDownClicked;
+    },
+    emitRentalAction(type) {
+      this.$emit("rentalAction", this.rental, type);
     },
   },
 };
