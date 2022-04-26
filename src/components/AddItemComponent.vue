@@ -1,7 +1,8 @@
 <template>
   <div id="RegContainer">
     <form @submit.prevent="submit">
-      <h1>Opprett annonse:</h1>
+      <h1 v-if="newAd===true">Opprett annonse:</h1>
+      <h1 v-else>Rediger annonse:</h1>
 
       <BaseInput
         id="title"
@@ -75,6 +76,16 @@
             }}</BaseErrorMessage>
           </div>
         </div>
+        <div id="deliverContainer">
+          <h2 id="deliverTitle">Leveringsalternativer</h2>
+          <div id="checkboxContainer">
+            <BaseCheckboxGroup
+                v-model="deliveryOption"
+                name="deliveryOption"
+                :options="deliveryOptions"
+            />
+          </div>
+        </div>
 
         <h2>Pris</h2>
 
@@ -90,7 +101,11 @@
         }}</BaseErrorMessage>
       </div>
 
-      <BaseButton v-on:click="submit" id="publish" text="Publiser" />
+      <BaseButton v-if="newAd===true" v-on:click="submit" id="publish" text="Publiser" />
+      <div v-else>
+        <BaseButton v-on:click="saveItem" id="save" text="Lagre endringer" />
+        <BaseButton v-on:click="deleteItem" id="delete" text="Slett annonse" />
+      </div>
     </form>
   </div>
 </template>
@@ -101,12 +116,14 @@ import BaseButton from "@/components/baseTools/BaseButton";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import useVuelidate from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
-import { doRegisterItem } from "@/service/apiService";
+import {doRegisterItem} from "@/service/apiService";
 import UploadImage from "@/components/UploadImage";
+import BaseCheckboxGroup from "@/components/baseTools/BaseCheckboxGroup";
 
 export default {
   name: "AddItemComponent",
   components: {
+    BaseCheckboxGroup,
     BaseButton,
     BaseInput,
     BaseErrorMessage,
@@ -119,13 +136,22 @@ export default {
   },
   data() {
     return {
-      title: "",
-      category: "",
-      description: "",
-      address: "",
-      postalcode: "",
-      city: "",
-      price: "",
+      title: this.$store.state.currentItem.title,
+      category: this.$store.state.currentItem.category,
+      description: this.$store.state.currentItem.description,
+      address: this.$store.state.currentItem.streetAddress,
+      postalcode: this.$store.state.currentItem.postalCode,
+      city: this.$store.state.currentItem.postOffice,
+      price: this.$store.state.currentItem.price,
+      //TODO: finne en bedre måte å gjøre dette på? Likhet med radiobtn
+      message: "",
+      dates: null,
+      deliveryOption: 0,
+      //TODO: fiks slik at deliveryoptions checker av boksene hvis true
+      deliveryOptions: [
+        { label: "Hjemmelevering", value: 0, checked: this.$store.state.currentItem.isDeliverable },
+        { label: "Hente", value: 1, checked: this.$store.state.currentItem.isPickupable },
+      ],
     };
   },
   validations() {
@@ -165,20 +191,49 @@ export default {
         const itemRequest = {
           category: this.category,
           description: this.description,
+          isPickupable: this.isPickupable,
+          isDeliverable: this.isDeliverable,
           postOffice: this.city,
           postalCode: this.postalcode,
           price: this.price,
           streetAddress: this.address,
           title: this.title,
+          //TODO: add boolean values isPicupable and deliverable
           userId: this.$store.state.userInfo.userId,
           imageId: this.$store.state.currentImageId,
         };
-
-        let itemResponse = doRegisterItem(itemRequest, this.$store.state.token);
-        console.log(itemResponse.status);
+        await this.$store.dispatch('updateItem', itemRequest);
         await this.$router.push({ name: "HomeView" });
       }
     },
+    async saveItem() {
+      //TODO: fix bug on when item is saved (is saved to database, but webapp not working)
+      if (!this.v$.$error) {
+        const itemUpdated = {
+          category: this.category,
+          description: this.description,
+          isPickupable: this.isPickupable,
+          isDeliverable: this.isDeliverable,
+          postOffice: this.city,
+          postalCode: this.postalcode,
+          price: this.price,
+          streetAddress: this.address,
+          //TODO: add boolean values isPicupable and deliverable
+          title: this.title,
+          userId: this.$store.state.userInfo.userId,
+        };
+        await this.$store.dispatch('updateItem', itemUpdated);
+        await this.$router.push({ name: "ProductDetails" });
+      }
+    },
+    async deleteItem() {
+      await this.$store.dispatch('deleteItem');
+      await this.$router.push({ name: "MyAds" });
+
+    },
+    newAd() {
+      return this.$store.state.currentItem === "";
+    }
   },
 };
 </script>

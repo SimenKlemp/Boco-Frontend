@@ -57,10 +57,15 @@
 </template>
 
 <script>
+
 export default {
   name: "HamburgerMenu",
   methods: {
     emitRouteChange(to) {
+      if (to === 'AddItemComponent') {
+        console.log("set currentItem to null")
+        this.$store.dispatch("setItem", "");
+      }
       this.$router.push({ name: to });
       this.$emit("routeChange");
     },
