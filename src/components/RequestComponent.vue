@@ -4,7 +4,7 @@
     <ItemCardHorizontal :item="item" />
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
-      <Datepicker v-model="dates" :previewFormat="format"/>
+      <Datepicker v-model="dates" :previewFormat="format" />
       <h2 id="deliverTitle">Leveringsalternativer</h2>
       <div id="radioContainer">
         <BaseRadioGroup
@@ -43,7 +43,12 @@
           detaljer
         </p>
       </div>
-      <BaseButton id="request" text="Forespør leie" />
+      <BaseButton
+        id="request"
+        text="Forespør leie"
+        @click.prevent="submit"
+        :disabled="isError"
+      />
     </form>
   </div>
 </template>
@@ -57,7 +62,7 @@ import useVuelidate from "@vuelidate/core";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import { helpers, required } from "@vuelidate/validators";
 import { doRentalRequest } from "@/service/apiService";
-import { ref } from 'vue';
+import { ref } from "vue";
 
 export default {
   name: "RequestComponent",
@@ -67,11 +72,6 @@ export default {
     Datepicker,
     ItemCardHorizontal,
     BaseErrorMessage,
-  },
-  computed: {
-    item() {
-      return this.$store.state.currentItem;
-    },
   },
   setup() {
     const date = ref(new Date());
@@ -113,6 +113,18 @@ export default {
         ),
       },
     };
+  },
+  computed: {
+    item() {
+      return this.$store.state.currentItem;
+    },
+    isError() {
+      if (this.v$.$error) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   methods: {
     async submit() {

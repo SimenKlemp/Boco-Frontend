@@ -139,7 +139,7 @@
         }}</BaseErrorMessage>
       </div>
       <BaseButton
-        @click="submit"
+        @click.prevent="submit"
         text="Lagre endringer"
         id="registerButton"
         :disabled="isError"

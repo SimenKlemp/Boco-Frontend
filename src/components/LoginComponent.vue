@@ -29,7 +29,7 @@
           placeholder="Passord"
         />
 
-        <BaseButton v-on:click="doLogin" text="Sign in" />
+        <BaseButton @click.prevent="submit" text="Sign in" />
 
         <div v-if="this.$store.state.userInfo.status === 204">
           <router-link to="/registration"
