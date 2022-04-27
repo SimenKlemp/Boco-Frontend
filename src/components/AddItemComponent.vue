@@ -111,13 +111,24 @@
 
       <BaseButton
         v-if="newAd === true"
-        v-on:click="submit"
+        @click.prevent="submit"
         id="publish"
         text="Publiser"
+        :disabled="isError"
       />
       <div v-else>
-        <BaseButton v-on:click="saveItem" id="save" text="Lagre endringer" />
-        <BaseButton v-on:click="deleteItem" id="delete" text="Slett annonse" />
+        <BaseButton
+          @click="saveItem"
+          id="save"
+          text="Lagre endringer"
+          :disabled="isError"
+        />
+        <BaseButton
+          @click="deleteItem"
+          id="delete"
+          text="Slett annonse"
+          :disabled="isError"
+        />
       </div>
     </form>
   </div>
@@ -222,6 +233,7 @@ export default {
         };
         await this.$store.dispatch("registerItem", itemRequest);
         await this.$router.push({ name: "ProductDetails" });
+        this.$emit("routeChange");
       }
     },
     async saveItem() {
@@ -251,6 +263,7 @@ export default {
         };
         await this.$store.dispatch("updateItem", itemUpdated);
         await this.$router.push({ name: "ProductDetails" });
+        this.$emit("routeChange");
       }
     },
     async deleteItem() {
@@ -265,6 +278,13 @@ export default {
   computed: {
     newAd() {
       return this.$store.state.currentItem === "";
+    },
+    isError() {
+      if (this.v$.$error) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 };

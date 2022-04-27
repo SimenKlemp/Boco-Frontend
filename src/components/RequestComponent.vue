@@ -43,7 +43,12 @@
           detaljer
         </p>
       </div>
-      <BaseButton id="request" text="Forespør leie" />
+      <BaseButton
+        id="request"
+        text="Forespør leie"
+        @click.prevent="submit"
+        :disabled="isError"
+      />
     </form>
   </div>
 </template>
@@ -132,7 +137,14 @@ export default {
   computed: {
     item() {
       return this.$store.state.currentItem;
-    }
+    },
+    isError() {
+      if (this.v$.$error) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   methods: {
     async submit() {
@@ -167,10 +179,7 @@ export default {
       }
     },
     showDates() {
-      console.log(this.date);
-      console.log(this.date[0]);
-      //let datesString = this.dates.toString;
-      //console.log("string: " + datesString);
+      console.log(this.dates);
     }
   },
 };

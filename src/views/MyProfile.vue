@@ -71,7 +71,7 @@
           alt=""
         />
 
-        <div class="personalInfoContainer"  @click="goToPage('EditUserData')">
+        <div class="personalInfoContainer" @click="goToPage('EditUserData')">
           <div class="emailContainer">
             <svg
               class="icons"
@@ -377,7 +377,7 @@ export default {
 .small {
   width: 4rem;
   height: 4rem;
-  padding: 10px 0 0 1.25rem;
+  margin: 10px 0 0 1.25rem;
 }
 
 #extraPadding {
