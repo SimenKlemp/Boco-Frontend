@@ -3,6 +3,7 @@
     <div class="profileImage">
       <!--TODO: change to image, add v-if image-->
       <svg
+        v-if="user.imageId === -1 || user.imageId === null"
         class="image"
         xmlns="http://www.w3.org/2000/svg"
         width="45"
@@ -16,6 +17,12 @@
           fill="#126782"
         />
       </svg>
+      <img
+        id="profileImage"
+        v-else
+        class="productImage"
+        :src="'http://localhost:8085/api/image/' + user.imageId"
+      />
     </div>
     <div class="profileMeta">
       <p class="name">{{ user.name }}</p>
@@ -85,5 +92,11 @@ export default {
 
 #verifiedText {
   margin: 0 0 0 0.5rem;
+}
+#profileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 </style>

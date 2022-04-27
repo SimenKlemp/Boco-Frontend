@@ -1,7 +1,18 @@
 <template>
   <div class="container">
     <div class="imageCarousel">
-      <img id="productImage" :src="require('../assets/Motorsag.png')" alt="" />
+      <img
+        class="productImage"
+        v-if="rental.item.imageId === -1 || rental.item.imageId === null"
+        id="productImage"
+        :src="require('../assets/Motorsag.png')"
+        alt=""
+      />
+      <img
+        class="productImage"
+        v-else
+        :src="'http://localhost:8085/api/image/' + rental.item.imageId"
+      />
     </div>
     <div class="info">
       <div class="productMeta">
@@ -520,6 +531,11 @@ p {
 .descriptionTitle {
   font-size: 24px;
   margin: 24px 0 10px 0;
+}
+.productImage {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 #productImage {

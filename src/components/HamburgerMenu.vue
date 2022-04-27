@@ -17,15 +17,17 @@
             fill="#fff"
           />
         </svg>
-        <img
-          v-if="isLoggedIn && hasProfileImage"
-          class="actualProfileImage"
-          :src="
-            'http://localhost:8085/api/image/' +
-            this.$store.state.userInfo.imageId
-          "
-          alt=""
-        />
+        <div id="profileImage">
+          <img
+            v-if="isLoggedIn && hasProfileImage"
+            class="actualProfileImage"
+            :src="
+              'http://localhost:8085/api/image/' +
+              this.$store.state.userInfo.imageId
+            "
+            alt=""
+          />
+        </div>
         <p class="name">{{ this.$store.state.userInfo.name }}</p>
       </div>
     </div>
@@ -147,7 +149,7 @@ export default {
 }
 .name {
   padding: 0.8rem;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 500;
   margin-top: -5px;
 }
@@ -170,8 +172,9 @@ export default {
 }
 .actualProfileImage {
   border-radius: 50%;
-  width: 3rem;
-  height: 3rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: cover;
 }
 
 #routerLink {
