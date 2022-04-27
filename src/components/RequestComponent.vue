@@ -43,7 +43,12 @@
           detaljer
         </p>
       </div>
-      <BaseButton id="request" text="Forespør leie" />
+      <BaseButton
+        id="request"
+        text="Forespør leie"
+        @click.prevent="submit"
+        :disabled="isError"
+      />
     </form>
   </div>
 </template>
@@ -67,11 +72,6 @@ export default {
     Datepicker,
     ItemCardHorizontal,
     BaseErrorMessage,
-  },
-  computed: {
-    item() {
-      return this.$store.state.currentItem;
-    },
   },
   setup() {
     const date = ref(new Date());
@@ -113,6 +113,18 @@ export default {
         ),
       },
     };
+  },
+  computed: {
+    item() {
+      return this.$store.state.currentItem;
+    },
+    isError() {
+      if (this.v$.$error) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   methods: {
     async submit() {

@@ -111,7 +111,7 @@
 
       <BaseButton
         v-if="newAd === true"
-        @click="submit"
+        @click.prevent="submit"
         id="publish"
         text="Publiser"
         :disabled="isError"

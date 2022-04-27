@@ -77,7 +77,7 @@
       }}</BaseErrorMessage>
 
       <BaseButton
-        @click="submit"
+        @click.prevent="submit"
         text="Registrer deg"
         id="registerButton"
         :disabled="isError"

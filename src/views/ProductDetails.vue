@@ -1,7 +1,13 @@
 <template>
   <div class="container">
     <div class="imageCarousel">
-      <img id="productImage" :src="require('../assets/Motorsag.png')" alt="" />
+      <img
+        v-if="item.imageId === -1 || item.imageId === null"
+        id="productImage"
+        :src="require('../assets/Motorsag.png')"
+        alt=""
+      />
+      <img v-else :src="'http://localhost:8085/api/image/' + item.imageId" />
     </div>
     <div class="info">
       <div class="productMeta">
