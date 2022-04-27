@@ -98,7 +98,7 @@ export default {
       page: 0,
       pageSize: 30,
       sortField: null,
-      searchSentence: "",
+      searchSentence: this.$store.state.currentSearchSentence,
       sortOptions: ["PRICE", "RELEVANCE", "PUBLICITY_DATE"],
     };
   },
@@ -130,13 +130,16 @@ export default {
         text: this.searchSentence,
       };
       console.log(searchRequest);
+      this.$store.dispatch("getCurrentSearchSentence", this.searchSentence);
+
       this.$store.dispatch("getSearchedItems", searchRequest);
     },
   },
 };
 </script>
 
-<style scoped src="@vueform/multiselect/themes/default.css">
+<style src="@vueform/multiselect/themes/default.css">
+
 h3 {
   font-size: 22px;
   margin-bottom: 5px;

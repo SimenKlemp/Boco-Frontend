@@ -6,6 +6,7 @@
     v-bind="$attrs"
     @change="$emit('update:modelValue', value)"
     :id="uuid"
+    :disabled="status"
   />
   <label class="radio" :for="uuid" v-if="label">{{ label }}</label>
 </template>
@@ -27,6 +28,11 @@ export default {
       type: [String, Number],
       required: true,
     },
+    status: {
+      type: Boolean,
+      required: true,
+      default: false,
+    }
   },
   setup() {
     const uuid = UniqueID().getID();

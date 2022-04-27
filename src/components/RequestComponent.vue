@@ -4,7 +4,7 @@
     <ItemCardHorizontal :item="item" />
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
-      <Datepicker v-model="dates" :previewFormat="format" />
+      <Datepicker v-model="date" range :format="format" :previewFormat="previewFormat" :enableTimePicker="false" selectText="Velg" cancelText="Lukk"></Datepicker>
       <h2 id="deliverTitle">Leveringsalternativer</h2>
       <div id="radioContainer">
         <BaseRadioGroup
@@ -62,7 +62,7 @@ import useVuelidate from "@vuelidate/core";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import { helpers, required } from "@vuelidate/validators";
 import { doRentalRequest } from "@/service/apiService";
-import { ref } from "vue";
+import { ref, onMounted } from 'vue';
 
 export default {
   name: "RequestComponent",
@@ -74,33 +74,53 @@ export default {
     BaseErrorMessage,
   },
   setup() {
-    const date = ref(new Date());
-    // In case of a range picker, you'll receive [Date, Date]
-    const format = ([startDate, endDate]) => {
-      const startDay = startDate.getDate();
-      const startMonth = startDate.getMonth() + 1;
-      const startYear = startDate.getFullYear();
+    const date = ref();
 
-      const endDay = endDate.getDate();
-      const endMonth = endDate.getMonth() + 1;
-      const endYear = endDate.getFullYear();
+    // For demo purposes assign range from the current date
+    onMounted(() => {
+      const startDate = new Date();
+      const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
+      date.value = [startDate, endDate];
+    })
+    const format = ([startdate, enddate]) => {
+      const startday = startdate.getDate();
+      const startmonth = startdate.getMonth() + 1;
+      const startyear = startdate.getFullYear();
 
-      return `${startDay}/${startMonth}/${startYear}`;
-    };
+      const endday = enddate.getDate();
+      const endmonth = enddate.getMonth() + 1;
+      const endyear = enddate.getFullYear();
+
+      return `${startyear}-${startmonth}-${startday} - ${endyear}/${endmonth}/${endday}`;
+    }
+    const previewFormat = ([startdate, enddate]) => {
+      const startday = startdate.getDate();
+      const startmonth = startdate.getMonth() + 1;
+      const startyear = startdate.getFullYear();
+
+      const endday = enddate.getDate();
+      const endmonth = enddate.getMonth() + 1;
+      const endyear = enddate.getFullYear();
+
+      return `${startday}/${startmonth}/${startyear} - ${endday}/${endmonth}/${endyear}`;
+    }
+
     return {
       date,
       format,
+      previewFormat,
       v$: useVuelidate(),
     };
   },
   data() {
     return {
       message: "",
-      dates: null,
-      deliveryOption: 0,
+      date: "",
+      endDate: "",
+      startDate: "",
       deliveryOptions: [
-        { label: "Hjemmelevering", value: 0 },
-        { label: "Hente", value: 1 },
+        { label: "Hjemmelevering", value: 0, status: !this.$store.state.currentItem.isDeliverable },
+        { label: "Hente", value: 1, status: !this.$store.state.currentItem.isPickupable },
       ],
     };
   },
@@ -132,18 +152,20 @@ export default {
       this.v$.$validate();
       console.log(this.v$);
       if (!this.v$.$error) {
-        console.log(this.dates);
+        console.log("Datoer: " + this.date + " - " + this.date.startDate);
+        console.log(this.deliveryOptions);
         //Need to split dates to get access to start and end date
-
+        console.log(this.toPickup + " " + this.toDeliver)
         console.log(this.deliveryOption);
 
         const reqisterRentalRequest = {
-          endDate: "2022-04-25T07:32:23.293Z",
+          //deliveryInfo: this.deliveryOption,
+          deliveryInfo: "DELIVERED",
+          endDate: this.date[1],
           itemId: this.$store.state.currentItem.itemId,
           message: this.message,
-          startDate: "2022-04-25T07:32:23.294Z",
-          userId: this.$store.state.userInfo.userId,
-          deliveryInfo: this.deliveryOption,
+          startDate: this.date[0],
+          userId: this.$store.state.userInfo.userId
         };
 
         let response = await doRentalRequest(
