@@ -1,5 +1,4 @@
 <template>
-  <label class="radio" :for="uuid" v-if="label">{{ label }}</label>
   <input
     type="radio"
     :checked="modelValue === value"
@@ -8,6 +7,7 @@
     @change="$emit('update:modelValue', value)"
     :id="uuid"
   />
+  <label class="radio" :for="uuid" v-if="label">{{ label }}</label>
 </template>
 
 <script>

@@ -24,13 +24,14 @@
           :src="require('../assets/noun-profile-1995071.svg')"
           alt=""
         />
-        <div>
+        <div id="imageButtonContainer">
           <input
             id="addImageButton"
             type="file"
             accept="image/*"
             ref="file"
             @change="selectImage"
+            placeholder="Legg til bilde"
           />
         </div>
       </div>
@@ -71,6 +72,7 @@
             v-model="oldPassword"
             placeholder="Gammelt passord"
             :errorMessage="v$.$errors[3]"
+            @click="editPassword"
           />
           <BaseErrorMessage v-if="v$.oldPassword.$error">{{
             v$.$errors[2].$message
@@ -82,6 +84,7 @@
             v-model="newPassword"
             placeholder="Nytt passord"
             :errorMessage="v$.$errors[4]"
+            v-if="passwordPressed"
           />
           <BaseErrorMessage v-if="v$.newPassword.$error">{{
             v$.$errors[3].$message
@@ -93,6 +96,7 @@
             v-model="repeatNewPassword"
             placeholder="Gjenta nytt passord"
             :errorMessage="v$.$errors[5]"
+            v-if="passwordPressed"
           />
           <BaseErrorMessage v-if="v$.repeatNewPassword.$error">{{
             v$.$errors[4].$message
@@ -206,17 +210,9 @@ export default {
         ),
       },
       newPassword: {
-        required: helpers.withMessage(
-          "Må skrive inn et nytt passord",
-          required
-        ),
         minLength: minLength(6),
       },
       repeatNewPassword: {
-        required: helpers.withMessage(
-          "Må skrive det nye passordet igjen",
-          required
-        ),
         sameAsPassword: sameAs(this.newPassword),
       },
       address: {
@@ -262,26 +258,47 @@ export default {
                   this.message = "Could not upload the image! " + err;
                   this.currentImage = undefined;
                 });
-              const editUserRequest = {
-                email: this.email,
-                imageId: this.$store.state.currentImageId,
-                isPerson: true,
-                name: this.name,
-                password: this.newPassword,
-                postOffice: this.city,
-                postalCode: this.postalcode,
-                streetAddress: this.address,
-              };
 
-              let response = await doEditUser(
-                editUserRequest,
-                this.$store.state.userInfo.userId,
-                this.$store.state.token
-              );
+              if (this.newPassword === "") {
+                const editUserRequest = {
+                  email: this.email,
+                  imageId: this.$store.state.currentImageId,
+                  isPerson: true,
+                  name: this.name,
+                  postOffice: this.city,
+                  postalCode: this.postalcode,
+                  streetAddress: this.address,
+                };
 
-              this.$store.dispatch("storeUser", response.data.userInfo);
+                let response = await doEditUser(
+                  editUserRequest,
+                  this.$store.state.userInfo.userId,
+                  this.$store.state.token
+                );
 
+                this.$store.dispatch("storeUser", response.data.userInfo);
+              } else {
+                const editUserRequest = {
+                  email: this.email,
+                  imageId: this.$store.state.currentImageId,
+                  isPerson: true,
+                  name: this.name,
+                  password: this.newPassword,
+                  postOffice: this.city,
+                  postalCode: this.postalcode,
+                  streetAddress: this.address,
+                };
+
+                let response = await doEditUser(
+                  editUserRequest,
+                  this.$store.state.userInfo.userId,
+                  this.$store.state.token
+                );
+
+                this.$store.dispatch("storeUser", response.data.userInfo);
+              }
               await this.$router.push({ name: "MyProfile" });
+              this.$emit("routeChange");
             }
           }
         );
@@ -315,19 +332,10 @@ form > * {
   height: 9rem;
 }
 #addImageButton {
-  content: "Legg til bilde";
-  display: inline-block;
-  background: linear-gradient(top, #f9f9f9, #e3e3e3);
-  border: 1px solid #999;
-  border-radius: 3px;
-  outline: none;
-  white-space: nowrap;
   -webkit-user-select: none;
   cursor: pointer;
-  text-shadow: 1px 1px #fff;
-  font-weight: 700;
-  font-size: 10pt;
-  margin: 0 auto;
+  font-weight: 500;
+
 }
 .actualProfileImage {
   border-radius: 50%;
@@ -361,5 +369,10 @@ label {
 }
 button {
   margin-top: 30px;
+}
+#imageButtonContainer{
+  max-width: 200px;
+  width: 100%;
+  margin: 0 auto;
 }
 </style>

@@ -27,7 +27,7 @@ export async function doRegistration(registerUserRequest) {
 }
 export async function doEditUser(editUserRequest, userId, token) {
   return axios
-    .post(`http://localhost:8085/api/user/update/` + userId, editUserRequest, {
+    .put(`http://localhost:8085/api/user/update/` + userId, editUserRequest, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -245,6 +245,15 @@ export function updateRoleUsers(token, userId) {
         Authorization: "Bearer " + token,
       },
     })
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    });
+}
+
+export function search(searchRequest) {
+  return axios
+    .put("http://localhost:8085/api/item/search", searchRequest)
     .then((response) => {
       console.log(response.data);
       return response.data;

@@ -47,6 +47,7 @@
     <div class="actions">
       <BaseCardHorizontal>
         <svg
+          v-if="!hasProfileImage"
           class="sideIcon"
           xmlns="http://www.w3.org/2000/svg"
           width="45"
@@ -60,7 +61,17 @@
             fill="#126782"
           />
         </svg>
-        <div class="personalInfoContainer">
+        <img
+          v-if="hasProfileImage"
+          class="actualProfileImage small"
+          :src="
+            'http://localhost:8085/api/image/' +
+            this.$store.state.userInfo.imageId
+          "
+          alt=""
+        />
+
+        <div class="personalInfoContainer" @click="goToPage('EditUserData')">
           <div class="emailContainer">
             <svg
               class="icons"
@@ -106,7 +117,7 @@
           width="20.065"
           height="19.599"
           viewBox="0 0 20.065 19.599"
-          @click="goToPage('EditUserData')"
+
         >
           <path
             id="np_edit_4779758_000000"
@@ -362,6 +373,11 @@ export default {
   border-radius: 50%;
   width: 9rem;
   height: 9rem;
+}
+.small {
+  width: 4rem;
+  height: 4rem;
+  padding: 10px 0 0 1.25rem;
 }
 
 #extraPadding {
