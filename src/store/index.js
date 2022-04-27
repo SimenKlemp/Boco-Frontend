@@ -12,6 +12,7 @@ const getDefaultState = () => {
   return {
     token: null,
     currentItem: "",
+    currentRental: "",
     userInfo: {},
     currentImageId: null,
     items: [],
@@ -44,6 +45,9 @@ export default createStore({
     },
     SET_ITEM(state, item) {
       state.currentItem = item;
+    },
+    SET_RENTAL(state, rental) {
+      state.currentRental = rental;
     },
     SET_FEEDBACKS(state, feedbacks) {
       state.feedbacks = feedbacks;
@@ -130,6 +134,9 @@ export default createStore({
         .catch((error) => {
           console.log(error);
         });
+    },
+    setRental({ commit }, rental) {
+      commit("SET_RENTAL", rental);
     },
   },
   modules: {},
