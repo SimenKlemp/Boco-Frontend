@@ -10,7 +10,8 @@
         type="title"
         v-model="title"
         placeholder="Tittel på annonse"
-      /><BaseErrorMessage v-if="v$.title.$error">{{
+      />
+      <BaseErrorMessage v-if="v$.title.$error">{{
         v$.$errors[0].$message
       }}</BaseErrorMessage>
       <h2>Kategori</h2>
@@ -86,7 +87,7 @@
         </div>
         <div id="deliverContainer">
           <h2 id="deliverTitle">Leveringsalternativer</h2>
-          <div>
+          <div class="checkboxContainer">
             <BaseCheckbox v-model="isPickupable" label="Kan hentes" />
           </div>
 
@@ -104,7 +105,8 @@
           type="price"
           v-model="price"
           placeholder="Pris per dag"
-        /><BaseErrorMessage v-if="v$.price.$error">{{
+        />
+        <BaseErrorMessage v-if="v$.price.$error">{{
           v$.$errors[6].$message
         }}</BaseErrorMessage>
       </div>
@@ -326,5 +328,8 @@ form > * {
 }
 /deep/ #postalcode {
   width: 87px;
+}
+.checkboxContainer{
+  margin-bottom: 10px;
 }
 </style>
