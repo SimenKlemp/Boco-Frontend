@@ -24,13 +24,14 @@
           :src="require('../assets/noun-profile-1995071.svg')"
           alt=""
         />
-        <div>
+        <div id="imageButtonContainer">
           <input
             id="addImageButton"
             type="file"
             accept="image/*"
             ref="file"
             @change="selectImage"
+            placeholder="Legg til bilde"
           />
         </div>
       </div>
@@ -312,6 +313,7 @@ export default {
     editPassword() {
       this.passwordPressed = true;
     },
+
   },
 };
 </script>
@@ -331,19 +333,10 @@ form > * {
   height: 9rem;
 }
 #addImageButton {
-  content: "Legg til bilde";
-  display: inline-block;
-  background: linear-gradient(top, #f9f9f9, #e3e3e3);
-  border: 1px solid #999;
-  border-radius: 3px;
-  outline: none;
-  white-space: nowrap;
   -webkit-user-select: none;
   cursor: pointer;
-  text-shadow: 1px 1px #fff;
-  font-weight: 700;
-  font-size: 10pt;
-  margin: 0 auto;
+  font-weight: 500;
+
 }
 .actualProfileImage {
   border-radius: 50%;
@@ -377,5 +370,10 @@ label {
 }
 button {
   margin-top: 30px;
+}
+#imageButtonContainer{
+  max-width: 200px;
+  width: 100%;
+  margin: 0 auto;
 }
 </style>
