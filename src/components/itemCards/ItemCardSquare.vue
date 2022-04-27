@@ -84,7 +84,7 @@ img {
   text-align: left;
   padding: 3px 10px;
   width: fit-content;
-  bottom: 71px;
+  bottom: 70.5px;
   font-size: 12px;
   font-weight: 500;
 }

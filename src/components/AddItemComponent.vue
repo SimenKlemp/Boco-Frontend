@@ -87,7 +87,7 @@
         </div>
         <div id="deliverContainer">
           <h2 id="deliverTitle">Leveringsalternativer</h2>
-          <div>
+          <div class="checkboxContainer">
             <BaseCheckbox v-model="isPickupable" label="Kan hentes" />
           </div>
 
@@ -328,5 +328,8 @@ form > * {
 }
 /deep/ #postalcode {
   width: 87px;
+}
+.checkboxContainer{
+  margin-bottom: 10px;
 }
 </style>
