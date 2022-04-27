@@ -13,6 +13,10 @@ export default {
 
 <style scoped>
 .container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  max-width: 388px;
 }
 .footerMeta {
   border-top: solid #707070 1px;
