@@ -108,8 +108,8 @@ export default {
     return {
       maxPrice: 10000,
       minPrice: 0,
-      mustBeDeliverable: true,
-      mustBePickable: true,
+      mustBeDeliverable: false,
+      mustBePickable: false,
       page: 0,
       pageSize: 30,
       sortField: "RELEVANCE",
