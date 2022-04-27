@@ -223,13 +223,13 @@ export default {
         const itemUpdated = {
           category: this.category,
           description: this.description,
+          //TODO: cannot link isPickupable and isDeliverable to v-model because of basegroup..
           isPickupable: this.isPickupable,
           isDeliverable: this.isDeliverable,
           postOffice: this.city,
           postalCode: this.postalcode,
           price: this.price,
           streetAddress: this.address,
-          //TODO: add boolean values isPicupable and deliverable
           title: this.title,
           userId: this.$store.state.userInfo.userId,
         };
