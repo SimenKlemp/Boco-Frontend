@@ -10,7 +10,8 @@
         type="title"
         v-model="title"
         placeholder="Tittel på annonse"
-      /><BaseErrorMessage v-if="v$.title.$error">{{
+      />
+      <BaseErrorMessage v-if="v$.title.$error">{{
         v$.$errors[0].$message
       }}</BaseErrorMessage>
       <h2>Kategori</h2>
@@ -104,7 +105,8 @@
           type="price"
           v-model="price"
           placeholder="Pris per dag"
-        /><BaseErrorMessage v-if="v$.price.$error">{{
+        />
+        <BaseErrorMessage v-if="v$.price.$error">{{
           v$.$errors[6].$message
         }}</BaseErrorMessage>
       </div>
