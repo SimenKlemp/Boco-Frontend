@@ -112,8 +112,8 @@ export default createStore({
       commit("SET_MY_RENTALS", rentals);
     },
     async updateItem({ commit }, item) {
-      await updateItem(item, state.currentItem.itemId, this.state.token);
-      commit("SET_ITEM", item);
+      let response = await updateItem(item, state.currentItem.itemId, this.state.token);
+      commit("SET_ITEM", response);
     },
     async deleteItem({ commit }) {
       await deleteItem(state.currentItem.itemId, this.state.token);

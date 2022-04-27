@@ -351,11 +351,11 @@
     <div v-if="!isAccepted && !isPending" class="cancelContainer">
       <div class="greyButton">Leieforhold avsluttet</div>
     </div>
-    <p class="buttonText">
+    <p v-if="isPending" class="buttonText">
       Venter på svar fra utleier. Du kan fortsatt kansellere forespørselen din.
     </p>
     <div v-if="isPending" class="cancelContainer">
-      <div class="baseButton">KANSELLER</div>
+      <div @click="cancelRental(rental.rentalId)" class="baseButton">KANSELLER</div>
     </div>
   </div>
 </template>
@@ -372,7 +372,8 @@ export default {
     async cancelRental(rentalId) {
       let response = await cancelRental(rentalId, this.$store.state.token);
       console.log(response.status);
-      await this.$router.push({ name: "MyRentals" });
+      await this.$store.dispatch("setRental", response);
+      await this.$router.push({ name: "RentalDetails" });
     },
   },
   computed: {
