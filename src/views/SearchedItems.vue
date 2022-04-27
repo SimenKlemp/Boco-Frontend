@@ -106,13 +106,13 @@ export default {
   },
   data() {
     return {
-      maxPrice: 1000,
+      maxPrice: 10000,
       minPrice: 0,
       mustBeDeliverable: true,
       mustBePickable: true,
       page: 0,
       pageSize: 30,
-      sortField: null,
+      sortField: "RELEVANCE",
       searchSentence: this.$store.state.currentSearchSentence,
       sortOptions: ["PRICE", "RELEVANCE", "PUBLICITY_DATE"],
     };
