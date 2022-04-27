@@ -285,7 +285,7 @@ export default {
       return this.$store.state.userInfo;
     },
     hasProfileImage() {
-      return this.$store.state.userInfo.imageId !== -1;
+      return this.$store.state.userInfo.imageId !== null;
     },
   },
   methods: {

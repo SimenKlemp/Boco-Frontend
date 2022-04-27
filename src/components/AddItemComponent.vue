@@ -208,15 +208,17 @@ export default {
       console.log(this.v$);
       // eslint-disable-next-line no-empty
       if (!this.v$.$error) {
-        await UploadService.upload(this.currentImage, this.$store.state.token)
-          .then((response) => {
-            this.$store.dispatch("setCurrentImageId", response.data);
-          })
-          .catch((err) => {
-            this.progress = 0;
-            this.message = "Could not upload the image! " + err;
-            this.currentImage = undefined;
-          });
+        if (this.currentImage !== undefined) {
+          await UploadService.upload(this.currentImage, this.$store.state.token)
+            .then((response) => {
+              this.$store.dispatch("setCurrentImageId", response.data);
+            })
+            .catch((err) => {
+              this.progress = 0;
+              this.message = "Could not upload the image! " + err;
+              this.currentImage = undefined;
+            });
+        }
 
         const itemRequest = {
           category: this.category,
@@ -237,15 +239,17 @@ export default {
       }
     },
     async saveItem() {
-      await UploadService.upload(this.currentImage, this.$store.state.token)
-        .then((response) => {
-          this.$store.dispatch("setCurrentImageId", response.data);
-        })
-        .catch((err) => {
-          this.progress = 0;
-          this.message = "Could not upload the image! " + err;
-          this.currentImage = undefined;
-        });
+      if (this.currentImage !== undefined) {
+        await UploadService.upload(this.currentImage, this.$store.state.token)
+          .then((response) => {
+            this.$store.dispatch("setCurrentImageId", response.data);
+          })
+          .catch((err) => {
+            this.progress = 0;
+            this.message = "Could not upload the image! " + err;
+            this.currentImage = undefined;
+          });
+      }
 
       if (!this.v$.$error) {
         const itemUpdated = {
