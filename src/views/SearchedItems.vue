@@ -22,8 +22,8 @@
       </div>
       <div id="sortAlternativesContainer">
         <h4 id="sortTitle"> sorter etter: </h4>
-        <div id="inputContainer">
-          wefqwefwef
+        <div id="inputSortContainer">
+          <Multiselect id="multiSelect" v-model="sortField" :options="sortOptions"></Multiselect>
         </div>
 
       </div>
@@ -69,10 +69,12 @@
 </template>
 
 <script>
+import Multiselect from '@vueform/multiselect';
 import BaseSearchBar from "@/components/baseTools/BaseSearchBar";
 import ItemCardSquare from "@/components/itemCards/ItemCardSquare";
 import BaseInput from "@/components/baseTools/BaseInput";
 import BaseCheckbox from "@/components/baseTools/BaseCheckbox";
+
 export default {
   name: "SearchedItems",
   components: {
@@ -80,6 +82,7 @@ export default {
     BaseCheckbox,
     ItemCardSquare,
     BaseSearchBar,
+    Multiselect,
   },
   data() {
     return {
@@ -89,8 +92,9 @@ export default {
       mustBePickable: true,
       page: 0,
       pageSize: 30,
-      sortField: "PRICE",
+      sortField: null,
       searchSentence: "",
+      sortOptions: ["PRICE", "RELEVANCE", "PUBLICITY_DATE"],
     };
   },
   computed: {
@@ -129,9 +133,7 @@ export default {
 
 </script>
 
-<style scoped>
-
-
+<style scoped src="@vueform/multiselect/themes/default.css">
 
 h3 {
   font-size: 22px;
@@ -172,4 +174,6 @@ p {
   margin-top: 1rem;
 
 }
+
+
 </style>
