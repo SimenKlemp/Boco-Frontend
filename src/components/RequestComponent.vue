@@ -4,7 +4,7 @@
     <ItemCardHorizontal :item="item" />
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
-      <Datepicker v-model="dates" :previewFormat="format"/>
+      <Datepicker v-model="dates" :previewFormat="format" />
       <h2 id="deliverTitle">Leveringsalternativer</h2>
       <div id="radioContainer">
         <BaseRadioGroup
@@ -57,7 +57,7 @@ import useVuelidate from "@vuelidate/core";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import { helpers, required } from "@vuelidate/validators";
 import { doRentalRequest } from "@/service/apiService";
-import { ref } from 'vue';
+import { ref } from "vue";
 
 export default {
   name: "RequestComponent",
@@ -146,7 +146,7 @@ export default {
     },
     showDates() {
       console.log(this.dates);
-    }
+    },
   },
 };
 </script>

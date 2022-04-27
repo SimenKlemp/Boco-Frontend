@@ -120,8 +120,8 @@ export default createStore({
       commit("SET_ITEM", null);
     },
     async registerItem({ commit }, item) {
-      await doRegisterItem(item, this.state.token);
-      commit("SET_ITEM", item);
+      let response = await doRegisterItem(item, this.state.token);
+      commit("SET_ITEM", response);
     },
     getUsers({ commit }) {
       getUsers(this.state.token)

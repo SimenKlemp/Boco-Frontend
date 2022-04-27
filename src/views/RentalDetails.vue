@@ -229,6 +229,24 @@
               />
             </g>
           </svg>
+          <svg
+            v-if="status === 'Avsluttet'"
+            class="statusIcon"
+            id="finishedIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20.004"
+            viewBox="0 0 20 20.004"
+          >
+            <g id="noun-checkmark-2573373" transform="translate(-1.002 -0.999)">
+              <path
+                id="Path_42"
+                data-name="Path 42"
+                d="M18.072,18.076a10,10,0,1,0-14.14,0A10,10,0,0,0,18.072,18.076ZM6.183,11.212a.63.63,0,0,1,.888,0l2.038,2.032L14.934,7.43a.636.636,0,0,1,.888.006.623.623,0,0,1,0,.881L9.546,14.569a.6.6,0,0,1-.438.181.614.614,0,0,1-.444-.181L6.183,12.1A.63.63,0,0,1,6.183,11.212Z"
+                fill="#37b43f"
+              />
+            </g>
+          </svg>
           <div class="status">{{ status }}</div>
         </div>
         <div class="dateContainer">
@@ -333,8 +351,11 @@
     <div v-if="!isAccepted && !isPending" class="cancelContainer">
       <div class="greyButton">Leieforhold avsluttet</div>
     </div>
+    <p class="buttonText">
+      Venter på svar fra utleier. Du kan fortsatt kansellere forespørselen din.
+    </p>
     <div v-if="isPending" class="cancelContainer">
-      <div class="greyButton">Venter på svar...</div>
+      <div class="baseButton">KANSELLER</div>
     </div>
   </div>
 </template>
@@ -378,6 +399,8 @@ export default {
           return "Avvist";
         case "CANCELED":
           return "Kansellert";
+        case "FINISHED":
+          return "Avsluttet";
         default:
           return "Default";
       }
@@ -465,6 +488,9 @@ p {
   margin: 2rem 1rem 2.5rem 1rem;
   justify-content: center;
 }
+.buttonText {
+  margin-top: 2rem;
+}
 .baseButton {
   border-radius: 10px;
   background: #e21313;
@@ -513,5 +539,8 @@ p {
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 0;
+}
+#finishedIcon {
+  fill: black;
 }
 </style>

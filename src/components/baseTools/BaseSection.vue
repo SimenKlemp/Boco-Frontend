@@ -33,6 +33,7 @@
         :key="rental.item.itemId"
         class="items"
         :item="rental.item"
+        :status="rental.status"
         @click.stop="goToRental(rental)"
       ></ItemCardHorizontal>
     </div>

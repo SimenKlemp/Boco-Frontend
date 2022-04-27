@@ -335,7 +335,6 @@ form > * {
   -webkit-user-select: none;
   cursor: pointer;
   font-weight: 500;
-
 }
 .actualProfileImage {
   border-radius: 50%;
@@ -370,7 +369,7 @@ label {
 button {
   margin-top: 30px;
 }
-#imageButtonContainer{
+#imageButtonContainer {
   max-width: 200px;
   width: 100%;
   margin: 0 auto;
