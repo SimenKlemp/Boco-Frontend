@@ -119,7 +119,7 @@
     </div>
     <div class="requestContainer">
       <BaseButton
-        v-if="isMyAd"
+        v-if="!isMyAd"
         class="baseButton"
         :id="'requestButton'"
         :text="'Send forespørsel'"
@@ -157,7 +157,10 @@ export default {
       return this.$store.state.currentItem;
     },
     isMyAd() {
-      return this.item.userId === this.$store.state.userInfo.userId;
+      console.log(
+        this.item.user.userId + " " + this.$store.state.userInfo.userId
+      );
+      return this.item.user.userId === this.$store.state.userInfo.userId;
     },
   },
   methods: {
