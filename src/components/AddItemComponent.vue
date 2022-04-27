@@ -33,7 +33,6 @@
       ><BaseErrorMessage v-if="v$.description.$error">{{
         v$.$errors[2].$message
       }}</BaseErrorMessage>
-      <upload-image></upload-image>
       <div id="info">
         <h2>Sted</h2>
         <div>
@@ -242,9 +241,9 @@ export default {
       await this.$store.dispatch("deleteItem");
       await this.$router.push({ name: "MyAds" });
     },
+  },
+  computed: {
     newAd() {
-      //TODO: fiks slik at denne funksjonen funker
-      console.log("new add");
       return this.$store.state.currentItem === "";
     },
   },
