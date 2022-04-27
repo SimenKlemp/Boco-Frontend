@@ -16,6 +16,7 @@ import EditUserData from "@/components/EditUserData";
 import UserView from "@/views/UserView";
 import FAQView from "@/views/FAQView";
 import RentalDetails from "@/views/RentalDetails";
+import SearchedItems from "@/views/SearchedItems";
 
 const routes = [
   {
@@ -102,6 +103,11 @@ const routes = [
     path: "/edit-userdata",
     name: "EditUserData",
     component: EditUserData,
+  },
+  {
+    path: "/searchedItems",
+    name: "SearchedItems",
+    component: SearchedItems,
   },
   {
     path: "/about",

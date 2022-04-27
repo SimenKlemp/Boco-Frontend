@@ -291,7 +291,7 @@ export default {
   margin-bottom: 0.5rem;
 }
 .statusIcon {
-  margin-right: 0.455rem;
+  margin-right: 0.625rem;
 }
 .positionMarker {
   height: 1.3rem;
@@ -331,7 +331,9 @@ export default {
 .alternateDropDown {
   margin: 2rem 0 1rem 0;
 }
-
+.name{
+  font-weight: 500;
+}
 #acceptButton {
   background: #37b43f;
 }
