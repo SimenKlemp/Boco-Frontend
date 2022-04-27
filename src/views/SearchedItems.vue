@@ -4,54 +4,59 @@
       <BaseSearchBar :label="'Søk...'" v-model="searchSentence"></BaseSearchBar>
       <button class="searchButton">
         <svg
-            xmlns="http://www.w3.org/2000/svg"
-            data-name="Layer 1"
-            viewBox="0 0 100 100"
-            x="0px"
-            y="0px"
+          xmlns="http://www.w3.org/2000/svg"
+          data-name="Layer 1"
+          viewBox="0 0 100 100"
+          x="0px"
+          y="0px"
         >
           <title>Artboard 19</title>
           <path
-              d="M45.5,20a25.5,25.5,0,1,0,15,46.13l12.7,12.7a4,4,0,0,0,5.66-5.66l-12.7-12.7A25.48,25.48,0,0,0,45.5,20Zm0,43A17.5,17.5,0,1,1,63,45.5,17.52,17.52,0,0,1,45.5,63Z"
+            d="M45.5,20a25.5,25.5,0,1,0,15,46.13l12.7,12.7a4,4,0,0,0,5.66-5.66l-12.7-12.7A25.48,25.48,0,0,0,45.5,20Zm0,43A17.5,17.5,0,1,1,63,45.5,17.52,17.52,0,0,1,45.5,63Z"
           ></path>
         </svg>
       </button>
       <div class="itemsHeader">
         <h3>Søkeresultater</h3>
-        <p> Viser {{itemSize}} resultater for {{searchSentence}}</p>
+        <p>Viser {{ itemSize }} resultater for {{ searchSentence }}</p>
       </div>
       <div id="sortAlternativesContainer">
-        <h4 id="sortTitle"> sorter etter: </h4>
+        <h4 id="sortTitle">sorter etter:</h4>
         <div id="inputSortContainer">
-          <Multiselect id="multiSelect" v-model="sortField" :options="sortOptions"></Multiselect>
+          <Multiselect
+            id="multiSelect"
+            v-model="sortField"
+            :options="sortOptions"
+          ></Multiselect>
         </div>
-
       </div>
       <div id="deliverContainer">
         <h4 id="deliverTitle">Leveringsalternativer</h4>
         <div id="checkboxContainer">
-            <BaseCheckbox v-model="mustBePickable" label="Kan hentes" />
-            <BaseCheckbox v-model="mustBeDeliverable" label="Kan leveres" />
+          <BaseCheckbox v-model="mustBePickable" label="Kan hentes" />
+          <BaseCheckbox v-model="mustBeDeliverable" label="Kan leveres" />
         </div>
       </div>
       <div id="PriceContainer">
         <h4 id="minPriceTitle">Minpris</h4>
         <div id="baseInputMinPriceContainer">
           <BaseInput
-              id="minPrice"
-              class="mb-4"
-              type="minPrice"
-              v-model="minPrice"
-              placeholder="kr"/>
+            id="minPrice"
+            class="mb-4"
+            type="minPrice"
+            v-model="minPrice"
+            placeholder="kr"
+          />
         </div>
         <h4 id="maxPriceTitle">Maxpris</h4>
         <div id="baseInputMaxPriceContainer">
           <BaseInput
-              id="maxPrice"
-              class="mb-4"
-              type="maxPrice"
-              v-model="maxPrice"
-              placeholder="kr"/>
+            id="maxPrice"
+            class="mb-4"
+            type="maxPrice"
+            v-model="maxPrice"
+            placeholder="kr"
+          />
         </div>
       </div>
     </form>
@@ -59,17 +64,17 @@
   <div class="itemsContainer">
     <div class="items">
       <ItemCardSquare
-          v-for="item in items.slice(0, 4)"
-          :key="item.itemId"
-          :item="item"
-          @click="seeItem(item)"
+        v-for="item in items.slice(0, 4)"
+        :key="item.itemId"
+        :item="item"
+        @click="seeItem(item)"
       ></ItemCardSquare>
     </div>
   </div>
 </template>
 
 <script>
-import Multiselect from '@vueform/multiselect';
+import Multiselect from "@vueform/multiselect";
 import BaseSearchBar from "@/components/baseTools/BaseSearchBar";
 import ItemCardSquare from "@/components/itemCards/ItemCardSquare";
 import BaseInput from "@/components/baseTools/BaseInput";
@@ -101,9 +106,9 @@ export default {
     items() {
       return this.$store.state.items;
     },
-    itemSize(){
+    itemSize() {
       return this.$store.state.items.length;
-    }
+    },
   },
   methods: {
     emitToggleHamburgerMenu() {
@@ -123,7 +128,6 @@ export default {
         pageSize: this.pageSize,
         sortField: this.sortField,
         text: this.searchSentence,
-
       };
       console.log(searchRequest);
       this.$store.dispatch("getCurrentSearchSentence", this.searchSentence);
@@ -131,12 +135,10 @@ export default {
       this.$store.dispatch("getSearchedItems", searchRequest);
     },
   },
-}
-
+};
 </script>
 
 <style src="@vueform/multiselect/themes/default.css">
-
 h3 {
   font-size: 22px;
   margin-bottom: 5px;
@@ -168,14 +170,11 @@ p {
   flex-wrap: wrap;
   margin-top: 20rem;
 }
-.itemsHeader{
+.itemsHeader {
   margin-top: 1rem;
 }
 
-#checkboxContainer{
+#checkboxContainer {
   margin-top: 1rem;
-
 }
-
-
 </style>

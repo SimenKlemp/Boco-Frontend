@@ -59,10 +59,9 @@ export default createStore({
     SET_USERS(state, users) {
       state.users = users;
     },
-    SET_CURRENT_SEARCH_SENTENCE(state, searchSentence){
-      state.currentSearchSentence = searchSentence
-
-    }
+    SET_CURRENT_SEARCH_SENTENCE(state, searchSentence) {
+      state.currentSearchSentence = searchSentence;
+    },
   },
   actions: {
     resetState({ commit }) {
@@ -144,10 +143,7 @@ export default createStore({
     },
     getCurrentSearchSentence({ commit }, searchSentence) {
       commit("SET_CURRENT_SEARCH_SENTENCE", searchSentence);
-      },
+    },
   },
   modules: {},
 });
-
-
-

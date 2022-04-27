@@ -228,7 +228,7 @@ export default {
   },
   computed: {
     hasProfileImage() {
-      return this.$store.state.userInfo.imageId !== -1;
+      return this.$store.state.userInfo.imageId !== null;
     },
     isError() {
       if (this.v$.$error) {
@@ -246,19 +246,20 @@ export default {
         await doLogin(this.$store.state.userInfo.email, this.oldPassword).then(
           async (loginResponse) => {
             if (loginResponse.status === 200) {
-              await UploadService.upload(
-                this.currentImage,
-                this.$store.state.token
-              )
-                .then((response) => {
-                  this.$store.dispatch("setCurrentImageId", response.data);
-                })
-                .catch((err) => {
-                  this.progress = 0;
-                  this.message = "Could not upload the image! " + err;
-                  this.currentImage = undefined;
-                });
-
+              if (this.currentImage !== undefined) {
+                await UploadService.upload(
+                  this.currentImage,
+                  this.$store.state.token
+                )
+                  .then((response) => {
+                    this.$store.dispatch("setCurrentImageId", response.data);
+                  })
+                  .catch((err) => {
+                    this.progress = 0;
+                    this.message = "Could not upload the image! " + err;
+                    this.currentImage = undefined;
+                  });
+              }
               if (this.newPassword === "") {
                 const editUserRequest = {
                   email: this.email,
@@ -276,8 +277,8 @@ export default {
                   this.$store.state.token
                 );
 
-                this.$store.dispatch("storeUser", response.data.userInfo);
-              } else {
+                await this.$store.dispatch("storeUser", response.data);
+              } else if (this.newPassword !== "") {
                 const editUserRequest = {
                   email: this.email,
                   imageId: this.$store.state.currentImageId,
@@ -295,7 +296,7 @@ export default {
                   this.$store.state.token
                 );
 
-                this.$store.dispatch("storeUser", response.data.userInfo);
+                await this.$store.dispatch("storeUser", response.data);
               }
               await this.$router.push({ name: "MyProfile" });
               this.$emit("routeChange");
@@ -335,7 +336,6 @@ form > * {
   -webkit-user-select: none;
   cursor: pointer;
   font-weight: 500;
-
 }
 .actualProfileImage {
   border-radius: 50%;
@@ -370,7 +370,7 @@ label {
 button {
   margin-top: 30px;
 }
-#imageButtonContainer{
+#imageButtonContainer {
   max-width: 200px;
   width: 100%;
   margin: 0 auto;

@@ -32,7 +32,7 @@ export default {
       type: Boolean,
       required: true,
       default: false,
-    }
+    },
   },
   setup() {
     const uuid = UniqueID().getID();

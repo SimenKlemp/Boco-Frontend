@@ -48,7 +48,6 @@ export default {
       this.$store.dispatch("getCurrentSearchSentence", this.searchSentence);
       this.$store.dispatch("getSearchedItems", searchRequest);
       this.$router.push({ name: "SearchedItems" });
-
     },
   },
 };

@@ -117,7 +117,6 @@
           width="20.065"
           height="19.599"
           viewBox="0 0 20.065 19.599"
-
         >
           <path
             id="np_edit_4779758_000000"
@@ -281,7 +280,7 @@ export default {
       return this.$store.state.userInfo;
     },
     hasProfileImage() {
-      return this.$store.state.userInfo.imageId !== -1;
+      return this.$store.state.userInfo.imageId !== null;
     },
   },
   methods: {
