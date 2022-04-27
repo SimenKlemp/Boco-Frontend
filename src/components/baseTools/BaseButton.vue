@@ -1,5 +1,7 @@
 <template>
-  <button :for="id"><img v-if="img" src="img" />{{ text }}</button>
+  <button type="Button" :for="id">
+    <img v-if="img" src="img" />{{ text }}
+  </button>
 </template>
 
 <script>

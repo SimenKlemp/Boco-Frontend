@@ -26,6 +26,7 @@ import CustomerCard from "@/components/CustomerCard";
 import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
 import {
   acceptRental,
+  cancelRental,
   getRentalsForItem,
   rejectRental,
 } from "@/service/apiService";
@@ -51,20 +52,39 @@ export default {
       this.$router.push({ name: "ProductDetails" });
     },
     async updateRental(rental, type) {
-      if (type === "Accept") {
-        console.log("Rental accepted");
-        let rentalResponse = await acceptRental(
-          rental.rentalId,
-          this.$store.state.token
-        );
-        console.log(rentalResponse.status);
-      } else {
-        console.log("Rental rejected");
-        let rentalResponse = await rejectRental(
-          rental.rentalId,
-          this.$store.state.token
-        );
-        console.log(rentalResponse.status);
+      switch (type) {
+        case "Accept":
+          console.log("Rental accepted");
+          // eslint-disable-next-line no-case-declarations
+          const rentalResponseAccepted = await acceptRental(
+            rental.rentalId,
+            this.$store.state.token
+          );
+          console.log(rentalResponseAccepted.status);
+          break;
+
+        case "Reject":
+          console.log("Rental rejected");
+          // eslint-disable-next-line no-case-declarations
+          const rentalResponseRejected = await rejectRental(
+            rental.rentalId,
+            this.$store.state.token
+          );
+          console.log(rentalResponseRejected.status);
+          break;
+
+        case "Cancel":
+          console.log("Rental canceled");
+          // eslint-disable-next-line no-case-declarations
+          const rentalResponseCanceled = await cancelRental(
+            rental.rentalId,
+            this.$store.state.token
+          );
+          console.log(rentalResponseCanceled.status);
+          break;
+
+        default:
+          return "Default";
       }
       await this.updatePage();
     },

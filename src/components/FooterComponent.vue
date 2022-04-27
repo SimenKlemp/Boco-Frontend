@@ -13,7 +13,6 @@ export default {
 
 <style scoped>
 .container {
-
 }
 .footerMeta {
   border-top: solid #707070 1px;

@@ -1,7 +1,13 @@
 <template>
   <div class="container">
     <div class="imageCarousel">
-      <img id="productImage" :src="require('../assets/Motorsag.png')" alt="" />
+      <img
+        v-if="item.imageId === -1 || item.imageId === null"
+        id="productImage"
+        :src="require('../assets/Motorsag.png')"
+        alt=""
+      />
+      <img v-else :src="'http://localhost:8085/api/image/' + item.imageId" />
     </div>
     <div class="info">
       <div class="productMeta">
@@ -157,8 +163,10 @@ export default {
       return this.$store.state.currentItem;
     },
     isMyAd() {
-      //TODO: fix isMyAd method
-      return this.$store.state.userInfo.userId === this.item.user.userId;
+      console.log(
+        this.item.user.userId + " " + this.$store.state.userInfo.userId
+      );
+      return this.item.user.userId === this.$store.state.userInfo.userId;
     },
   },
   methods: {
