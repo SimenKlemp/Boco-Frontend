@@ -158,7 +158,7 @@ export default {
     },
     isMyAd() {
       //TODO: fix isMyAd method
-      return this.$store.state.userInfo.userId === this.item.userId;
+      return this.$store.state.userInfo.userId === this.item.user.userId;
     },
   },
   methods: {

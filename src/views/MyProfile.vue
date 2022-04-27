@@ -71,7 +71,7 @@
           alt=""
         />
 
-        <div class="personalInfoContainer"  @click="goToPage('EditUserData')">
+        <div class="personalInfoContainer" @click="goToPage('EditUserData')">
           <div class="emailContainer">
             <svg
               class="icons"
