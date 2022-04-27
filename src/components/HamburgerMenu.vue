@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="hamburgerSupport">
-        <div>FAQ</div>
+        <div @click="emitRouteChange('faq')">FAQ</div>
         <div
           v-if="this.$store.state.userInfo.role === 'USER'"
           @click="goSendFeedback"
