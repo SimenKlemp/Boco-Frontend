@@ -7,7 +7,7 @@
           :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')"
           alt="motorsag"
         />
-        <img v-else :src="'http://localhost:8085/api/image/' + item.imageId" />
+        <img v-else :src="'http://localhost:8085/api/image/' + item.imageId" id="adImage"/>
       </div>
       <div class="itemMeta">
         <div class="itemInfo">
@@ -134,6 +134,7 @@ h4 {
 }
 .imageContainer {
   border-radius: 15px 0 0 15px;
+  height: 112px;
 }
 img {
   max-width: 150px;
@@ -161,5 +162,8 @@ img {
 h3 {
   font-size: 16px;
   font-weight: 400;
+}
+#adImage{
+  object-fit: cover;
 }
 </style>

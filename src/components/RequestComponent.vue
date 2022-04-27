@@ -4,7 +4,7 @@
     <ItemCardHorizontal :item="item" />
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
-      <Datepicker v-model="dates" />
+      <Datepicker v-model="dates" :previewFormat="format"/>
       <h2 id="deliverTitle">Leveringsalternativer</h2>
       <div id="radioContainer">
         <BaseRadioGroup
@@ -57,6 +57,7 @@ import useVuelidate from "@vuelidate/core";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import { helpers, required } from "@vuelidate/validators";
 import { doRentalRequest } from "@/service/apiService";
+import { ref } from 'vue';
 
 export default {
   name: "RequestComponent",
@@ -73,7 +74,22 @@ export default {
     },
   },
   setup() {
+    const date = ref(new Date());
+    // In case of a range picker, you'll receive [Date, Date]
+    const format = ([startDate, endDate]) => {
+      const startDay = startDate.getDate();
+      const startMonth = startDate.getMonth() + 1;
+      const startYear = startDate.getFullYear();
+
+      const endDay = endDate.getDate();
+      const endMonth = endDate.getMonth() + 1;
+      const endYear = endDate.getFullYear();
+
+      return `${startDay}/${startMonth}/${startYear}`;
+    };
     return {
+      date,
+      format,
       v$: useVuelidate(),
     };
   },
@@ -100,6 +116,7 @@ export default {
   },
   methods: {
     async submit() {
+      this.showDates();
       this.v$.$validate();
       console.log(this.v$);
       if (!this.v$.$error) {
@@ -127,6 +144,9 @@ export default {
         alert("Alle felter må være fylt inn");
       }
     },
+    showDates() {
+      console.log(this.dates);
+    }
   },
 };
 </script>

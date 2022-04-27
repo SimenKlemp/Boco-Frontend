@@ -33,6 +33,15 @@
       ><BaseErrorMessage v-if="v$.description.$error">{{
         v$.$errors[2].$message
       }}</BaseErrorMessage>
+      <div class="images">
+        <input type="file" accept="image/*" ref="file" @change="selectImage" />
+        <img
+          v-if="previewImage"
+          class="actualProfileImage"
+          :src="previewImage"
+          alt=""
+        />
+      </div>
       <div id="info">
         <h2>Sted</h2>
         <div>
@@ -77,12 +86,12 @@
         </div>
         <div id="deliverContainer">
           <h2 id="deliverTitle">Leveringsalternativer</h2>
-          <div id="checkboxContainer">
-            <BaseCheckboxGroup
-              v-model="deliveryOption"
-              name="deliveryOption"
-              :options="deliveryOptions"
-            />
+          <div>
+            <BaseCheckbox v-model="isPickupable" label="Kan hentes" />
+          </div>
+
+          <div>
+            <BaseCheckbox v-model="isDeliverable" label="Kan leveres" />
           </div>
         </div>
 
@@ -102,13 +111,24 @@
 
       <BaseButton
         v-if="newAd === true"
-        v-on:click="submit"
+        @click="submit"
         id="publish"
         text="Publiser"
+        :disabled="isError"
       />
       <div v-else>
-        <BaseButton v-on:click="saveItem" id="save" text="Lagre endringer" />
-        <BaseButton v-on:click="deleteItem" id="delete" text="Slett annonse" />
+        <BaseButton
+          @click="saveItem"
+          id="save"
+          text="Lagre endringer"
+          :disabled="isError"
+        />
+        <BaseButton
+          @click="deleteItem"
+          id="delete"
+          text="Slett annonse"
+          :disabled="isError"
+        />
       </div>
     </form>
   </div>
@@ -120,17 +140,16 @@ import BaseButton from "@/components/baseTools/BaseButton";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import useVuelidate from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
-import UploadImage from "@/components/UploadImage";
-import BaseCheckboxGroup from "@/components/baseTools/BaseCheckboxGroup";
+import BaseCheckbox from "@/components/baseTools/BaseCheckbox";
+import UploadService from "@/service/apiService";
 
 export default {
   name: "AddItemComponent",
   components: {
-    BaseCheckboxGroup,
+    BaseCheckbox,
     BaseButton,
     BaseInput,
     BaseErrorMessage,
-    UploadImage,
   },
   setup() {
     return {
@@ -146,23 +165,13 @@ export default {
       postalcode: this.$store.state.currentItem.postalCode,
       city: this.$store.state.currentItem.postOffice,
       price: this.$store.state.currentItem.price,
-      //TODO: finne en bedre måte å gjøre dette på? Likhet med radiobtn
       message: "",
       dates: null,
-      deliveryOption: 0,
-      //TODO: fiks slik at deliveryoptions checker av boksene hvis true
-      deliveryOptions: [
-        {
-          label: "Hjemmelevering",
-          value: 0,
-          checked: this.$store.state.currentItem.isDeliverable,
-        },
-        {
-          label: "Hente",
-          value: 1,
-          checked: this.$store.state.currentItem.isPickupable,
-        },
-      ],
+      currentImage: undefined,
+      previewImage: undefined,
+      currentImageId: undefined,
+      isDeliverable: false,
+      isPickupable: false,
     };
   },
   validations() {
@@ -199,52 +208,83 @@ export default {
       console.log(this.v$);
       // eslint-disable-next-line no-empty
       if (!this.v$.$error) {
+        await UploadService.upload(this.currentImage, this.$store.state.token)
+          .then((response) => {
+            this.$store.dispatch("setCurrentImageId", response.data);
+          })
+          .catch((err) => {
+            this.progress = 0;
+            this.message = "Could not upload the image! " + err;
+            this.currentImage = undefined;
+          });
+
         const itemRequest = {
           category: this.category,
           description: this.description,
+          imageId: this.$store.state.currentImageId,
           isDeliverable: this.isDeliverable,
           isPickupable: this.isPickupable,
           postOffice: this.city,
           postalCode: this.postalcode,
-          price: this.price,
+          price: parseFloat(this.price),
           streetAddress: this.address,
           title: this.title,
-          //TODO: add boolean values isPicupable and deliverable
           userId: this.$store.state.userInfo.userId,
-          imageId: this.$store.state.currentImageId,
         };
-        await this.$store.dispatch("updateItem", itemRequest);
-        //await this.$router.push({ name: "HomeView" });
+        await this.$store.dispatch("registerItem", itemRequest);
+        await this.$router.push({ name: "ProductDetails" });
+        this.$emit("routeChange");
       }
     },
     async saveItem() {
-      //TODO: fix bug on when item is saved (is saved to database, but webapp not working)
+      await UploadService.upload(this.currentImage, this.$store.state.token)
+        .then((response) => {
+          this.$store.dispatch("setCurrentImageId", response.data);
+        })
+        .catch((err) => {
+          this.progress = 0;
+          this.message = "Could not upload the image! " + err;
+          this.currentImage = undefined;
+        });
+
       if (!this.v$.$error) {
         const itemUpdated = {
           category: this.category,
           description: this.description,
+          imageId: this.$store.state.currentImageId,
           isPickupable: this.isPickupable,
           isDeliverable: this.isDeliverable,
           postOffice: this.city,
           postalCode: this.postalcode,
-          price: this.price,
+          price: parseFloat(this.price),
           streetAddress: this.address,
-          //TODO: add boolean values isPicupable and deliverable
           title: this.title,
           userId: this.$store.state.userInfo.userId,
         };
         await this.$store.dispatch("updateItem", itemUpdated);
         await this.$router.push({ name: "ProductDetails" });
+        this.$emit("routeChange");
       }
     },
     async deleteItem() {
       await this.$store.dispatch("deleteItem");
       await this.$router.push({ name: "MyAds" });
     },
+    selectImage() {
+      this.currentImage = this.$refs.file.files.item(0);
+      this.previewImage = URL.createObjectURL(this.currentImage);
+    },
   },
   computed: {
     newAd() {
       return this.$store.state.currentItem === "";
+    },
+    isError() {
+      if (this.v$.$error) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 };
@@ -253,6 +293,10 @@ export default {
 <style scoped>
 form {
   padding: 0px 30px 0px 30px;
+}
+.actualProfileImage {
+  width: 9rem;
+  height: 9rem;
 }
 form > * {
   margin-bottom: 10px;
