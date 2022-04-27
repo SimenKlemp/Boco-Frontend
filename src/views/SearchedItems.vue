@@ -21,19 +21,17 @@
         <p> Viser {{itemSize}} resultater for {{searchSentence}}</p>
       </div>
       <div id="sortAlternativesContainer">
-        <h4 id="sortTtitle"> sorter etter: </h4>
+        <h4 id="sortTitle"> sorter etter: </h4>
         <div id="inputContainer">
-
+          wefqwefwef
         </div>
 
       </div>
       <div id="deliverContainer">
         <h4 id="deliverTitle">Leveringsalternativer</h4>
         <div id="checkboxContainer">
-          <BaseCheckboxGroup
-              v-model="deliveryOption"
-              name="deliveryOption"
-              :options="deliveryOptions"/>
+            <BaseCheckbox v-model="mustBePickable" label="Kan hentes" />
+            <BaseCheckbox v-model="mustBeDeliverable" label="Kan leveres" />
         </div>
       </div>
       <div id="PriceContainer">
@@ -73,13 +71,13 @@
 <script>
 import BaseSearchBar from "@/components/baseTools/BaseSearchBar";
 import ItemCardSquare from "@/components/itemCards/ItemCardSquare";
-import BaseCheckboxGroup from "@/components/baseTools/BaseCheckboxGroup";
 import BaseInput from "@/components/baseTools/BaseInput";
+import BaseCheckbox from "@/components/baseTools/BaseCheckbox";
 export default {
   name: "SearchedItems",
   components: {
     BaseInput,
-    BaseCheckboxGroup,
+    BaseCheckbox,
     ItemCardSquare,
     BaseSearchBar,
   },
@@ -87,23 +85,12 @@ export default {
     return {
       maxPrice: 0,
       minPrice: 0,
-      deliveryOption: 0,
+      mustBeDeliverable: true,
+      mustBePickable: true,
       page: 0,
       pageSize: 30,
       sortField: "PRICE",
       searchSentence: "",
-      deliveryOptions: [
-        {
-          label: "Kan hentes",
-          value: 0,
-          checked: this.$store.state.currentItem.isDeliverable,
-        },
-        {
-          label: "Hjemmelevering",
-          value: 1,
-          checked: this.$store.state.currentItem.isPickupable,
-        },
-      ],
     };
   },
   computed: {
@@ -126,8 +113,8 @@ export default {
       const searchRequest = {
         maxPrice: this.maxPrice,
         minPrice: this.minPrice,
-        mustBeDeliverable: this.deliveryOption,
-        mustBePickable: this.deliveryOption,
+        mustBeDeliverable: this.mustBeDeliverable,
+        mustBePickable: this.mustBePickable,
         page: this.page,
         pageSize: this.pageSize,
         sortField: this.sortField,
@@ -143,6 +130,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 
 h3 {
   font-size: 22px;
