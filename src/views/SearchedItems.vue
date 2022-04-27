@@ -18,6 +18,9 @@
         </svg>
       </button>
       </div>
+      <BaseErrorMessage v-if="v$.searchSentence.$error">{{
+          v$.$errors[0].$message
+        }} </BaseErrorMessage>
       <div class="optionsContainer">
       <div class="itemsHeader">
         <h3>Søkeresultater</h3>
@@ -84,6 +87,8 @@ import BaseSearchBar from "@/components/baseTools/BaseSearchBar";
 import ItemCardSquare from "@/components/itemCards/ItemCardSquare";
 import BaseInput from "@/components/baseTools/BaseInput";
 import BaseCheckbox from "@/components/baseTools/BaseCheckbox";
+import useVuelidate from "@vuelidate/core";
+import {helpers, required} from "@vuelidate/validators";
 
 export default {
   name: "SearchedItems",
@@ -94,9 +99,14 @@ export default {
     BaseSearchBar,
     Multiselect,
   },
+  setup() {
+    return {
+      v$: useVuelidate(),
+    };
+  },
   data() {
     return {
-      maxPrice: 0,
+      maxPrice: 1000,
       minPrice: 0,
       mustBeDeliverable: true,
       mustBePickable: true,
@@ -107,12 +117,26 @@ export default {
       sortOptions: ["PRICE", "RELEVANCE", "PUBLICITY_DATE"],
     };
   },
+  validations() {
+    return {
+      searchSentence: {
+        required: helpers.withMessage("", required)
+      },
+    };
+  },
   computed: {
     items() {
       return this.$store.state.items;
     },
     itemSize() {
       return this.$store.state.items.length;
+    },
+    isError() {
+      if (this.v$.$error) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
   methods: {
@@ -124,20 +148,27 @@ export default {
       await this.$router.push({ name: "ProductDetails" });
     },
     submit() {
-      const searchRequest = {
-        maxPrice: this.maxPrice,
-        minPrice: this.minPrice,
-        mustBeDeliverable: this.mustBeDeliverable,
-        mustBePickable: this.mustBePickable,
-        page: this.page,
-        pageSize: this.pageSize,
-        sortField: this.sortField,
-        text: this.searchSentence,
-      };
-      console.log(searchRequest);
-      this.$store.dispatch("getCurrentSearchSentence", this.searchSentence);
+      this.v$.$validate();
+      console.log(this.v$);
+      if(!this.v$.$error){
+        const searchRequest = {
+          maxPrice: this.maxPrice,
+          minPrice: this.minPrice,
+          mustBeDeliverable: this.mustBeDeliverable,
+          mustBePickable: this.mustBePickable,
+          page: this.page,
+          pageSize: this.pageSize,
+          sortField: this.sortField,
+          text: this.searchSentence,
+        };
 
-      this.$store.dispatch("getSearchedItems", searchRequest);
+        console.log(searchRequest);
+        this.$store.dispatch("getCurrentSearchSentence", this.searchSentence);
+        this.$store.dispatch("getSearchedItems", searchRequest);
+      }
+      else {
+        alert("Søkefelt må være utfylt");
+      }
     },
   },
 };

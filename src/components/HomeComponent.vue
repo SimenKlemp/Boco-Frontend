@@ -2,8 +2,13 @@
   <div class="mainContent">
     <div class="welcomeMessage">Lei i stedet for å kjøpe!</div>
     <form class="form" @submit.prevent="submit">
-      <BaseSearchBar :label="'Søk...'" v-model="searchSentence"></BaseSearchBar>
-      <button class="searchButton">
+      <BaseSearchBar
+        id="searchSentence"
+        :label="'Søk...'"
+        v-model="searchSentence"
+        type="searchSentence"
+      />
+      <button class="searchButton" :disabled="isError">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           data-name="Layer 1"
@@ -18,35 +23,71 @@
         </svg>
       </button>
     </form>
+    <BaseErrorMessage v-if="v$.searchSentence.$error">{{
+        v$.$errors[0].$message
+      }} </BaseErrorMessage>
+
   </div>
 </template>
 
 <script>
 import BaseSearchBar from "@/components/baseTools/BaseSearchBar";
+import SearchedItems from "@/views/SearchedItems";
+import useVuelidate from "@vuelidate/core";
+import { helpers, required } from "@vuelidate/validators";
+import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 export default {
   name: "HomeComponent",
   components: {
+    BaseErrorMessage,
     BaseSearchBar,
+  },
+  setup() {
+    return {
+      v$: useVuelidate(),
+    };
   },
   data() {
     return {
-      searchSentence: "",
+      searchSentence: null,
       page: 0,
       pageSize: 30,
     };
   },
+  validations() {
+    return {
+      searchSentence: {
+        required: helpers.withMessage("", required)
+      },
+    };
+  },
   methods: {
     submit() {
-      const searchRequest = {
-        text: this.searchSentence,
-        page: this.page,
-        pageSize: this.pageSize,
-      };
+      this.v$.$validate();
+      console.log(this.v$);
+      if (!this.v$.$error) {
+        const searchRequest = {
+          text: this.searchSentence,
+          page: this.page,
+          pageSize: this.pageSize,
+        };
 
-      console.log(searchRequest);
-      this.$store.dispatch("getCurrentSearchSentence", this.searchSentence);
-      this.$store.dispatch("getSearchedItems", searchRequest);
-      this.$router.push({ name: "SearchedItems" });
+        console.log(searchRequest);
+        this.$store.dispatch("getCurrentSearchSentence", this.searchSentence);
+        this.$store.dispatch("getSearchedItems", searchRequest);
+        this.$router.push({ name: "SearchedItems" });
+      } else {
+        alert("Søkefelt må være utfylt");
+      }
+    },
+  },
+  computed: {
+    isError() {
+      if (this.v$.$error) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 };
