@@ -20,6 +20,7 @@ const getDefaultState = () => {
     myRentals: [],
     feedbacks: [],
     users: [],
+    currentSearchSentence: "",
   };
 };
 const state = getDefaultState();
@@ -58,6 +59,10 @@ export default createStore({
     SET_USERS(state, users) {
       state.users = users;
     },
+    SET_CURRENT_SEARCH_SENTENCE(state, searchSentence){
+      state.currentSearchSentence = searchSentence
+
+    }
   },
   actions: {
     resetState({ commit }) {
@@ -137,6 +142,12 @@ export default createStore({
           console.log(error);
         });
     },
+    getCurrentSearchSentence({ commit }, searchSentence) {
+      commit("SET_CURRENT_SEARCH_SENTENCE", searchSentence);
+      },
   },
   modules: {},
 });
+
+
+
