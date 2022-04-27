@@ -116,7 +116,7 @@ export default {
       return this.$store.state.token !== null;
     },
     hasProfileImage() {
-      return this.$store.state.userInfo.imageId !== -1;
+      return this.$store.state.userInfo.imageId !== null;
     },
   },
 };
