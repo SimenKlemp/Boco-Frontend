@@ -147,6 +147,7 @@ p {
 }
 .itemsContainer {
   margin: 10px;
+  height: 580px;
 }
 .items {
   display: flex;
