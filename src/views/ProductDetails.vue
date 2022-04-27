@@ -119,7 +119,7 @@
     </div>
     <div class="requestContainer">
       <BaseButton
-        v-if="isMyAd"
+        v-if="!isMyAd"
         class="baseButton"
         :id="'requestButton'"
         :text="'Send forespørsel'"
