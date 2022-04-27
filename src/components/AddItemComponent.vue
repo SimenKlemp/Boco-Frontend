@@ -170,8 +170,8 @@ export default {
       currentImage: undefined,
       previewImage: undefined,
       currentImageId: undefined,
-      isDeliverable: false,
-      isPickupable: false,
+      isDeliverable: this.$store.state.currentItem.isDeliverable,
+      isPickupable: this.$store.state.currentItem.isPickupable,
     };
   },
   validations() {
