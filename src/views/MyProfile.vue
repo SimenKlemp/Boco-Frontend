@@ -1,5 +1,5 @@
 <template>
-  <div class="container" @click="goToPage('EditUserData')">
+  <div class="container" >
     <div class="profileContainer">
       <svg
         v-if="!hasProfileImage"
@@ -53,12 +53,14 @@
           width="45"
           height="45"
           viewBox="0 0 45 45"
+          @click="goToPage('EditUserData')"
         >
           <path
             id="noun-profile-1995071"
             d="M25,2.5A22.5,22.5,0,1,0,47.5,25,22.52,22.52,0,0,0,25,2.5Zm0,12.884a7.058,7.058,0,1,1-7.058,7.058A7.076,7.076,0,0,1,25,15.384ZM12.684,38.642V37.6a5.448,5.448,0,0,1,5.447-5.447H31.868A5.448,5.448,0,0,1,37.316,37.6v1.042a18.379,18.379,0,0,1-24.632,0Z"
             transform="translate(-2.5 -2.5)"
             fill="#126782"
+            @click="goToPage('EditUserData')"
           />
         </svg>
         <img
@@ -69,9 +71,10 @@
             this.$store.state.userInfo.imageId
           "
           alt=""
+          @click="goToPage('EditUserData')"
         />
 
-        <div class="personalInfoContainer" >
+        <div class="personalInfoContainer" @click="goToPage('EditUserData')" >
           <div class="emailContainer">
             <svg
               class="icons"
@@ -117,6 +120,7 @@
           width="20.065"
           height="19.599"
           viewBox="0 0 20.065 19.599"
+          @click="goToPage('EditUserData')"
         >
           <path
             id="np_edit_4779758_000000"
@@ -124,6 +128,7 @@
             transform="translate(-1.98 -3.099)"
             fill="#034363"
             fill-rule="evenodd"
+
           />
         </svg>
       </BaseCardHorizontal>
