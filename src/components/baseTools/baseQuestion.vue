@@ -2,12 +2,13 @@
   <div class="questionContainer" @click="toggleAnswer">
     <div>
       <h3>{{ title }}</h3>
-      <div :class="{ svg: disabled }" id="svgdiv">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="13.056"
           height="22.364"
           viewBox="0 0 13.056 22.364"
+          :class="{svg:disabled}"
+          id="svgdiv"
         >
           <g
             id="noun-arrow-2284415"
@@ -21,7 +22,6 @@
             />
           </g>
         </svg>
-      </div>
     </div>
     <transition>
       <p v-if="show">{{ description }}</p>
@@ -86,9 +86,7 @@ transition {
 }
 
 .svg {
-  width: 20px;
-  display: inline-block;
-  animation: spin forwards 1s;
+  transform: rotate(90deg);
 }
 @keyframes spin {
   100% {
@@ -106,5 +104,6 @@ transition {
   display: inline-block;
   margin-left: 20px;
   margin-top: 10px;
+  transition: 0.75s ease-out;
 }
 </style>
