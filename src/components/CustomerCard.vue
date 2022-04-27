@@ -2,6 +2,7 @@
   <div @click="toggleDropdown" class="customerContainer">
     <div class="profileContainer">
       <svg
+        v-if="rental.user.imageId === -1 || rental.user.imageId === null"
         class="profileImage"
         xmlns="http://www.w3.org/2000/svg"
         width="45"
@@ -15,6 +16,13 @@
           fill="#126782"
         />
       </svg>
+      <div v-else id="profileImageContainer">
+        <img
+          id="profileImage"
+          class="productImage"
+          :src="'http://localhost:8085/api/image/' + rental.user.imageId"
+        />
+      </div>
       <div class="profileInfo">
         <h3 class="name">{{ rental.user.name }}</h3>
         <div class="verifiedContainer">
@@ -342,5 +350,15 @@ export default {
 }
 #cancelButton {
   margin: 0 auto;
+}
+#profileImageContainer {
+  height: 45px;
+  width: 45px;
+}
+#profileImage {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 </style>
