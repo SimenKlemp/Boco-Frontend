@@ -1,5 +1,5 @@
 <template>
-  <div class="container" @click="goToPage('EditUserData')">
+  <div class="container">
     <div class="profileContainer">
       <svg
         v-if="!hasProfileImage"
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="actions">
-      <BaseCardHorizontal>
+      <BaseCardHorizontal @click="goToPage('EditUserData')">
         <svg
           v-if="!hasProfileImage"
           class="sideIcon"
@@ -70,8 +70,7 @@
           "
           alt=""
         />
-
-        <div class="personalInfoContainer" >
+        <div class="personalInfoContainer">
           <div class="emailContainer">
             <svg
               class="icons"
@@ -127,144 +126,136 @@
           />
         </svg>
       </BaseCardHorizontal>
-      <BaseCardHorizontal>
-        <svg
-          class="sideIcon extraPadding"
-          xmlns="http://www.w3.org/2000/svg"
-          width="40.577"
-          height="40.577"
-          viewBox="0 0 40.577 40.577"
-        >
-          <g id="noun-news-1366052" transform="translate(-8.07 -8.07)">
-            <path
-              id="Path_18"
-              data-name="Path 18"
-              d="M48.647,13.876A5.806,5.806,0,0,0,42.84,8.07H13.876A5.806,5.806,0,0,0,8.07,13.876V42.84a5.806,5.806,0,0,0,5.806,5.806H42.84a5.806,5.806,0,0,0,5.806-5.806Zm-2.9,28.964a2.9,2.9,0,0,1-2.9,2.9H13.876a2.9,2.9,0,0,1-2.9-2.9V13.876a2.9,2.9,0,0,1,2.9-2.9H42.84a2.9,2.9,0,0,1,2.9,2.9Z"
-            />
-            <path
-              id="Path_19"
-              data-name="Path 19"
-              d="M20.922,36.79H34.242a1.452,1.452,0,0,0,1.452-1.452V24.452A1.452,1.452,0,0,0,34.242,23H20.922a1.452,1.452,0,0,0-1.452,1.452V35.339A1.452,1.452,0,0,0,20.922,36.79ZM22.373,25.9H32.791v7.984H22.373Z"
-              transform="translate(-5.884 -7.706)"
-            />
-            <path
-              id="Path_20"
-              data-name="Path 20"
-              d="M67.723,23H59.982a1.452,1.452,0,0,0,0,2.9h7.742a1.452,1.452,0,0,0,0-2.9Z"
-              transform="translate(-26.044 -7.706)"
-            />
-            <path
-              id="Path_21"
-              data-name="Path 21"
-              d="M67.723,35H59.982a1.452,1.452,0,0,0,0,2.9h7.742a1.452,1.452,0,0,0,0-2.9Z"
-              transform="translate(-26.044 -13.9)"
-            />
-            <path
-              id="Path_22"
-              data-name="Path 22"
-              d="M67.723,47H59.982a1.452,1.452,0,0,0,0,2.9h7.742a1.452,1.452,0,0,0,0-2.9Z"
-              transform="translate(-26.044 -20.093)"
-            />
-            <path
-              id="Path_23"
-              data-name="Path 23"
-              d="M47.594,59H20.982a1.452,1.452,0,0,0,0,2.9H47.594a1.452,1.452,0,1,0,0-2.9Z"
-              transform="translate(-5.915 -26.287)"
-            />
-            <path
-              id="Path_24"
-              data-name="Path 24"
-              d="M47.594,71H20.982a1.452,1.452,0,1,0,0,2.9H47.594a1.452,1.452,0,1,0,0-2.9Z"
-              transform="translate(-5.915 -32.481)"
-            />
-          </g>
-        </svg>
-        <div
-          @click="goToPage('MyAds')"
-          class="actionInfoText"
-          id="extraPadding"
-        >
-          Mine annonser
-        </div>
-        <svg
-          class="sideIconRight"
-          xmlns="http://www.w3.org/2000/svg"
-          width="11.676"
-          height="20"
-          viewBox="0 0 11.676 20"
-        >
-          <path
-            id="Path_8"
-            data-name="Path 8"
-            d="M32.219,986.143l-1,.956-9,8.639,2,2.081,8-7.683,8,7.683,2-2.081-9-8.639Z"
-            transform="translate(997.819 -22.219) rotate(90)"
-          />
-        </svg>
-      </BaseCardHorizontal>
-      <BaseCardHorizontal>
-        <svg
-          class="sideIcon extraPadding"
-          xmlns="http://www.w3.org/2000/svg"
-          width="35.768"
-          height="40.046"
-          viewBox="0 0 35.768 40.046"
-        >
-          <g
-            id="Group_53"
-            data-name="Group 53"
-            transform="translate(-44 -515.5)"
-          >
-            <path
-              id="Path_11"
-              data-name="Path 11"
-              d="M36.377,23.793V6.279A4.279,4.279,0,0,0,32.1,2H9.279A4.279,4.279,0,0,0,5,6.279v27.1a4.279,4.279,0,0,0,4.279,4.279H22.514A9.984,9.984,0,1,0,36.377,23.793ZM9.279,34.8a1.426,1.426,0,0,1-1.426-1.426V6.279A1.426,1.426,0,0,1,9.279,4.852H32.1a1.426,1.426,0,0,1,1.426,1.426v16.1H33.41A9.984,9.984,0,0,0,21.074,34.718v.114Zm21.393,4.279A7.131,7.131,0,0,1,24.5,35.5a6.931,6.931,0,0,1-.956-3.551,7.131,7.131,0,0,1,7.131-7.131,6.9,6.9,0,0,1,3.566.97,7.131,7.131,0,0,1-3.566,13.292Z"
-              transform="translate(39 513.5)"
-            />
-            <path
-              id="Path_12"
-              data-name="Path 12"
-              d="M25.926,20.609,23.3,24.531l-.713-1.07a1.426,1.426,0,0,0-2.368,1.569l1.9,2.852a1.426,1.426,0,0,0,2.382,0l3.794-5.7a1.426,1.426,0,0,0-2.368-1.569Z"
-              transform="translate(45.415 521.205)"
-            />
-            <path
-              id="Path_13"
-              data-name="Path 13"
-              d="M10.426,8.852h11.41a1.426,1.426,0,0,0,0-2.852H10.426a1.426,1.426,0,0,0,0,2.852Z"
-              transform="translate(40.705 515.205)"
-            />
-            <path
-              id="Path_14"
-              data-name="Path 14"
-              d="M10.426,12.852h11.41a1.426,1.426,0,0,0,0-2.852H10.426a1.426,1.426,0,0,0,0,2.852Z"
-              transform="translate(40.705 516.91)"
-            />
-            <path
-              id="Path_15"
-              data-name="Path 15"
-              d="M21.836,14H10.426a1.426,1.426,0,0,0,0,2.852h11.41a1.426,1.426,0,0,0,0-2.852Z"
-              transform="translate(40.705 518.615)"
-            />
-          </g>
-        </svg>
-        <div @click="goToPage('MyRentals')" class="actionInfoText">
-          Mine leieforhold
-        </div>
-        <svg
-          class="sideIconRight"
-          xmlns="http://www.w3.org/2000/svg"
-          width="11.676"
-          height="20"
-          viewBox="0 0 11.676 20"
-        >
-          <path
-            id="Path_8"
-            data-name="Path 8"
-            d="M32.219,986.143l-1,.956-9,8.639,2,2.081,8-7.683,8,7.683,2-2.081-9-8.639Z"
-            transform="translate(997.819 -22.219) rotate(90)"
-          />
-        </svg>
-      </BaseCardHorizontal>
     </div>
+    <BaseCardHorizontal>
+      <svg
+        class="sideIcon extraPadding"
+        xmlns="http://www.w3.org/2000/svg"
+        width="40.577"
+        height="40.577"
+        viewBox="0 0 40.577 40.577"
+      >
+        <g id="noun-news-1366052" transform="translate(-8.07 -8.07)">
+          <path
+            id="Path_18"
+            data-name="Path 18"
+            d="M48.647,13.876A5.806,5.806,0,0,0,42.84,8.07H13.876A5.806,5.806,0,0,0,8.07,13.876V42.84a5.806,5.806,0,0,0,5.806,5.806H42.84a5.806,5.806,0,0,0,5.806-5.806Zm-2.9,28.964a2.9,2.9,0,0,1-2.9,2.9H13.876a2.9,2.9,0,0,1-2.9-2.9V13.876a2.9,2.9,0,0,1,2.9-2.9H42.84a2.9,2.9,0,0,1,2.9,2.9Z"
+          />
+          <path
+            id="Path_19"
+            data-name="Path 19"
+            d="M20.922,36.79H34.242a1.452,1.452,0,0,0,1.452-1.452V24.452A1.452,1.452,0,0,0,34.242,23H20.922a1.452,1.452,0,0,0-1.452,1.452V35.339A1.452,1.452,0,0,0,20.922,36.79ZM22.373,25.9H32.791v7.984H22.373Z"
+            transform="translate(-5.884 -7.706)"
+          />
+          <path
+            id="Path_20"
+            data-name="Path 20"
+            d="M67.723,23H59.982a1.452,1.452,0,0,0,0,2.9h7.742a1.452,1.452,0,0,0,0-2.9Z"
+            transform="translate(-26.044 -7.706)"
+          />
+          <path
+            id="Path_21"
+            data-name="Path 21"
+            d="M67.723,35H59.982a1.452,1.452,0,0,0,0,2.9h7.742a1.452,1.452,0,0,0,0-2.9Z"
+            transform="translate(-26.044 -13.9)"
+          />
+          <path
+            id="Path_22"
+            data-name="Path 22"
+            d="M67.723,47H59.982a1.452,1.452,0,0,0,0,2.9h7.742a1.452,1.452,0,0,0,0-2.9Z"
+            transform="translate(-26.044 -20.093)"
+          />
+          <path
+            id="Path_23"
+            data-name="Path 23"
+            d="M47.594,59H20.982a1.452,1.452,0,0,0,0,2.9H47.594a1.452,1.452,0,1,0,0-2.9Z"
+            transform="translate(-5.915 -26.287)"
+          />
+          <path
+            id="Path_24"
+            data-name="Path 24"
+            d="M47.594,71H20.982a1.452,1.452,0,1,0,0,2.9H47.594a1.452,1.452,0,1,0,0-2.9Z"
+            transform="translate(-5.915 -32.481)"
+          />
+        </g>
+      </svg>
+      <div @click="goToPage('MyAds')" class="actionInfoText" id="extraPadding">
+        Mine annonser
+      </div>
+      <svg
+        class="sideIconRight"
+        xmlns="http://www.w3.org/2000/svg"
+        width="11.676"
+        height="20"
+        viewBox="0 0 11.676 20"
+      >
+        <path
+          id="Path_8"
+          data-name="Path 8"
+          d="M32.219,986.143l-1,.956-9,8.639,2,2.081,8-7.683,8,7.683,2-2.081-9-8.639Z"
+          transform="translate(997.819 -22.219) rotate(90)"
+        />
+      </svg>
+    </BaseCardHorizontal>
+    <BaseCardHorizontal>
+      <svg
+        class="sideIcon extraPadding"
+        xmlns="http://www.w3.org/2000/svg"
+        width="35.768"
+        height="40.046"
+        viewBox="0 0 35.768 40.046"
+      >
+        <g id="Group_53" data-name="Group 53" transform="translate(-44 -515.5)">
+          <path
+            id="Path_11"
+            data-name="Path 11"
+            d="M36.377,23.793V6.279A4.279,4.279,0,0,0,32.1,2H9.279A4.279,4.279,0,0,0,5,6.279v27.1a4.279,4.279,0,0,0,4.279,4.279H22.514A9.984,9.984,0,1,0,36.377,23.793ZM9.279,34.8a1.426,1.426,0,0,1-1.426-1.426V6.279A1.426,1.426,0,0,1,9.279,4.852H32.1a1.426,1.426,0,0,1,1.426,1.426v16.1H33.41A9.984,9.984,0,0,0,21.074,34.718v.114Zm21.393,4.279A7.131,7.131,0,0,1,24.5,35.5a6.931,6.931,0,0,1-.956-3.551,7.131,7.131,0,0,1,7.131-7.131,6.9,6.9,0,0,1,3.566.97,7.131,7.131,0,0,1-3.566,13.292Z"
+            transform="translate(39 513.5)"
+          />
+          <path
+            id="Path_12"
+            data-name="Path 12"
+            d="M25.926,20.609,23.3,24.531l-.713-1.07a1.426,1.426,0,0,0-2.368,1.569l1.9,2.852a1.426,1.426,0,0,0,2.382,0l3.794-5.7a1.426,1.426,0,0,0-2.368-1.569Z"
+            transform="translate(45.415 521.205)"
+          />
+          <path
+            id="Path_13"
+            data-name="Path 13"
+            d="M10.426,8.852h11.41a1.426,1.426,0,0,0,0-2.852H10.426a1.426,1.426,0,0,0,0,2.852Z"
+            transform="translate(40.705 515.205)"
+          />
+          <path
+            id="Path_14"
+            data-name="Path 14"
+            d="M10.426,12.852h11.41a1.426,1.426,0,0,0,0-2.852H10.426a1.426,1.426,0,0,0,0,2.852Z"
+            transform="translate(40.705 516.91)"
+          />
+          <path
+            id="Path_15"
+            data-name="Path 15"
+            d="M21.836,14H10.426a1.426,1.426,0,0,0,0,2.852h11.41a1.426,1.426,0,0,0,0-2.852Z"
+            transform="translate(40.705 518.615)"
+          />
+        </g>
+      </svg>
+      <div @click="goToPage('MyRentals')" class="actionInfoText">
+        Mine leieforhold
+      </div>
+      <svg
+        class="sideIconRight"
+        xmlns="http://www.w3.org/2000/svg"
+        width="11.676"
+        height="20"
+        viewBox="0 0 11.676 20"
+      >
+        <path
+          id="Path_8"
+          data-name="Path 8"
+          d="M32.219,986.143l-1,.956-9,8.639,2,2.081,8-7.683,8,7.683,2-2.081-9-8.639Z"
+          transform="translate(997.819 -22.219) rotate(90)"
+        />
+      </svg>
+    </BaseCardHorizontal>
   </div>
 </template>
 
