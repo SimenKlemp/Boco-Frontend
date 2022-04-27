@@ -49,7 +49,7 @@ export async function doRegisterItem(itemRequest, token) {
     })
     .then((response) => {
       console.log(response);
-      return response;
+      return response.data;
     })
     .catch((err) => {
       console.log(err);

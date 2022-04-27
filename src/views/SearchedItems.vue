@@ -1,6 +1,7 @@
 <template>
   <div class="mainContent">
-    <form class="form" @submit.prevent="submit">
+    <form class="form" @submit.prevent="submit" id="form">
+      <div id="searchbarContainer">
       <BaseSearchBar :label="'Søk...'" v-model="searchSentence"></BaseSearchBar>
       <button class="searchButton">
         <svg
@@ -16,10 +17,13 @@
           ></path>
         </svg>
       </button>
+      </div>
+      <div class="optionsContainer">
       <div class="itemsHeader">
         <h3>Søkeresultater</h3>
         <p>Viser {{ itemSize }} resultater for {{ searchSentence }}</p>
       </div>
+
       <div id="sortAlternativesContainer">
         <h4 id="sortTitle">sorter etter:</h4>
         <div id="inputSortContainer">
@@ -33,8 +37,8 @@
       <div id="deliverContainer">
         <h4 id="deliverTitle">Leveringsalternativer</h4>
         <div id="checkboxContainer">
-          <BaseCheckbox v-model="mustBePickable" label="Kan hentes" />
-          <BaseCheckbox v-model="mustBeDeliverable" label="Kan leveres" />
+            <BaseCheckbox v-model="mustBePickable" label="Kan hentes" class="checkbox" />
+            <BaseCheckbox v-model="mustBeDeliverable" label="Kan leveres" class="checkbox" />
         </div>
       </div>
       <div id="PriceContainer">
@@ -59,12 +63,13 @@
           />
         </div>
       </div>
+      </div>
     </form>
   </div>
   <div class="itemsContainer">
     <div class="items">
       <ItemCardSquare
-        v-for="item in items.slice(0, 4)"
+        v-for="item in items"
         :key="item.itemId"
         :item="item"
         @click="seeItem(item)"
@@ -138,7 +143,9 @@ export default {
 };
 </script>
 
-<style src="@vueform/multiselect/themes/default.css">
+<style scoped >
+@import "@vueform/multiselect/themes/default.css";
+
 h3 {
   font-size: 22px;
   margin-bottom: 5px;
@@ -152,14 +159,21 @@ p {
 }
 
 .form {
-  display: grid;
+  border:none;
   border-radius: 7px;
-  box-shadow: 0 0 3px;
+
   background: white;
+
+  width: 95%;
+  margin: 0 auto ;
+}
+#searchbarContainer{
+  display: grid;
   grid-template-columns: 85% 15%;
   height: 4rem;
-  width: 95%;
-  margin: 70px auto 0;
+  border:1px solid #707070;
+  box-shadow: 0 0 3px;
+  border-radius: 10px;
 }
 .searchButton {
   border: none;
@@ -168,7 +182,7 @@ p {
 .items {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 20rem;
+  margin-top: 20px  ;
 }
 .itemsHeader {
   margin-top: 1rem;
@@ -177,4 +191,28 @@ p {
 #checkboxContainer {
   margin-top: 1rem;
 }
+
+
+.optionsContainer{
+  text-align: left;
+}
+.mainContent{
+  margin: 0 15px;
+}
+#baseInputMinPriceContainer{
+  max-width: 150px;
+  width: 100%;
+}
+#baseInputMaxPriceContainer{
+  max-width: 150px;
+  width: 100%;
+}
+#minPriceTitle{
+  font-weight: 500;
+}
+#maxPriceTitle{
+  font-weight: 500;
+}
+
+
 </style>

@@ -163,8 +163,10 @@ export default {
       return this.$store.state.currentItem;
     },
     isMyAd() {
-      //TODO: fix isMyAd method
-      return this.$store.state.userInfo.userId === this.item.user.userId;
+      console.log(
+        this.item.user.userId + " " + this.$store.state.userInfo.userId
+      );
+      return this.item.user.userId === this.$store.state.userInfo.userId;
     },
   },
   methods: {

@@ -13,6 +13,7 @@ const getDefaultState = () => {
   return {
     token: null,
     currentItem: "",
+    currentRental: "",
     userInfo: {},
     currentImageId: null,
     items: [],
@@ -46,6 +47,9 @@ export default createStore({
     },
     SET_ITEM(state, item) {
       state.currentItem = item;
+    },
+    SET_RENTAL(state, rental) {
+      state.currentRental = rental;
     },
     SET_FEEDBACKS(state, feedbacks) {
       state.feedbacks = feedbacks;
@@ -112,16 +116,20 @@ export default createStore({
       commit("SET_MY_RENTALS", rentals);
     },
     async updateItem({ commit }, item) {
-      await updateItem(item, state.currentItem.itemId, this.state.token);
-      commit("SET_ITEM", item);
+      let response = await updateItem(
+        item,
+        state.currentItem.itemId,
+        this.state.token
+      );
+      commit("SET_ITEM", response);
     },
     async deleteItem({ commit }) {
       await deleteItem(state.currentItem.itemId, this.state.token);
       commit("SET_ITEM", null);
     },
     async registerItem({ commit }, item) {
-      await doRegisterItem(item, this.state.token);
-      commit("SET_ITEM", item);
+      let response = await doRegisterItem(item, this.state.token);
+      commit("SET_ITEM", response);
     },
     getUsers({ commit }) {
       getUsers(this.state.token)
@@ -140,6 +148,9 @@ export default createStore({
         .catch((error) => {
           console.log(error);
         });
+    },
+    setRental({ commit }, rental) {
+      commit("SET_RENTAL", rental);
     },
     getCurrentSearchSentence({ commit }, searchSentence) {
       commit("SET_CURRENT_SEARCH_SENTENCE", searchSentence);

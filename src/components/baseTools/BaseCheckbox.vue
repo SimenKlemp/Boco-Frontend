@@ -1,4 +1,5 @@
 <template>
+  <div id="checkboxContainer">
   <input
     type="checkbox"
     :checked="modelValue"
@@ -6,6 +7,7 @@
     class="field"
   />
   <label v-if="label">{{ label }}</label>
+  </div>
 </template>
 
 <script>
@@ -22,3 +24,28 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+input{
+  appearance: none;
+  height: 25px;
+  width: 25px;
+  border-radius: 5px;
+  border:2px solid #034363;
+}
+input :checked:after{
+  background-color: red;
+}
+input:checked{
+ content: url("../../assets/Group 87.svg");
+  border: none;
+}
+#checkboxContainer{
+  display: flex;
+}
+label{
+  margin-left: 10px;
+  margin-top:5px
+}
+</style>

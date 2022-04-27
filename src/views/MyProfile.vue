@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" @click="goToPage('EditUserData')">
     <div class="profileContainer">
       <svg
         v-if="!hasProfileImage"
@@ -71,7 +71,7 @@
           alt=""
         />
 
-        <div class="personalInfoContainer" @click="goToPage('EditUserData')">
+        <div class="personalInfoContainer" >
           <div class="emailContainer">
             <svg
               class="icons"

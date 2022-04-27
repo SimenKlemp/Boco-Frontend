@@ -2,7 +2,7 @@
   <div class="container">
     <h1>Mine leieforhold</h1>
     <div class="actions">
-      <BaseSection :title="'Venter på svar'" :rentals="items"></BaseSection>
+      <BaseSection :title="'Venter på svar'" :rentals="rentals"></BaseSection>
       <BaseSection :title="'Aktive leieforhold'"></BaseSection>
       <BaseSection :title="'Avsluttede leieforhold'"></BaseSection>
     </div>
@@ -17,7 +17,7 @@ export default {
     BaseSection,
   },
   computed: {
-    items() {
+    rentals() {
       return this.$store.state.myRentals;
     },
   },

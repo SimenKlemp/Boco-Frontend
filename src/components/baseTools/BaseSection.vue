@@ -29,11 +29,12 @@
     </div>
     <div v-else>
       <ItemCardHorizontal
-        v-for="item in dataItems"
-        :key="item.item.itemId"
+        v-for="rental in dataItems"
+        :key="rental.item.itemId"
         class="items"
-        :item="item.item"
-        @click.stop="goToItem(item.item)"
+        :item="rental.item"
+        :status="rental.status"
+        @click.stop="goToRental(rental)"
       ></ItemCardHorizontal>
     </div>
   </div>
@@ -72,17 +73,21 @@ export default {
 
       if (this.isDropped) {
         if (this.items) {
+          console.log("Current dataItems are items");
           this.dataItems = this.items;
         } else {
+          console.log(
+            "Current dataItems are rentals " + this.rentals[0].status
+          );
           this.dataItems = this.rentals;
         }
       } else {
         this.dataItems = null;
       }
     },
-    goToItem(item) {
-      this.$store.dispatch("setItem", item);
-      this.$router.push({ name: "ProductDetails" });
+    goToRental(rental) {
+      this.$store.dispatch("setRental", rental);
+      this.$router.push({ name: "RentalDetails" });
     },
     goToRentals(item) {
       this.$store.dispatch("setItem", item);

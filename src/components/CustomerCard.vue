@@ -105,6 +105,47 @@
               />
             </g>
           </svg>
+          <svg
+            v-if="status === 'Kansellert'"
+            class="statusIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+          >
+            <g id="noun-cancel-2014884" transform="translate(-5 -5)">
+              <path
+                id="Path_50"
+                data-name="Path 50"
+                d="M15,5A10,10,0,1,0,25,15,10.015,10.015,0,0,0,15,5Zm0,18.622A8.622,8.622,0,1,1,23.622,15,8.63,8.63,0,0,1,15,23.622Z"
+                fill="#d22222"
+              />
+              <path
+                id="Path_51"
+                data-name="Path 51"
+                d="M40.819,33.242a.738.738,0,0,0-1.044,0l-2.756,2.733-2.733-2.733a.739.739,0,0,0-1.044,1.044l2.733,2.733-2.733,2.756a.738.738,0,0,0,0,1.044.766.766,0,0,0,.511.222.675.675,0,0,0,.511-.222l2.756-2.756L39.753,40.8a.766.766,0,0,0,.511.222.644.644,0,0,0,.511-.222.738.738,0,0,0,0-1.044l-2.711-2.733L40.8,34.286A.719.719,0,0,0,40.819,33.242Z"
+                transform="translate(-21.797 -21.797)"
+                fill="#d22222"
+              />
+            </g>
+          </svg>
+          <svg
+            v-if="status === 'Avvist'"
+            class="statusIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+          >
+            <g id="noun-denied-1447616" transform="translate(0 0)">
+              <path
+                id="Path_52"
+                data-name="Path 52"
+                d="M17.071,2.929a10,10,0,1,0,0,14.142A10,10,0,0,0,17.071,2.929ZM4.957,4.958a7.109,7.109,0,0,1,8.967-.913l-9.88,9.88A7.134,7.134,0,0,1,4.957,4.958ZM15.042,15.043a7.1,7.1,0,0,1-8.968.911l9.893-9.861A7.138,7.138,0,0,1,15.042,15.043Z"
+                fill="#d22222"
+              />
+            </g>
+          </svg>
           <div class="status">{{ status }}</div>
         </div>
         <div class="pickupContainer">
@@ -151,7 +192,13 @@
       </div>
     </div>
     <div v-if="dropDownClicked && isAccepted" class="alternateDropDown">
-      <div class="button" id="cancelButton">Kanseller</div>
+      <div
+        @click.stop="emitRentalAction('Cancel')"
+        class="button"
+        id="cancelButton"
+      >
+        KANSELLER
+      </div>
     </div>
   </div>
 </template>
@@ -196,6 +243,8 @@ export default {
           return "Avventer";
         case "REJECTED":
           return "Avvist";
+        case "CANCELED":
+          return "Kansellert";
         default:
           return "Default";
       }

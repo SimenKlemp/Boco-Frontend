@@ -4,15 +4,7 @@
     <ItemCardHorizontal :item="item" />
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
-      <Datepicker
-        v-model="date"
-        range
-        :format="format"
-        :previewFormat="previewFormat"
-        :enableTimePicker="false"
-        selectText="Velg"
-        cancelText="Lukk"
-      ></Datepicker>
+      <Datepicker v-model="date" range :format="format" locale="no" :previewFormat="previewFormat" :enableTimePicker="false" selectText="Velg" cancelText="Lukk"></Datepicker>
       <h2 id="deliverTitle">Leveringsalternativer</h2>
       <div id="radioContainer">
         <BaseRadioGroup
@@ -164,15 +156,9 @@ export default {
   },
   methods: {
     async submit() {
-      this.showDates();
       this.v$.$validate();
       console.log(this.v$);
       if (!this.v$.$error) {
-        console.log("Datoer: " + this.date + " - " + this.date.startDate);
-        console.log(this.deliveryOptions);
-        //Need to split dates to get access to start and end date
-        console.log(this.toPickup + " " + this.toDeliver);
-        console.log(this.deliveryOption);
 
         const reqisterRentalRequest = {
           //deliveryInfo: this.deliveryOption,
@@ -193,10 +179,7 @@ export default {
       } else {
         alert("Alle felter må være fylt inn");
       }
-    },
-    showDates() {
-      console.log(this.dates);
-    },
+    }
   },
 };
 </script>
@@ -217,12 +200,6 @@ export default {
   border-radius: 15px;
   width: 100%;
   height: 150px;
-}
-h2 {
-  font-size: 24px;
-  font-weight: 500;
-  color: black;
-  margin-bottom: 25px;
 }
 form {
   text-align: left;

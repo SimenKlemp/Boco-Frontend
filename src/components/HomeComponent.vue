@@ -23,7 +23,6 @@
 
 <script>
 import BaseSearchBar from "@/components/baseTools/BaseSearchBar";
-import SearchedItems from "@/views/SearchedItems";
 export default {
   name: "HomeComponent",
   components: {

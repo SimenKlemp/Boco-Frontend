@@ -15,6 +15,7 @@ import FeedbackView from "@/views/FeedbackView";
 import EditUserData from "@/components/EditUserData";
 import UserView from "@/views/UserView";
 import FAQView from "@/views/FAQView";
+import RentalDetails from "@/views/RentalDetails";
 import SearchedItems from "@/views/SearchedItems";
 
 const routes = [
@@ -47,6 +48,11 @@ const routes = [
     path: "/product-details/{id}",
     name: "ProductDetails",
     component: ProductDetails,
+  },
+  {
+    path: "/rental-details/",
+    name: "RentalDetails",
+    component: RentalDetails,
   },
   {
     path: "/request-hire",
