@@ -71,7 +71,7 @@
           alt=""
         />
 
-        <div class="personalInfoContainer">
+        <div class="personalInfoContainer"  @click="goToPage('EditUserData')">
           <div class="emailContainer">
             <svg
               class="icons"
@@ -117,7 +117,7 @@
           width="20.065"
           height="19.599"
           viewBox="0 0 20.065 19.599"
-          @click="goToPage('EditUserData')"
+
         >
           <path
             id="np_edit_4779758_000000"
@@ -377,6 +377,7 @@ export default {
 .small {
   width: 4rem;
   height: 4rem;
+  padding: 10px 0 0 1.25rem;
 }
 
 #extraPadding {

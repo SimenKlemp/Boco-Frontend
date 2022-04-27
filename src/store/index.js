@@ -116,11 +116,7 @@ export default createStore({
       commit("SET_ITEM", null);
     },
     async registerItem({ commit }, item) {
-      await doRegisterItem(
-        item,
-        state.currentItem.itemId,
-        this.$store.state.token
-      );
+      await doRegisterItem(item, this.state.token);
       commit("SET_ITEM", item);
     },
     getUsers({ commit }) {
