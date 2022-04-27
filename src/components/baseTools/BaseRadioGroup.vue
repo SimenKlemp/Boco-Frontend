@@ -45,7 +45,7 @@ export default {
       type: Boolean,
       required: true,
       default: false,
-    }
+    },
   },
 };
 </script>

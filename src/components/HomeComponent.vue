@@ -23,7 +23,6 @@
 
 <script>
 import BaseSearchBar from "@/components/baseTools/BaseSearchBar";
-import SearchedItems from "@/views/SearchedItems";
 export default {
   name: "HomeComponent",
   components: {
@@ -48,7 +47,6 @@ export default {
       this.$store.dispatch("getCurrentSearchSentence", this.searchSentence);
       this.$store.dispatch("getSearchedItems", searchRequest);
       this.$router.push({ name: "SearchedItems" });
-
     },
   },
 };

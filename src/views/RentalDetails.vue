@@ -355,7 +355,9 @@
       Venter på svar fra utleier. Du kan fortsatt kansellere forespørselen din.
     </p>
     <div v-if="isPending" class="cancelContainer">
-      <div @click="cancelRental(rental.rentalId)" class="baseButton">KANSELLER</div>
+      <div @click="cancelRental(rental.rentalId)" class="baseButton">
+        KANSELLER
+      </div>
     </div>
   </div>
 </template>

@@ -4,7 +4,15 @@
     <ItemCardHorizontal :item="item" />
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
-      <Datepicker v-model="date" range :format="format" :previewFormat="previewFormat" :enableTimePicker="false" selectText="Velg" cancelText="Lukk"></Datepicker>
+      <Datepicker
+        v-model="date"
+        range
+        :format="format"
+        :previewFormat="previewFormat"
+        :enableTimePicker="false"
+        selectText="Velg"
+        cancelText="Lukk"
+      ></Datepicker>
       <h2 id="deliverTitle">Leveringsalternativer</h2>
       <div id="radioContainer">
         <BaseRadioGroup
@@ -62,7 +70,7 @@ import useVuelidate from "@vuelidate/core";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import { helpers, required } from "@vuelidate/validators";
 import { doRentalRequest } from "@/service/apiService";
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 
 export default {
   name: "RequestComponent",
@@ -81,7 +89,7 @@ export default {
       const startDate = new Date();
       const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
       date.value = [startDate, endDate];
-    })
+    });
     const format = ([startdate, enddate]) => {
       const startday = startdate.getDate();
       const startmonth = startdate.getMonth() + 1;
@@ -92,7 +100,7 @@ export default {
       const endyear = enddate.getFullYear();
 
       return `${startyear}-${startmonth}-${startday} - ${endyear}/${endmonth}/${endday}`;
-    }
+    };
     const previewFormat = ([startdate, enddate]) => {
       const startday = startdate.getDate();
       const startmonth = startdate.getMonth() + 1;
@@ -103,7 +111,7 @@ export default {
       const endyear = enddate.getFullYear();
 
       return `${startday}/${startmonth}/${startyear} - ${endday}/${endmonth}/${endyear}`;
-    }
+    };
 
     return {
       date,
@@ -119,8 +127,16 @@ export default {
       endDate: "",
       startDate: "",
       deliveryOptions: [
-        { label: "Hjemmelevering", value: 0, status: !this.$store.state.currentItem.isDeliverable },
-        { label: "Hente", value: 1, status: !this.$store.state.currentItem.isPickupable },
+        {
+          label: "Hjemmelevering",
+          value: 0,
+          status: !this.$store.state.currentItem.isDeliverable,
+        },
+        {
+          label: "Hente",
+          value: 1,
+          status: !this.$store.state.currentItem.isPickupable,
+        },
       ],
     };
   },
@@ -155,7 +171,7 @@ export default {
         console.log("Datoer: " + this.date + " - " + this.date.startDate);
         console.log(this.deliveryOptions);
         //Need to split dates to get access to start and end date
-        console.log(this.toPickup + " " + this.toDeliver)
+        console.log(this.toPickup + " " + this.toDeliver);
         console.log(this.deliveryOption);
 
         const reqisterRentalRequest = {
@@ -165,7 +181,7 @@ export default {
           itemId: this.$store.state.currentItem.itemId,
           message: this.message,
           startDate: this.date[0],
-          userId: this.$store.state.userInfo.userId
+          userId: this.$store.state.userInfo.userId,
         };
 
         let response = await doRentalRequest(

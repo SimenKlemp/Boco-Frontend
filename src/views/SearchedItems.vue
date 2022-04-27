@@ -139,7 +139,6 @@ export default {
 </script>
 
 <style src="@vueform/multiselect/themes/default.css">
-
 h3 {
   font-size: 22px;
   margin-bottom: 5px;

@@ -221,7 +221,10 @@
               </svg>
               <p>{{ item.price }} kr/dag</p>
             </div>
-            <div @click.stop="goToEdit(item)" v-if="this.$route.name === 'MyAds'">
+            <div
+              @click.stop="goToEdit(item)"
+              v-if="this.$route.name === 'MyAds'"
+            >
               <svg
                 class="statusIcon"
                 xmlns="http://www.w3.org/2000/svg"

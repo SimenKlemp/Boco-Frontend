@@ -63,10 +63,9 @@ export default createStore({
     SET_USERS(state, users) {
       state.users = users;
     },
-    SET_CURRENT_SEARCH_SENTENCE(state, searchSentence){
-      state.currentSearchSentence = searchSentence
-
-    }
+    SET_CURRENT_SEARCH_SENTENCE(state, searchSentence) {
+      state.currentSearchSentence = searchSentence;
+    },
   },
   actions: {
     resetState({ commit }) {
@@ -117,7 +116,11 @@ export default createStore({
       commit("SET_MY_RENTALS", rentals);
     },
     async updateItem({ commit }, item) {
-      let response = await updateItem(item, state.currentItem.itemId, this.state.token);
+      let response = await updateItem(
+        item,
+        state.currentItem.itemId,
+        this.state.token
+      );
       commit("SET_ITEM", response);
     },
     async deleteItem({ commit }) {
@@ -151,10 +154,7 @@ export default createStore({
     },
     getCurrentSearchSentence({ commit }, searchSentence) {
       commit("SET_CURRENT_SEARCH_SENTENCE", searchSentence);
-      },
+    },
   },
   modules: {},
 });
-
-
-
