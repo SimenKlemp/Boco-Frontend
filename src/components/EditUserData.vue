@@ -297,7 +297,7 @@ export default {
 
                 this.$store.dispatch("storeUser", response.data.userInfo);
               }
-              this.$router.push({ name: "MyProfile" });
+              await this.$router.push({ name: "MyProfile" });
               this.$emit("routeChange");
             }
           }
@@ -313,7 +313,6 @@ export default {
     editPassword() {
       this.passwordPressed = true;
     },
-
   },
 };
 </script>
