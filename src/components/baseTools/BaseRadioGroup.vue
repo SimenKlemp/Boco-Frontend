@@ -11,8 +11,10 @@
       :label="option.label"
       :value="option.value"
       :modelValue="modelValue"
+      :status="option.status"
       :name="name"
       @update:modelValue="$emit('update:modelValue', $event)"
+      @update:status="$emit('update:status', $event)"
     />
   </component>
 </template>
@@ -39,6 +41,11 @@ export default {
       type: Boolean,
       default: false,
     },
+    status: {
+      type: Boolean,
+      required: true,
+      default: false,
+    }
   },
 };
 </script>
