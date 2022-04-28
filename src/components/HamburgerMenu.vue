@@ -72,8 +72,9 @@
       </div>
       <div class="hamburgerLog">
         <div @click="logout" v-if="isLoggedIn">Logg ut</div>
-        <div @click="emitRouteChange('LoginComponent')" v-if="!isLoggedIn">
-          Logg inn
+        <div v-if="!isLoggedIn">
+          <div @click="emitRouteChange('LoginComponent')">Logg inn</div>
+          <div @click="emitRouteChange('RegistrationComponent')">Registrer bruker</div>
         </div>
       </div>
     </div>

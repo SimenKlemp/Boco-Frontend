@@ -32,9 +32,8 @@
         <BaseButton @click.prevent="submit" text="Sign in" />
 
         <div v-if="this.$store.state.userInfo.status === 204">
-          <router-link to="/registration"
-            >If you do not have a user already, click here to
-            register</router-link
+          <router-link :to="{ name: 'RegistrationComponent' }"
+            >Har du ikke en bruker? Opprett her!</router-link
           >
         </div>
       </form>
