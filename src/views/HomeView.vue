@@ -93,7 +93,7 @@ export default {
   },
   created() {
     this.$store.dispatch("getItems", {
-      page: 1,
+      page: 0,
       pageSize: 4,
     });
   },
