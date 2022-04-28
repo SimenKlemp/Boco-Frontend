@@ -7,7 +7,11 @@
         :src="require('../assets/Motorsag.png')"
         alt=""
       />
-      <img v-else :src="'http://localhost:8085/api/image/' + item.imageId" id="product"/>
+      <img
+        v-else
+        :src="'http://localhost:8085/api/image/' + item.imageId"
+        id="product"
+      />
     </div>
     <div class="info">
       <div class="productMeta">
@@ -277,7 +281,7 @@ p {
   font-size: 16px;
   font-weight: 400;
 }
-#product{
+#product {
   height: 100%;
   width: 100%;
   object-fit: cover;

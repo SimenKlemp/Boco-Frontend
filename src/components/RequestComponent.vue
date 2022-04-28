@@ -4,7 +4,16 @@
     <ItemCardHorizontal :item="item" />
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
-      <Datepicker v-model="date" range :format="format" locale="no" :previewFormat="previewFormat" :enableTimePicker="false" selectText="Velg" cancelText="Lukk"></Datepicker>
+      <Datepicker
+        v-model="date"
+        range
+        :format="format"
+        locale="no"
+        :previewFormat="previewFormat"
+        :enableTimePicker="false"
+        selectText="Velg"
+        cancelText="Lukk"
+      ></Datepicker>
       <h2 id="deliverTitle">Leveringsalternativer</h2>
       <div id="radioContainer">
         <BaseRadioGroup
@@ -159,7 +168,6 @@ export default {
       this.v$.$validate();
       console.log(this.v$);
       if (!this.v$.$error) {
-
         const reqisterRentalRequest = {
           //deliveryInfo: this.deliveryOption,
           deliveryInfo: "DELIVERED",
@@ -179,7 +187,7 @@ export default {
       } else {
         alert("Alle felter må være fylt inn");
       }
-    }
+    },
   },
 };
 </script>

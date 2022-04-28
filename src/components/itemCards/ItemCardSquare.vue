@@ -6,9 +6,12 @@
           v-if="item.imageId === -1 || item.imageId === null"
           :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')"
           alt="motorsag"
-
         />
-        <img v-else :src="'http://localhost:8085/api/image/' + item.imageId" id="cardImage"/>
+        <img
+          v-else
+          :src="'http://localhost:8085/api/image/' + item.imageId"
+          id="cardImage"
+        />
         <p id="priceTag">{{ item.price }} kr/dag</p>
       </div>
       <div class="itemMeta">
@@ -88,7 +91,7 @@ img {
   font-size: 12px;
   font-weight: 500;
 }
-#cardImage{
+#cardImage {
   object-fit: cover;
   width: 100%;
   height: 100%;

@@ -1,5 +1,5 @@
 <template>
-  <div class="container" >
+  <div class="container">
     <div class="profileContainer">
       <svg
         v-if="!hasProfileImage"
@@ -74,7 +74,7 @@
           @click="goToPage('EditUserData')"
         />
 
-        <div class="personalInfoContainer" @click="goToPage('EditUserData')" >
+        <div class="personalInfoContainer" @click="goToPage('EditUserData')">
           <div class="emailContainer">
             <svg
               class="icons"
@@ -128,7 +128,6 @@
             transform="translate(-1.98 -3.099)"
             fill="#034363"
             fill-rule="evenodd"
-
           />
         </svg>
       </BaseCardHorizontal>
@@ -354,6 +353,8 @@ export default {
 }
 .personalInfoTextAddress {
   margin-top: -0.2rem;
+  margin-left: 0.2rem;
+  text-align: left;
 }
 
 .sideIcon {

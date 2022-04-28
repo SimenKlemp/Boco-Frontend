@@ -329,7 +329,7 @@ form > * {
 /deep/ #postalcode {
   width: 87px;
 }
-.checkboxContainer{
+.checkboxContainer {
   margin-bottom: 10px;
 }
 </style>

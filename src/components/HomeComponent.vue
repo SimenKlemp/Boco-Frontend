@@ -23,10 +23,9 @@
         </svg>
       </button>
     </form>
-    <BaseErrorMessage v-if="v$.searchSentence.$error">{{
-        v$.$errors[0].$message
-      }} </BaseErrorMessage>
-
+    <BaseErrorMessage v-if="v$.searchSentence.$error"
+      >{{ v$.$errors[0].$message }}
+    </BaseErrorMessage>
   </div>
 </template>
 
@@ -57,7 +56,7 @@ export default {
   validations() {
     return {
       searchSentence: {
-        required: helpers.withMessage("", required)
+        required: helpers.withMessage("", required),
       },
     };
   },
