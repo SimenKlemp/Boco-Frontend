@@ -166,10 +166,10 @@ export default {
 
         if (loginResponse.status === 200) {
           this.$store.dispatch("storeUser", loginResponse.data.userInfo);
+          this.$store.dispatch("storeToken", loginResponse.data.token);
 
           switch (loginResponse.data.userInfo.role) {
             case "USER":
-              //TODO: push til min side!! -->
               this.$router.push({ name: "HomeView" });
               break;
 
