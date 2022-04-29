@@ -74,7 +74,9 @@
         <div @click="logout" v-if="isLoggedIn">Logg ut</div>
         <div v-if="!isLoggedIn">
           <div @click="emitRouteChange('LoginComponent')">Logg inn</div>
-          <div @click="emitRouteChange('RegistrationComponent')">Registrer bruker</div>
+          <div @click="emitRouteChange('RegistrationComponent')">
+            Registrer bruker
+          </div>
         </div>
       </div>
     </div>
