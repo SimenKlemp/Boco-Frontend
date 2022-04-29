@@ -22,14 +22,17 @@
       ></MessageBox>
     </div>
     <div class="sendMessageContainer">
-      <form @submit.prevent="submit"></form>
-      <textarea
-        v-model="currentMessage"
-        placeholder="Send en melding..."
-        class="sendMessage"
-      />
+      <form class="sendMessageForm" @submit.prevent="submit">
+        <textarea
+          v-model="currentMessage"
+          placeholder="Send en melding..."
+          class="sendMessage"
+        />
+        <div class="buttonContainer">
+          <button @click.prevent="submit()">Send</button>
+        </div>
+      </form>
     </div>
-    <button @click.prevent="submit()">Send</button>
   </div>
 </template>
 
@@ -67,14 +70,19 @@ header {
   text-align: left;
   border-bottom: solid black 1px;
 }
+button {
+}
 
 .sendMessage {
-  background: #dadada;
+  background: white;
   border: none;
   border-radius: 20px;
   max-width: 15rem;
-  height: 1rem;
-  padding: 0.2rem 1rem;
+  height: 1.2rem;
+  padding: 0.7rem 1rem;
+  margin-right: 1rem;
+  font-size: 16px;
+  overflow-scrolling: auto;
 }
 .container {
   margin-bottom: 2rem;
@@ -86,6 +94,14 @@ header {
   padding: 1rem 1rem;
   background: #e5ecf1;
   overflow: auto;
-  height: 20rem;
+  height: 18rem;
+}
+.sendMessageContainer {
+  border-top: solid black 1px;
+  padding: 1rem 1rem;
+  background: #e5ecf1;
+}
+.sendMessageForm {
+  display: flex;
 }
 </style>
