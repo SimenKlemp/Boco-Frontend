@@ -65,16 +65,18 @@ export default {
   background: #8ecae6;
 }
 .imageContainer {
-  width: 25px;
-  height: 25px;
+  width: 15px;
   margin-right: 0.5rem;
+  position: relative;
 }
 .profileImage {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   object-fit: cover;
+  bottom: 0;
+  left: 0;
 }
 .message {
   background: white;

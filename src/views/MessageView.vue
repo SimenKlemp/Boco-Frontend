@@ -14,15 +14,22 @@
       ></MessageBox>
       <MessageBox :isMe="true" :message="'Dette er et kort svar'"></MessageBox>
       <MessageBox
+        v-for="(message, index) in messages"
+        :key="index"
         :isMe="false"
         :imageId="3"
-        :message="'Dette er en melding som er veldig veldig lang og fin. Kanskje den tar tre linjer?'"
+        :message="message.message"
       ></MessageBox>
     </div>
     <div class="sendMessageContainer">
       <form @submit.prevent="submit"></form>
-      <textarea placeholder="Send en melding..." class="sendMessage" />
+      <textarea
+        v-model="currentMessage"
+        placeholder="Send en melding..."
+        class="sendMessage"
+      />
     </div>
+    <button @click.prevent="submit()">Send</button>
   </div>
 </template>
 
@@ -31,12 +38,20 @@ import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
 import MessageBox from "@/components/MessageBox";
 export default {
   name: "MessageView",
+  data() {
+    return {
+      currentMessage: "",
+      messages: [],
+    };
+  },
   components: {
     MessageBox,
     ItemCardHorizontal,
   },
   methods: {
-    submit() {},
+    submit() {
+      this.messages.push({ message: this.currentMessage });
+    },
   },
   computed: {
     isMe(message) {
@@ -71,5 +86,6 @@ header {
   padding: 1rem 1rem;
   background: #e5ecf1;
   overflow: auto;
+  height: 20rem;
 }
 </style>
