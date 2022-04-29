@@ -18,6 +18,7 @@ import FAQView from "@/views/FAQView";
 import RentalDetails from "@/views/RentalDetails";
 import SearchedItems from "@/views/SearchedItems";
 import MessageView from "@/views/MessageView";
+import NotFoundView from "@/views/NotFoundView";
 
 const routes = [
   {
@@ -126,8 +127,8 @@ const routes = [
   },
   {
     path: "/:catchAll(.*)",
-    name: "HomeView",
-    component: HomeView,
+    name: "NotFoundView",
+    component: NotFoundView,
   },
 ];
 
