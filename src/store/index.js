@@ -15,7 +15,7 @@ const getDefaultState = () => {
     token: null,
     currentItem: "",
     currentRental: "",
-    userInfo: {},
+    userInfo: "",
     currentImageId: null,
     items: [],
     myItems: [],
@@ -63,7 +63,7 @@ export default createStore({
       state.myRentals = rentals;
     },
     SET_MY_NOTIFICATIONS(state, notifications) {
-      state.myRentals = notifications;
+      state.myNotifications = notifications;
     },
     SET_USERS(state, users) {
       state.users = users;
@@ -175,7 +175,6 @@ export default createStore({
     getCurrentSearchSentence({ commit }, searchSentence) {
       commit("SET_CURRENT_SEARCH_SENTENCE", searchSentence);
     },
-}
   },
   modules: {},
 });

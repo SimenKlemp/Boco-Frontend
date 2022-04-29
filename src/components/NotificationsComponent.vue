@@ -5,7 +5,7 @@
         :key="notification.notificationId"
         class="notifications"
         :notification="notification"
-        @click.stop="goToRoute('HomeView')"
+        @click.stop="goToRoute()"
     />
   </div>
 </template>
@@ -17,16 +17,14 @@ export default {
   components: {BaseNotification},
   data() {
     return {
-      notifications: [
-        {notificationId: 1, notificationStatus: 1, isPressed: true, rentalId: 20, userId: 3},
-        {notificationId: 2, notificationStatus: 0, isPressed: false, rentalId: 20, userId: 3},
-        {notificationId: 3, notificationStatus: 0, isPressed: false, rentalId: 20, userId: 3},
-      ]
+      notifications: this.$store.state.myNotifications,
     };
   },
   computed: {
     goToRoute(route) {
-      this.$store.dispatch("setItem", this.notification.rentalId.itemId);
+      //TODO: fix routing
+      //let route = this.$store.state.myNotifications.
+      this.$store.dispatch("setItem", this.notification.rental.item);
       this.$router.push({ name: route });
     }
   }

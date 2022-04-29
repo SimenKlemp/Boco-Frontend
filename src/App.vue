@@ -100,6 +100,11 @@ export default {
       this.notificationClicked = !this.notificationClicked;
     },
   },
+  mounted() {
+    if (this.$store.state.userInfo !== "") {
+      this.$store.dispatch("fetchMyNotifications");
+    }
+  }
 };
 </script>
 <style>

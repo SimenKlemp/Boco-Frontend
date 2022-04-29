@@ -3,7 +3,7 @@
     <div class="imageContainer">
       <img :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')">
     </div>
-    <div v-if="false" class="text">{{ notificationText }}</div>
+    <div v-if="true" class="text">{{ notificationText }}</div>
     <div v-else class="text" >Du har mottatt en forespørsel på Motorsag fra Stihl</div>
     <div class="dotContainer">
       <div class="dot" v-if="notificationStatus"></div>
@@ -22,15 +22,18 @@ export default {
   },
   computed: {
     notificationText() {
-      switch (this.status) {
+      let itemTitle = this.notification.rental.item.title;
+      switch (this.notification.notificationStatus) {
         case "ACCEPTED":
-          return "Din forespørsel har blitt akseptert";
+          return "Din forespørsel" + itemTitle + "har blitt akseptert";
         case "REJECTED":
           return "Din forespørsel har blitt avvist";
         case "CANCELED":
           return "Din forespørsel har blitt kansellert";
         case "FINISHED":
           return "Ditt leieforhold er avsluttet, gi en anmeldelse";
+        case "REQUEST":
+          return "Du har mottatt en forespørsel på " + itemTitle;
         default:
           return "";
       }
