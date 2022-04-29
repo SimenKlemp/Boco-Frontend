@@ -16,6 +16,7 @@ import UserView from "@/views/UserView";
 import FAQView from "@/views/FAQView";
 import RentalDetails from "@/views/RentalDetails";
 import SearchedItems from "@/views/SearchedItems";
+import NotFoundView from "@/views/NotFoundView";
 
 const routes = [
   {
@@ -111,6 +112,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "NotFoundView",
+    component: NotFoundView,
   },
 ];
 
