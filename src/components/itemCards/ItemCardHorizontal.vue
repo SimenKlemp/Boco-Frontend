@@ -315,7 +315,7 @@ h3 {
   display: grid;
   grid-template-columns: 39.5% 60.5%;
   height: 108px;
-  width: 100%;
+  width: 398px;
   border: none;
   border-radius: 15px;
   box-shadow: 0 3px 10px #00000029;
