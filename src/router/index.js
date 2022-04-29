@@ -124,6 +124,11 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
+  {
+    path: "/:catchAll(.*)",
+    name: "HomeView",
+    component: HomeView,
+  },
 ];
 
 const router = createRouter({
