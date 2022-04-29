@@ -17,6 +17,7 @@ import UserView from "@/views/UserView";
 import FAQView from "@/views/FAQView";
 import RentalDetails from "@/views/RentalDetails";
 import SearchedItems from "@/views/SearchedItems";
+import MessageView from "@/views/MessageView";
 
 const routes = [
   {
@@ -108,6 +109,11 @@ const routes = [
     path: "/searchedItems",
     name: "SearchedItems",
     component: SearchedItems,
+  },
+  {
+    path: "/chat",
+    name: "MessageView",
+    component: MessageView,
   },
   {
     path: "/about",
