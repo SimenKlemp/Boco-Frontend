@@ -19,6 +19,7 @@ import RentalDetails from "@/views/RentalDetails";
 import SearchedItems from "@/views/SearchedItems";
 import MessageView from "@/views/MessageView";
 import NotFoundView from "@/views/NotFoundView";
+import AllChatsView from "@/views/AllChatsView";
 
 const routes = [
   {
@@ -115,6 +116,11 @@ const routes = [
     path: "/chat",
     name: "MessageView",
     component: MessageView,
+  },
+  {
+    path: "/all-chats",
+    name: "AllChats",
+    component: AllChatsView,
   },
   {
     path: "/about",
