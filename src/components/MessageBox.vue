@@ -23,7 +23,7 @@
         />
       </svg>
     </div>
-    <div class="message">
+    <div class="messageDefault" :class="{ myMessage: isMe, message: !isMe }">
       {{ message }}
     </div>
   </div>
@@ -61,9 +61,12 @@ export default {
 .myMessageContainer {
   justify-content: right;
 }
+.myMessage {
+  background: #8ecae6;
+}
 .imageContainer {
-  width: 45px;
-  height: 45px;
+  width: 25px;
+  height: 25px;
   margin-right: 0.5rem;
 }
 .profileImage {
@@ -74,9 +77,11 @@ export default {
   object-fit: cover;
 }
 .message {
+  background: white;
+}
+.messageDefault {
   display: inline-block;
   border-radius: 20px;
-  background: #8ecae6;
   max-width: 15rem;
   padding: 0.7rem 1rem;
   text-align: left;
