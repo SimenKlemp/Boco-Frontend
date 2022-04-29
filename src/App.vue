@@ -1,12 +1,14 @@
 <template>
-  <div v-if="hamburgerClicked">
-    <HamburgerMenu @routeChange="toggleHamburgerMenu"></HamburgerMenu>
-    <div @click="toggleHamburgerMenu" class="cover"></div>
+  <div>
+    <div v-if="hamburgerClicked">
+      <HamburgerMenu @routeChange="toggleHamburgerMenu"></HamburgerMenu>
+      <div @click="toggleHamburgerMenu" class="cover"></div>
+    </div>
+    <div v-if="notificationClicked">
+      <NotificationsComponent @toggleNotifications="toggleNotifications"></NotificationsComponent>
+      <div @click="toggleNotifications" class="coverNotification"></div>
+    </div>
   </div>
-  <div v-if="notificationClicked">
-  <NotificationsComponent @toggleNotifications="toggleNotifications"></NotificationsComponent>
-  <div @click="toggleNotifications" class="cover"></div>
-</div>
   <header v-if="!isHome">
     <nav>
       <div class="header">
@@ -59,8 +61,7 @@
       </div>
     </nav>
   </header>
-  <router-view @toggleHamburgerMenu="toggleHamburgerMenu" />
-  <router-view @toggleNotifications="toggleNotifications" />
+  <router-view @toggleHamburgerMenu="toggleHamburgerMenu" @toggleNotifications="toggleNotifications"/>
   <FooterComponent></FooterComponent>
 </template>
 
@@ -131,6 +132,14 @@ nav a.router-link-exact-active {
   width: 100%;
   background: black;
   opacity: 50%;
+  top: 0;
+  left: 0;
+  z-index: 70;
+}
+.coverNotification {
+  position: fixed;
+  height: 100%;
+  width: 100%;
   top: 0;
   left: 0;
   z-index: 70;

@@ -5,7 +5,7 @@
         :key="notification.notificationId"
         class="notifications"
         :notification="notification"
-        @click.stop="goToRoute"
+        @click.stop="goToRoute('HomeView')"
     />
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     goToRoute(route) {
-      this.$store.dispatch("setItem", route);
+      this.$store.dispatch("setItem", this.notification.rentalId.itemId);
       this.$router.push({ name: route });
     }
   }
@@ -37,8 +37,10 @@ export default {
 .notificationsContainer {
   width: 17.5rem;
   background-color: white;
-  padding-top: 20px;
-  float: right;
+  margin-top: 80px;
+  border-radius: 15px;
   position: absolute;
+  z-index: 100;
+  right: 10px;
 }
 </style>

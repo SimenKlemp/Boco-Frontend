@@ -3,9 +3,10 @@
     <div class="imageContainer">
       <img :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')">
     </div>
-    <div v-if="false" id="text">{{ notificationText }}</div>
-    <div v-else >Du har mottatt en forespørsel på Motorsag fra Stihl</div>
-    <div class="dot" v-if="notificationStatus">
+    <div v-if="false" class="text">{{ notificationText }}</div>
+    <div v-else class="text" >Du har mottatt en forespørsel på Motorsag fra Stihl</div>
+    <div class="dotContainer">
+      <div class="dot" v-if="notificationStatus"></div>
     </div>
   </div>
 </template>
@@ -35,7 +36,9 @@ export default {
       }
     },
     notificationStatus() {
-      return this.notification.status === true;
+      if (this.notification.notificationStatus === 1) {
+        return true;
+      }
     }
   }
 };
@@ -44,19 +47,43 @@ export default {
 <style scoped>
 .container {
   display: flex;
-  grid-template-columns: 16% 70% 14%;
-  height: 108px;
+  grid-template-columns: 20% 70% 10%;
+  justify-content: space-between;
   width: 100%;
   box-shadow: 0 3px 6px #00000029;
   background: #ffffff;
+  align-items: center;
+  /*border-radius: 15px;*/
 }
 .imageContainer {
-  border-radius: 30px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+.text {
+  padding: 10px;
+  text-align: left;
   width: 100%;
 }
+img {
+  max-width: 50px;
+  max-height: 50px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+.dotContainer {
+  height: 100%;
+  /*width: 100%;*/
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
 .dot {
-  height: 5px;
-  width: 5px;
+  height: 10px;
+  width: 10px;
   background-color: var(--indigo);
   border-radius: 50%;
   display: inline-block;
