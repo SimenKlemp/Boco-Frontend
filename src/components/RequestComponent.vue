@@ -168,6 +168,7 @@ export default {
       this.v$.$validate();
       console.log(this.v$);
       if (!this.v$.$error) {
+        //make rental request
         const reqisterRentalRequest = {
           //deliveryInfo: this.deliveryOption,
           deliveryInfo: "DELIVERED",
@@ -178,12 +179,18 @@ export default {
           userId: this.$store.state.userInfo.userId,
         };
 
-        let response = await doRentalRequest(
-          reqisterRentalRequest,
-          this.$store.state.token
-        );
+        await this.$store.dispatch("registerRental", reqisterRentalRequest);
+
+        //make notification
+        const registerNotification = {
+          notificationStatus: "REQUEST",
+          rentalId: this.$store.state.rentalId,
+        }
+        await this.$store.dispatch("registerRental", reqisterRentalRequest);
+
+        //push to rental
         await this.$router.push({ name: "MyRentals" });
-        console.log(response);
+
       } else {
         alert("Alle felter må være fylt inn");
       }

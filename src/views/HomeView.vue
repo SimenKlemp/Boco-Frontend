@@ -102,6 +102,9 @@ export default {
       pageSize: 4,
     });
   },
+  mounted() {
+
+  }
 };
 </script>
 <style scoped>

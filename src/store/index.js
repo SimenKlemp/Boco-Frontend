@@ -1,8 +1,9 @@
 import { createStore } from "vuex";
 import {
-  doRegisterItem,
+  doNotification,
+  doRegisterItem, doRentalRequest,
   getFeedbacks,
-  getItems,
+  getItems, getMyNotifications,
   getUsers,
   search,
 } from "@/service/apiService";
@@ -19,6 +20,7 @@ const getDefaultState = () => {
     items: [],
     myItems: [],
     myRentals: [],
+    myNotifications: [],
     feedbacks: [],
     users: [],
     currentSearchSentence: "",
@@ -59,6 +61,9 @@ export default createStore({
     },
     SET_MY_RENTALS(state, rentals) {
       state.myRentals = rentals;
+    },
+    SET_MY_NOTIFICATIONS(state, notifications) {
+      state.myRentals = notifications;
     },
     SET_USERS(state, users) {
       state.users = users;
@@ -115,6 +120,13 @@ export default createStore({
       );
       commit("SET_MY_RENTALS", rentals);
     },
+    async fetchMyNotifications({ commit }) {
+      let notifications = await getMyNotifications(
+          this.state.userInfo.userId,
+          this.state.token
+      );
+      commit("SET_MY_NOTIFICATIONS", notifications);
+    },
     async updateItem({ commit }, item) {
       let response = await updateItem(
         item,
@@ -130,6 +142,14 @@ export default createStore({
     async registerItem({ commit }, item) {
       let response = await doRegisterItem(item, this.state.token);
       commit("SET_ITEM", response);
+    },
+    async registerRental({ commit }, rental) {
+      let response = await doRentalRequest(rental, this.state.token);
+      commit("SET_RENTAL", response);
+    },
+    async registerNotification({ commit }, notification) {
+      let response = await doNotification(notification, this.state.token);
+      commit("SET_RENTAL", response);
     },
     getUsers({ commit }) {
       getUsers(this.state.token)
@@ -155,6 +175,7 @@ export default createStore({
     getCurrentSearchSentence({ commit }, searchSentence) {
       commit("SET_CURRENT_SEARCH_SENTENCE", searchSentence);
     },
+}
   },
   modules: {},
 });
