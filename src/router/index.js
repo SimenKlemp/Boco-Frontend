@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import NotificationsComponent from "@/components/NotificationsComponent";
 import RegistrationComponent from "@/components/RegistrationComponent";
 import LoginComponent from "@/components/LoginComponent";
 import AddItemComponent from "@/components/AddItemComponent";
@@ -23,11 +22,6 @@ const routes = [
     path: "/",
     name: "HomeView",
     component: HomeView,
-  },
-  {
-    path: "/notifications",
-    name: "NotificationsComponent",
-    component: NotificationsComponent,
   },
   {
     path: "/registration",
