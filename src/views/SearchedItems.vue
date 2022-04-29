@@ -123,24 +123,26 @@
         </div>
       </div>
     </form>
-  </div>
+
   <div class="itemsContainer">
-    <div class="items">
-      <ItemCardSquare v-if="gridView"
+    <div class="items"  v-if="gridView">
+      <ItemCardSquare
         v-for="item in items"
         :key="item.itemId"
         :item="item"
         @click="seeItem(item)"
       ></ItemCardSquare>
+    </div>
+    <div id="horizontalItems"   v-if="!gridView">
       <item-card-horizontal
-          v-if="!gridView"
           v-for="item in items"
           :key="item.itemId"
           :item="item"
           @click="seeItem(item)"
       >
       </item-card-horizontal>
-    </div>
+  </div>
+  </div>
   </div>
 </template>
 
