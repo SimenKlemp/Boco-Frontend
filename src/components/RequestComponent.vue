@@ -5,7 +5,7 @@
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
       <Datepicker
-        v-model="dates"
+        v-model="date"
         range
         locale="no"
         :enableTimePicker="false"
@@ -68,7 +68,6 @@ import BaseRadioGroup from "@/components/baseTools/BaseRadioGroup";
 import useVuelidate from "@vuelidate/core";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import { helpers, required } from "@vuelidate/validators";
-import { doRentalRequest } from "@/service/apiService";
 import { ref, onMounted } from "vue";
 
 export default {
@@ -141,7 +140,7 @@ export default {
       this.v$.$validate();
       console.log(this.v$);
       if (!this.v$.$error) {
-        console.log(this.dates[1]);
+        //make rental request
         const reqisterRentalRequest = {
           //deliveryInfo: this.deliveryOption,
           deliveryInfo: "DELIVERED",
@@ -152,12 +151,17 @@ export default {
           userId: this.$store.state.userInfo.userId,
         };
 
-        let response = await doRentalRequest(
-          reqisterRentalRequest,
-          this.$store.state.token
-        );
+        await this.$store.dispatch("registerRental", reqisterRentalRequest);
+
+        //make notification
+        const registerNotification = {
+          notificationStatus: "REQUEST",
+          rentalId: this.$store.state.rentalId,
+        };
+        await this.$store.dispatch("registerRental", registerNotification);
+
+        //push to rental
         await this.$router.push({ name: "MyRentals" });
-        console.log(response);
       } else {
         alert("Alle felter må være fylt inn");
       }

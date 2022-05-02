@@ -123,7 +123,8 @@
         <h1>{{ item.title }}</h1>
         <div class="price">
           <p id="priceTitle">Dagsleie</p>
-          <p id="pricetag">{{ item.price }} kr</p>
+          <p v-if="!isFree" class="pricetag">{{ item.price }} kr</p>
+          <p v-else class="pricetag">GRATIS</p>
         </div>
       </div>
     </div>
@@ -172,6 +173,9 @@ export default {
       );
       return this.item.user.userId === this.$store.state.userInfo.userId;
     },
+    isFree() {
+      return this.item.price === 0;
+    }
   },
   methods: {
     async goToRequest() {
@@ -266,7 +270,7 @@ p {
   width: 100%;
   height: 100%;
 }
-#pricetag {
+.pricetag {
   font-size: 26px;
   font-weight: 500;
 }
