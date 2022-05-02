@@ -24,16 +24,20 @@
           v-else
           id="profileImage"
           class="profileImage"
-          :src="
-            'http://localhost:8085/api/image/' + rating.rental.item.user.imageId
-          "
+          :src="'http://localhost:8085/api/image/' + user.imageId"
           alt=""
         />
       </div>
       <div class="profileInfo">
-        <p id="profileName">{{ rating.rental.item.user.name }}</p>
-        <p>Har leid {{ rating.rental.item.title }}</p>
-        <div class="rating">{{ rating.rate }}</div>
+        <p id="profileName">{{ user.name }}</p>
+        <p>{{ rented }} {{ rating.rental.item.title }}</p>
+        <div class="rating">
+          <StarRating
+            star-size="20"
+            :read-only="true"
+            :rating="rating.rate"
+          ></StarRating>
+        </div>
         <div class="description">{{ rating.feedback }}</div>
       </div>
     </div>
@@ -41,12 +45,43 @@
 </template>
 
 <script>
+import StarRating from "vue-star-rating";
 export default {
   name: "ProfileRatingCard",
+  components: {
+    StarRating,
+  },
   props: {
-    rating: {
+    ratingUser: {
       type: Object,
-      required: true,
+      default: null,
+    },
+    ratingOwner: {
+      type: Object,
+      default: null,
+    },
+  },
+  computed: {
+    user() {
+      if (this.ratingUser) {
+        return this.ratingUser.rental.item.user;
+      } else {
+        return this.ratingOwner.rental.user;
+      }
+    },
+    rating() {
+      if (this.ratingUser) {
+        return this.ratingUser;
+      } else {
+        return this.ratingOwner;
+      }
+    },
+    rented() {
+      if (this.ratingUser) {
+        return "Har utleid";
+      } else {
+        return "Har leid";
+      }
     },
   },
 };
@@ -83,5 +118,6 @@ export default {
 
 #profileName {
   font-weight: bold;
+  margin-bottom: 0.3rem;
 }
 </style>
