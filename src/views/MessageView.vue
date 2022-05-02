@@ -92,7 +92,8 @@
 <script>
 import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
 import MessageBox from "@/components/MessageBox";
-import { connect, send } from "@/service/apiService";
+import { connect, getChat, send } from "@/service/apiService";
+
 export default {
   name: "MessageView",
   data() {
@@ -111,7 +112,7 @@ export default {
       const messageRequest = {
         text: this.currentMessage,
         userId: this.$store.state.userInfo.userId,
-        rentalId: this.currentRental.rentalId,
+        rentalId: this.$,
       };
       await send(messageRequest);
     },
@@ -129,9 +130,12 @@ export default {
   },
   async mounted() {
     await connect(30, (message) => {
-      console.log(JSON.parse(message.body).text);
       this.messages.push(JSON.parse(message.body).text);
     });
+    let chat = await getChat(30, this.$store.state.token);
+    for (let i = 0; i < chat.messages.length; i++) {
+      this.messages.push(chat.messages[i].text);
+    }
   },
 };
 </script>

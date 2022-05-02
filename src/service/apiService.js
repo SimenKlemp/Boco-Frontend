@@ -2,6 +2,7 @@ import axios from "axios";
 import SockJS from "sockjs-client";
 import Stomp from "webstomp-client";
 
+let host = "localhost";
 /*
     //Import these
     import SockJS from "sockjs-client";
@@ -18,7 +19,7 @@ import Stomp from "webstomp-client";
     let stompClient;
 
     function connect(rentalId) {
-      const socket = new SockJS('http://localhost:8085/api/chat-connect');
+      const socket = new SockJS('http://" + host + ":8085/api/chat-connect');
       stompClient = Stomp.over(socket);
 
       stompClient.connect({}, (frame) => {
@@ -39,12 +40,27 @@ import Stomp from "webstomp-client";
 let stompClient;
 
 export function connect(rentalId, callback) {
-  const socket = new SockJS("http://localhost:8085/api/chat-connect");
+  const socket = new SockJS("http://" + host + ":8085/api/chat-connect");
   stompClient = Stomp.over(socket);
 
   stompClient.connect({}, () => {
     stompClient.subscribe("/chat-outgoing/" + rentalId, callback);
   });
+}
+
+export function getChat(rentalId, token) {
+  return axios
+    .get("http://" + host + ":8085/api/chat/get/" + rentalId, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 export function send(messageRequest) {
@@ -58,7 +74,7 @@ export async function doLogin(email, password) {
   };
 
   return axios
-    .post(`http://localhost:8085/api/user/login`, loginRequest)
+    .post("http://" + host + ":8085/api/user/login", loginRequest)
     .then((response) => {
       return response;
     })
@@ -68,7 +84,7 @@ export async function doLogin(email, password) {
 }
 export async function doRegistration(registerUserRequest) {
   return axios
-    .post(`http://localhost:8085/api/user/register`, registerUserRequest)
+    .post("http://" + host + ":8085/api/user/register", registerUserRequest)
     .then((response) => {
       return response;
     })
@@ -78,11 +94,15 @@ export async function doRegistration(registerUserRequest) {
 }
 export async function doEditUser(editUserRequest, userId, token) {
   return axios
-    .put(`http://localhost:8085/api/user/update/` + userId, editUserRequest, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
+    .put(
+      "http://" + host + ":8085/api/user/update/" + userId,
+      editUserRequest,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
     .then((response) => {
       console.log(response);
       return response;
@@ -93,7 +113,7 @@ export async function doEditUser(editUserRequest, userId, token) {
 }
 export async function doRegisterItem(itemRequest, token) {
   return axios
-    .post(`http://localhost:8085/api/item/register`, itemRequest, {
+    .post("http://" + host + ":8085/api/item/register", itemRequest, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -108,11 +128,15 @@ export async function doRegisterItem(itemRequest, token) {
 }
 export async function doRentalRequest(registerRentalRequest, token) {
   return axios
-    .post(`http://localhost:8085/api/rental/register`, registerRentalRequest, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
+    .post(
+      "http://" + host + ":8085/api/rental/register",
+      registerRentalRequest,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
     .then((response) => {
       return response;
     })
@@ -122,7 +146,7 @@ export async function doRentalRequest(registerRentalRequest, token) {
 }
 export async function doNotification(notification, token) {
   return axios
-    .post(`http://localhost:8085/api/notification/register`, notification, {
+    .post("http://" + host + ":8085/api/notification/register", notification, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -140,7 +164,7 @@ class UploadFilesService {
 
     formData.append("image", file);
 
-    return axios.post("http://localhost:8085/api/image/upload", formData, {
+    return axios.post("http://" + host + ":8085/api/image/upload", formData, {
       headers: {
         Authorization: "Bearer " + token,
         "Content-Type": "multipart/form-data",
@@ -152,7 +176,7 @@ class UploadFilesService {
 export default new UploadFilesService();
 export function getItems(page, pageSize) {
   return axios
-    .get("http://localhost:8085/api/item/all/" + page + "/" + pageSize)
+    .get("http://" + host + ":8085/api/item/all/" + page + "/" + pageSize)
     .then((response) => {
       return response.data;
     });
@@ -161,7 +185,7 @@ export function getItems(page, pageSize) {
 export async function doRegisterFeedbackWebPage(feedbackRequest, token) {
   return axios
     .post(
-      "http://localhost:8085/api/feedbackWebPage/registerFeedback",
+      "http://" + host + ":8085/api/feedbackWebPage/registerFeedback",
       feedbackRequest,
       {
         headers: {
@@ -179,7 +203,7 @@ export async function doRegisterFeedbackWebPage(feedbackRequest, token) {
 
 export function getFeedbacks(token) {
   return axios
-    .get("http://localhost:8085/api/feedbackWebPage/getFeedbacks", {
+    .get("http://" + host + ":8085/api/feedbackWebPage/getFeedbacks", {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -192,7 +216,7 @@ export function getFeedbacks(token) {
 
 export function updateItem(item, itemId, token) {
   return axios
-    .put("http://localhost:8085/api/item/update/" + itemId, item, {
+    .put("http://" + host + ":8085/api/item/update/" + itemId, item, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -204,7 +228,7 @@ export function updateItem(item, itemId, token) {
 
 export function deleteItem(itemId, token) {
   return axios
-    .delete("http://localhost:8085/api/item/delete/" + itemId, {
+    .delete("http://" + host + ":8085/api/item/delete/" + itemId, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -216,7 +240,7 @@ export function deleteItem(itemId, token) {
 
 export function getMyItems(userId, token) {
   return axios
-    .get("http://localhost:8085/api/item/get-my/" + userId, {
+    .get("http://" + host + ":8085/api/item/get-my/" + userId, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -228,7 +252,7 @@ export function getMyItems(userId, token) {
 
 export function getMyRentals(userId, token) {
   return axios
-    .get("http://localhost:8085/api/rental/get-my/" + userId, {
+    .get("http://" + host + ":8085/api/rental/get-my/" + userId, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -239,7 +263,7 @@ export function getMyRentals(userId, token) {
 }
 export function getMyNotifications(userId, token) {
   return axios
-    .get("http://localhost:8085/api/notification/get-my/" + userId, {
+    .get("http://" + host + ":8085/api/notification/get-my/" + userId, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -251,7 +275,7 @@ export function getMyNotifications(userId, token) {
 
 export function getRentalsForItem(itemId, token) {
   return axios
-    .get("http://localhost:8085/api/rental/for-item/" + itemId, {
+    .get("http://" + host + ":8085/api/rental/for-item/" + itemId, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -263,7 +287,7 @@ export function getRentalsForItem(itemId, token) {
 
 export function acceptRental(rentalId, token) {
   return axios
-    .put("http://localhost:8085/api/rental/accept/" + rentalId, null, {
+    .put("http://" + host + ":8085/api/rental/accept/" + rentalId, null, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -275,7 +299,7 @@ export function acceptRental(rentalId, token) {
 
 export function rejectRental(rentalId, token) {
   return axios
-    .put("http://localhost:8085/api/rental/reject/" + rentalId, null, {
+    .put("http://" + host + ":8085/api/rental/reject/" + rentalId, null, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -287,7 +311,7 @@ export function rejectRental(rentalId, token) {
 
 export function cancelRental(rentalId, token) {
   return axios
-    .put("http://localhost:8085/api/rental/cancel/" + rentalId, null, {
+    .put("http://" + host + ":8085/api/rental/cancel/" + rentalId, null, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -299,7 +323,7 @@ export function cancelRental(rentalId, token) {
 
 export function getUsers(token) {
   return axios
-    .get("http://localhost:8085/api/user/getUsers", {
+    .get("http://" + host + ":8085/api/user/getUsers", {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -311,7 +335,7 @@ export function getUsers(token) {
 }
 export function doRating(ratingRequest, token) {
   return axios
-    .post("http://localhost:8085/api/rating/register", ratingRequest, {
+    .post("http://" + host + ":8085/api/rating/register", ratingRequest, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -324,7 +348,7 @@ export function doRating(ratingRequest, token) {
 
 export function updateRoleUsers(token, userId) {
   return axios
-    .put("http://localhost:8085/api/user/updateUserAdmin/" + userId, null, {
+    .put("http://" + host + ":8085/api/user/updateUserAdmin/" + userId, null, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -337,7 +361,7 @@ export function updateRoleUsers(token, userId) {
 
 export function search(searchRequest) {
   return axios
-    .put("http://localhost:8085/api/item/search", searchRequest)
+    .put("http://" + host + ":8085/api/item/search", searchRequest)
     .then((response) => {
       console.log(response.data);
       return response.data;
@@ -346,7 +370,7 @@ export function search(searchRequest) {
 
 export function getAllRatings(userId, token) {
   return axios
-    .get("http://localhost:8085/api/rating/get-my/" + userId, {
+    .get("http://" + host + ":8085/api/rating/get-my/" + userId, {
       headers: {
         Authorization: "Bearer " + token,
       },
