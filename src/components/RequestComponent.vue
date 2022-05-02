@@ -5,11 +5,9 @@
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
       <Datepicker
-        v-model="date"
+        v-model="dates"
         range
-        :format="format"
         locale="no"
-        :previewFormat="previewFormat"
         :enableTimePicker="false"
         selectText="Velg"
         cancelText="Lukk"
@@ -91,33 +89,9 @@ export default {
       const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
       date.value = [startDate, endDate];
     });
-    const format = ([startdate, enddate]) => {
-      const startday = startdate.getDate();
-      const startmonth = startdate.getMonth() + 1;
-      const startyear = startdate.getFullYear();
-
-      const endday = enddate.getDate();
-      const endmonth = enddate.getMonth() + 1;
-      const endyear = enddate.getFullYear();
-
-      return `${startyear}-${startmonth}-${startday} - ${endyear}/${endmonth}/${endday}`;
-    };
-    const previewFormat = ([startdate, enddate]) => {
-      const startday = startdate.getDate();
-      const startmonth = startdate.getMonth() + 1;
-      const startyear = startdate.getFullYear();
-
-      const endday = enddate.getDate();
-      const endmonth = enddate.getMonth() + 1;
-      const endyear = enddate.getFullYear();
-
-      return `${startday}/${startmonth}/${startyear} - ${endday}/${endmonth}/${endyear}`;
-    };
 
     return {
       date,
-      format,
-      previewFormat,
       v$: useVuelidate(),
     };
   },
@@ -125,9 +99,7 @@ export default {
     return {
       message: "",
       // eslint-disable-next-line vue/no-dupe-keys
-      date: "",
-      endDate: "",
-      startDate: "",
+      dates: "",
       deliveryOptions: [
         {
           label: "Hjemmelevering",
@@ -169,13 +141,14 @@ export default {
       this.v$.$validate();
       console.log(this.v$);
       if (!this.v$.$error) {
+        console.log(this.dates[1]);
         const reqisterRentalRequest = {
           //deliveryInfo: this.deliveryOption,
           deliveryInfo: "DELIVERED",
-          endDate: this.date[1],
+          endDate: this.dates[1],
           itemId: this.$store.state.currentItem.itemId,
           message: this.message,
-          startDate: this.date[0],
+          startDate: this.dates[0],
           userId: this.$store.state.userInfo.userId,
         };
 

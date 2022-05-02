@@ -82,10 +82,6 @@ class UploadFilesService {
       },
     });
   }
-
-  getImage(imageId) {
-    return axios.get("http://localhost:8085/api/image/" + imageId);
-  }
 }
 
 export default new UploadFilesService();
