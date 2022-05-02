@@ -14,16 +14,16 @@
       <BaseErrorMessage v-if="v$.title.$error">{{
         v$.$errors[0].$message
       }}</BaseErrorMessage>
-      <h2>Kategori</h2>
-      <BaseInput
-        id="category"
-        class="mb-4"
-        type="category"
-        v-model="category"
-        placeholder="Kategori"
-      /><BaseErrorMessage v-if="v$.category.$error">{{
-        v$.$errors[1].$message
-      }}</BaseErrorMessage>
+      <div id="categoeyAlternativesContainer">
+        <h4 id="categoryTitle">velg kategori:</h4>
+        <div id="inputCategoryContainer">
+          <Multiselect
+              id="multiSelect"
+              v-model="category"
+              :options="categoryOptions"
+          ></Multiselect>
+        </div>
+      </div>
       <textarea
         id="description"
         class="mb-4"
@@ -144,6 +144,7 @@ import useVuelidate from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
 import BaseCheckbox from "@/components/baseTools/BaseCheckbox";
 import UploadService from "@/service/apiService";
+import Multiselect from "@vueform/multiselect";
 
 export default {
   name: "AddItemComponent",
@@ -152,6 +153,7 @@ export default {
     BaseButton,
     BaseInput,
     BaseErrorMessage,
+    Multiselect
   },
   setup() {
     return {
@@ -174,6 +176,7 @@ export default {
       currentImageId: undefined,
       isDeliverable: this.$store.state.currentItem.isDeliverable,
       isPickupable: this.$store.state.currentItem.isPickupable,
+      categoryOptions: ["Verktøy", "Friluftsliv", "IT", "Sportsutstyr", "Husholding"]
     };
   },
   validations() {

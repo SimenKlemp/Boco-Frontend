@@ -2,7 +2,7 @@
   <div class="feedbackCardContainer">
     <div class="feedbackCard">
       <h3>{{ feedback.user.name }}</h3>
-      <h4>{{ feedback.message }}</h4>
+      <h4> Tilbakemelding: {{ feedback.message }}</h4>
     </div>
   </div>
 </template>
@@ -42,7 +42,7 @@ h4 {
   display: grid;
   grid-template-rows: 128px 23px 50px;
   width: 100%;
-  height: 200px;
+  height: 100px;
   border: none;
   border-radius: 10px;
   margin-bottom: 2rem;

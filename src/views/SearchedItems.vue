@@ -29,7 +29,6 @@
           <h3>Søkeresultater</h3>
           <p>Viser {{ itemSize }} resultater for {{ searchSentence }}</p>
         </div>
-
         <div id="sortAlternativesContainer">
           <h4 id="sortTitle">sorter etter:</h4>
           <div id="inputSortContainer">
@@ -126,6 +125,7 @@ export default {
       sortField: "RELEVANCE",
       searchSentence: this.$store.state.currentSearchSentence,
       sortOptions: ["PRICE", "RELEVANCE", "PUBLICITY_DATE"],
+
     };
   },
   validations() {
