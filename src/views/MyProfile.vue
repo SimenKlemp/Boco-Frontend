@@ -293,9 +293,7 @@
             />
           </g>
         </svg>
-        <div @click="goToPage('RatingsView')" class="actionInfoText">
-          Mine anmeldelser
-        </div>
+        <div @click="goToRatings" class="actionInfoText">Mine anmeldelser</div>
         <svg
           class="sideIconRight"
           xmlns="http://www.w3.org/2000/svg"
@@ -333,6 +331,12 @@ export default {
   methods: {
     goToPage(to) {
       this.$router.push({ name: to });
+    },
+    goToRatings() {
+      this.$router.push({
+        name: "RatingsView",
+        params: { userId: this.$store.state.userInfo.userId },
+      });
     },
   },
 };

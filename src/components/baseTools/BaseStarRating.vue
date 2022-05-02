@@ -1,13 +1,9 @@
-<template>
-
-</template>
+<template></template>
 
 <script>
 export default {
-  name: "BaseStarRating"
-}
+  name: "BaseStarRating",
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

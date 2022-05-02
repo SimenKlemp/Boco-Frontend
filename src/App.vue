@@ -5,7 +5,9 @@
       <div @click="toggleHamburgerMenu" class="cover"></div>
     </div>
     <div v-if="notificationClicked">
-      <NotificationsComponent @toggleNotifications="toggleNotifications"></NotificationsComponent>
+      <NotificationsComponent
+        @toggleNotifications="toggleNotifications"
+      ></NotificationsComponent>
       <div @click="toggleNotifications" class="coverNotification"></div>
     </div>
   </div>
@@ -61,7 +63,10 @@
       </div>
     </nav>
   </header>
-  <router-view @toggleHamburgerMenu="toggleHamburgerMenu" @toggleNotifications="toggleNotifications"/>
+  <router-view
+    @toggleHamburgerMenu="toggleHamburgerMenu"
+    @toggleNotifications="toggleNotifications"
+  />
   <FooterComponent></FooterComponent>
 </template>
 
@@ -104,7 +109,7 @@ export default {
     if (this.$store.state.userInfo !== "") {
       this.$store.dispatch("fetchMyNotifications");
     }
-  }
+  },
 };
 </script>
 <style>
