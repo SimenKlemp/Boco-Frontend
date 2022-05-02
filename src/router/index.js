@@ -129,6 +129,10 @@ const routes = [
     path:"/giveRating",
     name: "giveRating",
     component: GiveRatingView
+  },
+  {
+  path: "/allRatings",
+    name: "allRatings"
   }
 ];
 
