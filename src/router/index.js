@@ -18,6 +18,7 @@ import FAQView from "@/views/FAQView";
 import RentalDetails from "@/views/RentalDetails";
 import SearchedItems from "@/views/SearchedItems";
 import NotFoundView from "@/views/NotFoundView";
+import RatingsView from "@/views/RatingsView";
 
 const routes = [
   {
@@ -109,6 +110,11 @@ const routes = [
     path: "/searchedItems",
     name: "SearchedItems",
     component: SearchedItems,
+  },
+  {
+    path: "/ratings",
+    name: "RatingsView",
+    component: RatingsView,
   },
   {
     path: "/about",

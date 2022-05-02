@@ -268,6 +268,49 @@
           />
         </svg>
       </BaseCardHorizontal>
+      <BaseCardHorizontal>
+        <svg
+          class="sideIcon"
+          id="Group_64"
+          data-name="Group 64"
+          xmlns="http://www.w3.org/2000/svg"
+          width="35"
+          height="33.385"
+          viewBox="0 0 35 33.385"
+        >
+          <g
+            id="filled_star"
+            data-name="filled star"
+            transform="translate(0 0)"
+          >
+            <path
+              id="Path_1"
+              data-name="Path 1"
+              d="M29.54,966.153l3.963,11.89a.922.922,0,0,0,.877.635H47.04l-10.3,7.533a.922.922,0,0,0-.333,1.029l3.963,12.3L30.084,992.02a.922.922,0,0,0-1.089,0L18.71,999.538l3.963-12.3a.922.922,0,0,0-.333-1.028l-10.3-7.533H24.7a.922.922,0,0,0,.877-.635l3.963-11.89Z"
+              transform="translate(-12.04 -966.153)"
+              fill="#fb8500"
+              fill-rule="evenodd"
+            />
+          </g>
+        </svg>
+        <div @click="goToPage('RatingsView')" class="actionInfoText">
+          Mine anmeldelser
+        </div>
+        <svg
+          class="sideIconRight"
+          xmlns="http://www.w3.org/2000/svg"
+          width="11.676"
+          height="20"
+          viewBox="0 0 11.676 20"
+        >
+          <path
+            id="Path_8"
+            data-name="Path 8"
+            d="M32.219,986.143l-1,.956-9,8.639,2,2.081,8-7.683,8,7.683,2-2.081-9-8.639Z"
+            transform="translate(997.819 -22.219) rotate(90)"
+          />
+        </svg>
+      </BaseCardHorizontal>
     </div>
   </div>
 </template>
