@@ -95,7 +95,7 @@ export default {
     },
   },
   async created() {
-    var socket = new SockJS('http://localhost:8085/chat');
+    var socket = new SockJS('http://localhost:8085/api/chat-connect');
 
     console.log(socket)
 
@@ -105,12 +105,12 @@ export default {
 
     stompClient.connect({}, function(frame) {
       console.log('Connected: ' + frame);
-      stompClient.subscribe('/topic/messages', function(messageOutput) {
+      stompClient.subscribe('/chat-outgoing', function(messageOutput) {
         console.log(messageOutput)
         console.log(JSON.parse(messageOutput.body));
       });
 
-      stompClient.send('/app/chat', JSON.stringify({
+      stompClient.send('/chat-incoming', JSON.stringify({
         "text" : "test text",
         "userId" : 2
       }), {});
