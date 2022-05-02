@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import {
   doRegisterItem,
+  getAllRatings,
   getFeedbacks,
   getItems,
   getUsers,
@@ -22,6 +23,7 @@ const getDefaultState = () => {
     feedbacks: [],
     users: [],
     currentSearchSentence: "",
+    currentRatings: [],
   };
 };
 const state = getDefaultState();
@@ -65,6 +67,9 @@ export default createStore({
     },
     SET_CURRENT_SEARCH_SENTENCE(state, searchSentence) {
       state.currentSearchSentence = searchSentence;
+    },
+    SET_CURRENT_RATINGS(state, ratings) {
+      state.currentRatings = ratings;
     },
   },
   actions: {
@@ -154,6 +159,11 @@ export default createStore({
     },
     getCurrentSearchSentence({ commit }, searchSentence) {
       commit("SET_CURRENT_SEARCH_SENTENCE", searchSentence);
+    },
+    async getAllRatings({ commit }, userId) {
+      let ratings = await getAllRatings(userId, this.state.token);
+
+      commit("SET_CURRENT_RATINGS", ratings);
     },
   },
   modules: {},

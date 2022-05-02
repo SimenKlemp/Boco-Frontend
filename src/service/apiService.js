@@ -259,3 +259,15 @@ export function search(searchRequest) {
       return response.data;
     });
 }
+
+export function getAllRatings(userId, token) {
+  return axios
+    .get("http://localhost:8085/api/rating/get-my/" + userId, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+}

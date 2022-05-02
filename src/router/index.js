@@ -115,6 +115,7 @@ const routes = [
   {
     path: "/ratings",
     name: "RatingsView",
+    props: true,
     component: RatingsView,
   },
   {
@@ -132,10 +133,10 @@ const routes = [
     component: NotFoundView,
   },
   {
-    path:"/giveRating",
+    path: "/giveRating",
     name: "giveRating",
-    component: GiveRatingView
-  }
+    component: GiveRatingView,
+  },
 ];
 
 const router = createRouter({
