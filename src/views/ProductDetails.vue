@@ -175,7 +175,7 @@ export default {
     },
     isFree() {
       return this.item.price === 0;
-    }
+    },
   },
   methods: {
     async goToRequest() {

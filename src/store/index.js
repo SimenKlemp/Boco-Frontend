@@ -52,7 +52,13 @@ export default createStore({
         return state.userInfo.postOffice;
       }
       return state.currentItem.postOffice;
-    }
+    },
+    GET_PRICE() {
+      if (state.currentItem.price === 0) {
+        return true;
+      }
+      return false;
+    },
   },
   mutations: {
     RESET_STATE(state) {
@@ -98,17 +104,17 @@ export default createStore({
     SET_CURRENT_RATINGS(state, ratings) {
       state.currentRatings = ratings;
     },
-    RESTORE_TOKEN(state){
-      const tokenString=localStorage.getItem('token')
-      const userString =localStorage.getItem('user')
-      if(tokenString){
-        const tokenData = JSON.parse(tokenString)
-        this.state.token = tokenData
-        const userData = JSON.parse(userString)
-        this.state.userInfo = userData
-        console.log(userData)
+    RESTORE_TOKEN(state) {
+      const tokenString = localStorage.getItem("token");
+      const userString = localStorage.getItem("user");
+      if (tokenString) {
+        const tokenData = JSON.parse(tokenString);
+        this.state.token = tokenData;
+        const userData = JSON.parse(userString);
+        this.state.userInfo = userData;
+        console.log(userData);
       }
-    }
+    },
   },
   actions: {
     resetState({ commit }) {
@@ -116,11 +122,11 @@ export default createStore({
     },
     storeUser({ commit }, userInfo) {
       commit("ADD_USER", userInfo);
-      localStorage.setItem('user', JSON.stringify(userInfo))
+      localStorage.setItem("user", JSON.stringify(userInfo));
     },
     storeToken({ commit }, token) {
       commit("ADD_TOKEN", token);
-      localStorage.setItem('token', JSON.stringify(token))
+      localStorage.setItem("token", JSON.stringify(token));
     },
     setCurrentImageId({ commit }, currentImageId) {
       commit("SET_IMAGE_ID", currentImageId);
