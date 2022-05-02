@@ -1,5 +1,40 @@
 import axios from "axios";
 
+    /*
+    //Import these
+    import SockJS from "sockjs-client";
+    import Stomp from "webstomp-client";
+
+
+    // Replace with store values
+    const messageRequest = {
+        "text" : text,
+        "userId" : userId,
+        "rentalId" : rentalId
+    }
+
+    let stompClient;
+
+    function connect(rentalId) {
+      const socket = new SockJS('http://localhost:8085/api/chat-connect');
+      stompClient = Stomp.over(socket);
+
+      stompClient.connect({}, (frame) => {
+        stompClient.subscribe('/chat-outgoing/' + rentalId, (messageOutput) => {
+          
+          // Handle message responses here
+          console.log(JSON.parse(messageOutput.body));
+
+        });
+      });
+    }
+    
+    function send(messageRequest) {
+      stompClient.send('/chat-incoming', JSON.stringify(messageRequest), {});
+    }
+    */
+
+
 export async function doLogin(email, password) {
   const loginRequest = {
     email: email,
