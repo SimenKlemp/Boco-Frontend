@@ -70,7 +70,6 @@ import BaseRadioGroup from "@/components/baseTools/BaseRadioGroup";
 import useVuelidate from "@vuelidate/core";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import { helpers, required } from "@vuelidate/validators";
-import { doRentalRequest } from "@/service/apiService";
 import { ref, onMounted } from "vue";
 
 export default {
@@ -186,12 +185,11 @@ export default {
         const registerNotification = {
           notificationStatus: "REQUEST",
           rentalId: this.$store.state.rentalId,
-        }
+        };
         await this.$store.dispatch("registerRental", registerNotification);
 
         //push to rental
         await this.$router.push({ name: "MyRentals" });
-
       } else {
         alert("Alle felter må være fylt inn");
       }

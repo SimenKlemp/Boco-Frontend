@@ -1,9 +1,12 @@
 import { createStore } from "vuex";
 import {
+  doRegisterItem,
+  getAllRatings,
   doNotification,
-  doRegisterItem, doRentalRequest,
+  doRentalRequest,
   getFeedbacks,
-  getItems, getMyNotifications,
+  getItems,
+  getMyNotifications,
   getUsers,
   search,
 } from "@/service/apiService";
@@ -24,6 +27,7 @@ const getDefaultState = () => {
     feedbacks: [],
     users: [],
     currentSearchSentence: "",
+    currentRatings: [],
   };
 };
 const state = getDefaultState();
@@ -60,6 +64,7 @@ export default createStore({
     ADD_TOKEN(state, token) {
       state.token = token;
     },
+
     SET_IMAGE_ID(state, currentImageId) {
       state.currentImageId = currentImageId;
     },
@@ -90,6 +95,20 @@ export default createStore({
     SET_CURRENT_SEARCH_SENTENCE(state, searchSentence) {
       state.currentSearchSentence = searchSentence;
     },
+    SET_CURRENT_RATINGS(state, ratings) {
+      state.currentRatings = ratings;
+    },
+    RESTORE_TOKEN(state){
+      const tokenString=localStorage.getItem('token')
+      const userString =localStorage.getItem('user')
+      if(tokenString){
+        const tokenData = JSON.parse(tokenString)
+        this.state.token = tokenData
+        const userData = JSON.parse(userString)
+        this.state.userInfo = userData
+        console.log(userData)
+      }
+    }
   },
   actions: {
     resetState({ commit }) {
@@ -97,9 +116,11 @@ export default createStore({
     },
     storeUser({ commit }, userInfo) {
       commit("ADD_USER", userInfo);
+      localStorage.setItem('user', JSON.stringify(userInfo))
     },
     storeToken({ commit }, token) {
       commit("ADD_TOKEN", token);
+      localStorage.setItem('token', JSON.stringify(token))
     },
     setCurrentImageId({ commit }, currentImageId) {
       commit("SET_IMAGE_ID", currentImageId);
@@ -141,8 +162,8 @@ export default createStore({
     },
     async fetchMyNotifications({ commit }) {
       let notifications = await getMyNotifications(
-          this.state.userInfo.userId,
-          this.state.token
+        this.state.userInfo.userId,
+        this.state.token
       );
       commit("SET_MY_NOTIFICATIONS", notifications);
     },
@@ -166,7 +187,7 @@ export default createStore({
       let response = await doRentalRequest(rental, this.state.token);
       commit("SET_RENTAL", response);
     },
-    async registerNotification({ commit }, notification) {
+    async registerNotification(notification) {
       await doNotification(notification, this.state.token);
     },
     getUsers({ commit }) {
@@ -192,6 +213,11 @@ export default createStore({
     },
     getCurrentSearchSentence({ commit }, searchSentence) {
       commit("SET_CURRENT_SEARCH_SENTENCE", searchSentence);
+    },
+    async getAllRatings({ commit }, userId) {
+      let ratings = await getAllRatings(userId, this.state.token);
+
+      commit("SET_CURRENT_RATINGS", ratings);
     },
   },
   modules: {},

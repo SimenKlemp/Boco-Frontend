@@ -1,5 +1,40 @@
 import axios from "axios";
 
+    /*
+    //Import these
+    import SockJS from "sockjs-client";
+    import Stomp from "webstomp-client";
+
+
+    // Replace with store values
+    const messageRequest = {
+        "text" : text,
+        "userId" : userId,
+        "rentalId" : rentalId
+    }
+
+    let stompClient;
+
+    function connect(rentalId) {
+      const socket = new SockJS('http://localhost:8085/api/chat-connect');
+      stompClient = Stomp.over(socket);
+
+      stompClient.connect({}, (frame) => {
+        stompClient.subscribe('/chat-outgoing/' + rentalId, (messageOutput) => {
+          
+          // Handle message responses here
+          console.log(JSON.parse(messageOutput.body));
+
+        });
+      });
+    }
+    
+    function send(messageRequest) {
+      stompClient.send('/chat-incoming', JSON.stringify(messageRequest), {});
+    }
+    */
+
+
 export async function doLogin(email, password) {
   const loginRequest = {
     email: email,
@@ -70,18 +105,18 @@ export async function doRentalRequest(registerRentalRequest, token) {
     });
 }
 export async function doNotification(notification, token) {
-    return axios
-        .post(`http://localhost:8085/api/notification/register`, notification, {
-            headers: {
-                Authorization: "Bearer " + token,
-            },
-        })
-        .then((response) => {
-            return response;
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+  return axios
+    .post(`http://localhost:8085/api/notification/register`, notification, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 class UploadFilesService {
   upload(file, token) {
@@ -191,15 +226,15 @@ export function getMyRentals(userId, token) {
     });
 }
 export function getMyNotifications(userId, token) {
-    return axios
-        .get("http://localhost:8085/api/notification/get-my/" + userId, {
-            headers: {
-                Authorization: "Bearer " + token,
-            },
-        })
-        .then((response) => {
-            return response.data;
-        });
+  return axios
+    .get("http://localhost:8085/api/notification/get-my/" + userId, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
 }
 
 export function getRentalsForItem(itemId, token) {
@@ -262,6 +297,17 @@ export function getUsers(token) {
       return response.data;
     });
 }
+export function doRating(ratingRequest, token){
+    return axios
+        .post("http://localhost:8085/api/rating/register", ratingRequest ,   {
+            headers:{
+                Authorization:"Bearer " + token,
+            },
+    }).then((response)=>{
+        console.log(response.data);
+        return response.data
+        })
+}
 
 export function updateRoleUsers(token, userId) {
   return axios
@@ -281,6 +327,18 @@ export function search(searchRequest) {
     .put("http://localhost:8085/api/item/search", searchRequest)
     .then((response) => {
       console.log(response.data);
+      return response.data;
+    });
+}
+
+export function getAllRatings(userId, token) {
+  return axios
+    .get("http://localhost:8085/api/rating/get-my/" + userId, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
       return response.data;
     });
 }

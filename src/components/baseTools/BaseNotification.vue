@@ -1,12 +1,21 @@
 <template>
   <div class="container">
     <div class="imageContainer">
-      <img v-if="true" :src="'http://localhost:8085/api/image/' + this.notification.rental.item.imageId">
-      <img v-else :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')">
+      <img
+        v-if="true"
+        :src="
+          'http://localhost:8085/api/image/' +
+          this.notification.rental.item.imageId
+        "
+      />
+      <img
+        v-else
+        :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')"
+      />
     </div>
     <div v-if="true" class="text">{{ notificationText }}</div>
     <div class="dotContainer">
-      <div class="dot" v-if="notificationStatus===false"></div>
+      <div class="dot" v-if="notificationStatus === false"></div>
     </div>
   </div>
 </template>
@@ -18,7 +27,7 @@ export default {
     notification: {
       type: Object,
       required: true,
-    }
+    },
   },
   computed: {
     notificationText() {
@@ -33,21 +42,29 @@ export default {
         case "REQUEST":
           return 'Du har mottatt en forespørsel på "' + itemTitle + '"';
         case "SEND_RATING_OWNER":
-          return 'Leieforholdet på "' + itemTitle + '" er avsluttet. Gi en anmeldelse';
+          return (
+            'Leieforholdet på "' +
+            itemTitle +
+            '" er avsluttet. Gi en anmeldelse'
+          );
         case "RECEIVED_RATING_OWNER":
           return 'Du har mottatt en anmeldelse på "' + itemTitle + '"';
         case "RECEIVED_RATING_USER":
           return 'Du har mottatt en anmeldelse på "' + itemTitle + '"';
         case "SEND_RATING_USER":
-          return 'Leieforholdet på "' + itemTitle + '" er avsluttet. Gi en anmeldelse';
+          return (
+            'Leieforholdet på "' +
+            itemTitle +
+            '" er avsluttet. Gi en anmeldelse'
+          );
         default:
           return "";
       }
     },
     notificationStatus() {
       return this.notification.pressed;
-    }
-  }
+    },
+  },
 };
 </script>
 
