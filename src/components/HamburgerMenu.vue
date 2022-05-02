@@ -47,6 +47,9 @@
           <div @click="emitRouteChange('MyRentals')">Mine leieforhold</div>
           <div @click="emitRouteChange('AllChats')">Mine chatter</div>
         </div>
+        <div @click="emitRouteChange('giveRating')">
+          gi vurdering
+        </div>
         <div
           v-if="this.$store.state.userInfo.role === 'ADMIN'"
           @click="emitRouteChange('UserView')"
@@ -76,6 +79,7 @@
           <div @click="emitRouteChange('RegistrationComponent')">
             Registrer bruker
           </div>
+
         </div>
       </div>
     </div>

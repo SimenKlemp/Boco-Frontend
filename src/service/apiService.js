@@ -316,6 +316,17 @@ export function getUsers(token) {
       return response.data;
     });
 }
+export function doRating(ratingRequest, token){
+    return axios
+        .post("http://localhost:8085/api/rating/register", ratingRequest ,   {
+            headers:{
+                Authorization:"Bearer " + token,
+            },
+    }).then((response)=>{
+        console.log(response.data);
+        return response.data
+        })
+}
 
 export function updateRoleUsers(token, userId) {
   return axios
