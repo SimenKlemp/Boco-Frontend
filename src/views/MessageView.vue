@@ -28,7 +28,7 @@
             />
           </svg>
         </div>
-        <header>{{ $store.state.currentRental.item.user.name }}</header>
+        <header>{{ currentRental.item.user.name }}</header>
       </div>
     </div>
     <div class="chatContainer">
@@ -92,10 +92,12 @@
 <script>
 import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
 import MessageBox from "@/components/MessageBox";
+import {connect, send} from "@/service/apiService";
 export default {
   name: "MessageView",
   data() {
     return {
+      connection: null,
       currentMessage: "",
       messages: [],
     };
@@ -105,8 +107,8 @@ export default {
     ItemCardHorizontal,
   },
   methods: {
-    submit() {
-      this.messages.push({ message: this.currentMessage });
+    async submit() {
+      await send(this.currentMessage);
     },
   },
   computed: {
@@ -116,6 +118,12 @@ export default {
     imageId() {
       return this.$store.state.currentRental.item.user.imageId;
     },
+    currentRental() {
+      return this.$store.state.currentRental;
+    },
+  },
+  async mounted() {
+    await connect(30);
   },
 };
 </script>
