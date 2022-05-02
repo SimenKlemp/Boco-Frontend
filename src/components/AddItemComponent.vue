@@ -193,9 +193,9 @@ export default {
       title: this.$store.state.currentItem.title,
       category: this.$store.state.currentItem.category,
       description: this.$store.state.currentItem.description,
-      address: this.$store.state.currentItem.streetAddress,
-      postalcode: this.$store.state.currentItem.postalCode,
-      city: this.$store.state.currentItem.postOffice,
+      address: this.$store.getters.GET_ADDRESS,
+      postalcode: this.$store.getters.GET_POSTALCODE,
+      city: this.$store.getters.GET_CITY,
       price: this.$store.state.currentItem.price,
       message: "",
       dates: null,
@@ -309,7 +309,7 @@ export default {
     selectImage() {
       this.currentImage = this.$refs.file.files.item(0);
       this.previewImage = URL.createObjectURL(this.currentImage);
-    },
+    }
   },
   computed: {
     newAd() {
@@ -321,7 +321,7 @@ export default {
       } else {
         return false;
       }
-    },
+    }
   },
 };
 </script>
@@ -354,6 +354,7 @@ form > * {
 
 .postalAddress {
   display: flex;
+  justify-content: space-between;
 }
 
 #info {
@@ -365,7 +366,10 @@ form > * {
 }
 
 /deep/ #postalcode {
-  width: 87px;
+  width: 125px;
+}
+/deep/ #city {
+  width: 200px;
 }
 
 .checkboxContainer {

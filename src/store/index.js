@@ -34,7 +34,26 @@ const state = getDefaultState();
 
 export default createStore({
   state,
-  getters: {},
+  getters: {
+    GET_ADDRESS() {
+      if (state.currentItem === "") {
+        return state.userInfo.streetAddress;
+      }
+      return state.currentItem.streetAddress;
+    },
+    GET_POSTALCODE() {
+      if (state.currentItem === "") {
+        return state.userInfo.postalCode;
+      }
+      return state.currentItem.postalCode;
+    },
+    GET_CITY() {
+      if (state.currentItem === "") {
+        return state.userInfo.postOffice;
+      }
+      return state.currentItem.postOffice;
+    }
+  },
   mutations: {
     RESET_STATE(state) {
       Object.assign(state, getDefaultState());
