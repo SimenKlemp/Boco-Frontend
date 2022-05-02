@@ -38,15 +38,12 @@ import Stomp from "webstomp-client";
 
 let stompClient;
 
-export function connect(rentalId) {
+export function connect(rentalId, callback) {
   const socket = new SockJS("http://localhost:8085/api/chat-connect");
   stompClient = Stomp.over(socket);
 
   stompClient.connect({}, () => {
-    stompClient.subscribe("/chat-outgoing/" + rentalId, (messageOutput) => {
-      // Handle message responses here
-      console.log(JSON.parse(messageOutput));
-    });
+    stompClient.subscribe("/chat-outgoing/" + rentalId, callback);
   });
 }
 
@@ -316,16 +313,17 @@ export function getUsers(token) {
       return response.data;
     });
 }
-export function doRating(ratingRequest, token){
-    return axios
-        .post("http://localhost:8085/api/rating/register", ratingRequest ,   {
-            headers:{
-                Authorization:"Bearer " + token,
-            },
-    }).then((response)=>{
-        console.log(response.data);
-        return response.data
-        })
+export function doRating(ratingRequest, token) {
+  return axios
+    .post("http://localhost:8085/api/rating/register", ratingRequest, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    });
 }
 
 export function updateRoleUsers(token, userId) {

@@ -43,7 +43,7 @@
         :key="index"
         :isMe="false"
         :imageId="imageId"
-        :message="message.message"
+        :message="message"
       ></MessageBox>
     </div>
     <div class="sendMessageContainer">
@@ -92,7 +92,7 @@
 <script>
 import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
 import MessageBox from "@/components/MessageBox";
-import {connect, send} from "@/service/apiService";
+import { connect, send } from "@/service/apiService";
 export default {
   name: "MessageView",
   data() {
@@ -108,7 +108,12 @@ export default {
   },
   methods: {
     async submit() {
-      await send(this.currentMessage);
+      const messageRequest = {
+        text: this.currentMessage,
+        userId: this.$store.state.userInfo.userId,
+        rentalId: this.currentRental.rentalId,
+      };
+      await send(messageRequest);
     },
   },
   computed: {
@@ -123,7 +128,10 @@ export default {
     },
   },
   async mounted() {
-    await connect(30);
+    await connect(30, (message) => {
+      console.log(JSON.parse(message.body).text);
+      this.messages.push(JSON.parse(message.body).text);
+    });
   },
 };
 </script>
