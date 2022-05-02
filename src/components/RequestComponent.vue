@@ -5,7 +5,7 @@
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
       <Datepicker
-        v-model="date"
+        v-model="dates"
         range
         locale="no"
         :enableTimePicker="false"
@@ -99,15 +99,16 @@ export default {
       message: "",
       // eslint-disable-next-line vue/no-dupe-keys
       dates: "",
+      deliveryOption: undefined,
       deliveryOptions: [
         {
           label: "Hjemmelevering",
-          value: 0,
+          value: "DELIVERED",
           status: !this.$store.state.currentItem.isDeliverable,
         },
         {
           label: "Hente",
-          value: 1,
+          value: "PICKUP",
           status: !this.$store.state.currentItem.isPickupable,
         },
       ],
@@ -140,10 +141,9 @@ export default {
       this.v$.$validate();
       console.log(this.v$);
       if (!this.v$.$error) {
-        //make rental request
+        console.log(this.dates[1]);
         const reqisterRentalRequest = {
-          //deliveryInfo: this.deliveryOption,
-          deliveryInfo: "DELIVERED",
+          deliveryInfo: this.deliveryOption,
           endDate: this.dates[1],
           itemId: this.$store.state.currentItem.itemId,
           message: this.message,
@@ -152,13 +152,6 @@ export default {
         };
 
         await this.$store.dispatch("registerRental", reqisterRentalRequest);
-
-        //make notification
-        const registerNotification = {
-          notificationStatus: "REQUEST",
-          rentalId: this.$store.state.rentalId,
-        };
-        await this.$store.dispatch("registerRental", registerNotification);
 
         //push to rental
         await this.$router.push({ name: "MyRentals" });
