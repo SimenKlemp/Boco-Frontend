@@ -21,7 +21,7 @@
         v$.$errors[2].$message
       }}</BaseErrorMessage>
   </div>
-    <star-rating v-model:rating="rating" :increment="0.5" active-color="#FB8500"  />
+    <star-rating v-model:rating="rating" :increment="0.5" active-color="#FB8500" />
     <BaseButton  @click="submit" text="Gi vurdering " />
     </form>
   </div>
