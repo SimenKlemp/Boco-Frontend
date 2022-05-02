@@ -82,6 +82,9 @@ export default {
       notificationClicked: false,
     };
   },
+  created() {
+    this.$store.commit("RESTORE_TOKEN");
+  },
   components: {
     NotificationsComponent,
     FooterComponent,

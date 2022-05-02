@@ -289,7 +289,7 @@ export default {
     },
     isFree() {
       return this.item.price === 0;
-    }
+    },
   },
 };
 </script>

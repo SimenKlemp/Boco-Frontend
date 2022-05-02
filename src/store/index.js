@@ -2,7 +2,6 @@ import { createStore } from "vuex";
 import {
   doRegisterItem,
   getAllRatings,
-  doNotification,
   doRentalRequest,
   getFeedbacks,
   getItems,
@@ -34,7 +33,32 @@ const state = getDefaultState();
 
 export default createStore({
   state,
-  getters: {},
+  getters: {
+    GET_ADDRESS() {
+      if (state.currentItem === "") {
+        return state.userInfo.streetAddress;
+      }
+      return state.currentItem.streetAddress;
+    },
+    GET_POSTALCODE() {
+      if (state.currentItem === "") {
+        return state.userInfo.postalCode;
+      }
+      return state.currentItem.postalCode;
+    },
+    GET_CITY() {
+      if (state.currentItem === "") {
+        return state.userInfo.postOffice;
+      }
+      return state.currentItem.postOffice;
+    },
+    GET_PRICE() {
+      if (state.currentItem.price === 0) {
+        return true;
+      }
+      return false;
+    },
+  },
   mutations: {
     RESET_STATE(state) {
       Object.assign(state, getDefaultState());
@@ -45,6 +69,7 @@ export default createStore({
     ADD_TOKEN(state, token) {
       state.token = token;
     },
+
     SET_IMAGE_ID(state, currentImageId) {
       state.currentImageId = currentImageId;
     },
@@ -78,6 +103,17 @@ export default createStore({
     SET_CURRENT_RATINGS(state, ratings) {
       state.currentRatings = ratings;
     },
+    RESTORE_TOKEN(state) {
+      const tokenString = localStorage.getItem("token");
+      const userString = localStorage.getItem("user");
+      if (tokenString) {
+        const tokenData = JSON.parse(tokenString);
+        this.state.token = tokenData;
+        const userData = JSON.parse(userString);
+        this.state.userInfo = userData;
+        console.log(userData);
+      }
+    },
   },
   actions: {
     resetState({ commit }) {
@@ -85,9 +121,11 @@ export default createStore({
     },
     storeUser({ commit }, userInfo) {
       commit("ADD_USER", userInfo);
+      localStorage.setItem("user", JSON.stringify(userInfo));
     },
     storeToken({ commit }, token) {
       commit("ADD_TOKEN", token);
+      localStorage.setItem("token", JSON.stringify(token));
     },
     setCurrentImageId({ commit }, currentImageId) {
       commit("SET_IMAGE_ID", currentImageId);
@@ -153,9 +191,6 @@ export default createStore({
     async registerRental({ commit }, rental) {
       let response = await doRentalRequest(rental, this.state.token);
       commit("SET_RENTAL", response);
-    },
-    async registerNotification(notification) {
-      await doNotification(notification, this.state.token);
     },
     getUsers({ commit }) {
       getUsers(this.state.token)
