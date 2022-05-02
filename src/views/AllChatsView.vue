@@ -4,6 +4,7 @@
       <div class="title">Alle chatter</div>
     </div>
     <ChatCard
+      id="chatCard"
       v-for="rental in rentals"
       :key="rental.rentalId"
       :rental="rental"
