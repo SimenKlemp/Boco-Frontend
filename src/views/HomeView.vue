@@ -26,7 +26,7 @@
         </button>
         <button @click="emitToggleNotifications" class="hamburgerButton">
           <!--TODO: fix emit-->
-          <div class="dot" v-if="showNotification" v-on:numberNotifications=""></div>
+          <div class="dot" v-if="showNotification"></div>
           <svg
             class="notificationIcon"
             xmlns="http://www.w3.org/2000/svg"
@@ -88,17 +88,16 @@ export default {
     showNotification() {
       let notifications = this.$store.state.myNotifications;
       for (let i = 0; i < notifications.length; i++) {
-        console.log("LESER")
-        console.log(i.pressed)
+        console.log("LESER");
+        console.log(i.pressed);
         if (notifications[i].pressed === false) {
-          console.log("ULEST")
+          console.log("ULEST");
           return true;
-          break;
         }
       }
-      console.log("LEST")
+      console.log("LEST");
       return false;
-    }
+    },
   },
   methods: {
     emitToggleHamburgerMenu() {
@@ -122,7 +121,7 @@ export default {
     if (this.$store.state.userInfo !== "") {
       this.$store.dispatch("fetchMyNotifications");
     }
-  }
+  },
 };
 </script>
 <style scoped>
@@ -182,7 +181,7 @@ p {
 .dot {
   height: 15px;
   width: 15px;
-  background-color: #EA0000;
+  background-color: #ea0000;
   border-radius: 50%;
   display: inline-block;
   position: absolute;

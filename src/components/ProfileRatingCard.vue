@@ -24,12 +24,14 @@
           v-else
           id="profileImage"
           class="profileImage"
-          :src="'http://localhost:8085/api/image/' + rating.rental.user.imageId"
+          :src="
+            'http://localhost:8085/api/image/' + rating.rental.item.user.imageId
+          "
           alt=""
         />
       </div>
       <div class="profileInfo">
-        <p id="profileName">{{ rating.rental.user.name }}</p>
+        <p id="profileName">{{ rating.rental.item.user.name }}</p>
         <p>Har leid {{ rating.rental.item.title }}</p>
         <div class="rating">{{ rating.rate }}</div>
         <div class="description">{{ rating.feedback }}</div>

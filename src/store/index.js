@@ -3,9 +3,10 @@ import {
   doRegisterItem,
   getAllRatings,
   doNotification,
-  doRegisterItem, doRentalRequest,
+  doRentalRequest,
   getFeedbacks,
-  getItems, getMyNotifications,
+  getItems,
+  getMyNotifications,
   getUsers,
   search,
 } from "@/service/apiService";
@@ -128,8 +129,8 @@ export default createStore({
     },
     async fetchMyNotifications({ commit }) {
       let notifications = await getMyNotifications(
-          this.state.userInfo.userId,
-          this.state.token
+        this.state.userInfo.userId,
+        this.state.token
       );
       commit("SET_MY_NOTIFICATIONS", notifications);
     },
@@ -153,7 +154,7 @@ export default createStore({
       let response = await doRentalRequest(rental, this.state.token);
       commit("SET_RENTAL", response);
     },
-    async registerNotification({ commit }, notification) {
+    async registerNotification(notification) {
       await doNotification(notification, this.state.token);
     },
     getUsers({ commit }) {

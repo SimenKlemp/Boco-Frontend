@@ -31,7 +31,6 @@
 
 <script>
 import BaseSearchBar from "@/components/baseTools/BaseSearchBar";
-import SearchedItems from "@/views/SearchedItems";
 import useVuelidate from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";

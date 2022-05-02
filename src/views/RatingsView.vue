@@ -32,7 +32,7 @@
     </div>
     <div class="allRatingsContainer">
       <div class="ratingsHeader">
-        <span id="name">Navn Navnesen</span>
+        <span id="name">{{ user.name }}</span>
         <span>har 4 vurderinger</span>
       </div>
       <div class="ratings">
