@@ -3,6 +3,7 @@
     <form @submit.prevent="submit">
       <h1 v-if="newAd === true">Opprett annonse:</h1>
       <h1 v-else>Rediger annonse:</h1>
+      <!--TODO: fix validation on add item form (crashes)-->
 
       <BaseInput
           id="title"
@@ -49,53 +50,11 @@
         />
       </div>
       <div id="info">
-        <h2>Sted</h2>
-        <div>
-          <label :for="address" class="h3">Gateadresse</label>
-          <BaseInput
-              id="address"
-              class="mb-4"
-              type="address"
-              v-model="address"
-              placeholder="Gateadresse"
-          />
-          <BaseErrorMessage v-if="v$.address.$error">{{
-              v$.$errors[3].$message
-            }}
-          </BaseErrorMessage>
-        </div>
-
-        <div class="postalAddress">
-          <div>
-            <label :for="postalcode" class="h3">Postnummer</label>
-            <BaseInput
-                id="postalcode"
-                class="mb-4"
-                type="postalcode"
-                v-model="postalcode"
-                placeholder="Postnr"
-            />
-            <BaseErrorMessage v-if="v$.postalcode.$error">{{
-                v$.$errors[4].$message
-              }}
-            </BaseErrorMessage>
-          </div>
-
-          <div>
-            <label :for="city" class="h3">Poststed</label>
-            <BaseInput
-                id="city"
-                class="mb-4"
-                type="city"
-                v-model="city"
-                placeholder="Poststed"
-            />
-            <BaseErrorMessage v-if="v$.city.$error">{{
-                v$.$errors[5].$message
-              }}
-            </BaseErrorMessage>
-          </div>
-        </div>
+        <AddressComponent
+          :address="address"
+          :postalcode="postalcode"
+          :city="city"
+        />
         <div id="deliverContainer">
           <h2 id="deliverTitle">Leveringsalternativer</h2>
           <div class="checkboxContainer">
@@ -174,10 +133,12 @@ import useVuelidate from "@vuelidate/core";
 import {helpers, required} from "@vuelidate/validators";
 import BaseCheckbox from "@/components/baseTools/BaseCheckbox";
 import UploadService from "@/service/apiService";
+import AddressComponent from "@/components/AddressComponent";
 
 export default {
   name: "AddItemComponent",
   components: {
+    AddressComponent,
     BaseCheckbox,
     BaseButton,
     BaseInput,
@@ -328,7 +289,7 @@ export default {
 
 <style scoped>
 form {
-  padding: 0px 30px 0px 30px;
+  padding: 0px 40px 0px 30px;
 }
 
 .actualProfileImage {
@@ -352,10 +313,6 @@ form > * {
   height: 150px;
 }
 
-.postalAddress {
-  display: flex;
-  justify-content: space-between;
-}
 
 #info {
   text-align: left;
@@ -365,12 +322,6 @@ form > * {
   padding-bottom: 10px;
 }
 
-/deep/ #postalcode {
-  width: 125px;
-}
-/deep/ #city {
-  width: 200px;
-}
 
 .checkboxContainer {
   margin-bottom: 10px;
@@ -380,6 +331,7 @@ form > * {
   font-size: 14px;
   color: #707070;
   margin-bottom: 30px;
+  width: 100%;
 }
 #priceInfo svg {
   margin-right: 10px;

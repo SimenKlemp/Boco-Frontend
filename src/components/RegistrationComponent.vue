@@ -47,41 +47,11 @@
       <BaseErrorMessage v-if="v$.passwordCheck.$error">{{
         v$.$errors[4].$message
       }}</BaseErrorMessage>
-
-      <h2>Sted</h2>
-      <label>Adresse</label>
-      <BaseInput
-        id="address"
-        class="mb-4"
-        type="address"
-        v-model="address"
-        placeholder="Gateadresse"
+      <AddressComponent
+        :address="address"
+        :postalcode="postalcode"
+        :city="city"
       />
-      <BaseErrorMessage v-if="v$.address.$error">{{
-        v$.$errors[5].$message
-      }}</BaseErrorMessage>
-      <label>Postnummer</label>
-      <BaseInput
-        id="postalcode"
-        class="mb-4"
-        type="postalcode"
-        v-model="postalcode"
-        placeholder="Postkode"
-      />
-      <BaseErrorMessage v-if="v$.postalcode.$error">{{
-        v$.$errors[6].$message
-      }}</BaseErrorMessage>
-      <label>Poststed</label>
-      <BaseInput
-        id="city"
-        class="mb-4"
-        type="city"
-        v-model="city"
-        placeholder="Poststed"
-      />
-      <BaseErrorMessage v-if="v$.city.$error">{{
-        v$.$errors[7].$message
-      }}</BaseErrorMessage>
 
       <BaseButton
         @click.prevent="submit"
@@ -106,10 +76,12 @@ import {
   sameAs,
 } from "@vuelidate/validators";
 import { doRegistration } from "@/service/apiService";
+import AddressComponent from "@/components/AddressComponent";
 
 export default {
   name: "RegistrationComponent",
   components: {
+    AddressComponent,
     BaseInput,
     BaseErrorMessage,
     BaseButton,
@@ -150,7 +122,7 @@ export default {
         ),
         sameAsPassword: sameAs(this.password),
       },
-      address: {
+      /*address: {
         required: helpers.withMessage("Adresse er påkrevd", required),
       },
       postalcode: {
@@ -158,7 +130,7 @@ export default {
       },
       city: {
         required: helpers.withMessage("By er påkrevd", required),
-      },
+      },*/
     };
   },
   computed: {
