@@ -124,6 +124,7 @@ export default {
   data() {
     return {
       message: "",
+      // eslint-disable-next-line vue/no-dupe-keys
       date: "",
       endDate: "",
       startDate: "",
