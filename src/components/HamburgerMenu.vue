@@ -101,6 +101,8 @@ export default {
     logout() {
       this.$store.dispatch("resetState");
       this.$router.push({ name: "HomeView" });
+      this.$store.dispatch('logoutStore');
+
     },
     goMyProfile() {
       if (this.isLoggedIn) {

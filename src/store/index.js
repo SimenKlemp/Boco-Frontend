@@ -108,6 +108,11 @@ export default createStore({
         this.state.userInfo = userData
         console.log(userData)
       }
+    },
+    CLEAR_LOCALSTORAGE(){
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      location.reload()
     }
   },
   actions: {
@@ -136,6 +141,9 @@ export default createStore({
     },
     setItem({ commit }, item) {
       commit("SET_ITEM", item);
+    },
+    logoutStore({commit}){
+      commit("CLEAR_LOCALSTORAGE")
     },
     getFeedbacks({ commit }) {
       getFeedbacks(this.state.token)
