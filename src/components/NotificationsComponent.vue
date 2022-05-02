@@ -6,6 +6,7 @@
         class="notifications"
         :notification="notification"
         @click.stop="goToRoute()"
+        @change="$emit('numberNotifications', counter)"
     />
   </div>
 </template>
@@ -26,6 +27,16 @@ export default {
       //let route = this.$store.state.myNotifications.
       this.$store.dispatch("setItem", this.notification.rental.item);
       this.$router.push({ name: route });
+    },
+    counter() {
+      //TODO: emit to app to show number of notifications
+      let counter;
+      for (let i = 0; i < this.notifications.length; i++) {
+        if (!i.pressed) {
+          counter += 1;
+        }
+      }
+      return counter;
     }
   }
 }

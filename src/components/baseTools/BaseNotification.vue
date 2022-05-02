@@ -1,12 +1,12 @@
 <template>
   <div class="container">
     <div class="imageContainer">
-      <img :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')">
+      <img v-if="true" :src="'http://localhost:8085/api/image/' + this.notification.rental.item.imageId">
+      <img v-else :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')">
     </div>
     <div v-if="true" class="text">{{ notificationText }}</div>
-    <div v-else class="text" >Du har mottatt en forespørsel på Motorsag fra Stihl</div>
     <div class="dotContainer">
-      <div class="dot" v-if="notificationStatus"></div>
+      <div class="dot" v-if="notificationStatus===false"></div>
     </div>
   </div>
 </template>
@@ -25,23 +25,27 @@ export default {
       let itemTitle = this.notification.rental.item.title;
       switch (this.notification.notificationStatus) {
         case "ACCEPTED":
-          return "Din forespørsel" + itemTitle + "har blitt akseptert";
+          return 'Din forespørsel på "' + itemTitle + '" har blitt akseptert';
         case "REJECTED":
-          return "Din forespørsel har blitt avvist";
+          return 'Din forespørsel på "' + itemTitle + '" har blitt avvist';
         case "CANCELED":
-          return "Din forespørsel har blitt kansellert";
-        case "FINISHED":
-          return "Ditt leieforhold er avsluttet, gi en anmeldelse";
+          return 'Din forespørsel på "' + itemTitle + '" har blitt kansellert';
         case "REQUEST":
-          return "Du har mottatt en forespørsel på " + itemTitle;
+          return 'Du har mottatt en forespørsel på "' + itemTitle + '"';
+        case "SEND_RATING_OWNER":
+          return 'Leieforholdet på "' + itemTitle + '" er avsluttet. Gi en anmeldelse';
+        case "RECEIVED_RATING_OWNER":
+          return 'Du har mottatt en anmeldelse på "' + itemTitle + '"';
+        case "RECEIVED_RATING_USER":
+          return 'Du har mottatt en anmeldelse på "' + itemTitle + '"';
+        case "SEND_RATING_USER":
+          return 'Leieforholdet på "' + itemTitle + '" er avsluttet. Gi en anmeldelse';
         default:
           return "";
       }
     },
     notificationStatus() {
-      if (this.notification.notificationStatus === 1) {
-        return true;
-      }
+      return this.notification.pressed;
     }
   }
 };
@@ -50,7 +54,6 @@ export default {
 <style scoped>
 .container {
   display: flex;
-  grid-template-columns: 20% 70% 10%;
   justify-content: space-between;
   width: 100%;
   box-shadow: 0 3px 6px #00000029;
@@ -62,9 +65,7 @@ export default {
   height: 50px;
   width: 50px;
   border-radius: 50%;
-  padding: 10px;
-  display: flex;
-  align-items: center;
+  margin: 10px;
 }
 .text {
   padding: 10px;
@@ -72,9 +73,9 @@ export default {
   width: 100%;
 }
 img {
-  max-width: 50px;
-  max-height: 50px;
-  object-fit: contain;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
 }
 .dotContainer {

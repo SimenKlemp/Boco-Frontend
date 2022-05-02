@@ -187,7 +187,7 @@ export default {
           notificationStatus: "REQUEST",
           rentalId: this.$store.state.rentalId,
         }
-        await this.$store.dispatch("registerRental", reqisterRentalRequest);
+        await this.$store.dispatch("registerRental", registerNotification);
 
         //push to rental
         await this.$router.push({ name: "MyRentals" });

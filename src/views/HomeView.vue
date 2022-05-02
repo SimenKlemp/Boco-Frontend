@@ -25,7 +25,8 @@
           />
         </button>
         <button @click="emitToggleNotifications" class="hamburgerButton">
-          <div class="dot" v-if="showNotification"></div>
+          <!--TODO: fix emit-->
+          <div class="dot" v-if="showNotification" v-on:numberNotifications=""></div>
           <svg
             class="notificationIcon"
             xmlns="http://www.w3.org/2000/svg"

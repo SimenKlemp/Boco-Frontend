@@ -148,8 +148,7 @@ export default createStore({
       commit("SET_RENTAL", response);
     },
     async registerNotification({ commit }, notification) {
-      let response = await doNotification(notification, this.state.token);
-      commit("SET_RENTAL", response);
+      await doNotification(notification, this.state.token);
     },
     getUsers({ commit }) {
       getUsers(this.state.token)
