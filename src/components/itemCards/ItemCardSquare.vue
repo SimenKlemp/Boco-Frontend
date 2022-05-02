@@ -3,16 +3,17 @@
     <div class="itemCard">
       <div class="imageContainer">
         <img
-          v-if="item.imageId === -1 || item.imageId === null"
-          :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')"
-          alt="motorsag"
+            v-if="item.imageId === -1 || item.imageId === null"
+            :src="require('../../assets/6efa4b_motorsag-stihl-ms181c.jpg')"
+            alt="motorsag"
         />
         <img
-          v-else
-          :src="'http://localhost:8085/api/image/' + item.imageId"
-          id="cardImage"
+            v-else
+            :src="'http://localhost:8085/api/image/' + item.imageId"
+            id="cardImage"
         />
-        <p id="priceTag">{{ item.price }} kr/dag</p>
+        <p class="priceTag" v-if="!isFree">{{ item.price }} kr/dag</p>
+        <p class="priceTag" v-else>GRATIS</p>
       </div>
       <div class="itemMeta">
         <div class="itemInfo">
@@ -33,6 +34,11 @@ export default {
       required: true,
     },
   },
+  computed: {
+    isFree() {
+      return this.item.price === 0;
+    }
+  }
 };
 </script>
 
@@ -42,6 +48,7 @@ p {
   font-size: 11px;
   color: #707070;
 }
+
 h4 {
   margin: 5px 0 0 0;
   font-size: 16px;
@@ -54,6 +61,7 @@ h4 {
   justify-content: space-between;
   padding: 1rem;
 }
+
 .itemCard {
   position: relative;
   display: grid;
@@ -65,21 +73,26 @@ h4 {
   margin-bottom: 20px;
   box-shadow: 0 3px 6px #00000029;
 }
+
 img {
   width: 10.625rem;
   border-radius: 10px 10px 0 0;
 }
+
 .itemMeta {
   text-align: left;
 }
+
 .itemInfo {
   padding-left: 10px;
   padding-bottom: 5px;
 }
+
 .imageContainer {
   height: 8rem;
 }
-#priceTag {
+
+.priceTag {
   position: absolute;
   background: #126782;
   border-radius: 0 10px 0 0;
@@ -87,10 +100,11 @@ img {
   text-align: left;
   padding: 3px 10px;
   width: fit-content;
-  bottom: 70.5px;
+  bottom: 69.5px;
   font-size: 12px;
   font-weight: 500;
 }
+
 #cardImage {
   object-fit: cover;
   width: 100%;

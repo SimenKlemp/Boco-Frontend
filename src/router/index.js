@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import NotificationsComponent from "@/components/NotificationsComponent";
 import RegistrationComponent from "@/components/RegistrationComponent";
 import LoginComponent from "@/components/LoginComponent";
 import AddItemComponent from "@/components/AddItemComponent";
@@ -19,6 +18,8 @@ import RentalDetails from "@/views/RentalDetails";
 import SearchedItems from "@/views/SearchedItems";
 import MessageView from "@/views/MessageView";
 import NotFoundView from "@/views/NotFoundView";
+import RatingsView from "@/views/RatingsView";
+import GiveRatingView from "@/views/GiveRatingView";
 import AllChatsView from "@/views/AllChatsView";
 
 const routes = [
@@ -26,11 +27,6 @@ const routes = [
     path: "/",
     name: "HomeView",
     component: HomeView,
-  },
-  {
-    path: "/notifications",
-    name: "NotificationsComponent",
-    component: NotificationsComponent,
   },
   {
     path: "/registration",
@@ -113,6 +109,12 @@ const routes = [
     component: SearchedItems,
   },
   {
+    path: "/ratings",
+    name: "RatingsView",
+    props: true,
+    component: RatingsView,
+  },
+  {
     path: "/chat",
     name: "MessageView",
     component: MessageView,
@@ -135,6 +137,11 @@ const routes = [
     path: "/:catchAll(.*)",
     name: "NotFoundView",
     component: NotFoundView,
+  },
+  {
+    path: "/giveRating",
+    name: "giveRating",
+    component: GiveRatingView,
   },
 ];
 

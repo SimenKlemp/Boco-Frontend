@@ -425,7 +425,7 @@ p {
   text-align: left;
 }
 .mainContent {
-  margin: 0 15px;
+  margin: 0 10px;
 }
 #baseInputMinPriceContainer {
   max-width: 150px;
