@@ -71,9 +71,6 @@
 import HomeComponent from "@/components/HomeComponent.vue";
 import ItemCardSquare from "@/components/itemCards/ItemCardSquare";
 
-import SockJS from "sockjs-client";
-import Stomp from "webstomp-client";
-
 export default {
   name: "HomeView",
   components: {
@@ -94,41 +91,11 @@ export default {
       await this.$router.push({ name: "ProductDetails" });
     },
   },
-  async created() {
-    var socket = new SockJS('http://localhost:8085/api/chat-connect');
-
-    console.log(socket)
-
-    var stompClient = Stomp.over(socket);
-
-    console.log(stompClient);
-
-    stompClient.connect({}, function(frame) {
-      console.log('Connected: ' + frame);
-      stompClient.subscribe('/chat-outgoing', function(messageOutput) {
-        console.log(messageOutput)
-        console.log(JSON.parse(messageOutput.body));
-      });
-
-      stompClient.send('/chat-incoming', JSON.stringify({
-        "text" : "test text",
-        "userId" : 2
-      }), {});
-    });
-    
-
-
-
-    
-
-    /*
+  async created() {   
     this.$store.dispatch("getItems", {
       page: 0,
       pageSize: 4,
     });
-    */
-
-
   },
 };
 </script>
