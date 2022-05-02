@@ -69,6 +69,20 @@ export async function doRentalRequest(registerRentalRequest, token) {
       console.log(err);
     });
 }
+export async function doNotification(notification, token) {
+    return axios
+        .post(`http://localhost:8085/api/notification/register`, notification, {
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        })
+        .then((response) => {
+            return response;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
 class UploadFilesService {
   upload(file, token) {
     let formData = new FormData();
@@ -175,6 +189,17 @@ export function getMyRentals(userId, token) {
     .then((response) => {
       return response.data;
     });
+}
+export function getMyNotifications(userId, token) {
+    return axios
+        .get("http://localhost:8085/api/notification/get-my/" + userId, {
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        })
+        .then((response) => {
+            return response.data;
+        });
 }
 
 export function getRentalsForItem(itemId, token) {
