@@ -19,6 +19,7 @@ import RentalDetails from "@/views/RentalDetails";
 import SearchedItems from "@/views/SearchedItems";
 import NotFoundView from "@/views/NotFoundView";
 import RatingsView from "@/views/RatingsView";
+import GiveRatingView from "@/views/GiveRatingView";
 
 const routes = [
   {
@@ -130,6 +131,11 @@ const routes = [
     name: "NotFoundView",
     component: NotFoundView,
   },
+  {
+    path:"/giveRating",
+    name: "giveRating",
+    component: GiveRatingView
+  }
 ];
 
 const router = createRouter({
