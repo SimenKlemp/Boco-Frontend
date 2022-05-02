@@ -8,13 +8,12 @@
       <BaseInput
         id="name"
         class="mb-4"
-        type="firstName"
-        v-model="name"
+        type="name"
+        v-model="fullname"
         placeholder="Navn"
-        :errorMessage="v$.$errors[1]"
       />
-      <BaseErrorMessage v-if="v$.name.$error">{{
-        v$.$errors[0].$message
+      <BaseErrorMessage v-if="v$.fullname.$error">{{
+        v$.$errors[1].$message
       }}</BaseErrorMessage>
       <label>E-post</label>
       <BaseInput
@@ -23,10 +22,9 @@
         type="email"
         v-model="email"
         placeholder="Epost"
-        :errorMessage="v$.$errors[2]"
       />
       <BaseErrorMessage v-if="v$.email.$error">{{
-        v$.$errors[1].$message
+        v$.$errors[2].$message
       }}</BaseErrorMessage>
       <label>Passord</label>
       <BaseInput
@@ -35,10 +33,19 @@
         type="password"
         v-model="password"
         placeholder="Passord"
-        :errorMessage="v$.$errors[3]"
       />
       <BaseErrorMessage v-if="v$.password.$error">{{
-        v$.$errors[2].$message
+        v$.$errors[3].$message
+      }}</BaseErrorMessage>
+      <BaseInput
+        id="passwordCheck"
+        class="mb-4"
+        type="password"
+        v-model="passwordCheck"
+        placeholder="Skriv inn passord på nytt"
+      />
+      <BaseErrorMessage v-if="v$.passwordCheck.$error">{{
+        v$.$errors[4].$message
       }}</BaseErrorMessage>
 
       <h2>Sted</h2>
@@ -51,7 +58,7 @@
         placeholder="Gateadresse"
       />
       <BaseErrorMessage v-if="v$.address.$error">{{
-        v$.$errors[3].$message
+        v$.$errors[5].$message
       }}</BaseErrorMessage>
       <label>Postnummer</label>
       <BaseInput
@@ -62,7 +69,7 @@
         placeholder="Postkode"
       />
       <BaseErrorMessage v-if="v$.postalcode.$error">{{
-        v$.$errors[4].$message
+        v$.$errors[6].$message
       }}</BaseErrorMessage>
       <label>Poststed</label>
       <BaseInput
@@ -73,7 +80,7 @@
         placeholder="Poststed"
       />
       <BaseErrorMessage v-if="v$.city.$error">{{
-        v$.$errors[5].$message
+        v$.$errors[7].$message
       }}</BaseErrorMessage>
 
       <BaseButton
@@ -91,7 +98,13 @@ import BaseInput from "@/components/baseTools/BaseInput";
 import BaseButton from "@/components/baseTools/BaseButton";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import useVuelidate from "@vuelidate/core";
-import { email, required, helpers } from "@vuelidate/validators";
+import {
+  email,
+  required,
+  helpers,
+  minLength,
+  sameAs,
+} from "@vuelidate/validators";
 import { doRegistration } from "@/service/apiService";
 
 export default {
@@ -108,9 +121,10 @@ export default {
   },
   data() {
     return {
-      name: "",
+      fullname: "",
       email: "",
       password: "",
+      passwordCheck: "",
       address: "",
       postalcode: "",
       city: "",
@@ -118,7 +132,7 @@ export default {
   },
   validations() {
     return {
-      name: {
+      fullname: {
         required: helpers.withMessage("Navn er påkrevd", required),
       },
       email: {
@@ -127,6 +141,14 @@ export default {
       },
       password: {
         required: helpers.withMessage("Passord er påkrevd", required),
+        minLength: minLength(6),
+      },
+      passwordCheck: {
+        required: helpers.withMessage(
+          "Må skrive inn passord to ganger",
+          required
+        ),
+        sameAsPassword: sameAs(this.password),
       },
       address: {
         required: helpers.withMessage("Adresse er påkrevd", required),
@@ -155,7 +177,7 @@ export default {
       if (!this.v$.$error) {
         const reqisterUserRequest = {
           email: this.email,
-          name: this.name,
+          name: this.fullname,
           password: this.password,
           person: true,
           postOffice: this.city,

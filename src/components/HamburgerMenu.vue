@@ -48,6 +48,9 @@
         <div @click="emitRouteChange('MyRentals')" v-if="isLoggedIn">
           Mine leieforhold
         </div>
+        <div @click="emitRouteChange('giveRating')">
+          gi vurdering
+        </div>
         <div
           v-if="this.$store.state.userInfo.role === 'ADMIN'"
           @click="emitRouteChange('UserView')"
@@ -74,7 +77,10 @@
         <div @click="logout" v-if="isLoggedIn">Logg ut</div>
         <div v-if="!isLoggedIn">
           <div @click="emitRouteChange('LoginComponent')">Logg inn</div>
-          <div @click="emitRouteChange('RegistrationComponent')">Registrer bruker</div>
+          <div @click="emitRouteChange('RegistrationComponent')">
+            Registrer bruker
+          </div>
+
         </div>
       </div>
     </div>

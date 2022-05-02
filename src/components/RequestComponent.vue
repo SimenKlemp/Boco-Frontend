@@ -7,9 +7,7 @@
       <Datepicker
         v-model="date"
         range
-        :format="format"
         locale="no"
-        :previewFormat="previewFormat"
         :enableTimePicker="false"
         selectText="Velg"
         cancelText="Lukk"
@@ -70,7 +68,6 @@ import BaseRadioGroup from "@/components/baseTools/BaseRadioGroup";
 import useVuelidate from "@vuelidate/core";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import { helpers, required } from "@vuelidate/validators";
-import { doRentalRequest } from "@/service/apiService";
 import { ref, onMounted } from "vue";
 
 export default {
@@ -91,42 +88,17 @@ export default {
       const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
       date.value = [startDate, endDate];
     });
-    const format = ([startdate, enddate]) => {
-      const startday = startdate.getDate();
-      const startmonth = startdate.getMonth() + 1;
-      const startyear = startdate.getFullYear();
-
-      const endday = enddate.getDate();
-      const endmonth = enddate.getMonth() + 1;
-      const endyear = enddate.getFullYear();
-
-      return `${startyear}-${startmonth}-${startday} - ${endyear}/${endmonth}/${endday}`;
-    };
-    const previewFormat = ([startdate, enddate]) => {
-      const startday = startdate.getDate();
-      const startmonth = startdate.getMonth() + 1;
-      const startyear = startdate.getFullYear();
-
-      const endday = enddate.getDate();
-      const endmonth = enddate.getMonth() + 1;
-      const endyear = enddate.getFullYear();
-
-      return `${startday}/${startmonth}/${startyear} - ${endday}/${endmonth}/${endyear}`;
-    };
 
     return {
       date,
-      format,
-      previewFormat,
       v$: useVuelidate(),
     };
   },
   data() {
     return {
       message: "",
-      date: "",
-      endDate: "",
-      startDate: "",
+      // eslint-disable-next-line vue/no-dupe-keys
+      dates: "",
       deliveryOptions: [
         {
           label: "Hjemmelevering",
@@ -168,22 +140,28 @@ export default {
       this.v$.$validate();
       console.log(this.v$);
       if (!this.v$.$error) {
+        //make rental request
         const reqisterRentalRequest = {
           //deliveryInfo: this.deliveryOption,
           deliveryInfo: "DELIVERED",
-          endDate: this.date[1],
+          endDate: this.dates[1],
           itemId: this.$store.state.currentItem.itemId,
           message: this.message,
-          startDate: this.date[0],
+          startDate: this.dates[0],
           userId: this.$store.state.userInfo.userId,
         };
 
-        let response = await doRentalRequest(
-          reqisterRentalRequest,
-          this.$store.state.token
-        );
+        await this.$store.dispatch("registerRental", reqisterRentalRequest);
+
+        //make notification
+        const registerNotification = {
+          notificationStatus: "REQUEST",
+          rentalId: this.$store.state.rentalId,
+        };
+        await this.$store.dispatch("registerRental", registerNotification);
+
+        //push to rental
         await this.$router.push({ name: "MyRentals" });
-        console.log(response);
       } else {
         alert("Alle felter må være fylt inn");
       }

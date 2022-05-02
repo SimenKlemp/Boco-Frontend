@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import NotificationsComponent from "@/components/NotificationsComponent";
 import RegistrationComponent from "@/components/RegistrationComponent";
 import LoginComponent from "@/components/LoginComponent";
 import AddItemComponent from "@/components/AddItemComponent";
@@ -17,17 +16,15 @@ import UserView from "@/views/UserView";
 import FAQView from "@/views/FAQView";
 import RentalDetails from "@/views/RentalDetails";
 import SearchedItems from "@/views/SearchedItems";
+import NotFoundView from "@/views/NotFoundView";
+import RatingsView from "@/views/RatingsView";
+import GiveRatingView from "@/views/GiveRatingView";
 
 const routes = [
   {
     path: "/",
     name: "HomeView",
     component: HomeView,
-  },
-  {
-    path: "/notifications",
-    name: "NotificationsComponent",
-    component: NotificationsComponent,
   },
   {
     path: "/registration",
@@ -110,6 +107,12 @@ const routes = [
     component: SearchedItems,
   },
   {
+    path: "/ratings",
+    name: "RatingsView",
+    props: true,
+    component: RatingsView,
+  },
+  {
     path: "/about",
     name: "about",
     // route level code-splitting
@@ -117,6 +120,16 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "NotFoundView",
+    component: NotFoundView,
+  },
+  {
+    path: "/giveRating",
+    name: "giveRating",
+    component: GiveRatingView,
   },
 ];
 

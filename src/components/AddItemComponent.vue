@@ -107,8 +107,27 @@
           placeholder="Pris per dag"
         />
         <BaseErrorMessage v-if="v$.price.$error">{{
-          v$.$errors[6].$message
-        }}</BaseErrorMessage>
+            v$.$errors[6].$message
+          }}
+        </BaseErrorMessage>
+        <div id="priceInfo">
+          <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="25"
+              viewBox="0 0 25 25"
+          >
+            <path
+                id="noun-info-3126147"
+                d="M17.5,5A12.5,12.5,0,1,0,30,17.5,12.5,12.5,0,0,0,17.5,5Zm2.094,18.354a6.263,6.263,0,0,1-2.185,2.072,3.774,3.774,0,0,1-1.781.381c-1.615-.134-2.365-1.351-1.66-3.287l2.123-5.833c.458-1.259.014-1.642-.349-1.651q-.649-.012-1.551,1.216a.32.32,0,1,1-.522-.37,6.263,6.263,0,0,1,2.185-2.072,3.775,3.775,0,0,1,1.781-.381c1.615.134,2.365,1.351,1.66,3.287l-2.123,5.833c-.458,1.259-.014,1.642.349,1.651q.649.012,1.551-1.216a.32.32,0,1,1,.522.37Zm1.7-12.142a1.51,1.51,0,1,1-.9-1.935,1.51,1.51,0,0,1,.9,1.935Z"
+                transform="translate(-5 -5)"
+                fill="#126782"
+            />
+          </svg>
+          <p>
+            Hvis du ønsker å låne ut gjenstanden din gratis, sett pris til 0,-
+          </p>
+        </div>
       </div>
 
       <BaseButton
@@ -141,7 +160,7 @@ import BaseInput from "./baseTools/BaseInput.vue";
 import BaseButton from "@/components/baseTools/BaseButton";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import useVuelidate from "@vuelidate/core";
-import { helpers, required } from "@vuelidate/validators";
+import {helpers, required} from "@vuelidate/validators";
 import BaseCheckbox from "@/components/baseTools/BaseCheckbox";
 import UploadService from "@/service/apiService";
 import Multiselect from "@vueform/multiselect";
@@ -165,9 +184,9 @@ export default {
       title: this.$store.state.currentItem.title,
       category: this.$store.state.currentItem.category,
       description: this.$store.state.currentItem.description,
-      address: this.$store.state.currentItem.streetAddress,
-      postalcode: this.$store.state.currentItem.postalCode,
-      city: this.$store.state.currentItem.postOffice,
+      address: this.$store.getters.GET_ADDRESS,
+      postalcode: this.$store.getters.GET_POSTALCODE,
+      city: this.$store.getters.GET_CITY,
       price: this.$store.state.currentItem.price,
       message: "",
       dates: null,
@@ -182,7 +201,7 @@ export default {
   validations() {
     return {
       title: {
-        required: helpers.withMessage("Navn er påkrevd", required),
+        required: helpers.withMessage("Tittel er påkrevd", required),
       },
       category: {
         required: helpers.withMessage("Kategori er påkrevd", required),
@@ -330,9 +349,22 @@ form > * {
   padding-bottom: 10px;
 }
 /deep/ #postalcode {
-  width: 87px;
+  width: 125px;
 }
+/deep/ #city {
+  width: 200px;
+}
+
 .checkboxContainer {
   margin-bottom: 10px;
+}
+#priceInfo {
+  display: flex;
+  font-size: 14px;
+  color: #707070;
+  margin-bottom: 30px;
+}
+#priceInfo svg {
+  margin-right: 10px;
 }
 </style>
