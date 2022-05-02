@@ -2,7 +2,6 @@ import { createStore } from "vuex";
 import {
   doRegisterItem,
   getAllRatings,
-  doNotification,
   doRentalRequest,
   getFeedbacks,
   getItems,
@@ -192,9 +191,6 @@ export default createStore({
     async registerRental({ commit }, rental) {
       let response = await doRentalRequest(rental, this.state.token);
       commit("SET_RENTAL", response);
-    },
-    async registerNotification(notification) {
-      await doNotification(notification, this.state.token);
     },
     getUsers({ commit }) {
       getUsers(this.state.token)
