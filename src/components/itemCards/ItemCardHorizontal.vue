@@ -219,7 +219,8 @@
                   />
                 </g>
               </svg>
-              <p>{{ item.price }} kr/dag</p>
+              <p v-if="!isFree">{{ item.price }} kr/dag</p>
+              <p v-else>GRATIS</p>
             </div>
             <div
               @click.stop="goToEdit(item)"
@@ -286,6 +287,9 @@ export default {
           return "";
       }
     },
+    isFree() {
+      return this.item.price === 0;
+    }
   },
 };
 </script>
