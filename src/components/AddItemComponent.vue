@@ -102,35 +102,17 @@
 
         <h2>Pris</h2>
 
-        <label :for="price" class="h3">Pris per dag</label>
-        <BaseInput
-          id="price"
-          class="mb-4"
-          type="price"
-          v-model="price"
-          placeholder="Pris per dag"
-        />
-        <BaseErrorMessage v-if="v$.price.$error"
-          >{{ v$.$errors[6].$message }}
-        </BaseErrorMessage>
-        <div id="priceInfo">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
-            viewBox="0 0 25 25"
-          >
-            <path
-              id="noun-info-3126147"
-              d="M17.5,5A12.5,12.5,0,1,0,30,17.5,12.5,12.5,0,0,0,17.5,5Zm2.094,18.354a6.263,6.263,0,0,1-2.185,2.072,3.774,3.774,0,0,1-1.781.381c-1.615-.134-2.365-1.351-1.66-3.287l2.123-5.833c.458-1.259.014-1.642-.349-1.651q-.649-.012-1.551,1.216a.32.32,0,1,1-.522-.37,6.263,6.263,0,0,1,2.185-2.072,3.775,3.775,0,0,1,1.781-.381c1.615.134,2.365,1.351,1.66,3.287l-2.123,5.833c-.458,1.259-.014,1.642.349,1.651q.649.012,1.551-1.216a.32.32,0,1,1,.522.37Zm1.7-12.142a1.51,1.51,0,1,1-.9-1.935,1.51,1.51,0,0,1,.9,1.935Z"
-              transform="translate(-5 -5)"
-              fill="#126782"
-            />
-          </svg>
-          <p>
-            Hvis du ønsker å låne ut gjenstanden din gratis, sett pris til 0,-
-          </p>
+        <div class="priceContainer" v-if="!isFree">
+          <label :for="price" class="h3">Pris per dag</label>
+          <BaseInput
+            id="price"
+            class="mb-4"
+            type="price"
+            v-model="price"
+            placeholder="Pris per dag"
+          />
         </div>
+        <BaseCheckbox v-model="isFree" label="Gratis" />
       </div>
 
       <BaseButton
@@ -196,6 +178,7 @@ export default {
       currentImageId: undefined,
       isDeliverable: this.$store.state.currentItem.isDeliverable,
       isPickupable: this.$store.state.currentItem.isPickupable,
+      isFree: this.$store.getters.GET_PRICE,
     };
   },
   validations() {
@@ -221,9 +204,6 @@ export default {
       city: {
         required: helpers.withMessage("Poststed er påkrevd", required),
       },
-      price: {
-        required: helpers.withMessage("Pris er påkrevd", required),
-      },
     };
   },
   methods: {
@@ -244,6 +224,9 @@ export default {
             });
         }
 
+        if (this.isFree === true || this.price === undefined) {
+          this.price = 0;
+        }
         const itemRequest = {
           category: this.category,
           description: this.description,
@@ -276,6 +259,9 @@ export default {
       }
 
       if (!this.v$.$error) {
+        if (this.isFree === true || this.price === undefined) {
+          this.price = 0;
+        }
         const itemUpdated = {
           category: this.category,
           description: this.description,
@@ -320,7 +306,7 @@ export default {
 
 <style scoped>
 form {
-  padding: 0 30px 0 30px;
+  padding: 0px 30px 0px 30px;
 }
 
 .actualProfileImage {
@@ -375,5 +361,8 @@ form > * {
 }
 #priceInfo svg {
   margin-right: 10px;
+}
+.priceContainer {
+  display: inline;
 }
 </style>
