@@ -82,6 +82,9 @@ export default {
       notificationClicked: false,
     };
   },
+  created() {
+    this.$store.commit("RESTORE_TOKEN");
+  },
   components: {
     NotificationsComponent,
     FooterComponent,
@@ -212,5 +215,12 @@ textarea {
   background-color: #f4f4f4;
   padding-top: 10px;
   padding-left: 10px;
+}
+form {
+  padding: 0px 40px 0px 30px;
+}
+form > * {
+  margin-bottom: 10px;
+  display: block;
 }
 </style>

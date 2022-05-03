@@ -1,6 +1,6 @@
 import axios from "axios";
 
-    /*
+/*
     //Import these
     import SockJS from "sockjs-client";
     import Stomp from "webstomp-client";
@@ -33,7 +33,6 @@ import axios from "axios";
       stompClient.send('/chat-incoming', JSON.stringify(messageRequest), {});
     }
     */
-
 
 export async function doLogin(email, password) {
   const loginRequest = {
@@ -130,10 +129,6 @@ class UploadFilesService {
         "Content-Type": "multipart/form-data",
       },
     });
-  }
-
-  getImage(imageId) {
-    return axios.get("http://localhost:8085/api/image/" + imageId);
   }
 }
 
@@ -288,6 +283,18 @@ export function cancelRental(rentalId, token) {
 export function getUsers(token) {
   return axios
     .get("http://localhost:8085/api/user/getUsers", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    });
+}
+export function doRating(ratingRequest, token) {
+  return axios
+    .post("http://localhost:8085/api/rating/register", ratingRequest, {
       headers: {
         Authorization: "Bearer " + token,
       },
