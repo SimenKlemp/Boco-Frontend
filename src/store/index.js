@@ -1,13 +1,14 @@
 import { createStore } from "vuex";
 import {
   doRegisterItem,
-  getAllRatings,
   doRentalRequest,
   getFeedbacks,
   getItems,
   getMyNotifications,
   getUsers,
   search,
+  getAllRatingsOwner,
+  getAllRatingsUser,
 } from "@/service/apiService";
 import { getMyItems, getMyRentals } from "@/service/apiService";
 import { updateItem, deleteItem } from "@/service/apiService";
@@ -26,7 +27,8 @@ const getDefaultState = () => {
     feedbacks: [],
     users: [],
     currentSearchSentence: "",
-    currentRatings: [],
+    currentRatingsOwner: [],
+    currentRatingsUser: [],
   };
 };
 const state = getDefaultState();
@@ -69,7 +71,6 @@ export default createStore({
     ADD_TOKEN(state, token) {
       state.token = token;
     },
-
     SET_IMAGE_ID(state, currentImageId) {
       state.currentImageId = currentImageId;
     },
@@ -100,8 +101,11 @@ export default createStore({
     SET_CURRENT_SEARCH_SENTENCE(state, searchSentence) {
       state.currentSearchSentence = searchSentence;
     },
-    SET_CURRENT_RATINGS(state, ratings) {
-      state.currentRatings = ratings;
+    SET_CURRENT_RATINGS_OWNER(state, ratings) {
+      state.currentRatingsOwner = ratings;
+    },
+    SET_CURRENT_RATINGS_USER(state, ratings) {
+      state.currentRatingsUser = ratings;
     },
     RESTORE_TOKEN() {
       const tokenString = localStorage.getItem("token");
@@ -224,10 +228,19 @@ export default createStore({
     getCurrentSearchSentence({ commit }, searchSentence) {
       commit("SET_CURRENT_SEARCH_SENTENCE", searchSentence);
     },
-    async getAllRatings({ commit }, userId) {
-      let ratings = await getAllRatings(userId, this.state.token);
+    async getAllRatings({ dispatch }, userId) {
+      dispatch("getAllRatingsOwner", userId);
+      dispatch("getAllRatingsUser", userId);
+    },
+    async getAllRatingsOwner({ commit }, userId) {
+      let ratings = await getAllRatingsOwner(userId, this.state.token);
 
-      commit("SET_CURRENT_RATINGS", ratings);
+      commit("SET_CURRENT_RATINGS_OWNER", ratings);
+    },
+    async getAllRatingsUser({ commit }, userId) {
+      let ratings = await getAllRatingsUser(userId, this.state.token);
+
+      commit("SET_CURRENT_RATINGS_USER", ratings);
     },
   },
   modules: {},
