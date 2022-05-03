@@ -33,8 +33,12 @@ export default {
         this.$store.dispatch('fetchMyNotifications');
       }
       //push to chat
-      this.$store.state.currentRental = notification.rental;
-      this.$router.push({name: "MessageView"});
+      if (notification.notificationStatus === 'RECEIVED_RATING_USER' || notification.notificationStatus === 'RECEIVED_RATING_OWNER' ) {
+        this.$router.push({name: "RatingsView"});
+      } else {
+        this.$store.state.currentRental = notification.rental;
+        this.$router.push({name: "MessageView"});
+      }
       this.$emit('toggleNotifications');
     },
   },
@@ -55,8 +59,8 @@ export default {
 
 <style scoped>
 .container {
-  width: 17.5rem;
-  height: 19rem;
+  max-width: 17.5rem;
+  max-height: 19rem;
 }
 .notificationsContainer {
   height: 80%;

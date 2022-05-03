@@ -182,6 +182,7 @@ export default createStore({
         this.state.userInfo.userId,
         this.state.token
       );
+      notifications.reverse();
       commit("SET_MY_NOTIFICATIONS", notifications);
     },
     async updateItem({ commit }, item) {
