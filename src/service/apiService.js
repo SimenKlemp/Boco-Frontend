@@ -249,6 +249,17 @@ export function getMyItems(userId, token) {
       return response.data;
     });
 }
+export function getAllMyRentals(userId, token) {
+  return axios
+    .get("http://" + host + ":8085/api/rental/get-my-all/" + userId, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+}
 
 export function getMyRentals(userId, token, status) {
   return axios

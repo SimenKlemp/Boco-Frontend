@@ -10,6 +10,7 @@ import {
   getAllRatingsOwner,
   getAllRatingsUser,
   getMyRentalsOwner,
+  getAllMyRentals,
 } from "@/service/apiService";
 import { getMyItems, getMyRentals } from "@/service/apiService";
 import { updateItem, deleteItem } from "@/service/apiService";
@@ -23,6 +24,7 @@ const getDefaultState = () => {
     currentImageId: null,
     items: [],
     myItems: [],
+    myRentals: [],
     myRentalsPending: [],
     myRentalsActive: [],
     myRentalsFinished: [],
@@ -92,6 +94,9 @@ export default createStore({
     },
     SET_MY_ITEMS(state, items) {
       state.myItems = items;
+    },
+    SET_MY_RENTALS(state, rentals) {
+      state.myRentals = rentals;
     },
     SET_MY_RENTALS_PENDING(state, rentals) {
       state.myRentalsPending = rentals;
@@ -182,6 +187,13 @@ export default createStore({
         this.state.token
       );
       commit("SET_MY_ITEMS", items);
+    },
+    async fetchAllMyRentals({ commit }) {
+      let rentals = await getAllMyRentals(
+        this.state.userInfo.userId,
+        this.state.token
+      );
+      commit("SET_MY_RENTALS", rentals);
     },
     async fetchMyRentals({ commit }, status) {
       let rentals = await getMyRentals(

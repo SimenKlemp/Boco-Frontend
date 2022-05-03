@@ -37,7 +37,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("fetchMyRentals");
+    this.$store.dispatch("fetchAllMyRentals");
     this.$store.dispatch("fetchMyRentalsOwner");
   },
 };
