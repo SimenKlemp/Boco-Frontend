@@ -177,19 +177,6 @@ export default {
     isFree() {
       return this.item.price === 0;
     },
-  },
-  methods: {
-    async goToRequest() {
-      if (this.$store.state.userInfo.userId) {
-        console.log(this.$store.state.userInfo);
-        await this.$router.push({ name: "RequestComponent" });
-      } else {
-        await this.$router.push({ name: "LoginComponent" });
-      }
-    },
-    async goToEditAd() {
-      await this.$router.push({ name: "AddItemComponent" });
-    },
     isRequested() {
       console.log("HEEEIII");
       console.log(this.$store.state.myRentalsActive.length);
@@ -216,10 +203,22 @@ export default {
       return false;
     },
   },
+  methods: {
+    async goToRequest() {
+      if (this.$store.state.userInfo.userId) {
+        console.log(this.$store.state.userInfo);
+        await this.$router.push({ name: "RequestComponent" });
+      } else {
+        await this.$router.push({ name: "LoginComponent" });
+      }
+    },
+    async goToEditAd() {
+      await this.$router.push({ name: "AddItemComponent" });
+    },
+  },
   async mounted() {
     await this.$store.dispatch("fetchMyRentals", "ACCEPTED");
     await this.$store.dispatch("fetchMyRentals", "PENDING");
-    this.isRequested();
     console.log(BaseButton.props.status);
   },
 };
