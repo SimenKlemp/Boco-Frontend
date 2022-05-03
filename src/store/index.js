@@ -9,6 +9,8 @@ import {
   search,
   getAllRatingsOwner,
   getAllRatingsUser,
+  getMyRentalsOwner,
+  getAllMyRentals,
 } from "@/service/apiService";
 import { getMyItems, getMyRentals } from "@/service/apiService";
 import { updateItem, deleteItem } from "@/service/apiService";
@@ -23,12 +25,16 @@ const getDefaultState = () => {
     items: [],
     myItems: [],
     myRentals: [],
+    myRentalsPending: [],
+    myRentalsActive: [],
+    myRentalsFinished: [],
     myNotifications: [],
     feedbacks: [],
     users: [],
     currentSearchSentence: "",
     currentRatingsOwner: [],
     currentRatingsUser: [],
+    currentRentalsOwner: [],
   };
 };
 const state = getDefaultState();
@@ -91,6 +97,18 @@ export default createStore({
     },
     SET_MY_RENTALS(state, rentals) {
       state.myRentals = rentals;
+    },
+    SET_MY_RENTALS_PENDING(state, rentals) {
+      state.myRentalsPending = rentals;
+    },
+    SET_MY_RENTALS_ACTIVE(state, rentals) {
+      state.myRentalsActive = rentals;
+    },
+    SET_MY_RENTALS_FINISHED(state, rentals) {
+      state.myRentalsFinished = rentals;
+    },
+    SET_MY_RENTALS_OWNER(state, rentals) {
+      state.currentRentalsOwner = rentals;
     },
     SET_MY_NOTIFICATIONS(state, notifications) {
       state.myNotifications = notifications;
@@ -170,12 +188,33 @@ export default createStore({
       );
       commit("SET_MY_ITEMS", items);
     },
-    async fetchMyRentals({ commit }) {
-      let rentals = await getMyRentals(
+    async fetchAllMyRentals({ commit }) {
+      let rentals = await getAllMyRentals(
         this.state.userInfo.userId,
         this.state.token
       );
       commit("SET_MY_RENTALS", rentals);
+    },
+    async fetchMyRentals({ commit }, status) {
+      let rentals = await getMyRentals(
+        this.state.userInfo.userId,
+        this.state.token,
+        status
+      );
+      if (status === "PENDING") {
+        commit("SET_MY_RENTALS_PENDING", rentals);
+      } else if (status === "ACCEPTED") {
+        commit("SET_MY_RENTALS_ACTIVE", rentals);
+      } else if (status === "CANCELED") {
+        commit("SET_MY_RENTALS_FINISHED", rentals);
+      }
+    },
+    async fetchMyRentalsOwner({ commit }) {
+      let rentals = await getMyRentalsOwner(
+        this.state.userInfo.userId,
+        this.state.token
+      );
+      commit("SET_MY_RENTALS_OWNER", rentals);
     },
     async fetchMyNotifications({ commit }) {
       let notifications = await getMyNotifications(

@@ -10,9 +10,18 @@
       <router-view></router-view>
     </div>
     <div class="actions">
-      <BaseSection :title="'Venter på svar'" :rentals="rentals"></BaseSection>
-      <BaseSection :title="'Aktive leieforhold'"></BaseSection>
-      <BaseSection :title="'Avsluttede leieforhold'"></BaseSection>
+      <BaseSection
+        :title="'Venter på svar'"
+        :rentals="rentalsPending"
+      ></BaseSection>
+      <BaseSection
+        :title="'Aktive leieforhold'"
+        :rentals="rentalsActive"
+      ></BaseSection>
+      <BaseSection
+        :title="'Avsluttede leieforhold'"
+        :rentals="rentalsFinished"
+      ></BaseSection>
     </div>
   </div>
 </template>
@@ -25,12 +34,20 @@ export default {
     BaseSection,
   },
   computed: {
-    rentals() {
-      return this.$store.state.myRentals;
+    rentalsPending() {
+      return this.$store.state.myRentalsPending;
+    },
+    rentalsActive() {
+      return this.$store.state.myRentalsActive;
+    },
+    rentalsFinished() {
+      return this.$store.state.myRentalsFinished;
     },
   },
   mounted() {
-    this.$store.dispatch("fetchMyRentals");
+    this.$store.dispatch("fetchMyRentals", "PENDING");
+    this.$store.dispatch("fetchMyRentals", "ACCEPTED");
+    this.$store.dispatch("fetchMyRentals", "CANCELED");
   },
 };
 </script>

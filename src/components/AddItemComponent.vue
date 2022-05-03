@@ -294,7 +294,6 @@ form > * {
   height: 150px;
 }
 
-
 #info {
   text-align: left;
 }
@@ -302,7 +301,6 @@ form > * {
 #info > * {
   padding-bottom: 10px;
 }
-
 
 .checkboxContainer {
   margin-bottom: 10px;
