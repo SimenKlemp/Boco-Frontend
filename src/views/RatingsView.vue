@@ -27,7 +27,14 @@
       </div>
       <div class="headerName">
         <h2>{{ user.name }}</h2>
-        <p>Rating her</p>
+        <div class="rating">
+          <StarRating
+            star-size="20"
+            :read-only="true"
+            :rating="$store.state.meanRating"
+            :show-rating="false"
+          ></StarRating>
+        </div>
       </div>
     </div>
     <div class="allRatingsContainer">
@@ -37,9 +44,14 @@
       </div>
       <div class="ratings">
         <ProfileRatingCard
-          v-for="rating in ratings"
+          v-for="rating in ratingsOwner"
           :key="rating.ratingId"
-          :rating="rating"
+          :ratingOwner="rating"
+        ></ProfileRatingCard>
+        <ProfileRatingCard
+          v-for="rating in ratingsUser"
+          :key="rating.ratingId"
+          :ratingUser="rating"
         ></ProfileRatingCard>
       </div>
     </div>
@@ -47,11 +59,13 @@
 </template>
 
 <script>
+import StarRating from "vue-star-rating";
 import ProfileRatingCard from "@/components/ProfileRatingCard";
 export default {
   name: "RatingsView",
   components: {
     ProfileRatingCard,
+    StarRating,
   },
   props: {
     userId: {
@@ -60,8 +74,11 @@ export default {
     },
   },
   computed: {
-    ratings() {
-      return this.$store.state.currentRatings;
+    ratingsOwner() {
+      return this.$store.state.currentRatingsOwner;
+    },
+    ratingsUser() {
+      return this.$store.state.currentRatingsUser;
     },
     user() {
       return this.$store.state.userInfo;

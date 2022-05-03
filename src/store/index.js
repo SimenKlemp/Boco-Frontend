@@ -1,14 +1,15 @@
 import { createStore } from "vuex";
 import {
   doRegisterItem,
-  getAllRatings,
-  doNotification,
   doRentalRequest,
   getFeedbacks,
   getItems,
   getMyNotifications,
   getUsers,
   search,
+  getAllRatingsOwner,
+  getAllRatingsUser,
+  getMeanRating,
 } from "@/service/apiService";
 import { getMyItems, getMyRentals } from "@/service/apiService";
 import { updateItem, deleteItem } from "@/service/apiService";
@@ -27,7 +28,10 @@ const getDefaultState = () => {
     feedbacks: [],
     users: [],
     currentSearchSentence: "",
+    currentRatingsOwner: [],
+    currentRatingsUser: [],
     currentRatings: [],
+    meanRating: null,
   };
 };
 const state = getDefaultState();
@@ -53,6 +57,12 @@ export default createStore({
       }
       return state.currentItem.postOffice;
     },
+    GET_PRICE() {
+      if (state.currentItem.price === 0) {
+        return true;
+      }
+      return false;
+    },
   },
   mutations: {
     RESET_STATE(state) {
@@ -64,7 +74,6 @@ export default createStore({
     ADD_TOKEN(state, token) {
       state.token = token;
     },
-
     SET_IMAGE_ID(state, currentImageId) {
       state.currentImageId = currentImageId;
     },
@@ -95,8 +104,11 @@ export default createStore({
     SET_CURRENT_SEARCH_SENTENCE(state, searchSentence) {
       state.currentSearchSentence = searchSentence;
     },
-    SET_CURRENT_RATINGS(state, ratings) {
-      state.currentRatings = ratings;
+    SET_CURRENT_RATINGS_OWNER(state, ratings) {
+      state.currentRatingsOwner = ratings;
+    },
+    SET_CURRENT_RATINGS_USER(state, ratings) {
+      state.currentRatingsUser = ratings;
     },
     RESTORE_TOKEN(state) {
       const tokenString = localStorage.getItem("token");
@@ -108,6 +120,9 @@ export default createStore({
         this.state.userInfo = userData;
         console.log(userData);
       }
+    },
+    SET_MEAN_RATING(state, meanRating) {
+      state.meanRating = meanRating;
     },
   },
   actions: {
@@ -187,9 +202,6 @@ export default createStore({
       let response = await doRentalRequest(rental, this.state.token);
       commit("SET_RENTAL", response);
     },
-    async registerNotification(notification) {
-      await doNotification(notification, this.state.token);
-    },
     getUsers({ commit }) {
       getUsers(this.state.token)
         .then((response) => {
@@ -214,10 +226,26 @@ export default createStore({
     getCurrentSearchSentence({ commit }, searchSentence) {
       commit("SET_CURRENT_SEARCH_SENTENCE", searchSentence);
     },
-    async getAllRatings({ commit }, userId) {
-      let ratings = await getAllRatings(userId, this.state.token);
+    async getAllRatings({ dispatch }, userId) {
+      dispatch("getAllRatingsOwner", userId);
+      dispatch("getAllRatingsUser", userId);
+    },
+    async getAllRatingsOwner({ commit }, userId) {
+      let ratings = await getAllRatingsOwner(userId, this.state.token);
 
-      commit("SET_CURRENT_RATINGS", ratings);
+      commit("SET_CURRENT_RATINGS_OWNER", ratings);
+    },
+    async getAllRatingsUser({ commit }, userId) {
+      let ratings = await getAllRatingsUser(userId, this.state.token);
+
+      commit("SET_CURRENT_RATINGS_USER", ratings);
+    },
+    async storeMeanRating({ commit }) {
+      let meanRating = await getMeanRating(
+        this.state.userInfo.userId,
+        this.state.token
+      );
+      commit("SET_MEAN_RATING", meanRating);
     },
   },
   modules: {},

@@ -72,7 +72,8 @@
       {
         "files": [
           "**/__tests__/*.{j,t}s?(x)",
-          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+          "**/tests/unit/**/*.spec.{j,t}s?(x)",
+          "**/tests/components/**/*.{j,t}s?(x)"
         ],
         "env": {
           "jest": true
@@ -85,5 +86,14 @@
     "last 2 versions",
     "not dead",
     "not ie 11"
+  ],
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "src/**/*.{js,vue}",
+    "!**/node_modules/**"
+  ],
+  "coverageReporters": [
+    "html",
+    "text-summary"
   ]
 }
