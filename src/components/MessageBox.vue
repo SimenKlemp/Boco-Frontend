@@ -54,6 +54,9 @@ export default {
     isMe() {
       return this.userId === this.$store.state.userInfo.userId;
     },
+    currentRental() {
+      return this.$store.state.currentRental;
+    },
   },
 };
 </script>
