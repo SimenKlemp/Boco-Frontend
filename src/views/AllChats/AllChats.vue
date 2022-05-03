@@ -1,9 +1,5 @@
 <template>
-  <ChatCard
-    v-for="rental in rentalsActive"
-    :key="rental.rentalId"
-    :rental="rental"
-  ></ChatCard>
+  Hei dette er alle chatter
 </template>
 
 <script>
@@ -12,6 +8,23 @@ export default {
   name: "AllChats",
   components: {
     ChatCard,
+  },
+  props: {
+    rentals: {
+      type: [Object, String, Array],
+      required: true,
+    },
+  },
+  computed: {
+    rentalsWrapped() {
+      return JSON.parse(this.rentals);
+    },
+  },
+  methods: {
+    test() {
+      let stringified = JSON.stringify(this.rentals);
+      console.log(JSON.parse(stringified));
+    },
   },
 };
 </script>

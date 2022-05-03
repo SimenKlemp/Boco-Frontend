@@ -8,7 +8,7 @@
         <router-link :to="{ name: 'ChatsActive' }">Aktive</router-link>
         <router-link :to="{ name: 'ChatsFinished' }">Arkiv</router-link>
       </div>
-      <div class="rentalsContainer">
+      <div @click="test" class="rentalsContainer">
         <router-view></router-view>
       </div>
     </div>
@@ -27,6 +27,12 @@ export default {
   name: "AllChatsView",
   components: {
     ChatCard,
+  },
+  methods: {
+    test() {
+      let stringified = JSON.stringify(this.rentals);
+      console.log(JSON.parse(stringified));
+    },
   },
   computed: {
     hasProfileImage() {
