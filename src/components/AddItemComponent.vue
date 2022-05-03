@@ -51,9 +51,9 @@
       </div>
       <div id="info">
         <AddressComponent
-          :address="address"
-          :postalcode="postalcode"
-          :city="city"
+          v-model:address="address"
+          v-model:postalcode="postalcode"
+          v-model:city="city"
         />
         <div id="deliverContainer">
           <h2 id="deliverTitle">Leveringsalternativer</h2>

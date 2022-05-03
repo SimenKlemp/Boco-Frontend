@@ -48,9 +48,9 @@
         v$.$errors[4].$message
       }}</BaseErrorMessage>
       <AddressComponent
-        :address="address"
-        :postalcode="postalcode"
-        :city="city"
+          v-model:address="address"
+          v-model:postalcode="postalcode"
+          v-model:city="city"
       />
 
       <BaseButton

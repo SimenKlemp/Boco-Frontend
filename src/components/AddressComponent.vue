@@ -9,6 +9,7 @@
           type="address"
           v-model="address"
           placeholder="Gateadresse"
+          @input="$emit('update:address', $event.target.value)"
       />
     </div>
 
@@ -21,6 +22,7 @@
             type="postalcode"
             v-model="postalcode"
             placeholder="Postnr"
+            @input="$emit('update:postalcode', $event.target.value)"
         />
 
       </div>
@@ -31,8 +33,9 @@
             id="city"
             class="mb-4"
             type="city"
-            v-model="city"
+            :value="city"
             placeholder="Poststed"
+            @input="$emit('update:city', $event.target.value)"
         />
         <!--TODO: fix validation on address!!!-->
 
@@ -66,6 +69,7 @@ export default {
       required: true,
     }
   },
+  emits: ['update:address', 'update:postalcode', 'update:city'],
   setup() {
     return {
       v$: useVuelidate(),
