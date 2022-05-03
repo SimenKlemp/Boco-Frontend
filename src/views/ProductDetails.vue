@@ -134,6 +134,7 @@
         class="baseButton"
         :id="'requestButton'"
         :text="'Send forespørsel'"
+        :status="isRequested"
         @click="goToRequest(item)"
       ></BaseButton>
       <BaseButton
@@ -189,6 +190,37 @@ export default {
     async goToEditAd() {
       await this.$router.push({ name: "AddItemComponent" });
     },
+    isRequested() {
+      console.log("HEEEIII");
+      console.log(this.$store.state.myRentalsActive.length);
+      for (let i = 0; i < this.$store.state.myRentalsActive.length; i++) {
+        console.log("SJKEKKER");
+        if (
+          this.$store.state.currentItem.itemId ===
+          this.$store.state.myRentalsActive[i].item.itemId
+        ) {
+          console.log("Er inni if active");
+          return true;
+        }
+      }
+      for (let i = 0; i < this.$store.state.myRentalsPending.length; i++) {
+        console.log("SJKEKKER IGFJEN");
+        if (
+          this.$store.state.currentItem.itemId ===
+          this.$store.state.myRentalsPending[i].item.itemId
+        ) {
+          console.log("Er inni if pending");
+          return true;
+        }
+      }
+      return false;
+    },
+  },
+  async mounted() {
+    await this.$store.dispatch("fetchMyRentals", "ACCEPTED");
+    await this.$store.dispatch("fetchMyRentals", "PENDING");
+    this.isRequested();
+    console.log(BaseButton.props.status);
   },
 };
 </script>
