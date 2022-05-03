@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <div v-if="hamburgerClicked">
+  <div id="container">
+    <div id="hamburgerContainer" v-if="hamburgerClicked">
       <HamburgerMenu @routeChange="toggleHamburgerMenu"></HamburgerMenu>
       <div @click="toggleHamburgerMenu" class="cover"></div>
     </div>
-    <div v-if="notificationClicked">
+    <div id="notificationsContainer" v-if="notificationClicked">
       <NotificationsComponent
         @toggleNotifications="toggleNotifications"
       ></NotificationsComponent>
@@ -122,7 +122,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
-
+html, body, #hamburgerContainer, .hamburgerMeta {
+  height: 100%;
+}
+#notificationsContainer {
+  position: absolute;
+  height: 100%;
+}
 nav {
 }
 

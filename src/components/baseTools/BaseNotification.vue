@@ -77,6 +77,7 @@ export default {
   background: #ffffff;
   align-items: center;
   /*border-radius: 15px;*/
+  max-height: 5rem;
 }
 .imageContainer {
   height: 50px;

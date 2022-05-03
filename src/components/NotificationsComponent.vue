@@ -1,21 +1,24 @@
 <template>
-  <div class="notificationsContainer">
-    <BaseNotification
-      v-for="notification in notifications"
-      :key="notification.notificationId"
-      class="notifications"
-      :notification="notification"
-      @click.stop="goToRoute()"
-      @change="$emit('numberNotifications', counter)"
-    />
+  <div class="container">
+    <div class="notificationsContainer">
+      <BaseNotification
+          v-for="notification in notifications"
+          :key="notification.notificationId"
+          class="notifications"
+          :notification="notification"
+          @click.stop="goToRoute()"
+          @change="$emit('numberNotifications', counter)"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import BaseNotification from "@/components/baseTools/BaseNotification";
+
 export default {
   name: "NotificationsComponent",
-  components: { BaseNotification },
+  components: {BaseNotification},
   data() {
     return {
       notifications: this.$store.state.myNotifications,
@@ -26,7 +29,7 @@ export default {
       //TODO: fix routing
       //let route = this.$store.state.myNotifications.
       this.$store.dispatch("setItem", this.notification.rental.item);
-      this.$router.push({ name: route });
+      this.$router.push({name: route});
     },
   },
   computed: {
@@ -45,13 +48,18 @@ export default {
 </script>
 
 <style scoped>
-.notificationsContainer {
+.container {
   width: 17.5rem;
+  height: 19rem;
+}
+.notificationsContainer {
+  height: 80%;
+  overflow-y: auto;
   background-color: white;
-  margin-top: 80px;
   border-radius: 15px;
-  position: absolute;
+  position: relative;
   z-index: 100;
-  right: 10px;
+  top: 70px;
+  right: -140px;
 }
 </style>
