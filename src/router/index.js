@@ -84,10 +84,11 @@ const routes = [
   {
     path: "/my-rentals",
     name: "MyRentals",
+    redirect: "/my-rentals/pending",
     component: MyRentals,
     children: [
       {
-        path: "/my-rentals",
+        path: "/my-rentals/pending",
         name: "RentalsPending",
         component: RentalsPending,
       },
