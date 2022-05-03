@@ -23,6 +23,7 @@ export default {
     status: {
       type: Boolean,
       required: true,
+      default: false,
     },
   },
 };
