@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="itemContainer">
-      <ItemCardHorizontal item=""></ItemCardHorizontal>
+      <ItemCardHorizontal :item="currentRental.item"></ItemCardHorizontal>
     </div>
     <div class="headerContainer">
       <div class="headerInnerContainer">
@@ -106,7 +106,7 @@ export default {
       const messageRequest = {
         text: this.currentMessage,
         userId: this.$store.state.userInfo.userId,
-        rentalId: this.$,
+        rentalId: this.currentRentalId,
       };
       await send(messageRequest);
     },
@@ -116,17 +116,20 @@ export default {
       return message.userId === this.$store.state.userInfo.userId;
     },
     imageId() {
-      return this.$store.state.currentRental.item.user.imageId;
+      return this.currentRental.item.user.imageId;
     },
     currentRental() {
       return this.$store.state.currentRental;
     },
+    currentRentalId() {
+      return this.currentRental.rentalId;
+    },
   },
   async mounted() {
-    await connect(30, (message) => {
+    await connect(this.currentRentalId, (message) => {
       this.messages.push(JSON.parse(message.body).text);
     });
-    let chat = await getChat(30, this.$store.state.token);
+    let chat = await getChat(this.currentRentalId, this.$store.state.token);
     for (let i = 0; i < chat.messages.length; i++) {
       this.messages.push(chat.messages[i].text);
     }
