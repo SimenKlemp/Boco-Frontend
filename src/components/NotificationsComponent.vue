@@ -2,12 +2,12 @@
   <div class="container">
     <div class="notificationsContainer">
       <BaseNotification
-          v-for="notification in notifications"
-          :key="notification"
-          class="notifications"
-          :notification="notification"
-          @click.stop="goToRoute(notification)"
-          @change="$emit('numberNotifications', counter)"
+        v-for="notification in notifications"
+        :key="notification"
+        class="notifications"
+        :notification="notification"
+        @click.stop="goToRoute(notification)"
+        @change="$emit('numberNotifications', counter)"
       />
     </div>
   </div>
@@ -15,11 +15,11 @@
 
 <script>
 import BaseNotification from "@/components/baseTools/BaseNotification";
-import {changeNotification} from "@/service/apiService";
+import { changeNotification } from "@/service/apiService";
 
 export default {
   name: "NotificationsComponent",
-  components: {BaseNotification},
+  components: { BaseNotification },
   data() {
     return {
       notifications: this.$store.state.myNotifications,
@@ -28,18 +28,24 @@ export default {
   methods: {
     goToRoute(notification) {
       if (notification.pressed === false) {
-        changeNotification(notification.notificationId, this.$store.state.token)
+        changeNotification(
+          notification.notificationId,
+          this.$store.state.token
+        );
         //TODO: fix update of read notification
-        this.$store.dispatch('fetchMyNotifications');
+        this.$store.dispatch("fetchMyNotifications");
       }
       //push to chat
-      if (notification.notificationStatus === 'RECEIVED_RATING_USER' || notification.notificationStatus === 'RECEIVED_RATING_OWNER' ) {
-        this.$router.push({name: "RatingsView"});
+      if (
+        notification.notificationStatus === "RECEIVED_RATING_USER" ||
+        notification.notificationStatus === "RECEIVED_RATING_OWNER"
+      ) {
+        this.$router.push({ name: "RatingsView" });
       } else {
         this.$store.state.currentRental = notification.rental;
-        this.$router.push({name: "MessageView"});
+        this.$router.push({ name: "MessageView" });
       }
-      this.$emit('toggleNotifications');
+      this.$emit("toggleNotifications");
     },
   },
   computed: {
