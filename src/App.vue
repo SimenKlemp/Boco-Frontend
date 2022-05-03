@@ -106,6 +106,7 @@ export default {
     toggleNotifications() {
       console.log("Notifiations clicked");
       this.notificationClicked = !this.notificationClicked;
+      this.$store.dispatch('fetchMyNotifications');
     },
   },
   mounted() {

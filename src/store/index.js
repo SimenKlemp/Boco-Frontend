@@ -12,6 +12,7 @@ import {
   getMyRentalsOwner,
   getAllMyRentals,
   getMeanRating,
+  changeNotification,
 } from "@/service/apiService";
 import { getMyItems, getMyRentals } from "@/service/apiService";
 import { updateItem, deleteItem } from "@/service/apiService";
@@ -227,6 +228,7 @@ export default createStore({
         this.state.userInfo.userId,
         this.state.token
       );
+      notifications.reverse();
       commit("SET_MY_NOTIFICATIONS", notifications);
     },
     async updateItem({ commit }, item) {
@@ -236,6 +238,9 @@ export default createStore({
         this.state.token
       );
       commit("SET_ITEM", response);
+    },
+    async setNotification({ commit }, notificationId) {
+      await changeNotification(notificationId, this.state.token);
     },
     async deleteItem({ commit }) {
       await deleteItem(state.currentItem.itemId, this.state.token);
