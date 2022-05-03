@@ -2,7 +2,7 @@
   <div class="feedbackCardContainer">
     <div class="feedbackCard">
       <h3>{{ feedback.user.name }}</h3>
-      <h4> Tilbakemelding: {{ feedback.message }}</h4>
+      <h4>Tilbakemelding: {{ feedback.message }}</h4>
     </div>
   </div>
 </template>

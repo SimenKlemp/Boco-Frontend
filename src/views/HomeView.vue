@@ -111,7 +111,7 @@ export default {
       await this.$router.push({ name: "ProductDetails" });
     },
   },
-  async created() {   
+  async created() {
     this.$store.dispatch("getItems", {
       page: 0,
       pageSize: 4,
