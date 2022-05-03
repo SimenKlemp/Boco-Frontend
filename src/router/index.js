@@ -7,7 +7,7 @@ import ProductDetails from "@/views/ProductDetails";
 import RequestComponent from "@/components/RequestComponent";
 import MyProfile from "@/views/MyProfile";
 import MyAds from "@/views/MyAds";
-import MyRentals from "@/views/MyRentals";
+import MyRentals from "@/views/Rentals/MyRentals";
 import RentalsReceived from "@/views/RentalsReceived";
 import AddFeedbackWebPageComponent from "@/components/AddFeedbackWebPageComponent";
 import FeedbackView from "@/views/FeedbackView";
@@ -21,6 +21,9 @@ import NotFoundView from "@/views/NotFoundView";
 import RatingsView from "@/views/RatingsView";
 import GiveRatingView from "@/views/GiveRatingView";
 import AllChatsView from "@/views/AllChatsView";
+import RentalsPending from "@/views/Rentals/RentalsPending";
+import RentalsActive from "@/views/Rentals/RentalsActive";
+import RentalsFinished from "@/views/Rentals/RentalsFinished";
 
 const routes = [
   {
@@ -81,7 +84,25 @@ const routes = [
   {
     path: "/my-rentals",
     name: "MyRentals",
+    redirect: "/my-rentals/pending",
     component: MyRentals,
+    children: [
+      {
+        path: "/my-rentals/pending",
+        name: "RentalsPending",
+        component: RentalsPending,
+      },
+      {
+        path: "/my-rentals/active",
+        name: "RentalsActive",
+        component: RentalsActive,
+      },
+      {
+        path: "/my-rentals/finished",
+        name: "RentalsFinished",
+        component: RentalsFinished,
+      },
+    ],
   },
   {
     path: "/rentals",

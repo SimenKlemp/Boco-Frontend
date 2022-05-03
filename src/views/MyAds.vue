@@ -2,23 +2,33 @@
   <div class="container">
     <h1>Mine annonser</h1>
     <div class="actions">
-      <BaseSection :title="'Annonser'" :items="items"></BaseSection>
-      <BaseSection :title="'Aktive leieforhold'" :items="items"></BaseSection>
-      <BaseSection :title="'Arkiverte annonser'" :items="items"></BaseSection>
+      <ItemCardHorizontal
+        v-for="item in items"
+        :key="item.itemId"
+        class="items"
+        :item="item"
+        @click.stop="goToRentals(item)"
+      ></ItemCardHorizontal>
     </div>
   </div>
 </template>
 
 <script>
-import BaseSection from "@/components/baseTools/BaseSection";
+import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
 export default {
   name: "MyAds",
   components: {
-    BaseSection,
+    ItemCardHorizontal,
   },
   computed: {
     items() {
       return this.$store.state.myItems;
+    },
+  },
+  methods: {
+    goToRentals(item) {
+      this.$store.dispatch("setItem", item);
+      this.$router.push({ name: "RentalsReceived" });
     },
   },
   mounted() {

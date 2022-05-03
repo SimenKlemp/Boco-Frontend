@@ -96,5 +96,6 @@ export default {
   padding: 0.7rem 1rem;
   text-align: left;
   font-size: 14px;
+  word-wrap: break-word;
 }
 </style>

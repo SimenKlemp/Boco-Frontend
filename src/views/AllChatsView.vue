@@ -8,7 +8,6 @@
       v-for="rental in rentals"
       :key="rental.rentalId"
       :rental="rental"
-      @click="goToChat(rental)"
     ></ChatCard>
   </div>
 </template>
@@ -19,12 +18,6 @@ export default {
   name: "AllChatsView",
   components: {
     ChatCard,
-  },
-  methods: {
-    goToChat(rental) {
-      this.$store.dispatch("setRental", rental);
-      this.$router.push({ name: "MessageView" });
-    },
   },
   computed: {
     hasProfileImage() {
