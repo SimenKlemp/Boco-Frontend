@@ -27,7 +27,14 @@
       </div>
       <div class="headerName">
         <h2>{{ user.name }}</h2>
-        <p>Rating her</p>
+        <div class="rating">
+          <StarRating
+            star-size="20"
+            :read-only="true"
+            :rating="$store.state.meanRating"
+            :show-rating="false"
+          ></StarRating>
+        </div>
       </div>
     </div>
     <div class="allRatingsContainer">
@@ -52,11 +59,13 @@
 </template>
 
 <script>
+import StarRating from "vue-star-rating";
 import ProfileRatingCard from "@/components/ProfileRatingCard";
 export default {
   name: "RatingsView",
   components: {
     ProfileRatingCard,
+    StarRating,
   },
   props: {
     userId: {
