@@ -102,6 +102,7 @@ export default {
     },
     goMyProfile() {
       if (this.isLoggedIn) {
+        this.$store.dispatch("storeMeanRating");
         this.$router.push({ name: "MyProfile" });
       } else {
         this.$router.push({ name: "LoginComponent" });

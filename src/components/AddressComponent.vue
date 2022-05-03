@@ -32,7 +32,7 @@
           id="city"
           class="mb-4"
           type="city"
-          v-model="city"
+          :value="city"
           placeholder="Poststed"
           @input="$emit('update:city', $event.target.value)"
         />

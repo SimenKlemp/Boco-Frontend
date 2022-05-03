@@ -6,43 +6,44 @@
       <!--TODO: fix validation on add item form (crashes)-->
 
       <BaseInput
-        id="title"
-        class="mb-4"
-        type="title"
-        v-model="title"
-        placeholder="Tittel på annonse"
+          id="title"
+          class="mb-4"
+          type="title"
+          v-model="title"
+          placeholder="Tittel på annonse"
       />
-      <BaseErrorMessage v-if="v$.title.$error"
-        >{{ v$.$errors[0].$message }}
-      </BaseErrorMessage>
-      <h2>Kategori</h2>
-      <BaseInput
-        id="category"
-        class="mb-4"
-        type="category"
-        v-model="category"
-        placeholder="Kategori"
-      />
-      <BaseErrorMessage v-if="v$.category.$error"
-        >{{ v$.$errors[1].$message }}
-      </BaseErrorMessage>
+      <BaseErrorMessage v-if="v$.title.$error">{{
+        v$.$errors[0].$message
+      }}</BaseErrorMessage>
+      <div id="categoeyAlternativesContainer">
+        <h4 id="categoryTitle">velg kategori:</h4>
+        <div id="inputCategoryContainer">
+          <Multiselect
+            id="multiSelect"
+            v-model="category"
+            :options="categoryOptions"
+          ></Multiselect>
+        </div>
+      </div>
       <textarea
-        id="description"
-        class="mb-4"
-        type="description"
-        v-model="description"
-        placeholder="Beskrivelse av produkt/gjenstand..."
-      ></textarea>
-      <BaseErrorMessage v-if="v$.description.$error"
-        >{{ v$.$errors[2].$message }}
+          id="description"
+          class="mb-4"
+          type="description"
+          v-model="description"
+          placeholder="Beskrivelse av produkt/gjenstand..."
+      ></textarea
+      >
+      <BaseErrorMessage v-if="v$.description.$error">{{
+          v$.$errors[2].$message
+        }}
       </BaseErrorMessage>
       <div class="images">
-        <input type="file" accept="image/*" ref="file" @change="selectImage" />
+        <input type="file" accept="image/*" ref="file" @change="selectImage"/>
         <img
-          v-if="previewImage"
-          class="actualProfileImage"
-          :src="previewImage"
-          alt=""
+            v-if="previewImage"
+            class="actualProfileImage"
+            :src="previewImage"
+            alt=""
         />
       </div>
       <div id="info">
@@ -54,11 +55,11 @@
         <div id="deliverContainer">
           <h2 id="deliverTitle">Leveringsalternativer</h2>
           <div class="checkboxContainer">
-            <BaseCheckbox v-model="isPickupable" label="Kan hentes" />
+            <BaseCheckbox v-model="isPickupable" label="Kan hentes"/>
           </div>
 
           <div>
-            <BaseCheckbox v-model="isDeliverable" label="Kan leveres" />
+            <BaseCheckbox v-model="isDeliverable" label="Kan leveres"/>
           </div>
         </div>
 
@@ -78,24 +79,24 @@
       </div>
 
       <BaseButton
-        v-if="newAd === true"
-        @click.prevent="submit"
-        id="publish"
-        text="Publiser"
-        :disabled="isError"
+          v-if="newAd === true"
+          @click.prevent="submit"
+          id="publish"
+          text="Publiser"
+          :disabled="isError"
       />
       <div v-else>
         <BaseButton
-          @click="saveItem"
-          id="save"
-          text="Lagre endringer"
-          :disabled="isError"
+            @click="saveItem"
+            id="save"
+            text="Lagre endringer"
+            :disabled="isError"
         />
         <BaseButton
-          @click="deleteItem"
-          id="delete"
-          text="Slett annonse"
-          :disabled="isError"
+            @click="deleteItem"
+            id="delete"
+            text="Slett annonse"
+            :disabled="isError"
         />
       </div>
     </form>
@@ -107,10 +108,11 @@ import BaseInput from "./baseTools/BaseInput.vue";
 import BaseButton from "@/components/baseTools/BaseButton";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import useVuelidate from "@vuelidate/core";
-import { helpers, required } from "@vuelidate/validators";
+import {helpers, required} from "@vuelidate/validators";
 import BaseCheckbox from "@/components/baseTools/BaseCheckbox";
 import UploadService from "@/service/apiService";
 import AddressComponent from "@/components/AddressComponent";
+import Multiselect from "@vueform/multiselect";
 
 export default {
   name: "AddItemComponent",
@@ -120,6 +122,7 @@ export default {
     BaseButton,
     BaseInput,
     BaseErrorMessage,
+    Multiselect,
   },
   setup() {
     return {
@@ -142,6 +145,13 @@ export default {
       currentImageId: undefined,
       isDeliverable: this.$store.state.currentItem.isDeliverable,
       isPickupable: this.$store.state.currentItem.isPickupable,
+      categoryOptions: [
+        "Verktøy",
+        "Friluftsliv",
+        "IT",
+        "Sportsutstyr",
+        "Husholding",
+      ],
       isFree: this.$store.getters.GET_PRICE,
     };
   },
@@ -155,8 +165,8 @@ export default {
       },
       description: {
         required: helpers.withMessage(
-          "En beskrivelse av produktet er påkrevd",
-          required
+            "En beskrivelse av produktet er påkrevd",
+            required
         ),
       },
       address: {
@@ -178,14 +188,14 @@ export default {
       if (!this.v$.$error) {
         if (this.currentImage !== undefined) {
           await UploadService.upload(this.currentImage, this.$store.state.token)
-            .then((response) => {
-              this.$store.dispatch("setCurrentImageId", response.data);
-            })
-            .catch((err) => {
-              this.progress = 0;
-              this.message = "Could not upload the image! " + err;
-              this.currentImage = undefined;
-            });
+              .then((response) => {
+                this.$store.dispatch("setCurrentImageId", response.data);
+              })
+              .catch((err) => {
+                this.progress = 0;
+                this.message = "Could not upload the image! " + err;
+                this.currentImage = undefined;
+              });
         }
 
         if (this.isFree === true || this.price === undefined) {
@@ -205,21 +215,21 @@ export default {
           userId: this.$store.state.userInfo.userId,
         };
         await this.$store.dispatch("registerItem", itemRequest);
-        await this.$router.push({ name: "ProductDetails" });
+        await this.$router.push({name: "ProductDetails"});
         this.$emit("routeChange");
       }
     },
     async saveItem() {
       if (this.currentImage !== undefined) {
         await UploadService.upload(this.currentImage, this.$store.state.token)
-          .then((response) => {
-            this.$store.dispatch("setCurrentImageId", response.data);
-          })
-          .catch((err) => {
-            this.progress = 0;
-            this.message = "Could not upload the image! " + err;
-            this.currentImage = undefined;
-          });
+            .then((response) => {
+              this.$store.dispatch("setCurrentImageId", response.data);
+            })
+            .catch((err) => {
+              this.progress = 0;
+              this.message = "Could not upload the image! " + err;
+              this.currentImage = undefined;
+            });
       }
 
       if (!this.v$.$error) {
@@ -240,18 +250,18 @@ export default {
           userId: this.$store.state.userInfo.userId,
         };
         await this.$store.dispatch("updateItem", itemUpdated);
-        await this.$router.push({ name: "ProductDetails" });
+        await this.$router.push({name: "ProductDetails"});
         this.$emit("routeChange");
       }
     },
     async deleteItem() {
       await this.$store.dispatch("deleteItem");
-      await this.$router.push({ name: "MyAds" });
+      await this.$router.push({name: "MyAds"});
     },
     selectImage() {
       this.currentImage = this.$refs.file.files.item(0);
       this.previewImage = URL.createObjectURL(this.currentImage);
-    },
+    }
   },
   computed: {
     newAd() {
@@ -263,7 +273,7 @@ export default {
       } else {
         return false;
       }
-    },
+    }
   },
 };
 </script>
