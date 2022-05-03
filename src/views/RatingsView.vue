@@ -75,10 +75,10 @@ export default {
       return this.$store.state.userInfo;
     },
     countRatings() {
-      if (this.ratings.size === 0 || this.ratings.size === null) {
+      if (!this.ratingsUser && !this.ratingsOwner) {
         return 0;
       } else {
-        return this.ratings.size;
+        return this.ratingsUser.size + this.ratingsOwner.size;
       }
     },
   },
