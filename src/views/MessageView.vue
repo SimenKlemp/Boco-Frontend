@@ -33,12 +33,6 @@
     </div>
     <div class="chatContainer">
       <MessageBox
-        :isMe="false"
-        :imageId="imageId"
-        :message="'Dette er en melding som er veldig veldig lang og fin. Kanskje den tar tre linjer?'"
-      ></MessageBox>
-      <MessageBox :isMe="true" :message="'Dette er et kort svar'"></MessageBox>
-      <MessageBox
         v-for="(message, index) in messages"
         :key="index"
         :isMe="false"

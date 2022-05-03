@@ -33,7 +33,7 @@
     <div class="allRatingsContainer">
       <div class="ratingsHeader">
         <span id="name">{{ user.name }}</span>
-        <span>har 4 vurderinger</span>
+        <span>har {{ countRatings }} vurderinger</span>
       </div>
       <div class="ratings">
         <ProfileRatingCard
@@ -65,6 +65,13 @@ export default {
     },
     user() {
       return this.$store.state.userInfo;
+    },
+    countRatings() {
+      if (this.ratings.size === 0 || this.ratings.size === null) {
+        return 0;
+      } else {
+        return this.ratings.size;
+      }
     },
   },
   mounted() {

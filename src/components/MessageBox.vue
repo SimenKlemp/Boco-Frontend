@@ -38,7 +38,7 @@ export default {
       default: "",
     },
     imageId: {
-      type: Number,
+      type: [Number, String],
       default: null,
     },
     isMe: {

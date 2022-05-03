@@ -52,7 +52,7 @@ export default createStore({
         return state.userInfo.postOffice;
       }
       return state.currentItem.postOffice;
-    }
+    },
   },
   mutations: {
     RESET_STATE(state) {
@@ -98,22 +98,22 @@ export default createStore({
     SET_CURRENT_RATINGS(state, ratings) {
       state.currentRatings = ratings;
     },
-    RESTORE_TOKEN(state){
-      const tokenString=localStorage.getItem('token')
-      const userString =localStorage.getItem('user')
-      if(tokenString){
-        const tokenData = JSON.parse(tokenString)
-        this.state.token = tokenData
-        const userData = JSON.parse(userString)
-        this.state.userInfo = userData
-        console.log(userData)
+    RESTORE_TOKEN() {
+      const tokenString = localStorage.getItem("token");
+      const userString = localStorage.getItem("user");
+      if (tokenString) {
+        const tokenData = JSON.parse(tokenString);
+        this.state.token = tokenData;
+        const userData = JSON.parse(userString);
+        this.state.userInfo = userData;
+        console.log(userData);
       }
     },
-    CLEAR_LOCALSTORAGE(){
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
-      location.reload()
-    }
+    CLEAR_LOCALSTORAGE() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      location.reload();
+    },
   },
   actions: {
     resetState({ commit }) {
@@ -121,11 +121,11 @@ export default createStore({
     },
     storeUser({ commit }, userInfo) {
       commit("ADD_USER", userInfo);
-      localStorage.setItem('user', JSON.stringify(userInfo))
+      localStorage.setItem("user", JSON.stringify(userInfo));
     },
     storeToken({ commit }, token) {
       commit("ADD_TOKEN", token);
-      localStorage.setItem('token', JSON.stringify(token))
+      localStorage.setItem("token", JSON.stringify(token));
     },
     setCurrentImageId({ commit }, currentImageId) {
       commit("SET_IMAGE_ID", currentImageId);
@@ -142,8 +142,8 @@ export default createStore({
     setItem({ commit }, item) {
       commit("SET_ITEM", item);
     },
-    logoutStore({commit}){
-      commit("CLEAR_LOCALSTORAGE")
+    logoutStore({ commit }) {
+      commit("CLEAR_LOCALSTORAGE");
     },
     getFeedbacks({ commit }) {
       getFeedbacks(this.state.token)
