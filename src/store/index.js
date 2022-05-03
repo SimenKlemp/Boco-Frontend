@@ -1,7 +1,6 @@
 import { createStore } from "vuex";
 import {
   doRegisterItem,
-  getAllRatings,
   doRentalRequest,
   getFeedbacks,
   getItems,
