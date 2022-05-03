@@ -66,13 +66,13 @@ export default {
 }
 .imageContainer {
   width: 15px;
-  margin-right: 0.5rem;
+  margin-right: 1.5rem;
   position: relative;
 }
 .profileImage {
   position: absolute;
-  width: 15px;
-  height: 15px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   object-fit: cover;
   bottom: 0;

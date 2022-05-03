@@ -21,6 +21,7 @@ import NotFoundView from "@/views/NotFoundView";
 import RatingsView from "@/views/RatingsView";
 import GiveRatingView from "@/views/GiveRatingView";
 import AllChatsView from "@/views/AllChatsView";
+import systemMessage from "@/views/SystemMessage";
 
 const routes = [
   {
