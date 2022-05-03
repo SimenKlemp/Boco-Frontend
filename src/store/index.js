@@ -8,7 +8,7 @@ import {
   getUsers,
   search,
   getAllRatingsOwner,
-  getAllRatingsUser,
+  getAllRatingsUser, changeNotification,
 } from "@/service/apiService";
 import { getMyItems, getMyRentals } from "@/service/apiService";
 import { updateItem, deleteItem } from "@/service/apiService";
@@ -191,6 +191,9 @@ export default createStore({
         this.state.token
       );
       commit("SET_ITEM", response);
+    },
+    async setNotification({ commit }, notificationId) {
+      await changeNotification(notificationId, this.state.token);
     },
     async deleteItem({ commit }) {
       await deleteItem(state.currentItem.itemId, this.state.token);

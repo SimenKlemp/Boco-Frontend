@@ -3,10 +3,10 @@
     <div class="notificationsContainer">
       <BaseNotification
           v-for="notification in notifications"
-          :key="notification.notificationId"
+          :key="notification"
           class="notifications"
           :notification="notification"
-          @click.stop="goToRoute()"
+          @click.stop="goToRoute(notification)"
           @change="$emit('numberNotifications', counter)"
       />
     </div>
@@ -15,6 +15,7 @@
 
 <script>
 import BaseNotification from "@/components/baseTools/BaseNotification";
+import {changeNotification} from "@/service/apiService";
 
 export default {
   name: "NotificationsComponent",
@@ -25,11 +26,16 @@ export default {
     };
   },
   methods: {
-    goToRoute(route) {
-      //TODO: fix routing
-      //let route = this.$store.state.myNotifications.
-      this.$store.dispatch("setItem", this.notification.rental.item);
-      this.$router.push({name: route});
+    goToRoute(notification) {
+      if (notification.pressed === false) {
+        changeNotification(notification.notificationId, this.$store.state.token)
+        //TODO: fix update of read notification
+        this.$store.dispatch('fetchMyNotifications');
+      }
+      //push to chat
+      this.$store.state.currentRental = notification.rental;
+      this.$router.push({name: "MessageView"});
+      this.$emit('toggleNotifications');
     },
   },
   computed: {
