@@ -1,5 +1,5 @@
 <template>
-  <div class="chatCardContainer">
+  <div @click="goToChat" class="chatCardContainer">
     <div class="itemImageContainer">
       <img
         class="itemImage"
@@ -21,6 +21,12 @@ export default {
     rental: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    goToChat() {
+      this.$store.dispatch("setRental", this.rental);
+      this.$router.push({ name: "MessageView" });
     },
   },
   computed: {

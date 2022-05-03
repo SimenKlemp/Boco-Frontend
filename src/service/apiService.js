@@ -249,10 +249,35 @@ export function getMyItems(userId, token) {
       return response.data;
     });
 }
-
-export function getMyRentals(userId, token) {
+export function getAllMyRentals(userId, token) {
   return axios
-    .get("http://" + host + ":8085/api/rental/get-my/" + userId, {
+    .get("http://" + host + ":8085/api/rental/get-my-all/" + userId, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+}
+
+export function getMyRentals(userId, token, status) {
+  return axios
+    .get(
+      "http://" + host + ":8085/api/rental/get-my/" + userId + "/" + status,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
+    .then((response) => {
+      return response.data;
+    });
+}
+export function getMyRentalsOwner(userId, token) {
+  return axios
+    .get("http://" + host + ":8085/api/rental/get-my-owner/" + userId, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -383,6 +408,17 @@ export function getAllRatingsUser(userId, token) {
 export function getAllRatingsOwner(userId, token) {
   return axios
     .get("http://localhost:8085/api/rating/get-my-owner/" + userId, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+}
+export function getMeanRating(userId, token) {
+  return axios
+    .get("http://localhost:8085/api/rating/getMeanRating/" + userId, {
       headers: {
         Authorization: "Bearer " + token,
       },

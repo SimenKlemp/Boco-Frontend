@@ -36,6 +36,7 @@
             star-size="20"
             :read-only="true"
             :rating="rating.rate"
+            :show-rating="false"
           ></StarRating>
         </div>
         <div class="description">{{ rating.feedback }}</div>

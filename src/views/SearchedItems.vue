@@ -21,14 +21,12 @@
           </svg>
         </button>
       </div>
-      <BaseErrorMessage v-if="v$.searchSentence.$error"
-        >{{ v$.$errors[0].$message }}
-      </BaseErrorMessage>
       <div class="optionsContainer">
         <div class="itemsHeader">
           <h3>Søkeresultater</h3>
           <p>Viser {{ itemSize }} resultater for {{ searchSentence }}</p>
         </div>
+
         <div id="sortAndFilterContainer">
           <div id="sortAlternativesContainer">
             <h4 id="sortTitle">sorter etter:</h4>
@@ -207,6 +205,18 @@
           </div>
         </div>
         <div id="filterContainter" v-if="viewFilter">
+          <div id="categoryFilterContainer">
+            <div id="categoryAlternativesContainer">
+              <h4 id="categoryTitle">kategorier:</h4>
+              <div id="inputCategoryContainer">
+                <Multiselect
+                  id="multiSelect"
+                  v-model="category"
+                  :options="categoryOptions"
+                ></Multiselect>
+              </div>
+            </div>
+          </div>
           <div id="deliverContainer">
             <h4 id="deliverTitle">Leveringsalternativer</h4>
             <div id="checkboxContainer">
@@ -276,8 +286,6 @@ import BaseSearchBar from "@/components/baseTools/BaseSearchBar";
 import ItemCardSquare from "@/components/itemCards/ItemCardSquare";
 import BaseInput from "@/components/baseTools/BaseInput";
 import BaseCheckbox from "@/components/baseTools/BaseCheckbox";
-import useVuelidate from "@vuelidate/core";
-import { helpers, required } from "@vuelidate/validators";
 import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
 
 export default {
@@ -290,11 +298,6 @@ export default {
     BaseSearchBar,
     Multiselect,
   },
-  setup() {
-    return {
-      v$: useVuelidate(),
-    };
-  },
   data() {
     return {
       maxPrice: 10000,
@@ -305,16 +308,17 @@ export default {
       pageSize: 30,
       sortField: "RELEVANCE",
       searchSentence: this.$store.state.currentSearchSentence,
-      sortOptions: ["Pris", "Relevans", "Lagt til dato"],
+      sortOptions: ["PRICE", "RELEVANCE", "PUBLICITY_DATE"],
       gridView: true,
       viewFilter: false,
-    };
-  },
-  validations() {
-    return {
-      searchSentence: {
-        required: helpers.withMessage("", required),
-      },
+      category: null,
+      categoryOptions: [
+        "Verktøy",
+        "Friluftsliv",
+        "IT",
+        "Sportsutstyr",
+        "Husholding",
+      ],
     };
   },
   computed: {
@@ -347,26 +351,21 @@ export default {
       this.viewFilter = !this.viewFilter;
     },
     submit() {
-      this.v$.$validate();
-      console.log(this.v$);
-      if (!this.v$.$error) {
-        const searchRequest = {
-          maxPrice: this.maxPrice,
-          minPrice: this.minPrice,
-          mustBeDeliverable: this.mustBeDeliverable,
-          mustBePickable: this.mustBePickable,
-          page: this.page,
-          pageSize: this.pageSize,
-          sortField: this.sortField,
-          text: this.searchSentence,
-        };
+      const searchRequest = {
+        maxPrice: this.maxPrice,
+        minPrice: this.minPrice,
+        mustBeDeliverable: this.mustBeDeliverable,
+        mustBePickable: this.mustBePickable,
+        page: this.page,
+        pageSize: this.pageSize,
+        sortField: this.sortField,
+        text: this.searchSentence,
+        category: this.category,
+      };
 
-        console.log(searchRequest);
-        this.$store.dispatch("getCurrentSearchSentence", this.searchSentence);
-        this.$store.dispatch("getSearchedItems", searchRequest);
-      } else {
-        alert("Søkefelt må være utfylt");
-      }
+      console.log(searchRequest);
+      this.$store.dispatch("getCurrentSearchSentence", this.searchSentence);
+      this.$store.dispatch("getSearchedItems", searchRequest);
     },
   },
 };
@@ -449,7 +448,13 @@ p {
   display: grid;
   grid-template-columns: 30% 50%;
 }
-#iconContainer {
+
+#categoryFilterContainer {
+  display: grid;
+  grid-template-columns: 30% 50%;
+}
+
+#categoryFilterContainer #iconContainer {
   margin-top: 24px;
   margin-left: 20px;
 }

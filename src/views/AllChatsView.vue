@@ -6,9 +6,8 @@
     <ChatCard
       id="chatCard"
       v-for="rental in rentals"
-      :key="rental.rental.rentalId"
-      :rental="rental.rental"
-      @click="goToChat(rental.rental)"
+      :key="rental.rentalId"
+      :rental="rental"
     ></ChatCard>
   </div>
 </template>
@@ -20,24 +19,19 @@ export default {
   components: {
     ChatCard,
   },
-  methods: {
-    goToChat(rental) {
-      this.$store.dispatch("setRental", rental);
-      this.$router.push({ name: "MessageView" });
-    },
-  },
   computed: {
     hasProfileImage() {
       return this.$store.state.userInfo.imageId !== null;
     },
     rentals() {
-      return this.$store.state.currentRatingsOwner.concat(
-        this.$store.state.currentRatingsUser
+      return this.$store.state.myRentals.concat(
+        this.$store.state.currentRentalsOwner
       );
     },
   },
   mounted() {
-    this.$store.dispatch("getAllRatings", this.$store.state.userInfo.userId);
+    this.$store.dispatch("fetchAllMyRentals");
+    this.$store.dispatch("fetchMyRentalsOwner");
   },
 };
 </script>

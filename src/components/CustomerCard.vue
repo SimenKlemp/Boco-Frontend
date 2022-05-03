@@ -227,6 +227,7 @@ export default {
   },
   methods: {
     async goToChat() {
+      this.$store.dispatch("setRental", this.rental);
       await this.$router.push({ name: "MessageView" });
     },
     toggleDropdown() {

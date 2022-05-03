@@ -1,5 +1,5 @@
 <template>
-  <button type="Button" :for="id">
+  <button type="button" :for="id" :disabled="status">
     <img v-if="img" src="img" />{{ text }}
   </button>
 </template>
@@ -20,6 +20,11 @@ export default {
       type: String,
       default: "",
     },
+    status: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
 };
 </script>
@@ -34,5 +39,8 @@ button {
   margin-top: 10px;
   background-color: var(--blue);
   color: white;
+}
+button:disabled {
+  background-color: grey;
 }
 </style>
