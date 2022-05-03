@@ -368,9 +368,21 @@ export function search(searchRequest) {
     });
 }
 
-export function getAllRatings(userId, token) {
+export function getAllRatingsUser(userId, token) {
   return axios
-    .get("http://" + host + ":8085/api/rating/get-my/" + userId, {
+    .get("http://localhost:8085/api/rating/get-my-user/" + userId, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+}
+
+export function getAllRatingsOwner(userId, token) {
+  return axios
+    .get("http://localhost:8085/api/rating/get-my-owner/" + userId, {
       headers: {
         Authorization: "Bearer " + token,
       },
