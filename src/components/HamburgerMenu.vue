@@ -42,11 +42,10 @@
         >
           Lei ut
         </div>
-        <div @click="emitRouteChange('MyAds')" v-if="isLoggedIn">
-          Mine annonser
-        </div>
-        <div @click="emitRouteChange('MyRentals')" v-if="isLoggedIn">
-          Mine leieforhold
+        <div v-if="isLoggedIn">
+          <div @click="emitRouteChange('MyAds')">Mine annonser</div>
+          <div @click="emitRouteChange('MyRentals')">Mine leieforhold</div>
+          <div @click="emitRouteChange('AllChats')">Mine chatter</div>
         </div>
         <div @click="emitRouteChange('giveRating')">gi vurdering</div>
         <div
@@ -99,6 +98,7 @@ export default {
     logout() {
       this.$store.dispatch("resetState");
       this.$router.push({ name: "HomeView" });
+      this.$store.dispatch("logoutStore");
     },
     goMyProfile() {
       if (this.isLoggedIn) {

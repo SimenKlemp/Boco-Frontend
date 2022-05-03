@@ -1,5 +1,5 @@
 <template>
-  <div @click="toggleDropdown" class="customerContainer">
+  <div @click="goToChat" class="customerContainer">
     <div class="profileContainer">
       <svg
         v-if="rental.user.imageId === -1 || rental.user.imageId === null"
@@ -226,6 +226,9 @@ export default {
     },
   },
   methods: {
+    async goToChat() {
+      await this.$router.push({ name: "MessageView" });
+    },
     toggleDropdown() {
       this.dropDownClicked = !this.dropDownClicked;
       this.$emit("cardUpdate");

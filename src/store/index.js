@@ -107,7 +107,7 @@ export default createStore({
     SET_CURRENT_RATINGS_USER(state, ratings) {
       state.currentRatingsUser = ratings;
     },
-    RESTORE_TOKEN(state) {
+    RESTORE_TOKEN() {
       const tokenString = localStorage.getItem("token");
       const userString = localStorage.getItem("user");
       if (tokenString) {
@@ -117,6 +117,11 @@ export default createStore({
         this.state.userInfo = userData;
         console.log(userData);
       }
+    },
+    CLEAR_LOCALSTORAGE() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      location.reload();
     },
   },
   actions: {
@@ -145,6 +150,9 @@ export default createStore({
     },
     setItem({ commit }, item) {
       commit("SET_ITEM", item);
+    },
+    logoutStore({ commit }) {
+      commit("CLEAR_LOCALSTORAGE");
     },
     getFeedbacks({ commit }) {
       getFeedbacks(this.state.token)

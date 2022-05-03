@@ -16,9 +16,11 @@ import UserView from "@/views/UserView";
 import FAQView from "@/views/FAQView";
 import RentalDetails from "@/views/RentalDetails";
 import SearchedItems from "@/views/SearchedItems";
+import MessageView from "@/views/MessageView";
 import NotFoundView from "@/views/NotFoundView";
 import RatingsView from "@/views/RatingsView";
 import GiveRatingView from "@/views/GiveRatingView";
+import AllChatsView from "@/views/AllChatsView";
 
 const routes = [
   {
@@ -111,6 +113,16 @@ const routes = [
     name: "RatingsView",
     props: true,
     component: RatingsView,
+  },
+  {
+    path: "/chat",
+    name: "MessageView",
+    component: MessageView,
+  },
+  {
+    path: "/all-chats",
+    name: "AllChats",
+    component: AllChatsView,
   },
   {
     path: "/about",
