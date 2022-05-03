@@ -3,10 +3,10 @@
     <div class="notificationsContainer">
       <BaseNotification
           v-for="notification in notifications"
-          :key="notification.notificationId"
+          :key="notification"
           class="notifications"
           :notification="notification"
-          @click.stop="goToRoute()"
+          @click.stop="goToRoute(notification)"
           @change="$emit('numberNotifications', counter)"
       />
     </div>
@@ -15,6 +15,7 @@
 
 <script>
 import BaseNotification from "@/components/baseTools/BaseNotification";
+import {changeNotification} from "@/service/apiService";
 
 export default {
   name: "NotificationsComponent",
@@ -25,11 +26,20 @@ export default {
     };
   },
   methods: {
-    goToRoute(route) {
-      //TODO: fix routing
-      //let route = this.$store.state.myNotifications.
-      this.$store.dispatch("setItem", this.notification.rental.item);
-      this.$router.push({name: route});
+    goToRoute(notification) {
+      if (notification.pressed === false) {
+        changeNotification(notification.notificationId, this.$store.state.token)
+        //TODO: fix update of read notification
+        this.$store.dispatch('fetchMyNotifications');
+      }
+      //push to chat
+      if (notification.notificationStatus === 'RECEIVED_RATING_USER' || notification.notificationStatus === 'RECEIVED_RATING_OWNER' ) {
+        this.$router.push({name: "RatingsView"});
+      } else {
+        this.$store.state.currentRental = notification.rental;
+        this.$router.push({name: "MessageView"});
+      }
+      this.$emit('toggleNotifications');
     },
   },
   computed: {
@@ -49,8 +59,8 @@ export default {
 
 <style scoped>
 .container {
-  width: 17.5rem;
-  height: 19rem;
+  max-width: 17.5rem;
+  max-height: 19rem;
 }
 .notificationsContainer {
   height: 80%;

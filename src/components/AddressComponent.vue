@@ -4,12 +4,12 @@
     <div id="streetAddressContainer">
       <label :for="address" class="h3">Gateadresse</label>
       <BaseInput
-        id="address"
-        class="mb-4"
-        type="address"
-        v-model="address"
-        placeholder="Gateadresse"
-        @input="$emit('update:address', $event.target.value)"
+          id="address"
+          class="mb-4"
+          type="address"
+          v-model="address"
+          placeholder="Gateadresse"
+          @input="$emit('update:address', $event.target.value)"
       />
     </div>
 
@@ -17,26 +17,29 @@
       <div id="postalcodeContainer">
         <label :for="postalcode" class="h3">Postnummer</label>
         <BaseInput
-          id="postalCode"
-          class="mb-4"
-          type="postalcode"
-          v-model="postalcode"
-          placeholder="Postnr"
-          @input="$emit('update:postalcode', $event.target.value)"
+            id="postalCode"
+            class="mb-4"
+            type="postalcode"
+            v-model="postalcode"
+            placeholder="Postnr"
+            @input="$emit('update:postalcode', $event.target.value)"
         />
+
       </div>
 
       <div id="cityContainer">
         <label :for="city" class="h3">Poststed</label>
         <BaseInput
-          id="city"
-          class="mb-4"
-          type="city"
-          :value="city"
-          placeholder="Poststed"
-          @input="$emit('update:city', $event.target.value)"
+            id="city"
+            class="mb-4"
+            type="city"
+            v-model="city"
+            placeholder="Poststed"
+            @input="$emit('update:city', $event.target.value)"
+
         />
         <!--TODO: fix validation on address!!!-->
+
       </div>
     </div>
   </div>
@@ -65,15 +68,15 @@ export default {
     city: {
       type: String,
       required: true,
-    },
+    }
   },
-  emits: ["update:address", "update:postalcode", "update:city"],
+  emits: ['update:address', 'update:postalcode', 'update:city'],
   setup() {
     return {
       v$: useVuelidate(),
     };
-  },
-};
+  }
+}
 </script>
 
 <style scoped>

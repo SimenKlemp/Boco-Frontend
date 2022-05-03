@@ -144,20 +144,7 @@ export async function doRentalRequest(registerRentalRequest, token) {
       console.log(err);
     });
 }
-export async function doNotification(notification, token) {
-  return axios
-    .post("http://" + host + ":8085/api/notification/register", notification, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
-    .then((response) => {
-      return response;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
+
 class UploadFilesService {
   upload(file, token) {
     let formData = new FormData();
@@ -345,7 +332,17 @@ export function cancelRental(rentalId, token) {
       return response.data;
     });
 }
-
+export function changeNotification(notificationId, token) {
+    return axios
+        .put("http://" + host + ":8085/api/notification/update/" + notificationId,null,{
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        })
+        .then((response) => {
+            return response.data;
+        });
+}
 export function getUsers(token) {
   return axios
     .get("http://" + host + ":8085/api/user/getUsers", {
