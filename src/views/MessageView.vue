@@ -109,6 +109,7 @@ export default {
         rentalId: this.currentRentalId,
       };
       await send(messageRequest);
+      this.currentMessage = "";
     },
   },
   computed: {
