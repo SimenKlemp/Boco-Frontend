@@ -35,9 +35,9 @@
       <MessageBox
         v-for="(message, index) in messages"
         :key="index"
-        :isMe="false"
+        :userId="message.userId"
         :imageId="imageId"
-        :message="message"
+        :message="message.text"
       ></MessageBox>
     </div>
     <div class="sendMessageContainer">
@@ -112,9 +112,6 @@ export default {
     },
   },
   computed: {
-    isMe(message) {
-      return message.userId === this.$store.state.userInfo.userId;
-    },
     imageId() {
       return this.currentRental.item.user.imageId;
     },
@@ -127,11 +124,11 @@ export default {
   },
   async mounted() {
     await connect(this.currentRentalId, (message) => {
-      this.messages.push(JSON.parse(message.body).text);
+      this.messages.push(JSON.parse(message.body));
     });
     let chat = await getChat(this.currentRentalId, this.$store.state.token);
     for (let i = 0; i < chat.messages.length; i++) {
-      this.messages.push(chat.messages[i].text);
+      this.messages.push(chat.messages[i]);
     }
   },
 };

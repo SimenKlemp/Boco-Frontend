@@ -41,13 +41,18 @@ export default {
       type: [Number, String],
       default: null,
     },
-    isMe: {
-      type: Boolean,
-      default: true,
+    userId: {
+      type: Number,
+      required: true,
     },
     generated: {
       type: Boolean,
       default: false,
+    },
+  },
+  computed: {
+    isMe() {
+      return this.userId === this.$store.state.userInfo.userId;
     },
   },
 };
