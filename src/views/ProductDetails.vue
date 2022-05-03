@@ -155,16 +155,19 @@
     <div id="mapContainer">
     <h3 class="mapTitle">Kart</h3>
     </div>
-    <GMapMap :center="position" :zoom="7" ref="myMapRef" :disableDefaultUI="true"
-             style="height: 20rem; width: 100vw;" >
+    <GMapMap :center="position"
+             :zoom="13                                            "
+             ref="myMapRef"
+             :disableDefaultUI="true"
+             style="height: 20rem;
+             width: 100vw;"
+             :gestureHandling="cooperative"
+             :clickable="true">
       <GMapMarker
-          :key="index"
           :position="position"
-          :draggable="true"
-          :clickable="true"
+
       />
     </GMapMap>
-
   </div>
 </template>
 
@@ -180,7 +183,8 @@ export default {
   data(){
     return{
             position:{
-      lat: 51.093048, lng: 6.842120
+              lat:this.$store.getters.GET_LAT, lng:this.$store.getters.GET_LONG
+
     }
 
     }

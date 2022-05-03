@@ -69,6 +69,12 @@ export default createStore({
       }
       return false;
     },
+    GET_LONG(){
+      return state.currentItem.lng;
+    },
+    GET_LAT(){
+      return state.currentItem.lat;
+    }
   },
   mutations: {
     RESET_STATE(state) {
