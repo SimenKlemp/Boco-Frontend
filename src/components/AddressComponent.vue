@@ -36,6 +36,7 @@
             v-model="city"
             placeholder="Poststed"
             @input="$emit('update:city', $event.target.value)"
+
         />
         <!--TODO: fix validation on address!!!-->
 
