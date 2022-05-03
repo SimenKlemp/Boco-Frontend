@@ -9,6 +9,17 @@
     </div>
     <div class="itemMeta">
       <div class="name">{{ rental.item.user.name }}</div>
+      <div
+        :class="{
+          statusMessage: true,
+          accepted: statusWrapped === 'Akseptert',
+          pending: statusWrapped === 'Avventer',
+          canceled: statusWrapped === 'Kansellert',
+          active: statusWrapped === 'Aktiv',
+        }"
+      >
+        {{ statusWrapped }}
+      </div>
       <div class="message">{{ messageWrapped }}</div>
     </div>
   </div>
@@ -39,6 +50,22 @@ export default {
       }
       return "";
     },
+    statusWrapped() {
+      switch (this.rental.status) {
+        case "ACCEPTED":
+          return "Akseptert";
+        case "ACTIVE":
+          return "Aktiv";
+        case "PENDING":
+          return "Avventer";
+        case "REJECTED":
+          return "Avvist";
+        case "CANCELED":
+          return "Kansellert";
+        default:
+          return "";
+      }
+    },
   },
 };
 </script>
@@ -50,7 +77,7 @@ export default {
 }
 .itemImageContainer {
   width: 4.5rem;
-  height: 3.7rem;
+  height: 4rem;
   margin-right: 1.5rem;
 }
 .itemImage {
@@ -61,13 +88,26 @@ export default {
 }
 
 .itemMeta {
+  display: grid;
+  grid-template-rows: 45% 28% 26%;
   text-align: left;
 }
 .name {
   font-size: 20px;
-  margin-bottom: 1rem;
 }
 .message {
   color: #707070;
+}
+.accepted {
+  color: #003a00;
+}
+.pending {
+  color: #fb8500;
+}
+.active {
+  color: green;
+}
+.canceled {
+  color: darkred;
 }
 </style>

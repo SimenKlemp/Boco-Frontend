@@ -20,10 +20,14 @@ import MessageView from "@/views/MessageView";
 import NotFoundView from "@/views/NotFoundView";
 import RatingsView from "@/views/RatingsView";
 import GiveRatingView from "@/views/GiveRatingView";
-import AllChatsView from "@/views/AllChatsView";
+import AllChatsView from "@/views/AllChats/AllChatsView";
 import RentalsPending from "@/views/Rentals/RentalsPending";
 import RentalsActive from "@/views/Rentals/RentalsActive";
 import RentalsFinished from "@/views/Rentals/RentalsFinished";
+import AllChats from "@/views/AllChats/AllChats";
+import ChatsPending from "@/views/AllChats/ChatsPending";
+import ChatsActive from "@/views/AllChats/ChatsActive";
+import ChatsFinished from "@/views/AllChats/ChatsFinished";
 
 const routes = [
   {
@@ -143,7 +147,30 @@ const routes = [
   {
     path: "/all-chats",
     name: "AllChats",
+    //redirect: "/all-chats/all",
     component: AllChatsView,
+    children: [
+      {
+        path: "/all-chats/all",
+        name: "AllChats",
+        component: AllChats,
+      },
+      {
+        path: "/all-chats/pending",
+        name: "ChatsPending",
+        component: ChatsPending,
+      },
+      {
+        path: "/all-chats/active",
+        name: "ChatsActive",
+        component: ChatsActive,
+      },
+      {
+        path: "/all-chats/finished",
+        name: "ChatsFinished",
+        component: ChatsFinished,
+      },
+    ],
   },
   {
     path: "/about",

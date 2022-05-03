@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import AllChatsView from "@/views/AllChatsView";
+import AllChatsView from "@/views/AllChats/AllChatsView";
 
 describe("Tests for AllChatsView.vue", () => {
   let $store;
