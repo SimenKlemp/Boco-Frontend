@@ -37,9 +37,14 @@
       </div>
       <div class="ratings">
         <ProfileRatingCard
-          v-for="rating in ratings"
+          v-for="rating in ratingsOwner"
           :key="rating.ratingId"
-          :rating="rating"
+          :ratingOwner="rating"
+        ></ProfileRatingCard>
+        <ProfileRatingCard
+          v-for="rating in ratingsUser"
+          :key="rating.ratingId"
+          :ratingUser="rating"
         ></ProfileRatingCard>
       </div>
     </div>
@@ -60,8 +65,11 @@ export default {
     },
   },
   computed: {
-    ratings() {
-      return this.$store.state.currentRatings;
+    ratingsOwner() {
+      return this.$store.state.currentRatingsOwner;
+    },
+    ratingsUser() {
+      return this.$store.state.currentRatingsUser;
     },
     user() {
       return this.$store.state.userInfo;
