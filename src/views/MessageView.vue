@@ -1,7 +1,10 @@
 <template>
   <div class="container">
     <div class="itemContainer">
-      <ItemCardHorizontal :item="currentRental.item"></ItemCardHorizontal>
+      <ItemCardHorizontal
+        @click="goToItem"
+        :item="currentRental.item"
+      ></ItemCardHorizontal>
     </div>
     <div class="headerContainer">
       <div class="headerInnerContainer">
@@ -28,7 +31,7 @@
             />
           </svg>
         </div>
-        <header>{{ currentRental.item.user.name }}</header>
+        <header>{{ name }}</header>
       </div>
     </div>
     <div class="chatContainer">
@@ -102,6 +105,13 @@ export default {
     ItemCardHorizontal,
   },
   methods: {
+    goToItem() {
+      if (this.isMyItem) {
+        this.$router.push({ name: "ProductDetails" });
+      } else {
+        this.$router.push({ name: "RentalDetails" });
+      }
+    },
     async submit() {
       const messageRequest = {
         text: this.currentMessage,
@@ -113,8 +123,23 @@ export default {
     },
   },
   computed: {
+    isMyItem() {
+      return (
+        this.currentRental.item.user.userId ===
+        this.$store.state.userInfo.userId
+      );
+    },
     imageId() {
+      if (this.isMyItem) {
+        return this.currentRental.user.imageId;
+      }
       return this.currentRental.item.user.imageId;
+    },
+    name() {
+      if (this.isMyItem) {
+        return this.currentRental.user.name;
+      }
+      return this.currentRental.item.user.name;
     },
     currentRental() {
       return this.$store.state.currentRental;
@@ -131,6 +156,7 @@ export default {
     for (let i = 0; i < chat.messages.length; i++) {
       this.messages.push(chat.messages[i]);
     }
+    this.$store.dispatch("setItem", this.currentRental.item);
   },
 };
 </script>
