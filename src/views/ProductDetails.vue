@@ -151,6 +151,19 @@
       <h3 class="descriptionTitle">Beskrivelse</h3>
       <p id="descriptionText">{{ item.description }}</p>
     </div>
+    <div id="mapContainer">
+    <h3 class="mapTitle">Kart</h3>
+    </div>
+    <GMapMap :center="position" :zoom="7" ref="myMapRef" :disableDefaultUI="true"
+             style="height: 20rem; width: 100vw;" >
+      <GMapMarker
+          :key="index"
+          :position="position"
+          :draggable="true"
+          :clickable="true"
+      />
+    </GMapMap>
+
   </div>
 </template>
 
@@ -162,6 +175,14 @@ export default {
   components: {
     BaseProfile,
     BaseButton,
+  },
+  data(){
+    return{
+            position:{
+      lat: 51.093048, lng: 6.842120
+    }
+
+    }
   },
   computed: {
     item() {
@@ -176,6 +197,7 @@ export default {
     isFree() {
       return this.item.price === 0;
     },
+
   },
   methods: {
     async goToRequest() {
@@ -289,5 +311,12 @@ p {
   height: 100%;
   width: 100%;
   object-fit: cover;
+}
+.mapTitle{
+  font-size: 22px;
+  text-align: left;
+}
+#mapContainer{
+  margin-left: 15px;
 }
 </style>

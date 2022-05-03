@@ -1,7 +1,7 @@
 <template>
 <div class="systemMessageContainer" id="statusMessageContainer">
   <div id="statusMessage">
-    Navn Navnesen har godkjent: <strong> Stort telt</strong>
+   {{rental.user.name}} har godkjent: <strong> {{rental.item.name}}</strong>
     <div class="statusContainer">
       Status:
       <svg
@@ -118,7 +118,7 @@
 </div>
   <div class="systemMessageContainer">
   <div id="acceptDenyMessage">
-    Navn Navnesen ønsker å leie <strong>Stort telt</strong>
+    {{rental.user.name}} ønsker å leie <strong>{{rental.item.name}}</strong>
     <div class="buttonContainer">
       <div @click.stop="emitRentalAction('Accept')"
           id="acceptButton" class="button">Godkjenn</div>
@@ -130,7 +130,7 @@
   <div id="rateMessage" @click="rentalRate">
    <label> Hva synes du om leieforholdet?</label>
     <div id="ratingLink">
-    Gi <strong>Navn Navnesen</strong> en vurdering
+        Gi <strong>{{rental.user.name}}</strong> en vurdering
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16.473" viewBox="0 0 20 16.473">
       <path id="noun-arrow-2094742" d="M19.527,15.758,12.943,9.174a1.612,1.612,0,1,0-2.28,2.278l3.892,3.886H1.612a1.612,1.612,0,0,0,0,3.224H14.519l-3.856,3.862a1.612,1.612,0,0,0,2.28,2.278l6.584-6.584A1.6,1.6,0,0,0,20,16.977a.254.254,0,0,0,0-.04.282.282,0,0,0,0-.04A1.614,1.614,0,0,0,19.527,15.758Z" transform="translate(0 -8.672)" fill="#fb8500"/>
     </svg>
@@ -154,7 +154,7 @@ export default {
   methods:{
     emitRentalAction(type) {
       this.$emit("rentalAction", this.rental, type);
-      this.toggleDropdown();
+
     },
     rentalRate(){
       this.$router.push('giveRating')
