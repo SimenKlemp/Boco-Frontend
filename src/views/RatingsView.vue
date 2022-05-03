@@ -78,7 +78,7 @@ export default {
       if (!this.ratingsUser && !this.ratingsOwner) {
         return 0;
       } else {
-        return this.ratingsUser.size + this.ratingsOwner.size;
+        return this.ratingsUser.length + this.ratingsOwner.length;
       }
     },
   },
