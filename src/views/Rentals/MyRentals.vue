@@ -9,30 +9,12 @@
     <div class="rentalsContainer">
       <router-view></router-view>
     </div>
-    <div class="actions">
-      <BaseSection
-        :title="'Venter på svar'"
-        :rentals="rentalsPending"
-      ></BaseSection>
-      <BaseSection
-        :title="'Aktive leieforhold'"
-        :rentals="rentalsActive"
-      ></BaseSection>
-      <BaseSection
-        :title="'Avsluttede leieforhold'"
-        :rentals="rentalsFinished"
-      ></BaseSection>
-    </div>
   </div>
 </template>
 
 <script>
-import BaseSection from "@/components/baseTools/BaseSection";
 export default {
   name: "MyRentals",
-  components: {
-    BaseSection,
-  },
   computed: {
     rentalsPending() {
       return this.$store.state.myRentalsPending;
@@ -61,10 +43,10 @@ h1 {
   font-size: 28px;
 }
 a {
-  border-bottom: solid grey 1px;
+  border-bottom: solid #c2c1c1 1px;
   text-decoration: none;
-  padding: 1.3rem 2rem;
-  color: lightgray;
+  padding: 1rem 1rem;
+  color: #c2c2c2;
 }
 a.router-link-exact-active {
   border-bottom: solid black 3px;
@@ -72,7 +54,7 @@ a.router-link-exact-active {
 }
 
 .sections {
-  border-top: solid grey 1px;
+  border-top: solid #c2c1c1 1px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
@@ -80,6 +62,6 @@ a.router-link-exact-active {
   margin-bottom: 1rem;
 }
 .rentalsContainer {
-  background: #f6f6f6;
+  padding: 2rem 1rem;
 }
 </style>
