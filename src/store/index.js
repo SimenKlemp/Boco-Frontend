@@ -7,7 +7,7 @@ import {
   getItems,
   getMyNotifications,
   getUsers,
-  search,
+  search, getMeanRating,
 } from "@/service/apiService";
 import { getMyItems, getMyRentals } from "@/service/apiService";
 import { updateItem, deleteItem } from "@/service/apiService";
@@ -27,6 +27,7 @@ const getDefaultState = () => {
     users: [],
     currentSearchSentence: "",
     currentRatings: [],
+    meanRating: null,
   };
 };
 const state = getDefaultState();
@@ -113,6 +114,9 @@ export default createStore({
         this.state.userInfo = userData;
         console.log(userData);
       }
+    },
+    SET_MEAN_RATING(state, meanRating) {
+      state.meanRating = meanRating;
     },
   },
   actions: {
@@ -220,6 +224,13 @@ export default createStore({
       let ratings = await getAllRatings(userId, this.state.token);
 
       commit("SET_CURRENT_RATINGS", ratings);
+    },
+    async storeMeanRating({ commit }) {
+      let meanRating = await getMeanRating(
+        this.state.userInfo.userId,
+        this.state.token
+      );
+      commit("SET_MEAN_RATING", meanRating);
     },
   },
   modules: {},
