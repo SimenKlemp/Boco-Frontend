@@ -6,9 +6,9 @@
     <ChatCard
       id="chatCard"
       v-for="rental in rentals"
-      :key="rental.rental.rentalId"
-      :rental="rental.rental"
-      @click="goToChat(rental.rental)"
+      :key="rental.rentalId"
+      :rental="rental"
+      @click="goToChat(rental)"
     ></ChatCard>
   </div>
 </template>
@@ -31,13 +31,14 @@ export default {
       return this.$store.state.userInfo.imageId !== null;
     },
     rentals() {
-      return this.$store.state.currentRatingsOwner.concat(
-        this.$store.state.currentRatingsUser
+      return this.$store.state.myRentals.concat(
+        this.$store.state.currentRentalsOwner
       );
     },
   },
   mounted() {
-    this.$store.dispatch("getAllRatings", this.$store.state.userInfo.userId);
+    this.$store.dispatch("fetchMyRentals");
+    this.$store.dispatch("fetchMyRentalsOwner");
   },
 };
 </script>

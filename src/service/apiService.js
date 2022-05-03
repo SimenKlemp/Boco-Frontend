@@ -250,9 +250,23 @@ export function getMyItems(userId, token) {
     });
 }
 
-export function getMyRentals(userId, token) {
+export function getMyRentals(userId, token, status) {
   return axios
-    .get("http://" + host + ":8085/api/rental/get-my/" + userId, {
+    .get(
+      "http://" + host + ":8085/api/rental/get-my/" + userId + "/" + status,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
+    .then((response) => {
+      return response.data;
+    });
+}
+export function getMyRentalsOwner(userId, token) {
+  return axios
+    .get("http://" + host + ":8085/api/rental/get-my-owner/" + userId, {
       headers: {
         Authorization: "Bearer " + token,
       },
