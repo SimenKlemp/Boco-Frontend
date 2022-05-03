@@ -1,5 +1,5 @@
 <template>
-<div class="systemMessageContainer">
+<div class="systemMessageContainer" id="statusMessageContainer">
   <div id="statusMessage">
     Navn Navnesen har godkjent: <strong> Stort telt</strong>
     <div class="statusContainer">
@@ -115,6 +115,8 @@
       <strong class="status">{{ status }}</strong>
     </div>
   </div>
+</div>
+  <div class="systemMessageContainer">
   <div id="acceptDenyMessage">
     Navn Navnesen ønsker å leie <strong>Stort telt</strong>
     <div class="buttonContainer">
@@ -123,6 +125,8 @@
       <div @click.stop="emitRentalAction('Reject')" class="button">Avvis</div>
     </div>
   </div>
+  </div>
+  <div class="systemMessageContainer">
   <div id="rateMessage" @click="rentalRate">
    <label> Hva synes du om leieforholdet?</label>
     <div id="ratingLink">
@@ -132,7 +136,7 @@
     </svg>
     </div>
   </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -186,6 +190,12 @@ export default {
   padding: 15px 20px;
   border-left: 3px solid #FB8500;
 
+}
+#statusMessageContainer{
+  justify-content: right;
+  border-radius: 20px 0 0 20px;
+  border-right:3px solid #FB8500;
+  border-left: none;
 }
 .buttonContainer {
   display: flex;
