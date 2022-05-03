@@ -25,10 +25,13 @@ export default {
   },
   computed: {
     messageWrapped() {
-      if (this.rental.item.description.length > 40) {
-        return this.rental.item.description.slice(0, 40) + "...";
+      if (this.rental.lastMessage) {
+        if (this.rental.lastMessage.text.length > 40) {
+          return this.rental.lastMessage.text.slice(0, 40) + "...";
+        }
+        return this.rental.lastMessage.text;
       }
-      return this.rental.item.description;
+      return "";
     },
   },
 };
