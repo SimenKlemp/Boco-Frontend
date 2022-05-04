@@ -298,8 +298,7 @@ export default createStore({
     },
     async storeMeanRating({ commit }) {
       let meanRating = await getMeanRating(
-        this.state.userInfo.userId,
-        this.state.token
+        this.state.userInfo.userId
       );
       commit("SET_MEAN_RATING", meanRating);
     },

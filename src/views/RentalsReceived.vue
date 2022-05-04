@@ -16,6 +16,7 @@
         :key="rental.rentalId"
         @rentalAction="updateRental"
         @cardUpdate="updatePage"
+        :user = "rental.item.user"
       ></CustomerCard>
     </div>
   </div>
