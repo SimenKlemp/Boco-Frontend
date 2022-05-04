@@ -48,7 +48,7 @@
         <StatusSystemMessage :rental="this.currentRental">
         </StatusSystemMessage>
       </div>
-      <div class="ratingContainer" v-if="isFinished">
+      <div class="ratingContainer" v-if="isFinished && !isSent" >
         <RatingSystemMessage :name="name"> </RatingSystemMessage>
       </div>
     </div>
@@ -98,7 +98,7 @@
 <script>
 import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
 import MessageBox from "@/components/MessageBox";
-import { connect, getChat, send } from "@/service/apiService";
+import {connect, getChat, getSent, send} from "@/service/apiService";
 import RatingSystemMessage from "@/components/SystemMessages/RatingSystemMessage";
 import RequestSystemMessage from "@/components/SystemMessages/RequestSystemMessage";
 import StatusSystemMessage from "@/components/SystemMessages/StatusSystemMessage";
@@ -168,6 +168,15 @@ export default {
     isFinished() {
       return this.$store.state.currentRental.status === "FINISHED";
     },
+    async isSent(){
+      let response = await getSent(
+          this.$store.state.currentRental.rentalId,
+          this.$store.state.userInfo.userId,
+          this.$store.state.token
+      );
+      console.log(response.status + "auhdauhdshauadshuadhuhu")
+      return response.status === 204;
+    }
   },
   async mounted() {
     await connect(this.currentRentalId, (message) => {
