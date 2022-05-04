@@ -262,13 +262,21 @@ export function getMyRentals(userId, token, status) {
       return response.data;
     });
 }
-export function getMyRentalsOwner(userId, token) {
+export function getMyRentalsOwner(userId, token, status) {
   return axios
-    .get("http://" + host + ":8085/api/rental/get-my-owner/" + userId, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
+    .get(
+      "http://" +
+        host +
+        ":8085/api/rental/get-my-owner/" +
+        userId +
+        "/" +
+        status,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
     .then((response) => {
       return response.data;
     });

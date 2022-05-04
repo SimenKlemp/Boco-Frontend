@@ -21,7 +21,6 @@ import NotFoundView from "@/views/NotFoundView";
 import RatingsView from "@/views/RatingsView";
 import GiveRatingView from "@/views/GiveRatingView";
 import AllChatsView from "@/views/AllChats/AllChatsView";
-import RentalsPending from "@/views/Rentals/RentalsPending";
 import RentalsActive from "@/views/Rentals/RentalsActive";
 import RentalsFinished from "@/views/Rentals/RentalsFinished";
 import AllChats from "@/views/AllChats/AllChats";
@@ -88,14 +87,9 @@ const routes = [
   {
     path: "/my-rentals",
     name: "MyRentals",
-    redirect: "/my-rentals/pending",
+    redirect: "/my-rentals/active",
     component: MyRentals,
     children: [
-      {
-        path: "/my-rentals/pending",
-        name: "RentalsPending",
-        component: RentalsPending,
-      },
       {
         path: "/my-rentals/active",
         name: "RentalsActive",

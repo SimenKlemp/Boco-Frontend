@@ -43,9 +43,10 @@
           Lei ut
         </div>
         <div v-if="isLoggedIn">
-          <div @click="emitRouteChange('MyAds')">Mine annonser</div>
-          <div @click="emitRouteChange('MyRentals')">Mine leieforhold</div>
-          <div @click="emitRouteChange('AllChats')">Mine chatter</div>
+          <div @click="emitRouteChange('MyRentals')">Chat</div>
+          <div @click="emitRouteChange('AllChats')">
+            Mine chatter (skal vekk)
+          </div>
         </div>
         <div @click="emitRouteChange('giveRating')">gi vurdering</div>
         <div
