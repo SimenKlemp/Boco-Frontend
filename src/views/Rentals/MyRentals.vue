@@ -23,7 +23,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("fetchMyRentals", "ACTIVE");
+    this.$store.dispatch("fetchMyRentals", "ACCEPTED");
     this.$store.dispatch("fetchMyRentals", "CANCELED");
   },
 };

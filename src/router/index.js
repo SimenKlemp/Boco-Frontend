@@ -23,10 +23,6 @@ import GiveRatingView from "@/views/GiveRatingView";
 import AllChatsView from "@/views/AllChats/AllChatsView";
 import RentalsActive from "@/views/Rentals/RentalsActive";
 import RentalsFinished from "@/views/Rentals/RentalsFinished";
-import AllChats from "@/views/AllChats/AllChats";
-import ChatsPending from "@/views/AllChats/ChatsPending";
-import ChatsActive from "@/views/AllChats/ChatsActive";
-import ChatsFinished from "@/views/AllChats/ChatsFinished";
 
 const routes = [
   {
@@ -142,34 +138,7 @@ const routes = [
     path: "/all-chats",
     name: "AllChats",
     //redirect: "/all-chats/all",
-    props: true,
     component: AllChatsView,
-    children: [
-      {
-        path: "/all-chats/all",
-        name: "AllChats",
-        props: true,
-        component: AllChats,
-      },
-      {
-        path: "/all-chats/pending",
-        name: "ChatsPending",
-        props: true,
-        component: ChatsPending,
-      },
-      {
-        path: "/all-chats/active",
-        name: "ChatsActive",
-        props: true,
-        component: ChatsActive,
-      },
-      {
-        path: "/all-chats/finished",
-        name: "ChatsFinished",
-        props: true,
-        component: ChatsFinished,
-      },
-    ],
   },
   {
     path: "/about",
