@@ -4,7 +4,6 @@ import {
   deleteItem,
   doRegisterItem,
   doRentalRequest,
-  getAllMyRentals,
   getAllRatingsOwner,
   getAllRatingsUser,
   getFeedbacks,

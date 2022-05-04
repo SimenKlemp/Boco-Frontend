@@ -35,14 +35,14 @@
       <div class="hamburgerActions">
         <div @click="emitRouteChange('HomeView')">Hjem</div>
         <div @click="goMyProfile">Min profil</div>
-        <div
-          @click="emitRouteChange('AddItemComponent')"
-          id="routerLink"
-          v-if="isLoggedIn"
-        >
-          Lei ut
-        </div>
-        <div v-if="isLoggedIn">
+        <div data-tesid="loggedInMenus" v-if="isLoggedIn">
+          <div
+            @click="emitRouteChange('AddItemComponent')"
+            id="routerLink"
+            v-if="isLoggedIn"
+          >
+            Lei ut
+          </div>
           <div @click="emitRouteChange('MyRentals')">Chat</div>
         </div>
         <div @click="emitRouteChange('giveRating')">gi vurdering</div>
@@ -69,7 +69,9 @@
         </div>
       </div>
       <div class="hamburgerLog">
-        <div @click="logout" v-if="isLoggedIn">Logg ut</div>
+        <div data-testid="logOut" @click="logout" v-if="isLoggedIn">
+          Logg ut
+        </div>
         <div v-if="!isLoggedIn">
           <div @click="emitRouteChange('LoginComponent')">Logg inn</div>
           <div @click="emitRouteChange('RegistrationComponent')">
