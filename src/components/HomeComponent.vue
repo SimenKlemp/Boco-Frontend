@@ -2,7 +2,7 @@
   <div class="mainContent">
     <div class="welcomeMessage">Lei i stedet for å kjøpe!</div>
     <form class="form" @submit.prevent="submit">
-      <BaseSearchBar
+      <BaseSearchBar data-search
         id="searchSentence"
         :label="'Søk...'"
         v-model="searchSentence"
