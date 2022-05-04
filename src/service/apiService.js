@@ -417,13 +417,9 @@ export function getAllRatingsOwner(userId, token) {
       return response.data;
     });
 }
-export function getMeanRating(userId, token) {
+export function getMeanRating(userId) {
   return axios
-    .get("http://localhost:8085/api/rating/getMeanRating/" + userId, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
+    .get("http://localhost:8085/api/rating/getMeanRating/" + userId)
     .then((response) => {
       return response.data;
     });
