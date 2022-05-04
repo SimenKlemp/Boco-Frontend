@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <h1>Mine leieforhold</h1>
+    <h1>Alle chatter</h1>
     <div class="sections">
-      <router-link :to="{ name: 'RentalsPending' }">Ventende</router-link>
       <router-link :to="{ name: 'RentalsActive' }">Aktive</router-link>
       <router-link :to="{ name: 'RentalsFinished' }">Arkiv</router-link>
     </div>
@@ -16,9 +15,6 @@
 export default {
   name: "MyRentals",
   computed: {
-    rentalsPending() {
-      return this.$store.state.myRentalsPending;
-    },
     rentalsActive() {
       return this.$store.state.myRentalsActive;
     },
@@ -27,8 +23,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("fetchMyRentals", "PENDING");
-    this.$store.dispatch("fetchMyRentals", "ACCEPTED");
+    this.$store.dispatch("fetchMyRentals", "ACTIVE");
     this.$store.dispatch("fetchMyRentals", "CANCELED");
   },
 };
@@ -56,7 +51,7 @@ a.router-link-exact-active {
 .sections {
   border-top: solid #c2c1c1 1px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 }
 .container {
   margin-bottom: 1rem;
