@@ -8,7 +8,7 @@
       />
     </div>
     <div class="itemMeta">
-      <div class="name">{{ rental.item.user.name }}</div>
+      <div class="name">{{ name }}</div>
       <div
         :class="{
           statusMessage: true,
@@ -31,6 +31,10 @@ export default {
   props: {
     rental: {
       type: Object,
+      required: true,
+    },
+    name: {
+      type: String,
       required: true,
     },
   },
