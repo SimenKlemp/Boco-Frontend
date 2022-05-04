@@ -2,22 +2,39 @@
   <div class="container">
     <h1>Vurder leieforholdet med:</h1>
     <div id="personContainer">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="70"
-        height="70"
-        viewBox="0 0 45 45"
-      >
-        <path
-          id="noun-profile-1995071"
-          d="M25,2.5A22.5,22.5,0,1,0,47.5,25,22.52,22.52,0,0,0,25,2.5Zm0,12.884a7.058,7.058,0,1,1-7.058,7.058A7.076,7.076,0,0,1,25,15.384ZM12.684,38.642V37.6a5.448,5.448,0,0,1,5.447-5.447H31.868A5.448,5.448,0,0,1,37.316,37.6v1.042a18.379,18.379,0,0,1-24.632,0Z"
-          transform="translate(-2.5 -2.5)"
-          fill="#126782"
+      <div class="">
+        <svg
+          v-if="!hasProfileImage"
+          class="image"
+          xmlns="http://www.w3.org/2000/svg"
+          width="45"
+          height="45"
+          viewBox="0 0 45 45"
+        >
+          <path
+            id="noun-profile-1995071"
+            d="M25,2.5A22.5,22.5,0,1,0,47.5,25,22.52,22.52,0,0,0,25,2.5Zm0,12.884a7.058,7.058,0,1,1-7.058,7.058A7.076,7.076,0,0,1,25,15.384ZM12.684,38.642V37.6a5.448,5.448,0,0,1,5.447-5.447H31.868A5.448,5.448,0,0,1,37.316,37.6v1.042a18.379,18.379,0,0,1-24.632,0Z"
+            transform="translate(-2.5 -2.5)"
+            fill="#126782"
+          />
+        </svg>
+        <img
+          v-if="isMyItem"
+          class="actualProfileImage"
+          :src="'http://localhost:8085/api/image/' + rental.user.imageId"
+          alt=""
         />
-      </svg>
+        <img
+          v-if="!isMyItem"
+          class="actualProfileImage"
+          :src="'http://localhost:8085/api/image/' + rental.item.user.imageId"
+          alt=""
+        />
+      </div>
       <div id="infoContainer">
-        <h2>Navn navnesen</h2>
-        <h3>Kraftig motorsag fra Stihl</h3>
+        <h2 v-if="isMyItem">{{ rental.user.name }}</h2>
+        <h2 v-if="!isMyItem">{{ rental.item.user.name }}</h2>
+        <h3>{{ rental.item.title }}</h3>
       </div>
     </div>
     <form @submit.prevent="submit">
@@ -66,7 +83,7 @@ export default {
           feedback: this.description,
           rate: this.rating,
           userId: this.$store.state.userInfo.userId,
-          rentalId: 67,
+          rentalId: this.rental.rentalId,
         };
 
         console.log(this.description);
@@ -78,6 +95,17 @@ export default {
         );
         console.log(ratingResponse.status);
       }
+    },
+  },
+  computed: {
+    rental() {
+      return this.$store.state.currentRental;
+    },
+    hasProfileImage() {
+      return true;
+    },
+    isMyItem() {
+      return this.rental.item.user.userId === this.$store.state.userInfo.userId;
     },
   },
   data() {
@@ -135,5 +163,10 @@ label {
 }
 button {
   margin: 40px 0;
+}
+.actualProfileImage {
+  border-radius: 50%;
+  width: 9rem;
+  height: 9rem;
 }
 </style>

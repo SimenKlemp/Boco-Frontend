@@ -1,20 +1,20 @@
 <template>
   <div class="systemMessageContainer">
-    <div id="rateMessage" >
+    <div id="rateMessage" @click="goToRating">
       <label> Hva synes du om leieforholdet?</label>
       <div id="ratingLink">
-        Gi <strong>Navn Navnesen</strong> en vurdering
+        Gi <strong>{{ name }}</strong> en vurdering
         <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="16.473"
-            viewBox="0 0 20 16.473"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="16.473"
+          viewBox="0 0 20 16.473"
         >
           <path
-              id="noun-arrow-2094742"
-              d="M19.527,15.758,12.943,9.174a1.612,1.612,0,1,0-2.28,2.278l3.892,3.886H1.612a1.612,1.612,0,0,0,0,3.224H14.519l-3.856,3.862a1.612,1.612,0,0,0,2.28,2.278l6.584-6.584A1.6,1.6,0,0,0,20,16.977a.254.254,0,0,0,0-.04.282.282,0,0,0,0-.04A1.614,1.614,0,0,0,19.527,15.758Z"
-              transform="translate(0 -8.672)"
-              fill="#fb8500"
+            id="noun-arrow-2094742"
+            d="M19.527,15.758,12.943,9.174a1.612,1.612,0,1,0-2.28,2.278l3.892,3.886H1.612a1.612,1.612,0,0,0,0,3.224H14.519l-3.856,3.862a1.612,1.612,0,0,0,2.28,2.278l6.584-6.584A1.6,1.6,0,0,0,20,16.977a.254.254,0,0,0,0-.04.282.282,0,0,0,0-.04A1.614,1.614,0,0,0,19.527,15.758Z"
+            transform="translate(0 -8.672)"
+            fill="#fb8500"
           />
         </svg>
       </div>
@@ -23,20 +23,31 @@
 </template>
 
 <script>
-import {getSent} from "@/service/apiService";
+import { getSent } from "@/service/apiService";
 
 export default {
   name: "RatingSystemMessage",
-  /* methods:{
- rentalRate() {
-     let response = getSent(this.$store.state.currentRental(), this.$store.userInfo.userId)
-     if(response.status!==204){
-       this.$router.push("giveRating");
-     }
-
-   },
- },*/
-}
+  props: {
+    name: {
+      type: String,
+      required: true,
+    },
+  },
+  methods: {
+    rentalRate() {
+      let response = getSent(
+        this.$store.state.currentRental(),
+        this.$store.userInfo.userId
+      );
+      if (response.status !== 204) {
+        this.$router.push("giveRating");
+      }
+    },
+    goToRating() {
+      this.$router.push({ name: "GiveRating" });
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -52,7 +63,6 @@ export default {
 #rateMessage {
   font-size: 15px;
   text-align: left;
-
 }
 #rateMessage label {
   font-size: 14px;

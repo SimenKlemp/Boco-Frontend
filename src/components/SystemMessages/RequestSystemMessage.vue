@@ -1,35 +1,44 @@
 <template>
   <div class="systemMessageContainer">
     <div id="acceptDenyMessage">
-      Navn Navnesen ønsker å leie <strong>Stort telt</strong>
+      {{ rental.user.name }} ønsker å leie <strong> {{ rental.item.title }}</strong>
       <div class="buttonContainer">
         <div
-            @click.stop="emitRentalAction('Accept')"
-            id="acceptButton"
-            class="button">
+          @click.stop="acceptRequest(rental.rentalId)"
+          id="acceptButton"
+          class="button"
+        >
           Godkjenn
         </div>
-        <div @click.stop="emitRentalAction('Reject')" class="button">Avvis</div>
+        <div @click.stop="acceptRequest(rental.rentalId)" class="button">
+          Avvis
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { acceptRental, rejectRental } from "@/service/apiService";
+
 export default {
   name: "RequestSystemMessage",
-  props:{
-    rental:{
-      type:Object,
-    }
-  },
-  methods:{
-    emitRentalAction(type) {
-      this.$emit("rentalAction", this.rental, type);
-
+  props: {
+    rental: {
+      type: Object,
     },
-  }
-}
+  },
+  methods: {
+    acceptRequest(rentalId) {
+      acceptRental(rentalId, this.$store.state.token);
+      console.log("TRYKKER");
+    },
+    rejectRequest(rentalId) {
+      rejectRental(rentalId, this.$store.state.token);
+      console.log("TRYKKER");
+    },
+  },
+};
 </script>
 
 <style scoped>

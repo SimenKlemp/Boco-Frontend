@@ -1,7 +1,7 @@
 <template>
   <div class="systemMessageContainer" id="statusMessageContainer">
     <div id="statusMessage">
-      Navn Navnesen har {{status}}: <strong> Stort telt</strong>
+      {{ rental.item.user.name }} har {{ status }}: <strong> {{rental.item.title}}</strong>
       <div class="statusContainer">
         Status:
         <svg
