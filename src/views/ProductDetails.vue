@@ -152,6 +152,22 @@
       <h3 class="descriptionTitle">Beskrivelse</h3>
       <p id="descriptionText">{{ item.description }}</p>
     </div>
+    <div id="mapContainer">
+    <h3 class="mapTitle">Kart</h3>
+    </div>
+    <GMapMap :center="position"
+             :zoom="13                                            "
+             ref="myMapRef"
+             :disableDefaultUI="true"
+             style="height: 20rem;
+             width: 100vw;"
+             :gestureHandling="cooperative"
+             :clickable="true">
+      <GMapMarker
+          :position="position"
+
+      />
+    </GMapMap>
   </div>
 </template>
 
@@ -163,6 +179,15 @@ export default {
   components: {
     BaseProfile,
     BaseButton,
+  },
+  data(){
+    return{
+            position:{
+              lat:this.$store.getters.GET_LAT, lng:this.$store.getters.GET_LONG
+
+    }
+
+    }
   },
   computed: {
     item() {
@@ -320,5 +345,12 @@ p {
   height: 100%;
   width: 100%;
   object-fit: cover;
+}
+.mapTitle{
+  font-size: 22px;
+  text-align: left;
+}
+#mapContainer{
+  margin-left: 15px;
 }
 </style>
