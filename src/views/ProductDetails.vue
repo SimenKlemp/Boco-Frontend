@@ -347,10 +347,10 @@ p {
   object-fit: cover;
 }
 .mapTitle{
-  font-size: 22px;
+  font-size: 24px;
   text-align: left;
 }
 #mapContainer{
-  margin-left: 15px;
+  margin: 15px 0 10px 15px;
 }
 </style>

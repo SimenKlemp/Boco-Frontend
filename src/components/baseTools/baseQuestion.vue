@@ -60,7 +60,8 @@ export default {
 <style scoped>
 .questionContainer {
   border-bottom: solid #707070 1px;
-
+  margin-top: 5px;
+  padding-bottom: 5px;
   background-color: white;
 }
 p {
@@ -78,12 +79,7 @@ transition {
   background-color: white;
   overflow: hidden;
 }
-.v-enter-active,
-.v-leave-active {
-  transition: all 1s ease-in-out;
-  height: 100px;
-  background-color: white;
-}
+
 
 .svg {
   transform: rotate(90deg);
@@ -104,6 +100,7 @@ transition {
   display: inline-block;
   margin-left: 20px;
   margin-top: 10px;
-  transition: 0.75s ease-out;
+  margin-bottom: -5px;
+  transition: 0.5s ease-out;
 }
 </style>

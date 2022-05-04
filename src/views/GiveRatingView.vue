@@ -82,7 +82,7 @@ export default {
   },
   data() {
     return {
-      rating: 1,
+      rating: 0,
       description: "",
     };
   },
