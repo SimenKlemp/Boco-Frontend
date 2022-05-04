@@ -1,21 +1,23 @@
 import { createStore } from "vuex";
 import {
+  changeNotification,
+  deleteItem,
   doRegisterItem,
   doRentalRequest,
-  getFeedbacks,
-  getItems,
-  getMyNotifications,
-  getUsers,
-  search,
+  getAllMyRentals,
   getAllRatingsOwner,
   getAllRatingsUser,
-  getMyRentalsOwner,
-  getAllMyRentals,
+  getFeedbacks,
+  getItems,
   getMeanRating,
-  changeNotification,
+  getMyItems,
+  getMyNotifications,
+  getMyRentals,
+  getMyRentalsOwner,
+  getUsers,
+  search,
+  updateItem,
 } from "@/service/apiService";
-import { getMyItems, getMyRentals } from "@/service/apiService";
-import { updateItem, deleteItem } from "@/service/apiService";
 
 const getDefaultState = () => {
   return {
@@ -65,10 +67,7 @@ export default createStore({
       return state.currentItem.postOffice;
     },
     GET_PRICE() {
-      if (state.currentItem.price === 0) {
-        return true;
-      }
-      return false;
+      return state.currentItem.price === 0;
     },
     GET_LONG(){
       return state.currentItem.lng;
@@ -139,8 +138,7 @@ export default createStore({
       const tokenString = localStorage.getItem("token");
       const userString = localStorage.getItem("user");
       if (tokenString) {
-        const tokenData = JSON.parse(tokenString);
-        this.state.token = tokenData;
+        this.state.token = JSON.parse(tokenString);
         const userData = JSON.parse(userString);
         this.state.userInfo = userData;
         console.log(userData);
@@ -234,7 +232,9 @@ export default createStore({
         this.state.userInfo.userId,
         this.state.token
       );
-      notifications.reverse();
+      if (notifications) {
+        notifications.reverse();
+      }
       commit("SET_MY_NOTIFICATIONS", notifications);
     },
     async updateItem({ commit }, item) {

@@ -66,7 +66,7 @@ export default {
           feedback: this.description,
           rate: this.rating,
           userId: this.$store.state.userInfo.userId,
-          rentalId: 41,
+          rentalId: 67,
         };
 
         console.log(this.description);
