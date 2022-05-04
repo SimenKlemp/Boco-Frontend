@@ -69,6 +69,12 @@ export default createStore({
     GET_PRICE() {
       return state.currentItem.price === 0;
     },
+    GET_LONG(){
+      return state.currentItem.lng;
+    },
+    GET_LAT(){
+      return state.currentItem.lat;
+    }
   },
   mutations: {
     RESET_STATE(state) {
@@ -239,7 +245,7 @@ export default createStore({
       );
       commit("SET_ITEM", response);
     },
-    async setNotification({ commit }, notificationId) {
+    async setNotification(notificationId) {
       await changeNotification(notificationId, this.state.token);
     },
     async deleteItem({ commit }) {
