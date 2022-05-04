@@ -333,15 +333,19 @@ export function cancelRental(rentalId, token) {
     });
 }
 export function changeNotification(notificationId, token) {
-    return axios
-        .put("http://" + host + ":8085/api/notification/update/" + notificationId,null,{
-            headers: {
-                Authorization: "Bearer " + token,
-            },
-        })
-        .then((response) => {
-            return response.data;
-        });
+  return axios
+    .put(
+      "http://" + host + ":8085/api/notification/update/" + notificationId,
+      null,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
+    .then((response) => {
+      return response.data;
+    });
 }
 export function getUsers(token) {
   return axios
