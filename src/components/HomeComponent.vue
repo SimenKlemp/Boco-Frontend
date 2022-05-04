@@ -135,12 +135,19 @@ p {
   box-shadow: 0 0 3px;
   background: white;
   grid-template-columns: 85% 15%;
-  height: 4rem;
-  width: 95%;
+  height: 40px;
+  max-width: 388px;
+  width: 100%;
   margin: 70px auto 0;
 }
 .searchButton {
   border: none;
   background: transparent;
+}
+.searchButton svg{
+  height: 35px;
+}
+form{
+padding:0;
 }
 </style>
