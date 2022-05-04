@@ -34,8 +34,8 @@
         <header>{{ name }}</header>
       </div>
     </div>
-    <RequestSystemMessage v-if="isAccepted && isMyItem" >
-  </RequestSystemMessage>
+    <RequestSystemMessage v-if="isAccepted && isMyItem" :rental="currentRental">
+    </RequestSystemMessage>
     <div class="chatContainer">
       <MessageBox
         v-for="(message, index) in messages"
@@ -45,12 +45,12 @@
         :message="message.text"
       ></MessageBox>
       <div id="statusContainer">
-      <StatusSystemMessage
-      :rental="this.currentRental">
-      </StatusSystemMessage>
+        <StatusSystemMessage :rental="this.currentRental">
+        </StatusSystemMessage>
       </div>
-      <RatingSystemMessage  >
-    </RatingSystemMessage>
+      <div class="ratingContainer" v-if="isFinished">
+        <RatingSystemMessage :name="name"> </RatingSystemMessage>
+      </div>
     </div>
     <div class="sendMessageContainer">
       <form class="sendMessageForm" @submit.prevent="submit">
@@ -110,7 +110,6 @@ export default {
       connection: null,
       currentMessage: "",
       messages: [],
-
     };
   },
   components: {
@@ -164,15 +163,11 @@ export default {
       return this.currentRental.rentalId;
     },
     isAccepted() {
-      return (
-          this.$store.state.currentRental.status === "PENDING"
-      );
+      return this.$store.state.currentRental.status === "PENDING";
     },
-    isFinished(){
-      return(
-        this.$store.state.currentRental.status === "FINISHED"
-      );
-    }
+    isFinished() {
+      return this.$store.state.currentRental.status === "FINISHED";
+    },
   },
   async mounted() {
     await connect(this.currentRentalId, (message) => {
