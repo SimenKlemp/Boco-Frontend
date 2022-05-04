@@ -1,5 +1,6 @@
 <template>
   <ChatCard
+    id="chatCard"
     v-for="rental in rentalsUser"
     :key="rental.rentalId"
     :rental="rental"
