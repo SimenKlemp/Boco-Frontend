@@ -149,7 +149,7 @@ const routes = [
   },
   {
     path: "/giveRating",
-    name: "giveRating",
+    name: "GiveRating",
     component: GiveRatingView,
   },
 ];
