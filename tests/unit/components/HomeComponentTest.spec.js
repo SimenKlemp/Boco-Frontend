@@ -2,7 +2,7 @@ import {flushPromises, mount} from "@vue/test-utils";
 import HomeComponent from "@/components/HomeComponent"
 
 let url = "http://8085/api/item/search"
-let data = ''
+let data = "noe"
 
 const mockHttp = {
     get: (_url, _data) => {
@@ -56,12 +56,13 @@ describe("HomeComponent", () => {
             }
         })
 
-        await wrapper.find("[data-search]").setValue("noe")
+        await wrapper.find("[data-search]")
         await wrapper.find("form").trigger("submit")
 
         await flushPromises()
 
         expect(url).toBe("http://8085/api/item/search")
+        expect(data).toEqual("noe")
     })
 
 })
