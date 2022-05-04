@@ -44,9 +44,6 @@
         </div>
         <div v-if="isLoggedIn">
           <div @click="emitRouteChange('MyRentals')">Chat</div>
-          <div @click="emitRouteChange('AllChats')">
-            Mine chatter (skal vekk)
-          </div>
         </div>
         <div @click="emitRouteChange('giveRating')">gi vurdering</div>
         <div

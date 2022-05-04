@@ -20,7 +20,6 @@ import MessageView from "@/views/MessageView";
 import NotFoundView from "@/views/NotFoundView";
 import RatingsView from "@/views/RatingsView";
 import GiveRatingView from "@/views/GiveRatingView";
-import AllChatsView from "@/views/AllChats/AllChatsView";
 import RentalsActive from "@/views/Rentals/RentalsActive";
 import RentalsFinished from "@/views/Rentals/RentalsFinished";
 
@@ -133,12 +132,6 @@ const routes = [
     path: "/chat",
     name: "MessageView",
     component: MessageView,
-  },
-  {
-    path: "/all-chats",
-    name: "AllChats",
-    //redirect: "/all-chats/all",
-    component: AllChatsView,
   },
   {
     path: "/about",

@@ -69,20 +69,18 @@
       <p id="descriptionText">{{ item.description }}</p>
     </div>
     <div id="mapContainer">
-    <h3 class="mapTitle">Kart</h3>
+      <h3 class="mapTitle">Kart</h3>
     </div>
-    <GMapMap :center="position"
-             :zoom="13                                            "
-             ref="myMapRef"
-             :disableDefaultUI="true"
-             style="height: 20rem;
-             width: 100vw;"
-             :gestureHandling="cooperative"
-             :clickable="true">
-      <GMapMarker
-          :position="position"
-
-      />
+    <GMapMap
+      :center="position"
+      :zoom="13"
+      ref="myMapRef"
+      :disableDefaultUI="true"
+      style="height: 20rem; width: 100vw"
+      :gestureHandling="cooperative"
+      :clickable="true"
+    >
+      <GMapMarker :position="position" />
     </GMapMap>
   </div>
 </template>
@@ -96,14 +94,13 @@ export default {
     BaseProfile,
     BaseButton,
   },
-  data(){
-    return{
-            position:{
-              lat:this.$store.getters.GET_LAT, lng:this.$store.getters.GET_LONG
-
-    }
-
-    }
+  data() {
+    return {
+      position: {
+        lat: this.$store.getters.GET_LAT,
+        lng: this.$store.getters.GET_LONG,
+      },
+    };
   },
   computed: {
     item() {
@@ -131,11 +128,11 @@ export default {
           return true;
         }
       }
-      for (let i = 0; i < this.$store.state.myRentalsPending.length; i++) {
+      for (let i = 0; i < this.$store.state.myRentalsActive.length; i++) {
         console.log("SJKEKKER IGFJEN");
         if (
           this.$store.state.currentItem.itemId ===
-          this.$store.state.myRentalsPending[i].item.itemId
+          this.$store.state.myRentalsActive[i].item.itemId
         ) {
           console.log("Er inni if pending");
           return true;
@@ -197,21 +194,6 @@ p {
   height: 100%;
   margin: 3px 5px 0 -1px;
 }
-.rating {
-  display: flex;
-  height: 1.5rem;
-  margin-bottom: 1.5rem;
-  grid-column: 3;
-}
-.stars {
-  height: 100%;
-  margin: 0 0.5rem 0 -1.15rem;
-}
-.ratingSummary {
-  font-size: 20px;
-  margin: 0;
-  padding-bottom: 2px;
-}
 .price {
   margin-bottom: 0.5rem;
 }
@@ -262,11 +244,11 @@ p {
   width: 100%;
   object-fit: cover;
 }
-.mapTitle{
+.mapTitle {
   font-size: 24px;
   text-align: left;
 }
-#mapContainer{
+#mapContainer {
   margin: 15px 0 10px 15px;
 }
 </style>
