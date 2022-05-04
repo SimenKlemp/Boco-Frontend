@@ -245,7 +245,7 @@ export default createStore({
       );
       commit("SET_ITEM", response);
     },
-    async setNotification({ commit }, notificationId) {
+    async setNotification(notificationId) {
       await changeNotification(notificationId, this.state.token);
     },
     async deleteItem({ commit }) {

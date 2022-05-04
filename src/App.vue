@@ -106,7 +106,7 @@ export default {
     toggleNotifications() {
       console.log("Notifiations clicked");
       this.notificationClicked = !this.notificationClicked;
-      this.$store.dispatch('fetchMyNotifications');
+      this.$store.dispatch("fetchMyNotifications");
     },
   },
   mounted() {
@@ -123,7 +123,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
-html, body, #hamburgerContainer, .hamburgerMeta {
+html,
+body,
+#hamburgerContainer,
+.hamburgerMeta {
   height: 100%;
 }
 #notificationsContainer {
