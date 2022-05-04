@@ -48,7 +48,7 @@
         <StatusSystemMessage :rental="this.currentRental">
         </StatusSystemMessage>
       </div>
-      <div class="ratingContainer" v-if="isFinished && !isSent" >
+      <div class="ratingContainer" v-if="isFinished && isSent" >
         <RatingSystemMessage :name="name"> </RatingSystemMessage>
       </div>
     </div>
@@ -169,12 +169,14 @@ export default {
       return this.$store.state.currentRental.status === "FINISHED";
     },
     async isSent(){
+      console.log(this.$store.state.token)
       let response = await getSent(
           this.$store.state.currentRental.rentalId,
           this.$store.state.userInfo.userId,
-          this.$store.state.token
+          this.$store.state.token,
       );
       console.log(response.status + "auhdauhdshauadshuadhuhu")
+
       return response.status === 204;
     }
   },

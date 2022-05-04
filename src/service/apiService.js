@@ -436,12 +436,12 @@ export function getMeanRating(userId) {
 export function getSent(rentalId, userId, token){
     return axios
         .get("http://localhost:8085/api/get-sent/" + userId + "/" + rentalId, {
-            headers :{
+            headers: {
                 Authorization: "Bearer " + token,
             },
         })
         .then((response) => {
             return response;
-        })
+        });
 
 }
