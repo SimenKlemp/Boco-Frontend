@@ -14,17 +14,8 @@
 <script>
 export default {
   name: "MyRentals",
-  computed: {
-    rentalsActive() {
-      return this.$store.state.myRentalsActive;
-    },
-    rentalsFinished() {
-      return this.$store.state.myRentalsFinished;
-    },
-  },
   mounted() {
-    this.$store.dispatch("fetchMyRentals", "ACCEPTED");
-    this.$store.dispatch("fetchMyRentals", "CANCELED");
+    this.$store.dispatch("fetchAllRentals");
   },
 };
 </script>
