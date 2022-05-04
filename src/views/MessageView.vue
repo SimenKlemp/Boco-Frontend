@@ -34,6 +34,8 @@
         <header>{{ name }}</header>
       </div>
     </div>
+    <RequestSystemMessage v-if="isAccepted && isMyItem" >
+  </RequestSystemMessage>
     <div class="chatContainer">
       <MessageBox
         v-for="(message, index) in messages"
@@ -42,6 +44,13 @@
         :imageId="imageId"
         :message="message.text"
       ></MessageBox>
+      <div id="statusContainer">
+      <StatusSystemMessage
+      :rental="this.currentRental">
+      </StatusSystemMessage>
+      </div>
+      <RatingSystemMessage  >
+    </RatingSystemMessage>
     </div>
     <div class="sendMessageContainer">
       <form class="sendMessageForm" @submit.prevent="submit">
@@ -90,6 +99,9 @@
 import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
 import MessageBox from "@/components/MessageBox";
 import { connect, getChat, send } from "@/service/apiService";
+import RatingSystemMessage from "@/components/SystemMessages/RatingSystemMessage";
+import RequestSystemMessage from "@/components/SystemMessages/RequestSystemMessage";
+import StatusSystemMessage from "@/components/SystemMessages/StatusSystemMessage";
 
 export default {
   name: "MessageView",
@@ -98,9 +110,13 @@ export default {
       connection: null,
       currentMessage: "",
       messages: [],
+
     };
   },
   components: {
+    StatusSystemMessage,
+    RequestSystemMessage,
+    RatingSystemMessage,
     MessageBox,
     ItemCardHorizontal,
   },
@@ -147,6 +163,16 @@ export default {
     currentRentalId() {
       return this.currentRental.rentalId;
     },
+    isAccepted() {
+      return (
+          this.$store.state.currentRental.status === "PENDING"
+      );
+    },
+    isFinished(){
+      return(
+        this.$store.state.currentRental.status === "FINISHED"
+      );
+    }
   },
   async mounted() {
     await connect(this.currentRentalId, (message) => {
@@ -220,5 +246,9 @@ button {
 }
 .buttonContainer {
   padding: 0.5rem;
+}
+#statusContainer{
+  display: flex;
+  justify-content: right;
 }
 </style>
