@@ -4,7 +4,6 @@
     v-for="rental in allRentals"
     :key="rental.rentalId"
     :rental="rental"
-    @click="test"
   ></ChatCard>
 </template>
 
@@ -14,11 +13,6 @@ export default {
   name: "RentalsActive",
   components: {
     ChatCard,
-  },
-  methods: {
-    test() {
-      console.log(typeof this.allRentals[0].lastMessage.date);
-    },
   },
   computed: {
     allRentals() {
