@@ -2,7 +2,8 @@
   <div class="systemMessageContainer" id="statusMessageContainer">
     <div id="statusMessage">
       <div class="statusContainer">
-        Leieforholdet med <strong> {{ rental.item.user.name }}</strong> har Status:
+        Leieforholdet med <strong> {{ rental.item.user.name }}</strong> har
+        Status:
         <svg
           v-if="status === 'Aktiv'"
           class="statusIcon"
@@ -186,7 +187,6 @@ export default {
 .statusContainer {
   font-size: 18px;
   text-align: left;
-
 }
 .statusContainer svg {
   margin-bottom: -5px;
@@ -196,9 +196,5 @@ export default {
 
 strong {
   font-weight: 500;
-}
-
-#ratingLink {
-  margin-top: 5px;
 }
 </style>
