@@ -157,7 +157,6 @@ export default {
           streetAddress: this.address,
         };
         let loginResponse = await doRegistration(reqisterUserRequest);
-        //TODO: fix registration validation
         if (loginResponse.status === 200) {
           this.$store.dispatch("storeUser", loginResponse.data.userInfo);
           this.$store.dispatch("storeToken", loginResponse.data.token);
