@@ -6,12 +6,12 @@
         id="description"
         class="mb-4"
         type="description"
-        v-model="description"
+        v-model="state.description"
         placeholder="Beskrivelse av tilbakemelding..."
-      ></textarea
-      ><BaseErrorMessage v-if="v$.description.$error">{{
-        v$.$errors[2].$message
-      }}</BaseErrorMessage>
+      ></textarea>
+      <span v-if="v$.description.$error" class="errorMessage">
+        {{ v$.description.$errors[0].$message }}
+      </span>
 
       <BaseButton v-on:click="submit" id="publish" text="Publiser" />
     </form>
@@ -20,53 +20,47 @@
 
 <script>
 import BaseButton from "@/components/baseTools/BaseButton";
-import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
-import useVuelidate from "@vuelidate/core";
-import { helpers, required } from "@vuelidate/validators";
+import { required } from "@vuelidate/validators";
 import { doRegisterFeedbackWebPage } from "@/service/apiService";
+import { computed, reactive } from "vue";
+import useValidate from "@vuelidate/core";
 
 export default {
   name: "AddFeedbackWebPageComponent",
   components: {
     BaseButton,
-    BaseErrorMessage,
   },
   setup() {
-    return {
-      v$: useVuelidate(),
-    };
-  },
-  data() {
-    return {
+    const state = reactive({
       description: "",
-    };
-  },
-  validations() {
-    return {
-      description: {
-        required: helpers.withMessage("En tilbakemelding er påkrevd", required),
-      },
-    };
+    });
+    const rules = computed(() => {
+      return {
+        description: {
+          required,
+        },
+      };
+    });
+    const v$ = useValidate(rules, state);
+    return { state, v$ };
   },
   methods: {
     async submit() {
       this.v$.$validate();
-      console.log(this.v$);
       // eslint-disable-next-line no-empty
       if (!this.v$.$error) {
         const feedbackRequest = {
-          message: this.description,
+          message: this.state.description,
           userId: this.$store.state.userInfo.userId,
         };
 
-        console.log(this.description);
-        console.log(this.$store.state.userInfo.userId);
-
-        let feedbackResponse = await doRegisterFeedbackWebPage(
+        await doRegisterFeedbackWebPage(
           feedbackRequest,
           this.$store.state.token
         );
-        console.log(feedbackResponse.status);
+        await this.$router.push({ name: "HomeView" });
+      } else {
+        alert("Du må skrive en tilbakemelding!");
       }
     },
   },
