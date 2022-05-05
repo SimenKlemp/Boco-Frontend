@@ -4,6 +4,9 @@
       <ItemCardHorizontal
         @click="goToItem"
         :item="currentRental.item"
+        :startDate="currentRental.startDate"
+        :endDate="currentRental.endDate"
+        :deliveryInfo="currentRental.deliveryInfo"
       ></ItemCardHorizontal>
     </div>
     <div class="headerContainer">
