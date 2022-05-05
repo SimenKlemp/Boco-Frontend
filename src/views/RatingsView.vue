@@ -48,7 +48,7 @@
           v-for="rating in ratingsOwner"
           :key="rating.ratingId"
           :ratingOwner="rating"
-        ></ProfileRatingCard>
+        ></ProfileR atingCard>
         <ProfileRatingCard
           v-for="rating in ratingsUser"
           :key="rating.ratingId"

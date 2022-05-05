@@ -9,50 +9,54 @@
         id="name"
         class="mb-4"
         type="name"
-        v-model="fullname"
+        v-model="state.fullname"
         placeholder="Navn"
       />
-      <BaseErrorMessage v-if="v$.fullname.$error">{{
-        v$.$errors[1].$message
-      }}</BaseErrorMessage>
+      <span v-if="v$.fullname.$error" class="errorMessage">
+        {{ v$.email.$errors[0].$message }}
+      </span>
       <label>E-post</label>
       <BaseInput
         id="email"
         class="mb-4"
         type="email"
-        v-model="email"
+        v-model="state.email"
         placeholder="Epost"
       />
-      <BaseErrorMessage v-if="v$.email.$error">{{
-        v$.$errors[2].$message
-      }}</BaseErrorMessage>
+      <span v-if="v$.email.$error" class="errorMessage">
+        {{ v$.email.$errors[0].$message }}
+      </span>
       <label>Passord</label>
       <BaseInput
         id="password"
         class="mb-4"
         type="password"
-        v-model="password"
+        v-model="state.password.password"
         placeholder="Passord"
       />
-      <BaseErrorMessage v-if="v$.password.$error">{{
-        v$.$errors[3].$message
-      }}</BaseErrorMessage>
+      <span v-if="v$.password.password.$error" class="errorMessage">
+        {{ v$.password.password.$errors[0].$message }}
+      </span>
       <BaseInput
         id="passwordCheck"
         class="mb-4"
         type="password"
-        v-model="passwordCheck"
+        v-model="state.password.confirm"
         placeholder="Skriv inn passord på nytt"
       />
-      <BaseErrorMessage v-if="v$.passwordCheck.$error">{{
-        v$.$errors[4].$message
-      }}</BaseErrorMessage>
+      <span v-if="v$.password.confirm.$error" class="errorMessage">
+        {{ v$.password.confirm.$errors[0].$message }}
+      </span>
       <AddressComponent
-        v-model:address="address"
-        v-model:postalcode="postalcode"
-        v-model:city="city"
-      />
-
+        v-model:address="state.address"
+        v-model:postalcode="state.postalcode"
+        v-model:city="state.city"
+      /><span
+        v-if="v$.address.$error || v$.postalcode.$error || v$.city.$error"
+        class="errorMessage"
+      >
+        {{ v$.address.$errors[0].$message }}
+      </span>
       <BaseButton
         @click.prevent="submit"
         text="Registrer deg"
@@ -66,72 +70,51 @@
 <script>
 import BaseInput from "@/components/baseTools/BaseInput";
 import BaseButton from "@/components/baseTools/BaseButton";
-import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
-import useVuelidate from "@vuelidate/core";
-import {
-  email,
-  required,
-  helpers,
-  minLength,
-  sameAs,
-} from "@vuelidate/validators";
+import useValidate from "@vuelidate/core";
+import { email, required, minLength, sameAs } from "@vuelidate/validators";
 import { doRegistration } from "@/service/apiService";
 import AddressComponent from "@/components/AddressComponent";
+import { computed, reactive } from "vue";
 
 export default {
   name: "RegistrationComponent",
   components: {
     AddressComponent,
     BaseInput,
-    BaseErrorMessage,
     BaseButton,
   },
   setup() {
-    return {
-      v$: useVuelidate(),
-    };
-  },
-  data() {
-    return {
+    const state = reactive({
       fullname: "",
       email: "",
-      password: "",
-      passwordCheck: "",
+      password: {
+        password: "",
+        confirm: "",
+      },
       address: "",
       postalcode: "",
       city: "",
-    };
-  },
-  validations() {
-    return {
-      fullname: {
-        required: helpers.withMessage("Navn er påkrevd", required),
-      },
-      email: {
-        required: helpers.withMessage("Email er påkrevd", required),
-        email,
-      },
-      password: {
-        required: helpers.withMessage("Passord er påkrevd", required),
-        minLength: minLength(6),
-      },
-      passwordCheck: {
-        required: helpers.withMessage(
-          "Må skrive inn passord to ganger",
-          required
-        ),
-        sameAsPassword: sameAs(this.password),
-      },
-      /*address: {
-        required: helpers.withMessage("Adresse er påkrevd", required),
-      },
-      postalcode: {
-        required: helpers.withMessage("Postkode er påkrevd", required),
-      },
-      city: {
-        required: helpers.withMessage("By er påkrevd", required),
-      },*/
-    };
+    });
+    const rules = computed(() => {
+      return {
+        fullname: {
+          required,
+        },
+        email: {
+          required,
+          email,
+        },
+        password: {
+          password: { required, minLength: minLength(6) },
+          confirm: { required, sameAs: sameAs(state.password.password) },
+        },
+        address: { required },
+        postalcode: { required },
+        city: { required },
+      };
+    });
+    const v$ = useValidate(rules, state);
+    return { state, v$ };
   },
   computed: {
     isError() {
@@ -148,13 +131,13 @@ export default {
       console.log(this.v$);
       if (!this.v$.$error) {
         const reqisterUserRequest = {
-          email: this.email,
-          name: this.fullname,
-          password: this.password,
+          email: this.state.email,
+          name: this.state.fullname,
+          password: this.state.password,
           person: true,
-          postOffice: this.city,
-          postalCode: this.postalcode,
-          streetAddress: this.address,
+          postOffice: this.state.city,
+          postalCode: this.state.postalcode,
+          streetAddress: this.state.address,
         };
         let loginResponse = await doRegistration(reqisterUserRequest);
         if (loginResponse.status === 200) {
@@ -212,5 +195,10 @@ label {
 }
 button {
   margin-top: 30px;
+}
+.errorMessage {
+  color: tomato;
+  margin-top: 5px;
+  text-align: center;
 }
 </style>

@@ -3,7 +3,7 @@
     <form @submit.prevent="submit">
       <div class="addImageContainer">
         <img
-          v-if="hasProfileImage && !previewImage"
+          v-if="hasProfileImage && !state.previewImage"
           class="actualProfileImage"
           :src="
             'http://localhost:8085/api/image/' +
@@ -12,14 +12,14 @@
           alt=""
         />
         <img
-          v-if="previewImage"
+          v-if="state.previewImage"
           class="preview my-3 actualProfileImage"
-          :src="previewImage"
+          :src="state.previewImage"
           alt=""
         />
 
         <img
-          v-if="!previewImage && !hasProfileImage"
+          v-if="!state.previewImage && !hasProfileImage"
           id="nounprofile"
           :src="require('../assets/noun-profile-1995071.svg')"
           alt=""
@@ -43,100 +43,105 @@
           id="name"
           class="mb-4"
           type="firstName"
-          v-model="name"
+          v-model="state.name"
           placeholder="Navn"
-          :errorMessage="v$.$errors[1]"
         />
-        <BaseErrorMessage v-if="v$.name.$error">{{
-          v$.$errors[0].$message
-        }}</BaseErrorMessage>
+        <span v-if="v$.name.$error" class="errorMessage">
+          {{ v$.name.$errors[0].$message }}
+        </span>
         <label>E-post</label>
         <BaseInput
           id="email"
           class="mb-4"
           type="email"
-          v-model="email"
+          v-model="state.email"
           placeholder="Epost"
-          :errorMessage="v$.$errors[2]"
         />
-        <BaseErrorMessage v-if="v$.email.$error">{{
-          v$.$errors[1].$message
-        }}</BaseErrorMessage>
-
-        <div class="password">
+        <span v-if="v$.email.$error" class="errorMessage">
+          {{ v$.email.$errors[0].$message }}
+        </span>
+        <div>
           <label>Password</label>
-          <BaseInput
-            id="oldPassword"
-            class="mb-4"
-            type="password"
-            v-model="oldPassword"
-            placeholder="Gammelt passord"
-            :errorMessage="v$.$errors[3]"
-            @click="editPassword"
-          />
-          <BaseErrorMessage v-if="v$.oldPassword.$error">{{
-            v$.$errors[2].$message
-          }}</BaseErrorMessage>
+          <div class="passwordContainer">
+            <BaseInput
+              id="oldPassword"
+              class="mb-4"
+              type="password"
+              v-model="state.oldPassword"
+              placeholder="Gammelt passord"
+            />
+            <button @click="editPassword" type="button">
+              <svg
+                class="sideIconRight"
+                xmlns="http://www.w3.org/2000/svg"
+                width="20.065"
+                height="19.599"
+                viewBox="0 0 20.065 19.599"
+              >
+                <path
+                  id="np_edit_4779758_000000"
+                  d="M3.727,5.776H14.9L13.158,7.514H3.727a.009.009,0,0,0-.009.009V20.951a.009.009,0,0,0,.009.009H17.155a.009.009,0,0,0,.009-.009v-8.5L18.9,10.718V20.951A1.752,1.752,0,0,1,17.155,22.7H3.727A1.752,1.752,0,0,1,1.98,20.951V7.523A1.752,1.752,0,0,1,3.727,5.776Zm7.11,8.531A4,4,0,0,0,8.892,13.2l-.067.067-.631,3.685,3.685-.631.067-.067a4,4,0,0,0-1.109-1.945Zm8.579-11.1a.38.38,0,0,0-.536,0L17.628,4.462l3.054,3.054,1.253-1.253a.38.38,0,0,0,0-.536Zm.557,5.017L16.919,5.173,9.7,12.392a5.376,5.376,0,0,1,3.055,3.055Z"
+                  transform="translate(-1.98 -3.099)"
+                  fill="#034363"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+          <span v-if="v$.oldPassword.$error" class="errorMessage">
+            {{ v$.oldPassword.$errors[0].$message }}
+          </span>
           <BaseInput
             id="newPassword"
             class="mb-4"
             type="password"
-            v-model="newPassword"
+            v-model="state.newPassword"
             placeholder="Nytt passord"
-            :errorMessage="v$.$errors[4]"
-            v-if="passwordPressed"
+            v-if="state.passwordPressed"
           />
-          <BaseErrorMessage v-if="v$.newPassword.$error">{{
-            v$.$errors[3].$message
-          }}</BaseErrorMessage>
           <BaseInput
             id="repeatNewPassword"
             class="mb-4"
             type="password"
-            v-model="repeatNewPassword"
+            v-model="state.repeatNewPassword"
             placeholder="Gjenta nytt passord"
-            :errorMessage="v$.$errors[5]"
-            v-if="passwordPressed"
+            v-if="state.passwordPressed"
           />
-          <BaseErrorMessage v-if="v$.repeatNewPassword.$error">{{
-            v$.$errors[4].$message
-          }}</BaseErrorMessage>
         </div>
-
         <h2>Adresse</h2>
         <label>Gateadresse</label>
         <BaseInput
           id="address"
           class="mb-4"
           type="address"
-          v-model="address"
+          v-model="state.address"
           placeholder="Gateadresse"
         />
-        <BaseErrorMessage v-if="v$.address.$error">{{
-          v$.$errors[5].$message
-        }}</BaseErrorMessage>
+        <span v-if="v$.address.$error" class="errorMessage">
+          {{ v$.address.$errors[0].$message }}
+        </span>
         <label>Postnummer</label>
         <BaseInput
           id="postalcode"
           class="mb-4"
           type="postalcode"
-          v-model="postalcode"
+          v-model="state.postalcode"
           placeholder="Postkode"
         />
-        <BaseErrorMessage v-if="v$.postalcode.$error">{{
-          v$.$errors[6].$message
-        }}</BaseErrorMessage>
+        <span v-if="v$.postalcode.$error" class="errorMessage">
+          {{ v$.postalcode.$errors[0].$message }}
+        </span>
         <label>Poststed</label>
         <BaseInput
           id="city"
           class="mb-4"
           type="city"
-          v-model="city"
+          v-model="state.city"
           placeholder="Poststed"
         />
-        <BaseErrorMessage v-if="v$.city.$error">{{
-          v$.$errors[7].$message
-        }}</BaseErrorMessage>
+        <span v-if="v$.city.$error" class="errorMessage">
+          {{ v$.city.$errors[0].$message }}
+        </span>
       </div>
       <BaseButton
         @click.prevent="submit"
@@ -151,39 +156,29 @@
 <script>
 import BaseInput from "@/components/baseTools/BaseInput";
 import BaseButton from "@/components/baseTools/BaseButton";
-import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
-import useVuelidate from "@vuelidate/core";
-import {
-  email,
-  required,
-  helpers,
-  sameAs,
-  minLength,
-} from "@vuelidate/validators";
+import { email, required } from "@vuelidate/validators";
 import UploadService, { doEditUser, doLogin } from "@/service/apiService";
+import { computed, reactive } from "vue";
+import useValidate from "@vuelidate/core";
+import { useStore } from "vuex";
 export default {
   name: "EditUserData",
   components: {
     BaseInput,
-    BaseErrorMessage,
     BaseButton,
   },
   setup() {
-    return {
-      v$: useVuelidate(),
-    };
-  },
-  data() {
-    return {
-      name: this.$store.state.userInfo.name,
-      email: this.$store.state.userInfo.email,
+    const store = useStore();
+    const state = reactive({
+      name: store.state.userInfo.name,
+      email: store.state.userInfo.email,
       password: "",
       oldPassword: "",
       newPassword: "",
       repeatNewPassword: "",
-      address: this.$store.state.userInfo.streetAddress,
-      postalcode: this.$store.state.userInfo.postalCode,
-      city: this.$store.state.userInfo.postOffice,
+      address: store.state.userInfo.streetAddress,
+      postalcode: store.state.userInfo.postalCode,
+      city: store.state.userInfo.postOffice,
 
       passwordPressed: false,
 
@@ -192,39 +187,26 @@ export default {
 
       progress: 0,
       message: "",
-    };
-  },
-  validations() {
-    return {
-      name: {
-        required: helpers.withMessage("Navn er påkrevd", required),
-      },
-      email: {
-        required: helpers.withMessage("Email er påkrevd", required),
-        email,
-      },
-      oldPassword: {
-        required: helpers.withMessage(
-          "Må skrive inn gammelt passord",
-          required
-        ),
-      },
-      newPassword: {
-        minLength: minLength(6),
-      },
-      repeatNewPassword: {
-        sameAsPassword: sameAs(this.newPassword),
-      },
-      address: {
-        required: helpers.withMessage("Adresse er påkrevd", required),
-      },
-      postalcode: {
-        required: helpers.withMessage("Postkode er påkrevd", required),
-      },
-      city: {
-        required: helpers.withMessage("By er påkrevd", required),
-      },
-    };
+    });
+    const rules = computed(() => {
+      return {
+        name: {
+          required,
+        },
+        email: {
+          required,
+          email,
+        },
+        oldPassword: {
+          required,
+        },
+        address: { required },
+        postalcode: { required },
+        city: { required },
+      };
+    });
+    const v$ = useValidate(rules, state);
+    return { state, v$ };
   },
   computed: {
     hasProfileImage() {
@@ -243,76 +225,83 @@ export default {
       this.v$.$validate();
       console.log(this.v$);
       if (!this.v$.$error) {
-        await doLogin(this.$store.state.userInfo.email, this.oldPassword).then(
-          async (loginResponse) => {
-            if (loginResponse.status === 200) {
-              if (this.currentImage !== undefined) {
-                await UploadService.upload(
-                  this.currentImage,
-                  this.$store.state.token
-                )
-                  .then((response) => {
-                    this.$store.dispatch("setCurrentImageId", response.data);
-                  })
-                  .catch((err) => {
-                    this.progress = 0;
-                    this.message = "Could not upload the image! " + err;
-                    this.currentImage = undefined;
-                  });
-              }
-              if (this.newPassword === "") {
-                const editUserRequest = {
-                  email: this.email,
-                  imageId: this.$store.state.currentImageId,
-                  isPerson: true,
-                  name: this.name,
-                  postOffice: this.city,
-                  postalCode: this.postalcode,
-                  streetAddress: this.address,
-                };
-
-                let response = await doEditUser(
-                  editUserRequest,
-                  this.$store.state.userInfo.userId,
-                  this.$store.state.token
-                );
-
-                await this.$store.dispatch("storeUser", response.data);
-              } else if (this.newPassword !== "") {
-                const editUserRequest = {
-                  email: this.email,
-                  imageId: this.$store.state.currentImageId,
-                  isPerson: true,
-                  name: this.name,
-                  password: this.newPassword,
-                  postOffice: this.city,
-                  postalCode: this.postalcode,
-                  streetAddress: this.address,
-                };
-
-                let response = await doEditUser(
-                  editUserRequest,
-                  this.$store.state.userInfo.userId,
-                  this.$store.state.token
-                );
-
-                await this.$store.dispatch("storeUser", response.data);
-              }
-              await this.$router.push({ name: "MyProfile" });
-              this.$emit("routeChange");
+        await doLogin(
+          this.$store.state.userInfo.email,
+          this.state.oldPassword
+        ).then(async (loginResponse) => {
+          if (loginResponse.status === 200) {
+            if (this.state.currentImage !== undefined) {
+              await UploadService.upload(
+                this.state.currentImage,
+                this.$store.state.token
+              )
+                .then((response) => {
+                  this.$store.dispatch("setCurrentImageId", response.data);
+                })
+                .catch((err) => {
+                  this.state.progress = 0;
+                  this.state.message = "Could not upload the image! " + err;
+                  this.state.currentImage = undefined;
+                });
             }
+            if (this.state.newPassword === "") {
+              const editUserRequest = {
+                email: this.state.email,
+                imageId: this.$store.state.currentImageId,
+                isPerson: true,
+                name: this.state.name,
+                postOffice: this.state.city,
+                postalCode: this.state.postalcode,
+                streetAddress: this.state.address,
+              };
+
+              let response = await doEditUser(
+                editUserRequest,
+                this.$store.state.userInfo.userId,
+                this.$store.state.token
+              );
+
+              await this.$store.dispatch("storeUser", response.data);
+            } else if (this.state.newPassword !== "") {
+              const editUserRequest = {
+                email: this.state.email,
+                imageId: this.$store.state.currentImageId,
+                isPerson: true,
+                name: this.state.name,
+                password: this.state.newPassword,
+                postOffice: this.state.city,
+                postalCode: this.state.postalcode,
+                streetAddress: this.state.address,
+              };
+
+              let response = await doEditUser(
+                editUserRequest,
+                this.$store.state.userInfo.userId,
+                this.$store.state.token
+              );
+
+              await this.$store.dispatch("storeUser", response.data);
+            }
+            await this.$router.push({ name: "MyProfile" });
+            this.$emit("routeChange");
+          } else {
+            alert("Feil passord!");
           }
-        );
+        });
       } else {
         alert("Alle felter må være riktig utfylt");
       }
     },
     selectImage() {
-      this.currentImage = this.$refs.file.files.item(0);
-      this.previewImage = URL.createObjectURL(this.currentImage);
+      this.state.currentImage = this.$refs.file.files.item(0);
+      this.state.previewImage = URL.createObjectURL(this.currentImage);
     },
     editPassword() {
-      this.passwordPressed = true;
+      if (this.state.passwordPressed === false) {
+        this.state.passwordPressed = true;
+      } else {
+        this.state.passwordPressed = false;
+      }
     },
   },
 };
@@ -367,12 +356,14 @@ label {
   font-weight: 500;
   margin-bottom: 5px;
 }
-button {
-  margin-top: 30px;
-}
+
 #imageButtonContainer {
   max-width: 200px;
   width: 100%;
   margin: 0 auto;
+}
+.passwordContainer {
+  padding-top: 20px;
+  padding-right: 30px;
 }
 </style>
