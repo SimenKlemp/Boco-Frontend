@@ -80,9 +80,7 @@ export default {
   max-height: 5rem;
 }
 .imageContainer {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
+
   margin: 10px;
 }
 .text {
@@ -92,8 +90,8 @@ export default {
 }
 img {
   object-fit: cover;
-  width: 100%;
-  height: 100%;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
 }
 .dotContainer {

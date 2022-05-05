@@ -33,6 +33,7 @@
           :read-only="true"
           :rating="$store.state.meanRating"
           :show-rating="false"
+          active-color="#FB8500"
         ></StarRating>
       </div>
     </div>

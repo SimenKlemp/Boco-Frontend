@@ -96,8 +96,8 @@ export default {
       this.$emit("routeChange");
     },
     logout() {
-      this.$store.dispatch("resetState");
       this.$router.push({ name: "HomeView" });
+      this.$store.dispatch("resetState");
       this.$store.dispatch("logoutStore");
     },
     goMyProfile() {

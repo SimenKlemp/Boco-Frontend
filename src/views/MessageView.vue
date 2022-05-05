@@ -34,9 +34,13 @@
         <header>{{ name }}</header>
       </div>
     </div>
-    <RequestSystemMessage v-if="isAccepted && isMyItem" :rental="currentRental">
-    </RequestSystemMessage>
     <div class="chatContainer">
+      <RequestSystemMessage
+        @requestAction="updateRequestMessage"
+        v-if="showRequestMessage"
+        :rental="currentRental"
+      >
+      </RequestSystemMessage>
       <MessageBox
         v-for="(message, index) in messages"
         :key="index"
@@ -110,7 +114,7 @@ export default {
       connection: null,
       currentMessage: "",
       messages: [],
-      statusCode: undefined,
+      requestMessage: true,
     };
   },
   components: {
@@ -121,6 +125,10 @@ export default {
     ItemCardHorizontal,
   },
   methods: {
+    updateRequestMessage(response) {
+      this.requestMessage = !this.requestMessage;
+      this.$store.dispatch("setRental", response);
+    },
     goToItem() {
       if (this.isMyItem) {
         this.$router.push({ name: "ProductDetails" });
@@ -163,18 +171,25 @@ export default {
     currentRentalId() {
       return this.currentRental.rentalId;
     },
-    isAccepted() {
+    isPending() {
       return this.$store.state.currentRental.status === "PENDING";
+    },
+    showRequestMessage() {
+      return this.isPending && this.isMyItem && this.requestMessage;
     },
     isFinished() {
       return this.$store.state.currentRental.status === "FINISHED";
     },
-    isSent() {
-      if (this.statusCode === 204) {
-        return true;
-      } else {
-        return false;
-      }
+    async isSent() {
+      console.log(this.$store.state.token);
+      let response = await getSent(
+        this.$store.state.currentRental.rentalId,
+        this.$store.state.userInfo.userId,
+        this.$store.state.token
+      );
+      console.log(response.status + "auhdauhdshauadshuadhuhu");
+
+      return response.status === 204;
     },
   },
   async mounted() {
@@ -186,12 +201,6 @@ export default {
       this.messages.push(chat.messages[i]);
     }
     this.$store.dispatch("setItem", this.currentRental.item);
-    let response = await getSent(
-      this.$store.state.currentRental.rentalId,
-      this.$store.state.userInfo.userId,
-      this.$store.state.token
-    );
-    this.statusCode = response.status;
   },
 };
 </script>
