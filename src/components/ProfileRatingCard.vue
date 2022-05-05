@@ -37,6 +37,7 @@
             :read-only="true"
             :rating="rating.rate"
             :show-rating="false"
+            active-color="#FB8500"
           ></StarRating>
         </div>
         <div class="description">{{ rating.feedback }}</div>
