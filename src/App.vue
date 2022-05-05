@@ -37,7 +37,9 @@
           />
         </button>
         <button @click="toggleNotifications" class="hamburgerButton">
-          <div class="dot" v-if="showNotification>0">{{showNotification}}</div>
+          <div class="dot" v-if="showNotification > 0">
+            {{ showNotification }}
+          </div>
           <svg
             class="notificationIcon"
             xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +93,9 @@
           />
         </button>
         <button @click="toggleNotifications" class="hamburgerButton">
-          <div class="dot" v-if="showNotification>0">{{showNotification}}</div>
+          <div class="dot" v-if="showNotification > 0">
+            {{ showNotification }}
+          </div>
           <svg
             class="notificationIcon"
             id="notificationIcon"
@@ -328,5 +332,6 @@ form > * {
   margin-right: 15px;
   color: white;
   font-weight: bold;
+  padding: 1px;
 }
 </style>
