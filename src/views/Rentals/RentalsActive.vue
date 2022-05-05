@@ -22,24 +22,15 @@ export default {
   },
   computed: {
     allRentals() {
-      let rentals = this.rentalsUser.concat(this.rentalsOwner);
-      // let newRentals = [];
-      // for (let i = 0; i < rentals.size; i++) {
-      //   if (rentals[i].lastMessage !== null) {
-      //     console.log("I ifen");
-      //     newRentals.push(i);
-      //     rentals[i].splice(i, 1);
-      //   }
-      // }
-      // console.log(newRentals);
-      // rentals.sort((a, b) =>
-      //   a.lastMessage.date < b.lastMessage.date
-      //     ? 1
-      //     : b.lastMessage.date < a.lastMessage.date
-      //     ? -1
-      //     : 0
-      // );
-      return rentals.concat();
+      const rentals = this.rentalsUser.concat(this.rentalsOwner);
+      rentals.sort((a, b) =>
+        a.lastMessage.date < b.lastMessage.date
+          ? 1
+          : b.lastMessage.date < a.lastMessage.date
+          ? -1
+          : 0
+      );
+      return rentals;
     },
     rentalsUser() {
       const rentalsUser = this.$store.state.myRentalsActive;
