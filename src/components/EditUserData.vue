@@ -294,7 +294,7 @@ export default {
     },
     selectImage() {
       this.state.currentImage = this.$refs.file.files.item(0);
-      this.state.previewImage = URL.createObjectURL(this.currentImage);
+      this.state.previewImage = URL.createObjectURL(this.state.currentImage);
     },
     editPassword() {
       if (this.state.passwordPressed === false) {

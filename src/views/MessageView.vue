@@ -34,7 +34,11 @@
             />
           </svg>
         </div>
-        <header>{{ name }}</header>
+        <div id="nameAndStatusContainer">
+        <h2>{{ name }}</h2>
+          <StatusSystemMessage :rental="this.currentRental">
+          </StatusSystemMessage>
+        </div>
       </div>
     </div>
     <div class="chatContainer">
@@ -51,10 +55,7 @@
         :imageId="imageId"
         :message="message.text"
       ></MessageBox>
-      <div id="statusContainer">
-        <StatusSystemMessage :rental="this.currentRental">
-        </StatusSystemMessage>
-      </div>
+
       <div class="ratingContainer">
         <RatingSystemMessage :name="name" v-if="giveRating && isFinished">
         </RatingSystemMessage>
@@ -209,10 +210,9 @@ export default {
 </script>
 
 <style scoped>
-header {
+h2 {
   font-size: 24px;
   text-align: left;
-  padding: 0.5rem;
 }
 button {
   border: none;
@@ -268,8 +268,7 @@ button {
 .buttonContainer {
   padding: 0.5rem;
 }
-#statusContainer {
-  display: flex;
-  justify-content: right;
+#nameAndStatusContainer{
+  margin-left: 10px;
 }
 </style>

@@ -133,7 +133,7 @@ export default {
         const reqisterUserRequest = {
           email: this.state.email,
           name: this.state.fullname,
-          password: this.state.password,
+          password: this.state.password.password,
           person: true,
           postOffice: this.state.city,
           postalCode: this.state.postalcode,
