@@ -2,7 +2,8 @@
   <div class="systemMessageContainer">
     <div id="acceptDenyMessage">
       {{ rental.user.name }} ønsker å leie
-      <strong> {{ rental.item.title }}</strong>
+      <strong> {{ rental.item.title }}</strong> <br>
+      fra {{rental.startDate.slice(0, 10)}} til {{rental.endDate.slice(0, 10)}}
       <div class="buttonContainer">
         <div
           @click.stop="acceptRequest(rental.rentalId)"

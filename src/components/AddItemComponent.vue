@@ -60,11 +60,22 @@
         <div id="deliverContainer">
           <h2 id="deliverTitle">Leveringsalternativer</h2>
           <div class="checkboxContainer">
-            <BaseCheckbox v-model="state.isPickupable" label="Kan hentes" />
+            <BaseCheckbox
+              v-model="state.isPickupable"
+              label="Kan hentes"
+              @click="updateIsPicked('Pickupable')"
+            />
           </div>
           <div>
-            <BaseCheckbox v-model="state.isDeliverable" label="Kan leveres" />
+            <BaseCheckbox
+              v-model="state.isDeliverable"
+              label="Kan leveres"
+              @click="updateIsPicked('Deliverable')"
+            />
           </div>
+          <span v-if="v$.isPicked.$error" class="errorMessage">
+            {{ v$.isPicked.$errors[0].$message }}
+          </span>
         </div>
 
         <h2>Pris</h2>
@@ -91,14 +102,14 @@
 
       <BaseButton
         v-if="newAd === true"
-        @click.prevent="submit"
+        @click.prevent="submit('Register')"
         id="publish"
         text="Publiser"
         :disabled="isError"
       />
       <div v-else>
         <BaseButton
-          @click="saveItem"
+          @click.prevent="submit('Edit')"
           id="save"
           text="Lagre endringer"
           :disabled="isError"
@@ -150,6 +161,7 @@ export default {
       currentImage: undefined,
       previewImage: undefined,
       currentImageId: undefined,
+      isPicked: "",
       isDeliverable: store.state.currentItem.isDeliverable,
       isPickupable: store.state.currentItem.isPickupable,
       categoryOptions: [
@@ -184,13 +196,16 @@ export default {
         price: {
           required,
         },
+        isPicked: {
+          required,
+        },
       };
     });
     const v$ = useValidate(rules, state);
     return { state, v$ };
   },
   methods: {
-    async submit() {
+    async submit(status) {
       this.v$.$validate();
       console.log(this.v$);
       // eslint-disable-next-line no-empty
@@ -225,49 +240,15 @@ export default {
           title: this.state.title,
           userId: this.$store.state.userInfo.userId,
         };
-        await this.$store.dispatch("registerItem", itemRequest);
+        if (status === "Register") {
+          await this.$store.dispatch("registerItem", itemRequest);
+        } else {
+          await this.$store.dispatch("updateItem", itemRequest);
+        }
         await this.$router.push({ name: "ProductDetails" });
         this.$emit("routeChange");
       } else {
         alert("Alle felter må være fylt ut!");
-      }
-    },
-    async saveItem() {
-      if (this.state.currentImage !== undefined) {
-        await UploadService.upload(
-          this.state.currentImage,
-          this.$store.state.token
-        )
-          .then((response) => {
-            this.$store.dispatch("setCurrentImageId", response.data);
-          })
-          .catch((err) => {
-            this.state.progress = 0;
-            this.state.message = "Could not upload the image! " + err;
-            this.state.currentImage = undefined;
-          });
-      }
-
-      if (!this.v$.$error) {
-        if (this.state.isFree === true || this.state.price === undefined) {
-          this.state.price = 0;
-        }
-        const itemUpdated = {
-          category: this.state.category,
-          description: this.state.description,
-          imageId: this.$store.state.currentImageId,
-          isPickupable: this.state.isPickupable,
-          isDeliverable: this.state.isDeliverable,
-          postOffice: this.state.city,
-          postalCode: this.state.postalcode,
-          price: parseFloat(this.state.price),
-          streetAddress: this.state.address,
-          title: this.state.title,
-          userId: this.$store.state.userInfo.userId,
-        };
-        await this.$store.dispatch("updateItem", itemUpdated);
-        await this.$router.push({ name: "ProductDetails" });
-        this.$emit("routeChange");
       }
     },
     async deleteItem() {
@@ -281,6 +262,27 @@ export default {
     setPriceZero() {
       this.state.price = 0;
     },
+    updateIsPicked(status) {
+      if (status === "Pickupable") {
+        if (this.state.isPickupable === false) {
+          this.state.isPicked = "Pressed";
+        } else if (
+          this.state.isPickupable === true &&
+          this.state.isDeliverable === false
+        ) {
+          this.state.isPicked = "";
+        }
+      } else if (status === "Deliverable") {
+        if (this.state.isDeliverable === false) {
+          this.state.isPicked = "Pressed";
+        } else if (
+          this.state.isDeliverable === true &&
+          this.state.isPickupable === false
+        ) {
+          this.state.isPicked = "";
+        }
+      }
+    },
   },
   computed: {
     newAd() {
@@ -293,6 +295,15 @@ export default {
         return false;
       }
     },
+  },
+  async mounted() {
+    if (this.state.isPickupable === true) {
+      this.state.isPicked = "Pressed";
+    } else if (this.state.isDeliverable === true) {
+      this.state.isPicked = "Pressed";
+    } else {
+      this.state.isPicked = "";
+    }
   },
 };
 </script>

@@ -173,7 +173,6 @@
             </div>
           </div>
           <div id="priceRatingContainer">
-
             <div class="info">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -197,6 +196,13 @@
               </svg>
               <p v-if="!isFree">{{ item.price }} kr/dag</p>
               <p v-else>GRATIS</p>
+            </div>
+            <div class="dateInfo" v-if="!dateIsEmpty">
+              <p>Fra: {{ startDate.slice(0, 10) }}</p>
+              <p>Til: {{ endDate.slice(0, 10) }}</p>
+            </div>
+            <div class="deliveryInfo" v-if="!deliveryInfoIsEmpty">
+              <p>Leveringsinformasjon: {{ deliveryInfoName }}</p>
             </div>
             <div
               @click.stop="goToEdit(item)"
@@ -237,6 +243,18 @@ export default {
       type: String,
       default: "",
     },
+    startDate: {
+      type: String,
+      default: "",
+    },
+    endDate: {
+      type: String,
+      default: "",
+    },
+    deliveryInfo: {
+      type: String,
+      default: "",
+    },
   },
   methods: {
     goToEdit(item) {
@@ -265,6 +283,28 @@ export default {
     },
     isFree() {
       return this.item.price === 0;
+    },
+
+    deliveryInfoIsEmpty() {
+      if (this.deliveryInfo === "") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    dateIsEmpty() {
+      if (this.startDate === "" && this.endDate === "") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    deliveryInfoName() {
+      if (this.deliveryInfo === "DELIVERED") {
+        return "Leveres";
+      } else {
+        return "Hentes";
+      }
     },
   },
 };
@@ -307,7 +347,7 @@ h3 {
 }
 .itemInfo {
   padding-left: 1rem;
-  margin-top:10px;
+  margin-top: 10px;
 }
 .imageContainer {
   border-radius: 15px 0 0 15px;
@@ -357,8 +397,8 @@ img {
 #adImage {
   object-fit: cover;
 }
-#priceicon{
+#priceicon {
   margin-right: 5px;
-  margin-top:2px;
+  margin-top: 2px;
 }
 </style>

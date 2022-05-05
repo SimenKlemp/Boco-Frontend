@@ -166,7 +166,10 @@
               d="M48,9C31.86,9,18.73,22.131,18.73,38.271c0,14.13,23.756,41.948,28.518,47.381L48,86.512l0.752-0.857  c4.762-5.432,28.518-33.24,28.518-47.383C77.27,22.131,64.14,9,48,9z M48,48c-5.374,0-9.73-4.356-9.73-9.73s4.356-9.73,9.73-9.73  s9.73,4.356,9.73,9.73S53.374,48,48,48z"
             ></path>
           </svg>
-          <div class="pickupOption">Henter hos deg</div>
+          <div class="pickupOption" v-if="rental.deliveryInfo === 'DELIVERED'">
+            Leveres til meg
+          </div>
+          <div class="pickupOption" v-else>Hentes hos deg</div>
         </div>
       </div>
       <div class="right">
