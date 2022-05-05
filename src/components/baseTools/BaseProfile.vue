@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div class="profileImage">
-      <!--TODO: change to image, add v-if image-->
       <svg
         v-if="user.imageId === -1 || user.imageId === null"
         class="image"

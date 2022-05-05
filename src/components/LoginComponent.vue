@@ -68,7 +68,6 @@ export default {
 
         switch (loginResponse.data.userInfo.role) {
           case "USER":
-            //TODO: push til min side!! -->
             this.$router.push({ name: "HomeView" });
             break;
 
