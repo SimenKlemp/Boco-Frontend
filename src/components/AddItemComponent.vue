@@ -264,21 +264,27 @@ export default {
     },
     updateIsPicked(status) {
       if (status === "Pickupable") {
+        console.log("Trykket pick");
         if (this.state.isPickupable === false) {
+          console.log("Setter pick til pressed");
           this.state.isPicked = "Pressed";
         } else if (
           this.state.isPickupable === true &&
           this.state.isDeliverable === false
         ) {
+          console.log("Setter pick til tom");
           this.state.isPicked = "";
         }
       } else if (status === "Deliverable") {
+        console.log("Trykket del");
         if (this.state.isDeliverable === false) {
+          console.log("Setter pick til pressed");
           this.state.isPicked = "Pressed";
         } else if (
           this.state.isDeliverable === true &&
           this.state.isPickupable === false
         ) {
+          console.log("Setter pick til tom");
           this.state.isPicked = "";
         }
       }
@@ -302,6 +308,8 @@ export default {
     } else if (this.state.isDeliverable === true) {
       this.state.isPicked = "Pressed";
     } else {
+      this.state.isDeliverable = false;
+      this.state.isPickupable = false;
       this.state.isPicked = "";
     }
   },
