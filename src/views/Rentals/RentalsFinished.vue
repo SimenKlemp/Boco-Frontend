@@ -1,16 +1,9 @@
 <template>
   <ChatCard
     id="chatCard"
-    v-for="rental in rentalsUser"
+    v-for="rental in allRentals"
     :key="rental.rentalId"
     :rental="rental"
-    :name="rental.item.user.name"
-  ></ChatCard>
-  <ChatCard
-    v-for="rental in rentalsOwner"
-    :key="rental.rentalId"
-    :rental="rental"
-    :name="rental.user.name"
   ></ChatCard>
 </template>
 
@@ -22,6 +15,17 @@ export default {
     ChatCard,
   },
   computed: {
+    allRentals() {
+      const rentals = this.rentalsUser.concat(this.rentalsOwner);
+      rentals.sort((a, b) =>
+        a.lastMessage.date < b.lastMessage.date
+          ? 1
+          : b.lastMessage.date < a.lastMessage.date
+          ? -1
+          : 0
+      );
+      return rentals;
+    },
     rentalsUser() {
       return this.$store.state.myRentalsFinished;
     },

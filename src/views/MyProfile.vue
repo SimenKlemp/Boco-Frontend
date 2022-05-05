@@ -31,7 +31,7 @@
         <StarRating
           star-size="20"
           :read-only="true"
-          :rating="$store.state.meanRating"
+          :rating="meanRating"
           :show-rating="false"
           active-color="#FB8500"
         ></StarRating>
@@ -259,6 +259,9 @@ export default {
     hasProfileImage() {
       return this.$store.state.userInfo.imageId !== null;
     },
+    meanRating() {
+      return this.$store.state.meanRating;
+    },
   },
   methods: {
     goToPage(to) {
@@ -270,6 +273,9 @@ export default {
         params: { userId: this.$store.state.userInfo.userId },
       });
     },
+  },
+  mounted() {
+    this.$store.dispatch("storeMeanRating");
   },
 };
 </script>

@@ -124,12 +124,4 @@ p {
   display: flex;
   flex-wrap: wrap;
 }
-.dot {
-  height: 15px;
-  width: 15px;
-  background-color: #ea0000;
-  border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-}
 </style>

@@ -100,6 +100,7 @@ img {
   display: flex;
   align-items: center;
   padding: 10px;
+  margin-right: 10px;
 }
 .dot {
   height: 10px;

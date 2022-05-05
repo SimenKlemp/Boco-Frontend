@@ -1,6 +1,6 @@
 <template>
   <div class="mainContent">
-    <div class="welcomeMessage">Lei i stedet for å kjøpe!</div>
+    <div class="welcomeMessage">Leie i stedet for å eie!</div>
     <form class="form" @submit.prevent="submit">
       <BaseSearchBar data-search
         id="searchSentence"
