@@ -34,13 +34,13 @@
         <header>{{ name }}</header>
       </div>
     </div>
-    <RequestSystemMessage
-      @requestAction="updateRequestMessage"
-      v-if="showRequestMessage"
-      :rental="currentRental"
-    >
-    </RequestSystemMessage>
     <div class="chatContainer">
+      <RequestSystemMessage
+        @requestAction="updateRequestMessage"
+        v-if="showRequestMessage"
+        :rental="currentRental"
+      >
+      </RequestSystemMessage>
       <MessageBox
         v-for="(message, index) in messages"
         :key="index"

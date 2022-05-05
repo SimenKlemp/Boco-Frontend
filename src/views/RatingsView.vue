@@ -67,12 +67,6 @@ export default {
     ProfileRatingCard,
     StarRating,
   },
-  props: {
-    userId: {
-      type: String,
-      required: true,
-    },
-  },
   computed: {
     ratingsOwner() {
       return this.$store.state.currentRatingsOwner;
@@ -92,7 +86,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("getAllRatings", this.userId);
+    this.$store.dispatch("getAllRatings");
   },
 };
 </script>

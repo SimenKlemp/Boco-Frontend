@@ -94,6 +94,7 @@ export default {
           this.$store.state.token
         );
         console.log(ratingResponse.status);
+        await this.$router.push({ name: "MyRentals" });
       }
     },
   },
