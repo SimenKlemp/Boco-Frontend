@@ -93,9 +93,11 @@ export default createStore({
     },
     SET_ITEM(state, item) {
       state.currentItem = item;
+
     },
     SET_RENTAL(state, rental) {
       state.currentRental = rental;
+      sessionStorage.setItem('rental', JSON.stringify(rental))
     },
     SET_FEEDBACKS(state, feedbacks) {
       state.feedbacks = feedbacks;
@@ -143,6 +145,20 @@ export default createStore({
         console.log(userData);
       }
     },
+    RESTORE_ITEM(state){
+      const itemString = sessionStorage.getItem("item");
+      if(itemString){
+       const itemData =  state.currentItem = JSON.parse(itemString)
+        console.log(itemData + "test")
+      }
+    },
+    RESTORE_RENTAL(state){
+      const rentalString = sessionStorage.getItem("rental");
+      if(rentalString){
+        const rentalData = this.state.currentRental = JSON.parse(rentalString)
+        console.log(rentalString + "rentalinfo")
+      }
+    },
     SET_MEAN_RATING(state, meanRating) {
       state.meanRating = meanRating;
     },
@@ -178,6 +194,7 @@ export default createStore({
     },
     setItem({ commit }, item) {
       commit("SET_ITEM", item);
+      sessionStorage.setItem('item', JSON.stringify(item))
     },
     logoutStore({ commit }) {
       commit("CLEAR_LOCALSTORAGE");
