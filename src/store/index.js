@@ -12,7 +12,8 @@ import {
   getMyItems,
   getMyNotifications,
   getMyRentals,
-  getMyRentalsOwner, getOccupiedDates,
+  getMyRentalsOwner,
+  getOccupiedDates,
   getUsers,
   search,
   updateItem,
@@ -77,7 +78,7 @@ export default createStore({
     },
     GET_OCCUPIED_DATES() {
       return state.occupiedDates;
-    }
+    },
   },
   mutations: {
     RESET_STATE(state) {
@@ -97,11 +98,10 @@ export default createStore({
     },
     SET_ITEM(state, item) {
       state.currentItem = item;
-
     },
     SET_RENTAL(state, rental) {
       state.currentRental = rental;
-      sessionStorage.setItem('rental', JSON.stringify(rental))
+      sessionStorage.setItem("rental", JSON.stringify(rental));
     },
     SET_FEEDBACKS(state, feedbacks) {
       state.feedbacks = feedbacks;
@@ -152,18 +152,16 @@ export default createStore({
         console.log(userData);
       }
     },
-    RESTORE_ITEM(state){
+    RESTORE_ITEM(state) {
       const itemString = sessionStorage.getItem("item");
-      if(itemString){
-       const itemData =  state.currentItem = JSON.parse(itemString)
-        console.log(itemData + "test")
+      if (itemString) {
+        state.currentItem = JSON.parse(itemString);
       }
     },
-    RESTORE_RENTAL(state){
+    RESTORE_RENTAL() {
       const rentalString = sessionStorage.getItem("rental");
-      if(rentalString){
-        const rentalData = this.state.currentRental = JSON.parse(rentalString)
-        console.log(rentalString + "rentalinfo")
+      if (rentalString) {
+        this.state.currentRental = JSON.parse(rentalString);
       }
     },
     SET_MEAN_RATING(state, meanRating) {
@@ -201,7 +199,7 @@ export default createStore({
     },
     setItem({ commit }, item) {
       commit("SET_ITEM", item);
-      sessionStorage.setItem('item', JSON.stringify(item))
+      sessionStorage.setItem("item", JSON.stringify(item));
     },
     logoutStore({ commit }) {
       commit("CLEAR_LOCALSTORAGE");
@@ -260,10 +258,10 @@ export default createStore({
     },
     async fetchOccupied({ commit }) {
       let dates = await getOccupiedDates(
-          this.state.currentItem.itemId,
-          this.state.token
+        this.state.currentItem.itemId,
+        this.state.token
       );
-      if(dates.status === 200){
+      if (dates.status === 200) {
         commit("SET_DATES", dates.data);
       }
     },
