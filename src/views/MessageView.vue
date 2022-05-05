@@ -35,15 +35,11 @@
           </svg>
         </div>
         <div id="nameAndStatusContainer">
-        <h2>{{ name }}</h2>
+          <h2>{{ name }}</h2>
           <StatusSystemMessage :rental="this.currentRental">
           </StatusSystemMessage>
         </div>
       </div>
-    </div>
-    <div id="statusContainer">
-      <StatusSystemMessage :rental="this.currentRental">
-      </StatusSystemMessage>
     </div>
     <div class="chatContainer">
       <RequestSystemMessage
@@ -272,7 +268,7 @@ button {
 .buttonContainer {
   padding: 0.5rem;
 }
-#nameAndStatusContainer{
+#nameAndStatusContainer {
   margin-left: 10px;
 }
 </style>
