@@ -4,14 +4,16 @@
     <ItemCardHorizontal :item="item" />
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
-      <Datepicker
-        v-model="dates"
-        range
-        locale="no"
-        :enableTimePicker="false"
-        selectText="Velg"
-        cancelText="Lukk"
-      ></Datepicker>
+      <Datepicker id="datepicker" class="dp" v-model="date" range
+                  locale="no"
+                  :enableTimePicker="false"
+                  selectText="Velg"
+                  cancelText="Lukk"
+                  :disabledDates="disabledDates"
+                  :minDate="getToday"
+                  style="--dp-primary-color: var(--indigo) !important; --dp-success-color-color: var(--indigo) !important;"
+      >
+      </Datepicker>
       <h2 id="deliverTitle">Leveringsalternativer</h2>
       <div id="radioContainer">
         <BaseRadioGroup
@@ -68,7 +70,10 @@ import BaseRadioGroup from "@/components/baseTools/BaseRadioGroup";
 import useVuelidate from "@vuelidate/core";
 import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import { helpers, required } from "@vuelidate/validators";
-import { ref, onMounted } from "vue";
+import {ref, onMounted, computed} from "vue";
+import { useStore } from 'vuex';
+import {getOccupiedDates} from "@/service/apiService";
+import DatepickerComponent from "@/components/baseTools/DatepickerComponent";
 
 export default {
   name: "RequestComponent",
@@ -80,17 +85,31 @@ export default {
     BaseErrorMessage,
   },
   setup() {
+    const store = useStore();
     const date = ref();
+
+    //const disabledDates = this.$store.getters.GET_OCCUPIED_DATES;
+    const disabledDates = computed(() => {
+      console.log(store.state.occupiedDates)
+      const disabledDatesArray = store.state.occupiedDates;
+      /*for (let i = 0; i < disabledDates; i++) {
+        let disabledDate = Date.from(i.atStartOfDay(defaultZoneId).toInstant());
+      }*/
+
+
+      return disabledDatesArray;
+    })
 
     // For demo purposes assign range from the current date
     onMounted(() => {
       const startDate = new Date();
-      const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
+      const endDate = new Date(new Date().setDate(startDate.getDate() + 2));
       date.value = [startDate, endDate];
     });
 
     return {
       date,
+      disabledDates,
       v$: useVuelidate(),
     };
   },
@@ -135,6 +154,10 @@ export default {
         return false;
       }
     },
+    getToday() {
+      let today = new Date();
+      return today;
+    }
   },
   methods: {
     async submit() {
@@ -159,6 +182,9 @@ export default {
         alert("Alle felter må være fylt inn");
       }
     },
+  },
+  mounted() {
+    this.$store.dispatch("fetchOccupied");
   },
 };
 </script>

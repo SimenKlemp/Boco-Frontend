@@ -12,7 +12,7 @@ import {
   getMyItems,
   getMyNotifications,
   getMyRentals,
-  getMyRentalsOwner,
+  getMyRentalsOwner, getOccupiedDates,
   getUsers,
   search,
   updateItem,
@@ -40,6 +40,7 @@ const getDefaultState = () => {
     meanRating: null,
     currentRentalsOwnerActive: [],
     currentRentalsOwnerFinished: [],
+    occupiedDates: [],
   };
 };
 const state = getDefaultState();
@@ -74,6 +75,9 @@ export default createStore({
     GET_LAT() {
       return state.currentItem.lat;
     },
+    GET_OCCUPIED_DATES() {
+      return state.occupiedDates;
+    }
   },
   mutations: {
     RESET_STATE(state) {
@@ -123,6 +127,9 @@ export default createStore({
     },
     SET_USERS(state, users) {
       state.users = users;
+    },
+    SET_DATES(state, dates) {
+      state.occupiedDates = dates;
     },
     SET_CURRENT_SEARCH_SENTENCE(state, searchSentence) {
       state.currentSearchSentence = searchSentence;
@@ -233,6 +240,13 @@ export default createStore({
         notifications.reverse();
       }
       commit("SET_MY_NOTIFICATIONS", notifications);
+    },
+    async fetchOccupied({ commit }) {
+      let dates = await getOccupiedDates(
+          this.state.currentItem.itemId,
+          this.state.token
+      );
+      commit("SET_DATES", dates);
     },
     async updateItem({ commit }, item) {
       let response = await updateItem(
