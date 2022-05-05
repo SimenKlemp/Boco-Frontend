@@ -67,7 +67,7 @@ export default {
 <style scoped>
 .container {
   max-width: 17.5rem;
-  max-height: 19rem;
+  height: 19rem;
 }
 .notificationsContainer {
   height: 80%;
@@ -78,5 +78,6 @@ export default {
   z-index: 100;
   top: 70px;
   right: -140px;
+  background-color: transparent;
 }
 </style>
