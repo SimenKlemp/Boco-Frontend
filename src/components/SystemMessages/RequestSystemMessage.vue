@@ -7,8 +7,7 @@
         <div
           @click.stop="acceptRequest(rental.rentalId)"
           id="acceptButton"
-          class="button"
-        >
+          class="button">
           Godkjenn
         </div>
         <div @click.stop="acceptRequest(rental.rentalId)" class="button">

@@ -1,10 +1,8 @@
 <template>
   <div class="systemMessageContainer" id="statusMessageContainer">
     <div id="statusMessage">
-      {{ rental.item.user.name }} har {{ status }}:
-      <strong> {{ rental.item.title }}</strong>
       <div class="statusContainer">
-        Status:
+        Leieforholdet med <strong> {{ rental.item.user.name }}</strong> har Status:
         <svg
           v-if="status === 'Aktiv'"
           class="statusIcon"
@@ -188,7 +186,7 @@ export default {
 .statusContainer {
   font-size: 18px;
   text-align: left;
-  margin-top: 10px;
+
 }
 .statusContainer svg {
   margin-bottom: -5px;
