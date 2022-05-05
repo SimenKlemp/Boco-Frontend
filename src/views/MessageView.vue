@@ -52,8 +52,8 @@
         <StatusSystemMessage :rental="this.currentRental">
         </StatusSystemMessage>
       </div>
-      <div class="ratingContainer" v-if="isFinished && isSent">
-        <RatingSystemMessage :name="name"> </RatingSystemMessage>
+      <div class="ratingContainer" >
+        <RatingSystemMessage :name="name" v-if="giveRating && isFinished"> </RatingSystemMessage>
       </div>
     </div>
     <div class="sendMessageContainer">
@@ -96,6 +96,7 @@
         </div>
       </form>
     </div>
+
   </div>
 </template>
 
@@ -115,6 +116,7 @@ export default {
       currentMessage: "",
       messages: [],
       requestMessage: true,
+      giveRating: false,
     };
   },
   components: {
@@ -145,6 +147,7 @@ export default {
       await send(messageRequest);
       this.currentMessage = "";
     },
+
   },
   computed: {
     isMyItem() {
@@ -182,15 +185,9 @@ export default {
     },
     async isSent() {
       console.log(this.$store.state.token);
-      let response = await getSent(
-        this.$store.state.currentRental.rentalId,
-        this.$store.state.userInfo.userId,
-        this.$store.state.token
-      );
-      console.log(response.status + "auhdauhdshauadshuadhuhu");
 
-      return response.status === 204;
     },
+
   },
   async mounted() {
     await connect(this.currentRentalId, (message) => {
@@ -201,6 +198,15 @@ export default {
       this.messages.push(chat.messages[i]);
     }
     this.$store.dispatch("setItem", this.currentRental.item);
+    let response = await getSent(
+        this.$store.state.currentRental.rentalId,
+        this.$store.state.userInfo.userId,
+        this.$store.state.token
+    );
+    console.log(response.status);
+    console.log(response.status === 204)
+    this.giveRating = response.status === 204;
+    console.log(this.giveRating)
   },
 };
 </script>
