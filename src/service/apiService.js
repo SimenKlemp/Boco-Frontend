@@ -2,7 +2,7 @@ import axios from "axios";
 import SockJS from "sockjs-client";
 import Stomp from "webstomp-client";
 
-let host = "localhost";
+let host = "10.22.0.96";
 /*
     //Import these
     import SockJS from "sockjs-client";
@@ -404,7 +404,7 @@ export function search(searchRequest) {
 
 export function getAllRatingsUser(userId, token) {
   return axios
-    .get("http://localhost:8085/api/rating/get-my-user/" + userId, {
+    .get("http://" + host + ":8085/api/rating/get-my-user/" + userId, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -416,7 +416,7 @@ export function getAllRatingsUser(userId, token) {
 
 export function getAllRatingsOwner(userId, token) {
   return axios
-    .get("http://localhost:8085/api/rating/get-my-owner/" + userId, {
+    .get("http://" + host + ":8085/api/rating/get-my-owner/" + userId, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -427,7 +427,7 @@ export function getAllRatingsOwner(userId, token) {
 }
 export function getMeanRating(userId) {
   return axios
-    .get("http://localhost:8085/api/rating/getMeanRating/" + userId)
+    .get("http://" + host + ":8085/api/rating/getMeanRating/" + userId)
     .then((response) => {
       return response.data;
     });
@@ -435,11 +435,14 @@ export function getMeanRating(userId) {
 
 export function getSent(rentalId, userId, token) {
   return axios
-    .get("http://localhost:8085/api/rating/get-sent/" + userId + "/" + rentalId, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
+    .get(
+      "http://" + host + ":8085/api/rating/get-sent/" + userId + "/" + rentalId,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
     .then((response) => {
       return response;
     });

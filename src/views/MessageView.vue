@@ -34,6 +34,10 @@
         <header>{{ name }}</header>
       </div>
     </div>
+    <div id="statusContainer">
+      <StatusSystemMessage :rental="this.currentRental">
+      </StatusSystemMessage>
+    </div>
     <div class="chatContainer">
       <RequestSystemMessage
         @requestAction="updateRequestMessage"
@@ -48,10 +52,6 @@
         :imageId="imageId"
         :message="message.text"
       ></MessageBox>
-      <div id="statusContainer">
-        <StatusSystemMessage :rental="this.currentRental">
-        </StatusSystemMessage>
-      </div>
       <div class="ratingContainer">
         <RatingSystemMessage :name="name" v-if="giveRating && isFinished">
         </RatingSystemMessage>
@@ -266,6 +266,7 @@ button {
   padding: 0.5rem;
 }
 #statusContainer {
+  background: #e5ecf1;
   display: flex;
   justify-content: right;
 }
