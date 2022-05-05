@@ -48,7 +48,7 @@
         <StatusSystemMessage :rental="this.currentRental">
         </StatusSystemMessage>
       </div>
-      <div class="ratingContainer" v-if="isFinished && isSent" >
+      <div class="ratingContainer" v-if="isFinished && isSent">
         <RatingSystemMessage :name="name"> </RatingSystemMessage>
       </div>
     </div>
@@ -98,7 +98,7 @@
 <script>
 import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
 import MessageBox from "@/components/MessageBox";
-import {connect, getChat, getSent, send} from "@/service/apiService";
+import { connect, getChat, getSent, send } from "@/service/apiService";
 import RatingSystemMessage from "@/components/SystemMessages/RatingSystemMessage";
 import RequestSystemMessage from "@/components/SystemMessages/RequestSystemMessage";
 import StatusSystemMessage from "@/components/SystemMessages/StatusSystemMessage";
@@ -110,6 +110,7 @@ export default {
       connection: null,
       currentMessage: "",
       messages: [],
+      statusCode: undefined,
     };
   },
   components: {
@@ -168,17 +169,13 @@ export default {
     isFinished() {
       return this.$store.state.currentRental.status === "FINISHED";
     },
-    async isSent(){
-      console.log(this.$store.state.token)
-      let response = await getSent(
-          this.$store.state.currentRental.rentalId,
-          this.$store.state.userInfo.userId,
-          this.$store.state.token,
-      );
-      console.log(response.status + "auhdauhdshauadshuadhuhu")
-
-      return response.status === 204;
-    }
+    isSent() {
+      if (this.statusCode === 204) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   async mounted() {
     await connect(this.currentRentalId, (message) => {
@@ -189,6 +186,12 @@ export default {
       this.messages.push(chat.messages[i]);
     }
     this.$store.dispatch("setItem", this.currentRental.item);
+    let response = await getSent(
+      this.$store.state.currentRental.rentalId,
+      this.$store.state.userInfo.userId,
+      this.$store.state.token
+    );
+    this.statusCode = response.status;
   },
 };
 </script>
@@ -253,7 +256,7 @@ button {
 .buttonContainer {
   padding: 0.5rem;
 }
-#statusContainer{
+#statusContainer {
   display: flex;
   justify-content: right;
 }

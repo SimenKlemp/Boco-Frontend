@@ -296,9 +296,7 @@ export default createStore({
       commit("SET_CURRENT_RATINGS_USER", ratings);
     },
     async storeMeanRating({ commit }) {
-      let meanRating = await getMeanRating(
-        this.state.userInfo.userId
-      );
+      let meanRating = await getMeanRating(this.state.userInfo.userId);
       commit("SET_MEAN_RATING", meanRating);
     },
   },

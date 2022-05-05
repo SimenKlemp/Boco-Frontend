@@ -37,7 +37,8 @@ export default {
     rentalRate() {
       let response = getSent(
         this.$store.state.currentRental(),
-        this.$store.userInfo.userId
+        this.$store.userInfo.userId,
+        this.$store.state.token
       );
       if (response.status !== 204) {
         this.$router.push("giveRating");

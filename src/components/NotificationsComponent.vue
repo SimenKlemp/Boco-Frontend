@@ -27,6 +27,7 @@ export default {
   },
   methods: {
     goToRoute(notification) {
+      this.$store.dispatch("storeMeanRating");
       if (notification.pressed === false) {
         changeNotification(
           notification.notificationId,
