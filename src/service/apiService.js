@@ -348,7 +348,7 @@ export async function getOccupiedDates(itemId, token) {
             },
         })
         .then((response) => {
-            return response.data;
+            return response;
         });
 }
 export function changeNotification(notificationId, token) {
@@ -446,7 +446,7 @@ export function getMeanRating(userId) {
 
 export function getSent(rentalId, userId, token) {
   return axios
-    .get("http://localhost:8085/api/get-sent/" + userId + "/" + rentalId, {
+    .get("http://localhost:8085/api/rating/get-sent/" + userId + "/" + rentalId, {
       headers: {
         Authorization: "Bearer " + token,
       },

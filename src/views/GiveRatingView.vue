@@ -42,17 +42,21 @@
         <label>Skriv en vurdering</label>
         <textarea
           placeholder="Skriv hva du synes om leieforholdet her"
-          v-model="description"
+          v-model="state.description"
         ></textarea>
-        <BaseErrorMessage v-if="v$.description.$error">{{
-          v$.$errors[2].$message
-        }}</BaseErrorMessage>
+        <span v-if="v$.description.$error" class="errorMessage">
+          {{ v$.description.$errors[0].$message }}
+        </span>
       </div>
       <star-rating
-        v-model:rating="rating"
+        v-model:rating="state.rating"
         :increment="0.5"
         active-color="#FB8500"
+        :show-rating="false"
       />
+      <span v-if="v$.rating.$error" class="errorMessage">
+        {{ v$.rating.$errors[0].$message }}
+      </span>
       <BaseButton @click="submit" text="Gi vurdering " />
     </form>
   </div>
@@ -61,17 +65,16 @@
 <script>
 import StarRating from "vue-star-rating";
 import BaseButton from "@/components/baseTools/BaseButton";
-import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
 import { doRating } from "@/service/apiService";
-import useVuelidate from "@vuelidate/core";
-import { helpers, required } from "@vuelidate/validators";
+import { required } from "@vuelidate/validators";
+import { computed, reactive } from "vue";
+import useValidate from "@vuelidate/core";
 export default {
   name: "GiveRatingView",
 
   components: {
     StarRating,
     BaseButton,
-    BaseErrorMessage,
   },
   methods: {
     async submit() {
@@ -80,14 +83,11 @@ export default {
       // eslint-disable-next-line no-empty
       if (!this.v$.$error) {
         const ratingRequest = {
-          feedback: this.description,
-          rate: this.rating,
+          feedback: this.state.description,
+          rate: this.state.rating,
           userId: this.$store.state.userInfo.userId,
           rentalId: this.rental.rentalId,
         };
-
-        console.log(this.description);
-        console.log(this.$store.state.userInfo.userId);
 
         let ratingResponse = await doRating(
           ratingRequest,
@@ -95,6 +95,8 @@ export default {
         );
         console.log(ratingResponse.status);
         await this.$router.push({ name: "MyRentals" });
+      } else {
+        alert("Du må fylle inn alle felter!");
       }
     },
   },
@@ -109,23 +111,23 @@ export default {
       return this.rental.item.user.userId === this.$store.state.userInfo.userId;
     },
   },
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       rating: 0,
       description: "",
-    };
-  },
-  setup() {
-    return {
-      v$: useVuelidate(),
-    };
-  },
-  validations() {
-    return {
-      description: {
-        required: helpers.withMessage("En vurdering er påkrevd", required),
-      },
-    };
+    });
+    const rules = computed(() => {
+      return {
+        rating: {
+          required,
+        },
+        description: {
+          required,
+        },
+      };
+    });
+    const v$ = useValidate(rules, state);
+    return { state, v$ };
   },
 };
 </script>
@@ -169,5 +171,10 @@ button {
   border-radius: 50%;
   width: 9rem;
   height: 9rem;
+}
+.errorMessage {
+  color: tomato;
+  margin-top: 5px;
+  text-align: center;
 }
 </style>

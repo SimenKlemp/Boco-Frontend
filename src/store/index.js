@@ -246,7 +246,9 @@ export default createStore({
           this.state.currentItem.itemId,
           this.state.token
       );
-      commit("SET_DATES", dates);
+      if(dates.status === 200){
+        commit("SET_DATES", dates.data);
+      }
     },
     async updateItem({ commit }, item) {
       let response = await updateItem(

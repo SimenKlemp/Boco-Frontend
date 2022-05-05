@@ -45,7 +45,6 @@
           </div>
           <div @click="emitRouteChange('MyRentals')">Chat</div>
         </div>
-        <div @click="emitRouteChange('giveRating')">gi vurdering</div>
         <div
           v-if="this.$store.state.userInfo.role === 'ADMIN'"
           @click="emitRouteChange('UserView')"
@@ -95,8 +94,8 @@ export default {
       this.$router.push({ name: to });
       this.$emit("routeChange");
     },
-    logout() {
-      this.$router.push({ name: "HomeView" });
+    async logout() {
+      await this.$router.push({ name: "HomeView" });
       this.$store.dispatch("resetState");
       this.$store.dispatch("logoutStore");
     },

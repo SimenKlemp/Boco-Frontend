@@ -7,10 +7,11 @@
         <div
           @click.stop="acceptRequest(rental.rentalId)"
           id="acceptButton"
-          class="button">
+          class="button"
+        >
           Godkjenn
         </div>
-        <div @click.stop="acceptRequest(rental.rentalId)" class="button">
+        <div @click.stop="rejectRequest(rental.rentalId)" class="button">
           Avvis
         </div>
       </div>
@@ -66,9 +67,6 @@ export default {
 }
 #acceptButton {
   background: #389b3f;
-}
-#cancelButton {
-  margin: 0 auto;
 }
 .buttonContainer {
   display: flex;

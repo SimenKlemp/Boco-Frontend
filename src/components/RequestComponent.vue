@@ -4,35 +4,41 @@
     <ItemCardHorizontal :item="item" />
     <form @submit.prevent="submit">
       <h2>Tidsperiode</h2>
-      <Datepicker id="datepicker" class="dp" v-model="date" range
-                  locale="no"
-                  :enableTimePicker="false"
-                  selectText="Velg"
-                  cancelText="Lukk"
-                  :disabledDates="disabledDates"
-                  :minDate="getToday"
-                  style="--dp-primary-color: var(--indigo) !important; --dp-success-color-color: var(--indigo) !important;"
-      >
-      </Datepicker>
+      <Datepicker
+        v-model="state.dates"
+        range
+        locale="no"
+        :enableTimePicker="false"
+        selectText="Velg"
+        cancelText="Lukk"
+        :disabledDates="disabledDates"
+        :minDate="getToday"
+      ></Datepicker>
+      <span v-if="v$.dates.$error" class="errorMessage">
+        {{ v$.dates.$errors[0].$message }}
+      </span>
       <h2 id="deliverTitle">Leveringsalternativer</h2>
       <div id="radioContainer">
         <BaseRadioGroup
-          v-model="deliveryOption"
+          v-model="state.deliveryOption"
           name="deliveryOption"
-          :options="deliveryOptions"
+          :options="state.deliveryOptions"
         />
       </div>
+      <span v-if="v$.deliveryOption.$error" class="errorMessage">
+        {{ v$.deliveryOption.$errors[0].$message }}
+      </span>
       <h2>Melding til utleier</h2>
       <textarea
         id="message"
         class="mb-4"
         type="message"
-        v-model="message"
+        v-model="state.message"
         placeholder="Melding til utleier..."
       ></textarea>
-      <BaseErrorMessage v-if="v$.message.$error">{{
-        v$.$errors[0].$message
-      }}</BaseErrorMessage>
+      <span v-if="v$.message.$error" class="errorMessage">
+        {{ v$.message.$errors[0].$message }}
+      </span>
       <div id="descriptionInfo">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -67,13 +73,10 @@ import ItemCardHorizontal from "@/components/itemCards/ItemCardHorizontal";
 import Datepicker from "@/components/baseTools/DatepickerComponent";
 import BaseButton from "@/components/baseTools/BaseButton";
 import BaseRadioGroup from "@/components/baseTools/BaseRadioGroup";
-import useVuelidate from "@vuelidate/core";
-import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
-import { helpers, required } from "@vuelidate/validators";
-import {ref, onMounted, computed} from "vue";
-import { useStore } from 'vuex';
-import {getOccupiedDates} from "@/service/apiService";
-import DatepickerComponent from "@/components/baseTools/DatepickerComponent";
+import { required } from "@vuelidate/validators";
+import { ref, onMounted, reactive, computed } from "vue";
+import useValidate from "@vuelidate/core";
+import { useStore } from "vuex";
 
 export default {
   name: "RequestComponent",
@@ -82,11 +85,10 @@ export default {
     BaseRadioGroup,
     Datepicker,
     ItemCardHorizontal,
-    BaseErrorMessage,
   },
   setup() {
-    const store = useStore();
     const date = ref();
+    const store = useStore();
 
     //const disabledDates = this.$store.getters.GET_OCCUPIED_DATES;
     const disabledDates = computed(() => {
@@ -106,42 +108,38 @@ export default {
       const endDate = new Date(new Date().setDate(startDate.getDate() + 2));
       date.value = [startDate, endDate];
     });
-
-    return {
-      date,
-      disabledDates,
-      v$: useVuelidate(),
-    };
-  },
-  data() {
-    return {
+    const state = reactive({
       message: "",
-      // eslint-disable-next-line vue/no-dupe-keys
       dates: "",
       deliveryOption: undefined,
       deliveryOptions: [
         {
           label: "Hjemmelevering",
           value: "DELIVERED",
-          status: !this.$store.state.currentItem.isDeliverable,
+          status: !store.state.currentItem.isDeliverable,
         },
         {
           label: "Hente",
           value: "PICKUP",
-          status: !this.$store.state.currentItem.isPickupable,
+          status: !store.state.currentItem.isPickupable,
         },
       ],
-    };
-  },
-  validations() {
-    return {
-      message: {
-        required: helpers.withMessage(
-          "Melding til utleier er påkrevd",
-          required
-        ),
-      },
-    };
+    });
+    const rules = computed(() => {
+      return {
+        message: {
+          required,
+        },
+        dates: {
+          required,
+        },
+        deliveryOption: {
+          required,
+        },
+      };
+    });
+    const v$ = useValidate(rules, state);
+    return { date, state, v$, disabledDates};
   },
   computed: {
     item() {
@@ -164,13 +162,12 @@ export default {
       this.v$.$validate();
       console.log(this.v$);
       if (!this.v$.$error) {
-        console.log(this.dates[1]);
         const reqisterRentalRequest = {
-          deliveryInfo: this.deliveryOption,
-          endDate: this.dates[1],
+          deliveryInfo: this.state.deliveryOption,
+          endDate: this.state.dates[1],
           itemId: this.$store.state.currentItem.itemId,
-          message: this.message,
-          startDate: this.dates[0],
+          message: this.state.message,
+          startDate: this.state.dates[0],
           userId: this.$store.state.userInfo.userId,
         };
 
@@ -223,5 +220,10 @@ textarea {
 }
 #descriptionInfo svg {
   margin-right: 10px;
+}
+.errorMessage {
+  color: tomato;
+  margin-top: 5px;
+  text-align: center;
 }
 </style>

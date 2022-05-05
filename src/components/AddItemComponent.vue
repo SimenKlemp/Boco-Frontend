@@ -3,89 +3,113 @@
     <form @submit.prevent="submit">
       <h1 v-if="newAd === true">Opprett annonse:</h1>
       <h1 v-else>Rediger annonse:</h1>
-      <!--TODO: fix validation on add item form (crashes)-->
-
       <BaseInput
         id="title"
         class="mb-4"
         type="title"
-        v-model="title"
+        v-model="state.title"
         placeholder="Tittel på annonse"
       />
-      <BaseErrorMessage v-if="v$.title.$error">{{
-        v$.$errors[0].$message
-      }}</BaseErrorMessage>
+      <span v-if="v$.title.$error" class="errorMessage">
+        {{ v$.title.$errors[0].$message }}
+      </span>
       <div id="categoeyAlternativesContainer">
         <h4 id="categoryTitle">velg kategori:</h4>
         <div id="inputCategoryContainer">
           <Multiselect
             id="multiSelect"
-            v-model="category"
-            :options="categoryOptions"
+            v-model="state.category"
+            :options="state.categoryOptions"
           ></Multiselect>
         </div>
+        <span v-if="v$.category.$error" class="errorMessage">
+          {{ v$.category.$errors[0].$message }}
+        </span>
       </div>
       <textarea
         id="description"
         class="mb-4"
         type="description"
-        v-model="description"
+        v-model="state.description"
         placeholder="Beskrivelse av produkt/gjenstand..."
       ></textarea>
-      <BaseErrorMessage v-if="v$.description.$error"
-        >{{ v$.$errors[2].$message }}
-      </BaseErrorMessage>
+      <span v-if="v$.description.$error" class="errorMessage">
+        {{ v$.description.$errors[0].$message }}
+      </span>
       <div class="images">
+        <h4 id="imageTitle">velg bilde:</h4>
         <input type="file" accept="image/*" ref="file" @change="selectImage" />
         <img
-          v-if="previewImage"
+          v-if="state.previewImage"
           class="actualProfileImage"
-          :src="previewImage"
+          :src="state.previewImage"
           alt=""
         />
       </div>
       <div id="info">
         <AddressComponent
-          v-model:address="address"
-          v-model:postalcode="postalcode"
-          v-model:city="city"
-        />
+          v-model:address="state.address"
+          v-model:postalcode="state.postalcode"
+          v-model:city="state.city"
+        /><span
+          v-if="v$.address.$error || v$.postalcode.$error || v$.city.$error"
+          class="errorMessage"
+        >
+          {{ v$.address.$errors[0].$message }}
+        </span>
         <div id="deliverContainer">
           <h2 id="deliverTitle">Leveringsalternativer</h2>
           <div class="checkboxContainer">
-            <BaseCheckbox v-model="isPickupable" label="Kan hentes" />
+            <BaseCheckbox
+              v-model="state.isPickupable"
+              label="Kan hentes"
+              @click="updateIsPicked('Pickupable')"
+            />
           </div>
-
           <div>
-            <BaseCheckbox v-model="isDeliverable" label="Kan leveres" />
+            <BaseCheckbox
+              v-model="state.isDeliverable"
+              label="Kan leveres"
+              @click="updateIsPicked('Deliverable')"
+            />
           </div>
+          <span v-if="v$.isPicked.$error" class="errorMessage">
+            {{ v$.isPicked.$errors[0].$message }}
+          </span>
         </div>
 
         <h2>Pris</h2>
 
-        <div class="priceContainer" v-if="!isFree">
-          <label :for="price" class="h3">Pris per dag</label>
+        <div class="priceContainer" v-if="!state.isFree">
+          <label :for="state.price" class="h3">Pris per dag</label>
           <BaseInput
             id="price"
             class="mb-4"
             type="price"
-            v-model="price"
+            v-model="state.price"
             placeholder="Pris per dag"
           />
+          <span v-if="v$.price.$error" class="errorMessage">
+            {{ v$.price.$errors[0].$message }}
+          </span>
         </div>
-        <BaseCheckbox v-model="isFree" label="Gratis" />
+        <BaseCheckbox
+          v-model="state.isFree"
+          label="Gratis"
+          @click="setPriceZero"
+        />
       </div>
 
       <BaseButton
         v-if="newAd === true"
-        @click.prevent="submit"
+        @click.prevent="submit('Register')"
         id="publish"
         text="Publiser"
         :disabled="isError"
       />
       <div v-else>
         <BaseButton
-          @click="saveItem"
+          @click.prevent="submit('Edit')"
           id="save"
           text="Lagre endringer"
           :disabled="isError"
@@ -104,13 +128,14 @@
 <script>
 import BaseInput from "./baseTools/BaseInput.vue";
 import BaseButton from "@/components/baseTools/BaseButton";
-import BaseErrorMessage from "@/components/baseTools/BaseErrorMessage";
-import useVuelidate from "@vuelidate/core";
-import { helpers, required } from "@vuelidate/validators";
+import { required } from "@vuelidate/validators";
 import BaseCheckbox from "@/components/baseTools/BaseCheckbox";
 import UploadService from "@/service/apiService";
 import AddressComponent from "@/components/AddressComponent";
 import Multiselect from "@vueform/multiselect";
+import { computed, reactive } from "vue";
+import { useStore } from "vuex";
+import useValidate from "@vuelidate/core";
 
 export default {
   name: "AddItemComponent",
@@ -119,30 +144,26 @@ export default {
     BaseCheckbox,
     BaseButton,
     BaseInput,
-    BaseErrorMessage,
     Multiselect,
   },
   setup() {
-    return {
-      v$: useVuelidate(),
-    };
-  },
-  data() {
-    return {
-      title: this.$store.state.currentItem.title,
-      category: this.$store.state.currentItem.category,
-      description: this.$store.state.currentItem.description,
-      address: this.$store.getters.GET_ADDRESS,
-      postalcode: this.$store.getters.GET_POSTALCODE,
-      city: this.$store.getters.GET_CITY,
-      price: this.$store.state.currentItem.price,
+    const store = useStore();
+    const state = reactive({
+      title: store.state.currentItem.title,
+      category: store.state.currentItem.category,
+      description: store.state.currentItem.description,
+      address: store.getters.GET_ADDRESS,
+      postalcode: store.getters.GET_POSTALCODE,
+      city: store.getters.GET_CITY,
+      price: store.state.currentItem.price,
       message: "",
       dates: null,
       currentImage: undefined,
       previewImage: undefined,
       currentImageId: undefined,
-      isDeliverable: this.$store.state.currentItem.isDeliverable,
-      isPickupable: this.$store.state.currentItem.isPickupable,
+      isPicked: "",
+      isDeliverable: store.state.currentItem.isDeliverable,
+      isPickupable: store.state.currentItem.isPickupable,
       categoryOptions: [
         "Verktøy",
         "Friluftsliv",
@@ -150,106 +171,84 @@ export default {
         "Sportsutstyr",
         "Husholding",
       ],
-      isFree: this.$store.getters.GET_PRICE,
-    };
-  },
-  validations() {
-    return {
-      title: {
-        required: helpers.withMessage("Tittel er påkrevd", required),
-      },
-      category: {
-        required: helpers.withMessage("Kategori er påkrevd", required),
-      },
-      description: {
-        required: helpers.withMessage(
-          "En beskrivelse av produktet er påkrevd",
-          required
-        ),
-      },
-      address: {
-        required: helpers.withMessage("Addresse er påkrevd", required),
-      },
-      postalcode: {
-        required: helpers.withMessage("Postkode er påkrevd", required),
-      },
-      city: {
-        required: helpers.withMessage("Poststed er påkrevd", required),
-      },
-    };
+      isFree: store.getters.GET_PRICE,
+    });
+    const rules = computed(() => {
+      return {
+        title: {
+          required,
+        },
+        category: {
+          required,
+        },
+        description: {
+          required,
+        },
+        address: {
+          required,
+        },
+        postalcode: {
+          required,
+        },
+        city: {
+          required,
+        },
+        price: {
+          required,
+        },
+        isPicked: {
+          required,
+        },
+      };
+    });
+    const v$ = useValidate(rules, state);
+    return { state, v$ };
   },
   methods: {
-    async submit() {
+    async submit(status) {
       this.v$.$validate();
       console.log(this.v$);
       // eslint-disable-next-line no-empty
       if (!this.v$.$error) {
-        if (this.currentImage !== undefined) {
-          await UploadService.upload(this.currentImage, this.$store.state.token)
+        if (this.state.currentImage !== undefined) {
+          await UploadService.upload(
+            this.state.currentImage,
+            this.$store.state.token
+          )
             .then((response) => {
               this.$store.dispatch("setCurrentImageId", response.data);
             })
             .catch((err) => {
-              this.progress = 0;
-              this.message = "Could not upload the image! " + err;
-              this.currentImage = undefined;
+              this.state.progress = 0;
+              this.state.message = "Could not upload the image! " + err;
+              this.state.currentImage = undefined;
             });
         }
-
-        if (this.isFree === true || this.price === undefined) {
-          this.price = 0;
+        if (this.state.isFree === true) {
+          this.state.price = 0;
         }
         const itemRequest = {
-          category: this.category,
-          description: this.description,
+          category: this.state.category,
+          description: this.state.description,
           imageId: this.$store.state.currentImageId,
-          isDeliverable: this.isDeliverable,
-          isPickupable: this.isPickupable,
-          postOffice: this.city,
-          postalCode: this.postalcode,
-          price: parseFloat(this.price),
-          streetAddress: this.address,
-          title: this.title,
+          isDeliverable: this.state.isDeliverable,
+          isPickupable: this.state.isPickupable,
+          postOffice: this.state.city,
+          postalCode: this.state.postalcode,
+          price: parseFloat(this.state.price),
+          streetAddress: this.state.address,
+          title: this.state.title,
           userId: this.$store.state.userInfo.userId,
         };
-        await this.$store.dispatch("registerItem", itemRequest);
-        await this.$router.push({ name: "ProductDetails" });
-        this.$emit("routeChange");
-      }
-    },
-    async saveItem() {
-      if (this.currentImage !== undefined) {
-        await UploadService.upload(this.currentImage, this.$store.state.token)
-          .then((response) => {
-            this.$store.dispatch("setCurrentImageId", response.data);
-          })
-          .catch((err) => {
-            this.progress = 0;
-            this.message = "Could not upload the image! " + err;
-            this.currentImage = undefined;
-          });
-      }
-
-      if (!this.v$.$error) {
-        if (this.isFree === true || this.price === undefined) {
-          this.price = 0;
+        if (status === "Register") {
+          await this.$store.dispatch("registerItem", itemRequest);
+        } else {
+          await this.$store.dispatch("updateItem", itemRequest);
         }
-        const itemUpdated = {
-          category: this.category,
-          description: this.description,
-          imageId: this.$store.state.currentImageId,
-          isPickupable: this.isPickupable,
-          isDeliverable: this.isDeliverable,
-          postOffice: this.city,
-          postalCode: this.postalcode,
-          price: parseFloat(this.price),
-          streetAddress: this.address,
-          title: this.title,
-          userId: this.$store.state.userInfo.userId,
-        };
-        await this.$store.dispatch("updateItem", itemUpdated);
         await this.$router.push({ name: "ProductDetails" });
         this.$emit("routeChange");
+      } else {
+        alert("Alle felter må være fylt ut!");
       }
     },
     async deleteItem() {
@@ -257,8 +256,32 @@ export default {
       await this.$router.push({ name: "MyAds" });
     },
     selectImage() {
-      this.currentImage = this.$refs.file.files.item(0);
-      this.previewImage = URL.createObjectURL(this.currentImage);
+      this.state.currentImage = this.$refs.file.files.item(0);
+      this.state.previewImage = URL.createObjectURL(this.state.currentImage);
+    },
+    setPriceZero() {
+      this.state.price = 0;
+    },
+    updateIsPicked(status) {
+      if (status === "Pickupable") {
+        if (this.state.isPickupable === false) {
+          this.state.isPicked = "Pressed";
+        } else if (
+          this.state.isPickupable === true &&
+          this.state.isDeliverable === false
+        ) {
+          this.state.isPicked = "";
+        }
+      } else if (status === "Deliverable") {
+        if (this.state.isDeliverable === false) {
+          this.state.isPicked = "Pressed";
+        } else if (
+          this.state.isDeliverable === true &&
+          this.state.isPickupable === false
+        ) {
+          this.state.isPicked = "";
+        }
+      }
     },
   },
   computed: {
@@ -272,6 +295,15 @@ export default {
         return false;
       }
     },
+  },
+  async mounted() {
+    if (this.state.isPickupable === true) {
+      this.state.isPicked = "Pressed";
+    } else if (this.state.isDeliverable === true) {
+      this.state.isPicked = "Pressed";
+    } else {
+      this.state.isPicked = "";
+    }
   },
 };
 </script>
@@ -325,5 +357,10 @@ form > * {
 }
 .priceContainer {
   display: inline;
+}
+.errorMessage {
+  color: tomato;
+  margin-top: 5px;
+  text-align: center;
 }
 </style>

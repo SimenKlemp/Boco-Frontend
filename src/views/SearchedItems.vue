@@ -398,14 +398,20 @@ p {
 #searchbarContainer {
   display: grid;
   grid-template-columns: 85% 15%;
-  height: 4rem;
+  height: 40px;
   border: 1px solid #707070;
   box-shadow: 0 0 3px;
   border-radius: 10px;
 }
+#searchbarContainer svg{
+  height: 35px;
+}
 .searchButton {
   border: none;
   background: transparent;
+}
+form{
+  padding:0;
 }
 .items {
   display: flex;
