@@ -173,38 +173,14 @@
             </div>
           </div>
           <div id="priceRatingContainer">
-            <div class="info">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="15.726"
-                height="15"
-                viewBox="0 0 15.726 15"
-              >
-                <g
-                  id="filled_star"
-                  data-name="filled star"
-                  transform="translate(0 0)"
-                >
-                  <path
-                    id="Path_1"
-                    data-name="Path 1"
-                    d="M19.9,966.153l1.781,5.342a.414.414,0,0,0,.394.285h5.688l-4.628,3.385a.414.414,0,0,0-.15.462l1.781,5.526-4.621-3.378a.414.414,0,0,0-.489,0l-4.621,3.378,1.781-5.526a.414.414,0,0,0-.15-.462l-4.628-3.385h5.688a.414.414,0,0,0,.394-.285l1.78-5.342Z"
-                    transform="translate(-12.04 -966.153)"
-                    fill="#fb8500"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </svg>
 
-              <!--TODO: add rating when this is in database-->
-              <p>3/5</p>
-            </div>
             <div class="info">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="13"
                 height="13"
                 viewBox="0 0 14 14"
+                id="priceicon"
               >
                 <g
                   id="noun-coin-3324289"
@@ -305,8 +281,9 @@ h4 {
   font-weight: 400;
 }
 h3 {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 400;
+  margin-top: 2px;
 }
 
 .itemCardContainer {
@@ -330,6 +307,7 @@ h3 {
 }
 .itemInfo {
   padding-left: 1rem;
+  margin-top:10px;
 }
 .imageContainer {
   border-radius: 15px 0 0 15px;
@@ -378,5 +356,9 @@ img {
 }
 #adImage {
   object-fit: cover;
+}
+#priceicon{
+  margin-right: 5px;
+  margin-top:2px;
 }
 </style>
