@@ -34,7 +34,11 @@
         <header>{{ name }}</header>
       </div>
     </div>
-    <RequestSystemMessage v-if="isAccepted && isMyItem" :rental="currentRental">
+    <RequestSystemMessage
+      @requestAction="updateRequestMessage"
+      v-if="showRequestMessage"
+      :rental="currentRental"
+    >
     </RequestSystemMessage>
     <div class="chatContainer">
       <MessageBox
@@ -110,6 +114,7 @@ export default {
       connection: null,
       currentMessage: "",
       messages: [],
+      requestMessage: true,
     };
   },
   components: {
@@ -120,6 +125,10 @@ export default {
     ItemCardHorizontal,
   },
   methods: {
+    updateRequestMessage(response) {
+      this.requestMessage = !this.requestMessage;
+      this.$store.dispatch("setRental", response);
+    },
     goToItem() {
       if (this.isMyItem) {
         this.$router.push({ name: "ProductDetails" });
@@ -162,8 +171,11 @@ export default {
     currentRentalId() {
       return this.currentRental.rentalId;
     },
-    isAccepted() {
+    isPending() {
       return this.$store.state.currentRental.status === "PENDING";
+    },
+    showRequestMessage() {
+      return this.isPending && this.isMyItem && this.requestMessage;
     },
     isFinished() {
       return this.$store.state.currentRental.status === "FINISHED";
