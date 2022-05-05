@@ -11,6 +11,8 @@
         :enableTimePicker="false"
         selectText="Velg"
         cancelText="Lukk"
+        :disabledDates="disabledDates"
+        :minDate="getToday"
       ></Datepicker>
       <span v-if="v$.dates.$error" class="errorMessage">
         {{ v$.dates.$errors[0].$message }}
@@ -88,10 +90,22 @@ export default {
     const date = ref();
     const store = useStore();
 
+    //const disabledDates = this.$store.getters.GET_OCCUPIED_DATES;
+    const disabledDates = computed(() => {
+      console.log(store.state.occupiedDates)
+      const disabledDatesArray = store.state.occupiedDates;
+      /*for (let i = 0; i < disabledDates; i++) {
+        let disabledDate = Date.from(i.atStartOfDay(defaultZoneId).toInstant());
+      }*/
+
+
+      return disabledDatesArray;
+    })
+
     // For demo purposes assign range from the current date
     onMounted(() => {
       const startDate = new Date();
-      const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
+      const endDate = new Date(new Date().setDate(startDate.getDate() + 2));
       date.value = [startDate, endDate];
     });
     const state = reactive({
@@ -125,7 +139,7 @@ export default {
       };
     });
     const v$ = useValidate(rules, state);
-    return { date, state, v$ };
+    return { date, state, v$, disabledDates};
   },
   computed: {
     item() {
@@ -138,6 +152,10 @@ export default {
         return false;
       }
     },
+    getToday() {
+      let today = new Date();
+      return today;
+    }
   },
   methods: {
     async submit() {
@@ -161,6 +179,9 @@ export default {
         alert("Alle felter må være fylt inn");
       }
     },
+  },
+  mounted() {
+    this.$store.dispatch("fetchOccupied");
   },
 };
 </script>

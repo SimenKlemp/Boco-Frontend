@@ -12,7 +12,7 @@ import {
   getMyItems,
   getMyNotifications,
   getMyRentals,
-  getMyRentalsOwner,
+  getMyRentalsOwner, getOccupiedDates,
   getUsers,
   search,
   updateItem,
@@ -40,6 +40,7 @@ const getDefaultState = () => {
     meanRating: null,
     currentRentalsOwnerActive: [],
     currentRentalsOwnerFinished: [],
+    occupiedDates: [],
   };
 };
 const state = getDefaultState();
@@ -74,6 +75,9 @@ export default createStore({
     GET_LAT() {
       return state.currentItem.lat;
     },
+    GET_OCCUPIED_DATES() {
+      return state.occupiedDates;
+    }
   },
   mutations: {
     RESET_STATE(state) {
@@ -93,9 +97,11 @@ export default createStore({
     },
     SET_ITEM(state, item) {
       state.currentItem = item;
+
     },
     SET_RENTAL(state, rental) {
       state.currentRental = rental;
+      sessionStorage.setItem('rental', JSON.stringify(rental))
     },
     SET_FEEDBACKS(state, feedbacks) {
       state.feedbacks = feedbacks;
@@ -124,6 +130,9 @@ export default createStore({
     SET_USERS(state, users) {
       state.users = users;
     },
+    SET_DATES(state, dates) {
+      state.occupiedDates = dates;
+    },
     SET_CURRENT_SEARCH_SENTENCE(state, searchSentence) {
       state.currentSearchSentence = searchSentence;
     },
@@ -141,6 +150,20 @@ export default createStore({
         const userData = JSON.parse(userString);
         this.state.userInfo = userData;
         console.log(userData);
+      }
+    },
+    RESTORE_ITEM(state){
+      const itemString = sessionStorage.getItem("item");
+      if(itemString){
+       const itemData =  state.currentItem = JSON.parse(itemString)
+        console.log(itemData + "test")
+      }
+    },
+    RESTORE_RENTAL(state){
+      const rentalString = sessionStorage.getItem("rental");
+      if(rentalString){
+        const rentalData = this.state.currentRental = JSON.parse(rentalString)
+        console.log(rentalString + "rentalinfo")
       }
     },
     SET_MEAN_RATING(state, meanRating) {
@@ -178,6 +201,7 @@ export default createStore({
     },
     setItem({ commit }, item) {
       commit("SET_ITEM", item);
+      sessionStorage.setItem('item', JSON.stringify(item))
     },
     logoutStore({ commit }) {
       commit("CLEAR_LOCALSTORAGE");
@@ -233,6 +257,15 @@ export default createStore({
         notifications.reverse();
       }
       commit("SET_MY_NOTIFICATIONS", notifications);
+    },
+    async fetchOccupied({ commit }) {
+      let dates = await getOccupiedDates(
+          this.state.currentItem.itemId,
+          this.state.token
+      );
+      if(dates.status === 200){
+        commit("SET_DATES", dates.data);
+      }
     },
     async updateItem({ commit }, item) {
       let response = await updateItem(

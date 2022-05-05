@@ -138,8 +138,18 @@ export default {
       notificationClicked: false,
     };
   },
-  created() {
+ async created() {
     this.$store.commit("RESTORE_TOKEN");
+    this.$store.commit("RESTORE_ITEM")
+    this.$store.commit("RESTORE_RENTAL")
+    console.log(window.location.pathname + "dette er en path")
+    if(window.location.pathname.includes('product-details')){
+      await this.$router.push({ name: "ProductDetails" });
+    } else if(window.location.pathname === 'chat'){
+      await this.$router.push({name: "MessageView"})
+    } else if(window.location.pathname === 'rental-details'){
+      await this.$router.push({name: "RentalDetails"})
+    }
   },
   components: {
     NotificationsComponent,
@@ -212,7 +222,7 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: var(--indigo);
 }
 * {
   margin: 0;

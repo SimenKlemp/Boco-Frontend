@@ -1,5 +1,12 @@
 <template>
-  <Datepicker class="dp" v-model="date" range></Datepicker>
+  <Datepicker id="datepicker" class="dp" v-model="date" range
+              locale="no"
+              :enableTimePicker="false"
+              selectText="Velg"
+              cancelText="Lukk"
+              style="--dp-primary-color: var(--indigo) !important; --dp-success-color-color: var(--indigo) !important;"
+  >
+  </Datepicker>
 </template>
 
 <script>
@@ -25,4 +32,5 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+</style>
