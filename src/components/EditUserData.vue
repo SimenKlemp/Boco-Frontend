@@ -3,7 +3,7 @@
     <form @submit.prevent="submit">
       <div class="addImageContainer">
         <img
-          v-if="hasProfileImage && !previewImage"
+          v-if="hasProfileImage && !state.previewImage"
           class="actualProfileImage"
           :src="
             'http://localhost:8085/api/image/' +
@@ -12,14 +12,14 @@
           alt=""
         />
         <img
-          v-if="previewImage"
+          v-if="state.previewImage"
           class="preview my-3 actualProfileImage"
-          :src="previewImage"
+          :src="state.previewImage"
           alt=""
         />
 
         <img
-          v-if="!previewImage && !hasProfileImage"
+          v-if="!state.previewImage && !hasProfileImage"
           id="nounprofile"
           :src="require('../assets/noun-profile-1995071.svg')"
           alt=""
@@ -60,10 +60,9 @@
         <span v-if="v$.email.$error" class="errorMessage">
           {{ v$.email.$errors[0].$message }}
         </span>
-
-        <div class="password">
+        <div>
           <label>Password</label>
-          <div>
+          <div class="passwordContainer">
             <BaseInput
               id="oldPassword"
               class="mb-4"
@@ -109,7 +108,6 @@
             v-if="state.passwordPressed"
           />
         </div>
-
         <h2>Adresse</h2>
         <label>Gateadresse</label>
         <BaseInput
@@ -299,7 +297,11 @@ export default {
       this.state.previewImage = URL.createObjectURL(this.currentImage);
     },
     editPassword() {
-      this.state.passwordPressed = true;
+      if (this.state.passwordPressed === false) {
+        this.state.passwordPressed = true;
+      } else {
+        this.state.passwordPressed = false;
+      }
     },
   },
 };
@@ -354,12 +356,14 @@ label {
   font-weight: 500;
   margin-bottom: 5px;
 }
-button {
-  margin-top: 30px;
-}
+
 #imageButtonContainer {
   max-width: 200px;
   width: 100%;
   margin: 0 auto;
+}
+.passwordContainer {
+  padding-top: 20px;
+  padding-right: 30px;
 }
 </style>

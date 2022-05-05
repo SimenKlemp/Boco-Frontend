@@ -45,7 +45,6 @@
           </div>
           <div @click="emitRouteChange('MyRentals')">Chat</div>
         </div>
-        <div @click="emitRouteChange('giveRating')">gi vurdering</div>
         <div
           v-if="this.$store.state.userInfo.role === 'ADMIN'"
           @click="emitRouteChange('UserView')"
