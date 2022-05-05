@@ -28,10 +28,10 @@
         <div class="verifiedContainer">
           <div class="rating">
             <StarRating
-                star-size="20"
-                :read-only="true"
-                :rating= "meanRating"
-                :show-rating="false"
+              star-size="20"
+              :read-only="true"
+              :rating="meanRating"
+              :show-rating="false"
             ></StarRating>
           </div>
         </div>
@@ -206,7 +206,7 @@
 </template>
 
 <script>
-import {getMeanRating} from "@/service/apiService";
+import { getMeanRating } from "@/service/apiService";
 import StarRating from "vue-star-rating";
 
 export default {
@@ -217,7 +217,7 @@ export default {
   data() {
     return {
       dropDownClicked: false,
-      meanRating: 0.0
+      meanRating: 0.0,
     };
   },
   props: {
@@ -270,7 +270,7 @@ export default {
   async mounted() {
     this.meanRating = await getMeanRating(this.user.userId);
     console.log("MeanRating til bruker er: " + this.meanRating);
-  }
+  },
 };
 </script>
 
