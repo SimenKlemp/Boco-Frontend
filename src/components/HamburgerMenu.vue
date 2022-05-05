@@ -95,9 +95,9 @@ export default {
       this.$router.push({ name: to });
       this.$emit("routeChange");
     },
-    logout() {
+    async logout() {
+      await this.$router.push({ name: "HomeView" });
       this.$store.dispatch("resetState");
-      this.$router.push({ name: "HomeView" });
       this.$store.dispatch("logoutStore");
     },
     goMyProfile() {

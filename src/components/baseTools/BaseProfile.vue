@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div class="profileImage">
-      <!--TODO: change to image, add v-if image-->
       <svg
         v-if="user.imageId === -1 || user.imageId === null"
         class="image"
@@ -33,6 +32,7 @@
               :read-only="true"
               :rating= "this.meanRating"
               :show-rating="false"
+              active-color="#FB8500"
           ></StarRating>
         </div>
       </div>

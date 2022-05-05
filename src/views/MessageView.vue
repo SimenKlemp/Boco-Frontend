@@ -34,9 +34,13 @@
         <header>{{ name }}</header>
       </div>
     </div>
-    <RequestSystemMessage v-if="isAccepted && isMyItem" :rental="currentRental">
-    </RequestSystemMessage>
     <div class="chatContainer">
+      <RequestSystemMessage
+        @requestAction="updateRequestMessage"
+        v-if="showRequestMessage"
+        :rental="currentRental"
+      >
+      </RequestSystemMessage>
       <MessageBox
         v-for="(message, index) in messages"
         :key="index"
@@ -48,8 +52,8 @@
         <StatusSystemMessage :rental="this.currentRental">
         </StatusSystemMessage>
       </div>
-      <div class="ratingContainer" v-if="isFinished && isSent">
-        <RatingSystemMessage :name="name"> </RatingSystemMessage>
+      <div class="ratingContainer" >
+        <RatingSystemMessage :name="name" v-if="giveRating && isFinished"> </RatingSystemMessage>
       </div>
     </div>
     <div class="sendMessageContainer">
@@ -92,6 +96,7 @@
         </div>
       </form>
     </div>
+
   </div>
 </template>
 
@@ -110,6 +115,8 @@ export default {
       connection: null,
       currentMessage: "",
       messages: [],
+      requestMessage: true,
+      giveRating: false,
     };
   },
   components: {
@@ -120,6 +127,10 @@ export default {
     ItemCardHorizontal,
   },
   methods: {
+    updateRequestMessage(response) {
+      this.requestMessage = !this.requestMessage;
+      this.$store.dispatch("setRental", response);
+    },
     goToItem() {
       if (this.isMyItem) {
         this.$router.push({ name: "ProductDetails" });
@@ -136,6 +147,7 @@ export default {
       await send(messageRequest);
       this.currentMessage = "";
     },
+
   },
   computed: {
     isMyItem() {
@@ -162,23 +174,20 @@ export default {
     currentRentalId() {
       return this.currentRental.rentalId;
     },
-    isAccepted() {
+    isPending() {
       return this.$store.state.currentRental.status === "PENDING";
+    },
+    showRequestMessage() {
+      return this.isPending && this.isMyItem && this.requestMessage;
     },
     isFinished() {
       return this.$store.state.currentRental.status === "FINISHED";
     },
     async isSent() {
       console.log(this.$store.state.token);
-      let response = await getSent(
-        this.$store.state.currentRental.rentalId,
-        this.$store.state.userInfo.userId,
-        this.$store.state.token
-      );
-      console.log(response.status + "auhdauhdshauadshuadhuhu");
 
-      return response.status === 204;
     },
+
   },
   async mounted() {
     await connect(this.currentRentalId, (message) => {
@@ -189,6 +198,15 @@ export default {
       this.messages.push(chat.messages[i]);
     }
     this.$store.dispatch("setItem", this.currentRental.item);
+    let response = await getSent(
+        this.$store.state.currentRental.rentalId,
+        this.$store.state.userInfo.userId,
+        this.$store.state.token
+    );
+    console.log(response.status);
+    console.log(response.status === 204)
+    this.giveRating = response.status === 204;
+    console.log(this.giveRating)
   },
 };
 </script>

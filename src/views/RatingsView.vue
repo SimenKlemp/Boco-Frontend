@@ -33,6 +33,7 @@
             :read-only="true"
             :rating="$store.state.meanRating"
             :show-rating="false"
+            active-color="#FB8500"
           ></StarRating>
         </div>
       </div>
@@ -67,12 +68,6 @@ export default {
     ProfileRatingCard,
     StarRating,
   },
-  props: {
-    userId: {
-      type: String,
-      required: true,
-    },
-  },
   computed: {
     ratingsOwner() {
       return this.$store.state.currentRatingsOwner;
@@ -92,7 +87,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("getAllRatings", this.userId);
+    this.$store.dispatch("getAllRatings");
   },
 };
 </script>

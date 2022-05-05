@@ -1,7 +1,8 @@
 <template>
   <div class="systemMessageContainer">
     <div id="acceptDenyMessage">
-      {{ rental.user.name }} ønsker å leie <strong> {{ rental.item.title }}</strong>
+      {{ rental.user.name }} ønsker å leie
+      <strong> {{ rental.item.title }}</strong>
       <div class="buttonContainer">
         <div
           @click.stop="acceptRequest(rental.rentalId)"
@@ -10,7 +11,7 @@
         >
           Godkjenn
         </div>
-        <div @click.stop="acceptRequest(rental.rentalId)" class="button">
+        <div @click.stop="rejectRequest(rental.rentalId)" class="button">
           Avvis
         </div>
       </div>
@@ -29,12 +30,14 @@ export default {
     },
   },
   methods: {
-    acceptRequest(rentalId) {
-      acceptRental(rentalId, this.$store.state.token);
+    async acceptRequest(rentalId) {
+      let response = await acceptRental(rentalId, this.$store.state.token);
+      this.$emit("requestAction", response);
       console.log("TRYKKER");
     },
-    rejectRequest(rentalId) {
-      rejectRental(rentalId, this.$store.state.token);
+    async rejectRequest(rentalId) {
+      let response = await rejectRental(rentalId, this.$store.state.token);
+      this.$emit("requestAction", response);
       console.log("TRYKKER");
     },
   },
@@ -64,9 +67,6 @@ export default {
 }
 #acceptButton {
   background: #389b3f;
-}
-#cancelButton {
-  margin: 0 auto;
 }
 .buttonContainer {
   display: flex;

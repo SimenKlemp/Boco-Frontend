@@ -281,9 +281,9 @@ export default createStore({
     getCurrentSearchSentence({ commit }, searchSentence) {
       commit("SET_CURRENT_SEARCH_SENTENCE", searchSentence);
     },
-    async getAllRatings({ dispatch }, userId) {
-      dispatch("getAllRatingsOwner", userId);
-      dispatch("getAllRatingsUser", userId);
+    async getAllRatings({ dispatch }) {
+      dispatch("getAllRatingsOwner", this.state.userInfo.userId);
+      dispatch("getAllRatingsUser", this.state.userInfo.userId);
     },
     async getAllRatingsOwner({ commit }, userId) {
       let ratings = await getAllRatingsOwner(userId, this.state.token);
@@ -296,9 +296,7 @@ export default createStore({
       commit("SET_CURRENT_RATINGS_USER", ratings);
     },
     async storeMeanRating({ commit }) {
-      let meanRating = await getMeanRating(
-        this.state.userInfo.userId
-      );
+      let meanRating = await getMeanRating(this.state.userInfo.userId);
       commit("SET_MEAN_RATING", meanRating);
     },
   },
