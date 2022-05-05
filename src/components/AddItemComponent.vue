@@ -60,11 +60,22 @@
         <div id="deliverContainer">
           <h2 id="deliverTitle">Leveringsalternativer</h2>
           <div class="checkboxContainer">
-            <BaseCheckbox v-model="state.isPickupable" label="Kan hentes" />
+            <BaseCheckbox
+              v-model="state.isPickupable"
+              label="Kan hentes"
+              @click="updateIsPicked('Pickupable')"
+            />
           </div>
           <div>
-            <BaseCheckbox v-model="state.isDeliverable" label="Kan leveres" />
+            <BaseCheckbox
+              v-model="state.isDeliverable"
+              label="Kan leveres"
+              @click="updateIsPicked('Deliverable')"
+            />
           </div>
+          <span v-if="v$.isPicked.$error" class="errorMessage">
+            {{ v$.isPicked.$errors[0].$message }}
+          </span>
         </div>
 
         <h2>Pris</h2>
@@ -150,6 +161,7 @@ export default {
       currentImage: undefined,
       previewImage: undefined,
       currentImageId: undefined,
+      isPicked: "",
       isDeliverable: store.state.currentItem.isDeliverable,
       isPickupable: store.state.currentItem.isPickupable,
       categoryOptions: [
@@ -182,6 +194,9 @@ export default {
           required,
         },
         price: {
+          required,
+        },
+        isPicked: {
           required,
         },
       };
@@ -280,6 +295,27 @@ export default {
     },
     setPriceZero() {
       this.state.price = 0;
+    },
+    updateIsPicked(status) {
+      if (status === "Pickupable") {
+        if (this.state.isPickupable === false) {
+          this.state.isPicked = "Pressed";
+        } else if (
+          this.state.isPickupable === true &&
+          this.state.isDeliverable === false
+        ) {
+          this.state.isPicked = "";
+        }
+      } else if (status === "Deliverable") {
+        if (this.state.isDeliverable === false) {
+          this.state.isPicked = "Pressed";
+        } else if (
+          this.state.isDeliverable === true &&
+          this.state.isPickupable === false
+        ) {
+          this.state.isPicked = "";
+        }
+      }
     },
   },
   computed: {
