@@ -37,7 +37,7 @@
           />
         </button>
         <button @click="toggleNotifications" class="hamburgerButton">
-          <div class="dot" v-if="showNotification"></div>
+          <div class="dot" v-if="showNotification>0">{{showNotification}}</div>
           <svg
             class="notificationIcon"
             xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,7 @@
           />
         </button>
         <button @click="toggleNotifications" class="hamburgerButton">
-          <div class="dot" v-if="showNotification"></div>
+          <div class="dot" v-if="showNotification>0">{{showNotification}}</div>
           <svg
             class="notificationIcon"
             id="notificationIcon"
@@ -162,16 +162,13 @@ export default {
     },
     showNotification() {
       let notifications = this.$store.state.myNotifications;
+      let counter = 0;
       for (let i = 0; i < notifications.length; i++) {
-        console.log("LESER");
-        console.log(i.pressed);
         if (notifications[i].pressed === false) {
-          console.log("ULEST");
-          return true;
+          counter++;
         }
       }
-      console.log("LEST");
-      return false;
+      return counter;
     },
   },
   methods: {
@@ -320,5 +317,16 @@ form {
 form > * {
   margin-bottom: 10px;
   display: block;
+}
+.dot {
+  height: 17px;
+  width: 17px;
+  background-color: #ea0000;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  margin-right: 15px;
+  color: white;
+  font-weight: bold;
 }
 </style>
