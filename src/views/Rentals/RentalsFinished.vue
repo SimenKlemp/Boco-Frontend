@@ -5,7 +5,6 @@
     :key="rental.rentalId"
     :rental="rental"
   ></ChatCard>
-  <div @click="test">Knapp</div>
 </template>
 
 <script>
@@ -14,11 +13,6 @@ export default {
   name: "RentalsFinished",
   components: {
     ChatCard,
-  },
-  methods: {
-    test() {
-      console.log(typeof this.allRentals[0].lastMessage.date);
-    },
   },
   computed: {
     allRentals() {

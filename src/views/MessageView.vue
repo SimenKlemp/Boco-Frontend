@@ -35,17 +35,13 @@
           </svg>
         </div>
         <div id="nameAndStatusContainer">
-        <h2>{{ name }}</h2>
+          <h2>{{ name }}</h2>
           <StatusSystemMessage :rental="this.currentRental">
           </StatusSystemMessage>
         </div>
       </div>
     </div>
-    <div id="statusContainer">
-      <StatusSystemMessage :rental="this.currentRental">
-      </StatusSystemMessage>
-    </div>
-    <div class="chatContainer">
+    <div class="chatContainer" id="chat">
       <RequestSystemMessage
         @requestAction="updateRequestMessage"
         v-if="showRequestMessage"
@@ -135,6 +131,10 @@ export default {
     ItemCardHorizontal,
   },
   methods: {
+    scrollToEnd() {
+      const container = this.$el.querySelector("#chat");
+      container.scrollTop = container.scrollHeight;
+    },
     updateRequestMessage(response) {
       this.requestMessage = !this.requestMessage;
       this.$store.dispatch("setRental", response);
@@ -154,6 +154,9 @@ export default {
       };
       await send(messageRequest);
       this.currentMessage = "";
+      setTimeout(() => {
+        this.scrollToEnd();
+      }, 100);
     },
   },
   computed: {
@@ -209,6 +212,7 @@ export default {
     console.log(response.status === 204);
     this.giveRating = response.status === 204;
     console.log(this.giveRating);
+    this.scrollToEnd();
   },
 };
 </script>
@@ -272,7 +276,7 @@ button {
 .buttonContainer {
   padding: 0.5rem;
 }
-#nameAndStatusContainer{
+#nameAndStatusContainer {
   margin-left: 10px;
 }
 </style>

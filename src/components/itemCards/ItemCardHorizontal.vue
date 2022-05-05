@@ -15,9 +15,27 @@
       </div>
       <div class="itemMeta">
         <div class="itemInfo">
+          <div class="dateInfo" v-if="!dateIsEmpty">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25.026" viewBox="0 0 25 25.026">
+              <g id="noun-calendar-2080653" transform="translate(-2.6 -2.5)">
+                <path id="Path_53" data-name="Path 53" d="M24.726,4.531H22.194V3.318a.822.822,0,0,0-.818-.818H19.161a.822.822,0,0,0-.818.818V4.531H11.856V3.318a.822.822,0,0,0-.818-.818H8.824a.822.822,0,0,0-.818.818V4.531H5.474A2.881,2.881,0,0,0,2.6,7.405V24.652a2.881,2.881,0,0,0,2.874,2.874H24.726A2.881,2.881,0,0,0,27.6,24.652V7.405A2.881,2.881,0,0,0,24.726,4.531Zm0,21.1H5.474a.945.945,0,0,1-.949-.949V9.831H25.7V24.652A.991.991,0,0,1,24.726,25.628Z" fill="#034363"/>
+                <path id="Path_54" data-name="Path 54" d="M21.229,37.9H17.854a.557.557,0,0,0-.554.554v1.582a.557.557,0,0,0,.554.554h3.376a.557.557,0,0,0,.554-.554V38.454A.541.541,0,0,0,21.229,37.9Z" transform="translate(-10.823 -26.065)" fill="#034363"/>
+                <path id="Path_55" data-name="Path 55" d="M45.529,37.9H42.154a.557.557,0,0,0-.554.554v1.582a.557.557,0,0,0,.554.554h3.376a.557.557,0,0,0,.554-.554V38.454A.541.541,0,0,0,45.529,37.9Z" transform="translate(-28.715 -26.065)" fill="#034363"/>
+                <path id="Path_56" data-name="Path 56" d="M69.829,37.9H66.454a.557.557,0,0,0-.554.554v1.582a.557.557,0,0,0,.554.554h3.376a.557.557,0,0,0,.554-.554V38.454A.541.541,0,0,0,69.829,37.9Z" transform="translate(-46.607 -26.065)" fill="#034363"/>
+                <path id="Path_57" data-name="Path 57" d="M21.229,55.3H17.854a.557.557,0,0,0-.554.554v1.582a.557.557,0,0,0,.554.554h3.376a.557.557,0,0,0,.554-.554V55.854A.557.557,0,0,0,21.229,55.3Z" transform="translate(-10.823 -38.876)" fill="#034363"/>
+                <path id="Path_58" data-name="Path 58" d="M45.529,55.3H42.154a.557.557,0,0,0-.554.554v1.582a.557.557,0,0,0,.554.554h3.376a.557.557,0,0,0,.554-.554V55.854A.557.557,0,0,0,45.529,55.3Z" transform="translate(-28.715 -38.876)" fill="#034363"/>
+                <path id="Path_59" data-name="Path 59" d="M69.829,55.3H66.454a.557.557,0,0,0-.554.554v1.582a.557.557,0,0,0,.554.554h3.376a.557.557,0,0,0,.554-.554V55.854A.557.557,0,0,0,69.829,55.3Z" transform="translate(-46.607 -38.876)" fill="#034363"/>
+                <path id="Path_60" data-name="Path 60" d="M21.229,72.8H17.854a.557.557,0,0,0-.554.554v1.582a.557.557,0,0,0,.554.554h3.376a.557.557,0,0,0,.554-.554V73.354A.541.541,0,0,0,21.229,72.8Z" transform="translate(-10.823 -51.761)" fill="#034363"/>
+                <path id="Path_61" data-name="Path 61" d="M45.529,72.8H42.154a.557.557,0,0,0-.554.554v1.582a.557.557,0,0,0,.554.554h3.376a.557.557,0,0,0,.554-.554V73.354A.541.541,0,0,0,45.529,72.8Z" transform="translate(-28.715 -51.761)" fill="#034363"/>
+                <path id="Path_62" data-name="Path 62" d="M69.829,72.8H66.454a.557.557,0,0,0-.554.554v1.582a.557.557,0,0,0,.554.554h3.376a.557.557,0,0,0,.554-.554V73.354A.541.541,0,0,0,69.829,72.8Z" transform="translate(-46.607 -51.761)" fill="#034363"/>
+              </g>
+            </svg>
+           <label> {{ startDate.slice(0, 10) }} - {{ endDate.slice(0, 10) }}</label>
+
+          </div>
           <div class="itemInfoSections">
             <div>
-              <div class="info" id="positionInfo">
+              <div class="info" v-if="dateIsEmpty" id="positionInfo">
                 <svg
                   class="icons"
                   xmlns="http://www.w3.org/2000/svg"
@@ -172,6 +190,8 @@
               <div class="status">{{ statusWrapper }}</div>
             </div>
           </div>
+
+          <div id="priceAndDeliveryContainer">
           <div id="priceRatingContainer">
             <div class="info">
               <svg
@@ -194,16 +214,10 @@
                   />
                 </g>
               </svg>
-              <p v-if="!isFree">{{ item.price }} kr/dag</p>
-              <p v-else>GRATIS</p>
+              <label v-if="!isFree">{{ item.price }} kr/dag</label>
+              <label v-else>GRATIS</label>
             </div>
-            <div class="dateInfo" v-if="!dateIsEmpty">
-              <p>Fra: {{ startDate.slice(0, 10) }}</p>
-              <p>Til: {{ endDate.slice(0, 10) }}</p>
-            </div>
-            <div class="deliveryInfo" v-if="!deliveryInfoIsEmpty">
-              <p>Leveringsinformasjon: {{ deliveryInfoName }}</p>
-            </div>
+
             <div
               @click.stop="goToEdit(item)"
               v-if="this.$route.name === 'MyAds'"
@@ -224,6 +238,29 @@
                 />
               </svg>
             </div>
+          </div>
+
+
+          <div class="deliveryInfo" v-if="!deliveryInfoIsEmpty">
+            <div class="info">
+            <svg
+                class="icons"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                x="0px"
+                y="0px"
+                viewBox="0 0 96 96"
+                enable-background="new 0 0 96 96"
+                xml:space="preserve"
+            >
+                  <path
+                      d="M48,9C31.86,9,18.73,22.131,18.73,38.271c0,14.13,23.756,41.948,28.518,47.381L48,86.512l0.752-0.857  c4.762-5.432,28.518-33.24,28.518-47.383C77.27,22.131,64.14,9,48,9z M48,48c-5.374,0-9.73-4.356-9.73-9.73s4.356-9.73,9.73-9.73  s9.73,4.356,9.73,9.73S53.374,48,48,48z"
+                  ></path>
+                </svg>
+
+           <label> Levering:{{ deliveryInfoName }}</label></div>
+          </div>
           </div>
         </div>
       </div>
@@ -389,10 +426,10 @@ img {
   padding-top: 15px;
 }
 #priceRatingContainer {
-  display: flex;
-  justify-content: space-between;
+  display: inline-block;
   margin-top: 10px;
   padding-right: 1rem;
+  font-size: 12px;
 }
 #adImage {
   object-fit: cover;
@@ -400,5 +437,19 @@ img {
 #priceicon {
   margin-right: 5px;
   margin-top: 2px;
+}
+.deliveryInfo{
+  display: inline-block;
+  font-size: 12px;
+}
+.dateInfo{
+  font-size: 12px;
+}
+.dateInfo svg{
+  width: 17px;
+  margin-bottom: -5px;
+}
+.dateInfo label{
+  margin-left: 5px;
 }
 </style>
