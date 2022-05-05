@@ -33,10 +33,6 @@ export default {
       type: Object,
       required: true,
     },
-    name: {
-      type: String,
-      required: true,
-    },
   },
   methods: {
     goToChat() {
@@ -45,6 +41,15 @@ export default {
     },
   },
   computed: {
+    isMyItem() {
+      return this.rental.item.user.userId === this.$store.state.userInfo.userId;
+    },
+    name() {
+      if (this.isMyItem) {
+        return this.rental.user.name;
+      }
+      return this.rental.item.user.name;
+    },
     messageWrapped() {
       if (this.rental.lastMessage) {
         if (this.rental.lastMessage.text.length > 40) {

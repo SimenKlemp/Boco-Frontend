@@ -41,6 +41,10 @@
         </div>
       </div>
     </div>
+    <div id="statusContainer">
+      <StatusSystemMessage :rental="this.currentRental">
+      </StatusSystemMessage>
+    </div>
     <div class="chatContainer">
       <RequestSystemMessage
         @requestAction="updateRequestMessage"
