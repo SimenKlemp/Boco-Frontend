@@ -364,14 +364,14 @@ label {
 }
 .passwordContainer {
   padding-top: 20px;
-  padding-right: 30px;
+
 }
 .passwordContainer button{
   background:none;
   border:none;
   position: absolute;
   top:560px;
-  right: 65px;
+  right: 45px;
 }
 .mb-4{
   position: relative;
