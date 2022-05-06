@@ -82,7 +82,7 @@ test("Method goToChat", async () => {
     const getMeanRatingesponse = await getMeanRating(getMeanRatingRequest);
     expect(expectedMeanRatingStatus).toEqual(getMeanRatingesponse);
   } catch (err) {
-    (err.toString());
+    err.toString();
   }
 
   await wrapper.vm.goToChat();

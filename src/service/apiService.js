@@ -2,7 +2,7 @@ import axios from "axios";
 import SockJS from "sockjs-client";
 import Stomp from "webstomp-client";
 
-let host = "10.22.0.96";
+let host = "localhost";
 /*
     //Import these
     import SockJS from "sockjs-client";
@@ -281,7 +281,7 @@ export function getMyRentalsOwner(userId, token, status) {
       return response.data;
     });
 }
-export  function getMyNotifications(userId, token) {
+export function getMyNotifications(userId, token) {
   return axios
     .get("http://" + host + ":8085/api/notification/get-my/" + userId, {
       headers: {
@@ -341,15 +341,15 @@ export function cancelRental(rentalId, token) {
     });
 }
 export async function getOccupiedDates(itemId, token) {
-    return axios
-        .get("http://" + host + ":8085/api/item/get-occupied-dates/" + itemId, {
-            headers: {
-                Authorization: "Bearer " + token,
-            },
-        })
-        .then((response) => {
-            return response;
-        });
+  return axios
+    .get("http://" + host + ":8085/api/item/get-occupied-dates/" + itemId, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response;
+    });
 }
 export function changeNotification(notificationId, token) {
   return axios

@@ -32,7 +32,7 @@
             <h4 id="sortTitle">sorter etter:</h4>
             <div id="inputSortContainer">
               <Multiselect
-                id="multiSelect"
+                class="multiSelect"
                 v-model="sortField"
                 :options="sortOptions"
               ></Multiselect>
@@ -210,7 +210,7 @@
               <h4 id="categoryTitle">kategorier:</h4>
               <div id="inputCategoryContainer">
                 <Multiselect
-                  id="multiSelect"
+                  clas="multiSelect"
                   v-model="category"
                   :options="categoryOptions"
                 ></Multiselect>
@@ -403,15 +403,15 @@ p {
   box-shadow: 0 0 3px;
   border-radius: 10px;
 }
-#searchbarContainer svg{
+#searchbarContainer svg {
   height: 35px;
 }
 .searchButton {
   border: none;
   background: transparent;
 }
-form{
-  padding:0;
+form {
+  padding: 0;
 }
 .items {
   display: flex;
@@ -467,8 +467,8 @@ form{
 #iconContainer svg {
   margin-right: 10px;
 }
-#iconContainer{
+#iconContainer {
   margin-left: 15px;
-  margin-top:25px;
+  margin-top: 25px;
 }
 </style>

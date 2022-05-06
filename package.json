@@ -71,9 +71,6 @@
     "parserOptions": {
       "parser": "@babel/eslint-parser"
     },
-    "transform": {
-      "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest"
-    },
     "rules": {},
     "overrides": [
       {

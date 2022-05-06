@@ -80,7 +80,6 @@ transition {
   overflow: hidden;
 }
 
-
 .svg {
   transform: rotate(90deg);
 }
