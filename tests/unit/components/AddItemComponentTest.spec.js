@@ -1,5 +1,5 @@
 import AddItemComponent from "@/components/AddItemComponent";
-import { mount } from "@vue/test-utils";
+import { shallowMount} from "@vue/test-utils";
 
 describe("AddItemComponent", () => {
   let $store;
@@ -27,7 +27,12 @@ describe("AddItemComponent", () => {
     };
   });
   test("Check if the site renders", () => {
-    const wrapper = mount(AddItemComponent, {
+    const $store = {
+      state: {
+        currentItem: [],
+      },
+    };
+    const wrapper = shallowMount(AddItemComponent, {
       global: {
         mocks: {
           $store,
@@ -39,7 +44,7 @@ describe("AddItemComponent", () => {
     expect(addItem.exists()).toBeTruthy;
   });
   test("test if the output are correct", () => {
-    const wrapper = mount(AddItemComponent, {
+    const wrapper = shallowMount(AddItemComponent, {
       global: {
         mocks: {
           $store,
@@ -55,7 +60,7 @@ describe("AddItemComponent", () => {
         currentItem: [],
       },
     };
-    const wrapper = mount(AddItemComponent, {
+    const wrapper = shallowMount(AddItemComponent, {
       global: {
         mocks: {
           $store,
@@ -67,3 +72,4 @@ describe("AddItemComponent", () => {
     expect(addItem.vm.title).toBe("noe");
   });
 });
+
