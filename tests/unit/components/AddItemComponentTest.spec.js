@@ -1,5 +1,5 @@
 import AddItemComponent from "@/components/AddItemComponent";
-import { shallowMount} from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
 
 describe("AddItemComponent", () => {
   let $store;
@@ -36,9 +36,9 @@ describe("AddItemComponent", () => {
       computed: {
         isFree() {
           return {
-            price
-          }
-        }
+            price: 0,
+          };
+        },
       },
       global: {
         mocks: {
@@ -79,4 +79,3 @@ describe("AddItemComponent", () => {
     expect(addItem.vm.title).toBe("noe");
   });
 });
-
