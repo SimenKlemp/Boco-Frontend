@@ -3,7 +3,7 @@ import SockJS from "sockjs-client";
 import Stomp from "webstomp-client";
 
 const vetleHost = "10.22.0.96";
-let host = "10.22.0.96";
+let host = "localhost";
 /*
     //Import these
     import SockJS from "sockjs-client";
