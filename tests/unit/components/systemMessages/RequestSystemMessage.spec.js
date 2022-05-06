@@ -4,7 +4,7 @@ import RequestSystemMessage from "@/components/systemMessages/RequestSystemMessa
 describe("Tests", () => {
   test("Successfully renders component", () => {
     const wrapper = shallowMount(RequestSystemMessage, {
-      functions: { slice: jest.fn() },
+      slice: jest.fn(),
       props: {
         rental: {
           rentalId: -1,
