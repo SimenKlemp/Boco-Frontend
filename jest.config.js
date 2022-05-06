@@ -7,8 +7,9 @@ module.exports = {
     },
   },
   collectCoverage: true,
-  collectCoverageFrom: ["src/**/*.{js,vue}"],
-
+  collectCoverageFrom: ["src/**/*.js", "src/**/*.vue", "!**/node_modules/**"],
+  coverageReporters: ["html", "text", "text-summary", "cobertura"],
+  testMatch: ["**/*.spec.js"],
   transform: {
     "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
     ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$":
