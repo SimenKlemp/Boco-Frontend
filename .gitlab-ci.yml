@@ -28,14 +28,14 @@ test:
 cache:
   paths:
     - coverage/
-  artifacts:
-    paths:
-      - coverage/
-    when: always
-    reports:
-      junit:
-        - junit.xml
-      cobertura: coverage/cobertura-coverage
+artifacts:
+  paths:
+    - coverage/
+  when: always
+  reports:
+    junit:
+      - junit.xml
+    cobertura: coverage/cobertura-coverage
 
 pages:
  stage: deploy
