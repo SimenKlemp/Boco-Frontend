@@ -261,3 +261,69 @@ describe("Successfully renders outcome of switch", () => {
     expect(statusReceived.text).toEqual(expectedStatus.text);
   });
 });
+
+test("Method goToChat", async () => {
+  let wrapper = shallowMount(CustomerCard, {
+    props: {
+      user: {
+        email: "magnus@mail.no",
+        imageId: null,
+        isPerson: true,
+        name: "Magnus Farstad",
+        postOffice: "Trondheim",
+        postalCode: "7031",
+        role: "USER",
+        streetAddress: "Holtermanns veg 31B",
+        userId: 15,
+      },
+      rental: {
+        rentalId: 74,
+        status: null,
+        startDate: "startDate",
+        endDate: "endDate",
+        user: {
+          email: "test16@test.no",
+          imageId: 111,
+          isPerson: true,
+          name: "Andreas Dahle",
+          postOffice: "OSLO",
+          postalCode: "1237",
+          role: "USER",
+          streetAddress: "Address 1",
+          userId: 2,
+        },
+      },
+    },
+    global: {
+      mocks: {
+        $store,
+        $router: mockRouter,
+      },
+    },
+  });
+  const expectedMeanRatingStatus = { status: "Success" };
+  axios.get.mockImplementation(() =>
+      Promise.resolve({ data: expectedMeanRatingStatus })
+  );
+
+  const getMeanRatingRequest = {};
+  try {
+    const getMeanRatingesponse = await getMeanRating(getMeanRatingRequest);
+    expect(expectedMeanRatingStatus).toEqual(getMeanRatingesponse);
+  } catch (err) {
+    (err.toString());
+  }
+
+  await wrapper.vm.goToChat();
+
+  expect(mockRouter.push).toHaveBeenCalledTimes(1);
+
+  expect(mockRouter.push).toHaveBeenCalledWith({
+    name: "MessageView",
+  });
+});
+
+
+
+
+
