@@ -14,12 +14,13 @@
         {{ v$.title.$errors[0].$message }}
       </span>
       <div id="categoeyAlternativesContainer">
-        <h4 id="categoryTitle">velg kategori:</h4>
+        <h4 id="categoryTitle">Velg kategori:</h4>
         <div id="inputCategoryContainer">
           <Multiselect
             id="multiSelect"
             v-model="state.category"
             :options="state.categoryOptions"
+            class="mb-4"
           ></Multiselect>
         </div>
         <span v-if="v$.category.$error" class="errorMessage">
@@ -37,7 +38,7 @@
         {{ v$.description.$errors[0].$message }}
       </span>
       <div class="images">
-        <h4 id="imageTitle">velg bilde:</h4>
+        <h4 id="imageTitle">Velg bilde:</h4>
         <input type="file" accept="image/*" ref="file" @change="selectImage" />
         <img
           v-if="state.previewImage"
@@ -320,16 +321,15 @@ export default {
 form {
   padding: 0px 40px 0px 30px;
 }
+#multiSelect {
+  margin-bottom: 15px;
+}
 
 .actualProfileImage {
   width: 9rem;
   height: 9rem;
 }
 
-form > * {
-  margin-bottom: 10px;
-  display: block;
-}
 
 /deep/ #title {
   font-size: x-large;
@@ -346,9 +346,6 @@ form > * {
   text-align: left;
 }
 
-#info > * {
-  padding-bottom: 10px;
-}
 
 .checkboxContainer {
   margin-bottom: 10px;

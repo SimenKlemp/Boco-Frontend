@@ -302,11 +302,23 @@ h1 {
   font-size: 28px;
   font-weight: 500;
   color: black;
+  text-align: center;
 }
 h2 {
   font-size: 24px;
   color: black;
   font-weight: 500;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+.h3 {
+  font-size: 18px;
+  color: black;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.mb-4 {
+  margin-bottom: 10px;
 }
 textarea {
   max-width: 388px;
@@ -317,10 +329,6 @@ textarea {
 }
 form {
   padding: 0px 40px 0px 30px;
-}
-form > * {
-  margin-bottom: 10px;
-  display: block;
 }
 .dot {
   height: 17px;
