@@ -264,4 +264,8 @@ p {
   margin-bottom: 0;
   margin-top: 5px;
 }
+.productMeta h1{
+  text-align: left;
+  font-weight: 500;
+}
 </style>
