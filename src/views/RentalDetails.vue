@@ -44,7 +44,8 @@
         <h1>{{ rental.item.title }}</h1>
         <div class="price">
           <p id="priceTitle">Dagsleie</p>
-          <p id="pricetag">{{ rental.item.price }} kr</p>
+          <p v-if="!isFree" id="pricetag">{{ rental.item.price }} kr</p>
+          <p v-else class="pricetag">GRATIS</p>
         </div>
         <div class="statusContainer">
           <svg
@@ -309,6 +310,9 @@ export default {
       return (
         this.rental.status === "ACTIVE" || this.rental.status === "ACCEPTED"
       );
+    },
+    isFree() {
+      return this.item.price === 0;
     },
     isPending() {
       return this.rental.status === "PENDING";

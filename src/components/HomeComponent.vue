@@ -76,7 +76,6 @@ export default {
         this.$store.dispatch("getSearchedItems", searchRequest);
         this.$router.push({ name: "SearchedItems" });
       } else {
-        alert("Søkefelt må være utfylt");
       }
     },
   },
