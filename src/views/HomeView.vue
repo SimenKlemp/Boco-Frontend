@@ -1,9 +1,12 @@
 <template>
   <HomeComponent></HomeComponent>
   <div class="itemsContainer">
-    <div class="itemsHeader">
-      <h3>Nyeste annonser</h3>
-      <p>Se de nyeste annonsene på boco</p>
+    <div id="infoText">
+      <div class="itemsHeader">
+        <h3>Nyeste annonser</h3>
+        <p>Se de nyeste annonsene på boco</p>
+      </div>
+        <p @click.stop="routeToAllItems" id="link">Se alle gjenstander</p>
     </div>
     <div class="items">
       <ItemCardSquare
@@ -57,6 +60,9 @@ export default {
       await this.$store.dispatch("setItem", item);
       await this.$router.push({ name: "ProductDetails" });
     },
+    async routeToAllItems() {
+      await this.$router.push({name: "SearchedItems"});
+    }
   },
   async created() {
     this.$store.dispatch("getItems", {
@@ -83,38 +89,14 @@ p {
   font-size: 14px;
   margin-bottom: 15px;
 }
-
-.header {
-  position: absolute;
+#infoText {
   display: flex;
-  width: 87%;
+  flex-direction: row;
   justify-content: space-between;
-  padding: 1rem 20px 1rem 20px;
 }
-.hamburgerMenu {
-  fill: white;
-  width: 2.5rem;
+#link {
+  color: var(--blue);
 }
-.hamburgerButton {
-  width: 2.5rem;
-  padding: 0;
-  background: none;
-  border: none;
-  position: relative;
-}
-.homeLink {
-  font-size: 40px;
-  background: transparent;
-  border: none;
-}
-.notificationIcon {
-  fill: white;
-  width: 2.5rem;
-}
-.logoImage {
-  width: 8rem;
-}
-
 .itemsHeader {
   text-align: left;
 }

@@ -168,9 +168,7 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  color: black;
-}
+
 p {
   margin: 5px 0;
 }
