@@ -21,6 +21,7 @@
           id="profileImage"
           class="productImage"
           :src="'http://localhost:8085/api/image/' + rental.user.imageId"
+          alt="profilbilde"
         />
       </div>
       <div class="profileInfo">
