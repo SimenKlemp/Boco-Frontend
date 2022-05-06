@@ -153,8 +153,6 @@ export default {
               alert("Something went wrong with the authentication!");
           }
         }
-      } else {
-        alert("Alle felter må være fylt ut");
       }
     },
   },
@@ -173,4 +171,5 @@ button {
   margin-top: 5px;
   text-align: center;
 }
+
 </style>
