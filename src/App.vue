@@ -344,4 +344,13 @@ form {
   font-weight: bold;
   padding: 1px;
 }
+#sort .multiselect-clear {
+  display: none;
+}
+.multiselect .multiselect-dropdown {
+  border-radius: 15px;
+}
+.multiselect {
+  border-radius: 15px;
+}
 </style>
