@@ -265,6 +265,8 @@ export default {
           return "Avvist";
         case "CANCELED":
           return "Kansellert";
+        case "FINISHED":
+          return "Ferdig";
         default:
           return "Default";
       }
