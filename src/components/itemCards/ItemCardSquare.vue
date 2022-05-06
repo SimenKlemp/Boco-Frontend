@@ -110,4 +110,31 @@ img {
   width: 100%;
   height: 100%;
 }
+@media (max-width: 427px){
+  .itemCardContainer{
+    padding:10px
+  }
+}
+
+@media(max-width: 400px){
+  .itemCard{
+    height: 190px;
+    width: 160px;
+  }
+  .priceTag{
+    bottom:60px;
+  }
+}
+@media(max-width: 380px){
+  .itemCard{
+    height: 180px;
+    width: 150px;
+  }
+  .imageContainer{
+    height: 120px;
+  }
+  .priceTag{
+    bottom: 58px;
+  }
+}
 </style>
