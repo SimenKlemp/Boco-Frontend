@@ -36,6 +36,7 @@ test:
       junit:
         - junit.xml
       cobertura: coverage/cobertura-coverage.xml
+  allow_failure: true
 
 pages:
  stage: deploy
