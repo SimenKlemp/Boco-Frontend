@@ -149,6 +149,12 @@
         id="registerButton"
         :disabled="isError"
       />
+      <BaseButton
+        @click.prevent="deleteUser"
+        text="Slett bruker"
+        id="deleteButton"
+        :disabled="isError"
+      />
     </form>
   </div>
 </template>
@@ -286,6 +292,17 @@ export default {
             this.$emit("routeChange");
           }
         });
+      }
+    },
+    async deleteUser() {
+      if (
+        confirm(
+          "Er du sikker på at du vil slette brukeren din? Alt som kommer med brukeren din vil bli slettet"
+        )
+      ) {
+        await this.$router.push({ name: "HomeView" });
+        this.$store.dispatch("deleteUser");
+        this.$store.dispatch("resetState");
       }
     },
     selectImage() {
