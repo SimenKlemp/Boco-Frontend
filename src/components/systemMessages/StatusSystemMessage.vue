@@ -82,6 +82,7 @@
           width="20"
           height="20"
           viewBox="0 0 20 20"
+          aria-label="Kansellert"
         >
           <g id="noun-cancel-2014884" transform="translate(-5 -5)">
             <path
@@ -106,6 +107,7 @@
           width="20"
           height="20"
           viewBox="0 0 20 20"
+          aria-label="Avvist"
         >
           <g id="noun-denied-1447616" transform="translate(0 0)">
             <path
@@ -123,6 +125,7 @@
           width="20"
           height="20.004"
           viewBox="0 0 20 20.004"
+          aria-label="Avsluttet"
         >
           <g id="noun-checkmark-2573373" transform="translate(-1.002 -0.999)">
             <path

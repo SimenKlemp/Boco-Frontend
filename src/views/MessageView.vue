@@ -16,7 +16,7 @@
             v-if="imageId"
             class="profileImage"
             :src="'http://localhost:8085/api/image/' + imageId"
-            alt=""
+            alt="profilbilde"
           />
           <svg
             v-else
@@ -69,13 +69,14 @@
           class="sendMessage"
         />
         <div class="buttonContainer">
-          <button class="button" @click.prevent="submit()">
+          <button class="button" @click.prevent="submit()" aria-label="meldingsknapp">
             <svg
               class="submitImage"
               xmlns="http://www.w3.org/2000/svg"
               width="30"
               height="26.414"
               viewBox="0 0 30 26.414"
+              aria-label="send melding ikon"
             >
               <g
                 id="noun-paper-airplane-1328715"

@@ -5,7 +5,7 @@
         v-if="imageId"
         class="profileImage"
         :src="'http://localhost:8085/api/image/' + imageId"
-        alt=""
+        alt="profilbilde"
       />
       <svg
         v-else
