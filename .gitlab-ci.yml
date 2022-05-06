@@ -43,9 +43,7 @@ pages:
  dependencies:
     - test
  script:
-    - mkdir .public
-    - cp -r coverage/* .public
-    - mv .public public
+    - cp -r coverage/* public
  artifacts:
    paths:
     - public
