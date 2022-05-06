@@ -185,4 +185,14 @@ strong {
 #statusText {
   display: inline-block;
 }
+@media(max-width: 410px){
+  .statusContainer{
+    font-size: 16px;
+  }
+}
+@media(max-width: 380px){
+  .statusContainer{
+    font-size: 15px;
+  }
+}
 </style>
