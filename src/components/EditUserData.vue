@@ -284,12 +284,8 @@ export default {
             }
             await this.$router.push({ name: "MyProfile" });
             this.$emit("routeChange");
-          } else {
-            alert("Feil passord!");
           }
         });
-      } else {
-        alert("Alle felter må være riktig utfylt");
       }
     },
     selectImage() {
