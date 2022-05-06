@@ -200,28 +200,6 @@
         </div>
       </div>
     </div>
-    <div v-if="dropDownClicked && !isAccepted" class="dropDown">
-      <div class="dropDownText">{{ rental.message }}</div>
-      <div class="buttons">
-        <div
-          @click.stop="emitRentalAction('Accept')"
-          id="acceptButton"
-          class="button"
-        >
-          BEKREFT
-        </div>
-        <div @click.stop="emitRentalAction('Reject')" class="button">AVVIS</div>
-      </div>
-    </div>
-    <div v-if="dropDownClicked && isAccepted" class="alternateDropDown">
-      <div
-        @click.stop="emitRentalAction('Cancel')"
-        class="button"
-        id="cancelButton"
-      >
-        KANSELLER
-      </div>
-    </div>
   </div>
 </template>
 
@@ -254,14 +232,6 @@ export default {
     async goToChat() {
       this.$store.dispatch("setRental", this.rental);
       await this.$router.push({ name: "MessageView" });
-    },
-    toggleDropdown() {
-      this.dropDownClicked = !this.dropDownClicked;
-      this.$emit("cardUpdate");
-    },
-    emitRentalAction(type) {
-      this.$emit("rentalAction", this.rental, type);
-      this.toggleDropdown();
     },
   },
   computed: {
