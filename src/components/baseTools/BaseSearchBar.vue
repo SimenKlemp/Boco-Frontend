@@ -39,16 +39,16 @@ export default {
 
 <style scoped>
 input {
-  margin-left:15px;
+  margin-left: 15px;
   border: none;
   font-size: 18px;
   height: 30px;
-  padding-top:5px;
-  outline:none;
+  padding-top: 5px;
+  outline: none;
 }
-input:active{
-  border:none;
-  outline:none;
+input:active {
+  border: none;
+  outline: none;
 }
 .inputField:focus {
   border: none;

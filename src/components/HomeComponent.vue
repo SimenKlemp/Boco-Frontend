@@ -2,7 +2,8 @@
   <div class="mainContent">
     <div class="welcomeMessage">Leie i stedet for å eie!</div>
     <form class="form" @submit.prevent="submit">
-      <BaseSearchBar data-search
+      <BaseSearchBar
+        data-search
         id="searchSentence"
         :label="'Søk...'"
         v-model="searchSentence"
@@ -144,10 +145,10 @@ p {
   border: none;
   background: transparent;
 }
-.searchButton svg{
+.searchButton svg {
   height: 35px;
 }
-form{
-padding:0;
+form {
+  padding: 0;
 }
 </style>

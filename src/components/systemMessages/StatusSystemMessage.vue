@@ -2,7 +2,9 @@
   <div class="systemMessageContainer" id="statusMessageContainer">
     <div id="statusMessage">
       <div class="statusContainer">
-        <div id="statusText">Status for leieforhold: <strong class="status">{{ status }}</strong></div>
+        <div id="statusText">
+          Status for leieforhold: <strong class="status">{{ status }}</strong>
+        </div>
         <svg
           v-if="status === 'Aktiv'"
           class="statusIcon"
@@ -128,7 +130,6 @@
             />
           </g>
         </svg>
-
       </div>
     </div>
   </div>
@@ -168,7 +169,6 @@ export default {
 </script>
 
 <style scoped>
-
 .statusContainer {
   font-size: 18px;
   text-align: left;
@@ -182,7 +182,7 @@ export default {
 strong {
   font-weight: 500;
 }
-#statusText{
+#statusText {
   display: inline-block;
 }
 </style>

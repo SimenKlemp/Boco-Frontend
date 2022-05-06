@@ -92,15 +92,14 @@ export default {
 
     //const disabledDates = this.$store.getters.GET_OCCUPIED_DATES;
     const disabledDates = computed(() => {
-      console.log(store.state.occupiedDates)
+      console.log(store.state.occupiedDates);
       const disabledDatesArray = store.state.occupiedDates;
       /*for (let i = 0; i < disabledDates; i++) {
         let disabledDate = Date.from(i.atStartOfDay(defaultZoneId).toInstant());
       }*/
 
-
       return disabledDatesArray;
-    })
+    });
 
     // For demo purposes assign range from the current date
     onMounted(() => {
@@ -139,7 +138,7 @@ export default {
       };
     });
     const v$ = useValidate(rules, state);
-    return { date, state, v$, disabledDates};
+    return { date, state, v$, disabledDates };
   },
   computed: {
     item() {
@@ -155,7 +154,7 @@ export default {
     getToday() {
       let today = new Date();
       return today;
-    }
+    },
   },
   methods: {
     async submit() {

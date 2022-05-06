@@ -80,7 +80,6 @@ export default {
   max-height: 5rem;
 }
 .imageContainer {
-
   margin: 10px;
 }
 .text {

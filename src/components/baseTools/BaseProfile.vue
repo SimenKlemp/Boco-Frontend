@@ -28,11 +28,11 @@
       <div class="verified">
         <div class="rating">
           <StarRating
-              star-size="20"
-              :read-only="true"
-              :rating= "this.meanRating"
-              :show-rating="false"
-              active-color="#FB8500"
+            star-size="20"
+            :read-only="true"
+            :rating="this.meanRating"
+            :show-rating="false"
+            active-color="#FB8500"
           ></StarRating>
         </div>
       </div>
@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       meanRating: 0.0,
-    }
+    };
   },
   props: {
     user: {
@@ -59,7 +59,7 @@ export default {
       required: true,
     },
   },
- async mounted() {
+  async mounted() {
     this.meanRating = await getMeanRating(this.user.userId);
 
     console.log("MeanRating til bruker er: " + this.meanRating);

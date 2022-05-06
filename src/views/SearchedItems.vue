@@ -403,15 +403,15 @@ p {
   box-shadow: 0 0 3px;
   border-radius: 10px;
 }
-#searchbarContainer svg{
+#searchbarContainer svg {
   height: 35px;
 }
 .searchButton {
   border: none;
   background: transparent;
 }
-form{
-  padding:0;
+form {
+  padding: 0;
 }
 .items {
   display: flex;
@@ -467,8 +467,8 @@ form{
 #iconContainer svg {
   margin-right: 10px;
 }
-#iconContainer{
+#iconContainer {
   margin-left: 15px;
-  margin-top:25px;
+  margin-top: 25px;
 }
 </style>
