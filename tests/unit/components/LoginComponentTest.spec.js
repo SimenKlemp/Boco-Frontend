@@ -81,10 +81,9 @@ describe("LoginComponent", () => {
        expect(mockRouter.push).toHaveBeenCalledTimes(0)
     });
 
-    test("When you click logg in without registered user, /registration should come up", async () =>{
-        const wrapper = shallowMount(LoginComponent, {
+    //test("When you click logg in without registered user, /registration should come up", async () =>{
+    //    const wrapper = shallowMount(LoginComponent, {
 
-        })
-    })
-
+    //    })
+    //})
 })
