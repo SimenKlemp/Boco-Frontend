@@ -1,10 +1,10 @@
 <template>
-  <div @click="goToChat" class="chatCardContainer">
+  <div @click="goToChat" class="chatCardContainer" tabindex="0">
     <div class="itemImageContainer">
       <img
         class="itemImage"
         :src="'http://localhost:8085/api/image/' + rental.item.imageId"
-        alt=""
+        alt="bilde av gjenstand"
       />
     </div>
     <div class="itemMeta">

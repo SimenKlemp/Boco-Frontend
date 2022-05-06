@@ -77,7 +77,7 @@ describe("LoginComponent", () => {
                 }
             }
         })
-        await wrapper.find(doLogin("test@test.no", "passord"))
+        await wrapper.find()
        expect(mockRouter.push).toHaveBeenCalledTimes(0)
     });
 

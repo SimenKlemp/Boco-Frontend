@@ -70,7 +70,7 @@
               v-model="state.oldPassword"
               placeholder="Gammelt passord"
             />
-            <button @click="editPassword" type="button">
+            <button @click="editPassword" type="button" aria-label="Endre passord">
               <svg
                 class="sideIconRight"
                 xmlns="http://www.w3.org/2000/svg"
@@ -147,6 +147,12 @@
         @click.prevent="submit"
         text="Lagre endringer"
         id="registerButton"
+        :disabled="isError"
+      />
+      <BaseButton
+        @click.prevent="deleteUser"
+        text="Slett bruker"
+        id="deleteButton"
         :disabled="isError"
       />
     </form>
@@ -286,6 +292,17 @@ export default {
             this.$emit("routeChange");
           }
         });
+      }
+    },
+    async deleteUser() {
+      if (
+        confirm(
+          "Er du sikker på at du vil slette brukeren din? Alt som kommer med brukeren din vil bli slettet"
+        )
+      ) {
+        await this.$router.push({ name: "HomeView" });
+        this.$store.dispatch("deleteUser");
+        this.$store.dispatch("resetState");
       }
     },
     selectImage() {

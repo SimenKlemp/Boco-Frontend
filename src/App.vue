@@ -22,6 +22,7 @@
             viewBox="0 0 32 32"
             x="0px"
             y="0px"
+            aria-label="Hamburger meny"
           >
             <title>menu</title>
             <path
@@ -33,10 +34,11 @@
           <img
             class="logoImage"
             :src="require('../src/assets/bocologo.png')"
-            alt=""
+            alt="Logo"
+            aria-label="Hjemknapp"
           />
         </button>
-        <button @click="toggleNotifications" class="hamburgerButton">
+        <button @click="toggleNotifications" class="hamburgerButton" aria-label="notifikasjoner">
           <div class="dot" v-if="showNotification > 0">
             {{ showNotification }}
           </div>
@@ -69,7 +71,7 @@
   <header v-else>
     <nav>
       <div class="header" id="headerHome">
-        <button @click="toggleHamburgerMenu" class="hamburgerButton">
+        <button @click="toggleHamburgerMenu" class="hamburgerButton" aria-label="hamburgermeny">
           <svg
             class="hamburgerMenu"
             id="hamburgerMenu"
@@ -85,15 +87,15 @@
             ></path>
           </svg>
         </button>
-        <button @click="goToHome" class="homeLink">
+        <button @click="goToHome" class="homeLink" aria-label="Hjemknapp">
           <img
             class="logoImage"
             :src="require('../src/assets/bocologo_white.png')"
-            alt=""
+            alt="Hvit logo"
           />
         </button>
-        <button @click="toggleNotifications" class="hamburgerButton">
-          <div class="dot" v-if="showNotification > 0">
+        <button @click="toggleNotifications" class="hamburgerButton" aria-label="notifikasjoner">
+          <div  aria-label="antall notifikasjoner" class="dot" v-if="showNotification> 0">
             {{ showNotification }}
           </div>
           <svg

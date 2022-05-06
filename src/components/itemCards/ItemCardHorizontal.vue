@@ -1,5 +1,5 @@
 <template>
-  <div class="itemCardContainer">
+  <div class="itemCardContainer" tabindex="0">
     <div class="itemCard">
       <div class="imageContainer">
         <img
@@ -11,6 +11,7 @@
           v-else
           :src="'http://localhost:8085/api/image/' + item.imageId"
           id="adImage"
+          alt="Gjenstand til leie"
         />
       </div>
       <div class="itemMeta">
@@ -21,6 +22,7 @@
               width="25"
               height="25.026"
               viewBox="0 0 25 25.026"
+              aria-label="kalender ikon"
             >
               <g id="noun-calendar-2080653" transform="translate(-2.6 -2.5)">
                 <path
@@ -111,6 +113,7 @@
                   viewBox="0 0 96 96"
                   enable-background="new 0 0 96 96"
                   xml:space="preserve"
+                  aria-label="Posisjons ikon"
                 >
                   <path
                     d="M48,9C31.86,9,18.73,22.131,18.73,38.271c0,14.13,23.756,41.948,28.518,47.381L48,86.512l0.752-0.857  c4.762-5.432,28.518-33.24,28.518-47.383C77.27,22.131,64.14,9,48,9z M48,48c-5.374,0-9.73-4.356-9.73-9.73s4.356-9.73,9.73-9.73  s9.73,4.356,9.73,9.73S53.374,48,48,48z"
@@ -118,9 +121,9 @@
                 </svg>
                 <p>{{ item.postOffice }}</p>
               </div>
-              <h3>{{ item.title }}</h3>
+              <h2>{{ item.title }}</h2>
             </div>
-            <div class="statusContainer">
+            <div class="statusContainer" aria-label="status ikon">
               <svg
                 v-if="statusWrapper === 'Aktiv'"
                 class="statusIcon"
@@ -265,6 +268,7 @@
                   height="13"
                   viewBox="0 0 14 14"
                   id="priceicon"
+                  aria-label="pris ikon"
                 >
                   <g
                     id="noun-coin-3324289"
@@ -307,9 +311,11 @@
             </div>
           </div>
           <div
-            @click.stop="goToEdit(item)"
-            v-if="this.$route.name === 'MyAds'"
-            id="editContainer"
+              @click.stop="goToEdit(item)"
+              v-if="this.$route.name === 'MyAds'"
+              id="editContainer"
+              tabindex="0"
+              aria-label="rediger gjenstand"
           >
             <svg
               class="statusIcon"
@@ -422,7 +428,7 @@ h4 {
   font-size: 16px;
   font-weight: 400;
 }
-h3 {
+h2 {
   font-size: 17px;
   font-weight: 400;
   margin-top: 2px;

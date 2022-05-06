@@ -459,3 +459,14 @@ export function getSent(rentalId, userId, token) {
       return response;
     });
 }
+export function deleteUser(userId, token) {
+  return axios
+    .delete("http://" + host + ":8085/api/user/delete/" + userId, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((response) => {
+      return response;
+    });
+}
