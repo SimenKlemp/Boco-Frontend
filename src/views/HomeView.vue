@@ -53,7 +53,7 @@ export default {
     emitToggleNotifications() {
       this.$emit("toggleNotifications");
     },
-     async seeItem(item) {
+    async seeItem(item) {
       await this.$store.dispatch("setItem", item);
       await this.$router.push({ name: "ProductDetails" });
     },
