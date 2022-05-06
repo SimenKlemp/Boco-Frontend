@@ -116,8 +116,12 @@ describe("All tests", () => {
     });
   });
   test("Successfully renders component", () => {
+    const expectedName = "Magnus Farstad";
+
     const component = wrapper.get(".profileRatingContainer");
+    const name = wrapper.get("#profileName");
 
     expect(component.exists).toBeTruthy;
+    expect(name.text()).toEqual(expectedName);
   });
 });

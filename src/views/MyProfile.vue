@@ -20,8 +20,7 @@
         v-if="hasProfileImage"
         class="actualProfileImage"
         :src="
-          'http://localhost:8085/api/image/' +
-          this.$store.state.userInfo.imageId
+          'http://localhost:8085/api/image/' + $store.state.userInfo.imageId
         "
         alt=""
       />
@@ -377,12 +376,12 @@ export default {
   display: flex;
   justify-content: center;
 }
-@media (max-width:420px){
-  #extraPadding{
+@media (max-width: 420px) {
+  #extraPadding {
     padding-right: 4rem;
   }
-  .actionInfoText{
-    padding:2rem 3rem 2rem 0;
+  .actionInfoText {
+    padding: 2rem 3rem 2rem 0;
   }
 }
 </style>

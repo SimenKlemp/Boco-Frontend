@@ -36,7 +36,7 @@ describe("AddItemComponent", () => {
       computed: {
         isFree() {
           return {
-            price,
+            price: 0,
           };
         },
       },
