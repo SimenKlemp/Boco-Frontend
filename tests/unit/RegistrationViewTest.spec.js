@@ -1,4 +1,5 @@
 import RegistrationView from "@/views/RegistrationView"
+import {mount} from "@vue/test-utils";
 
 describe("RegistrationView", ()=> {
     test("If it exist", () => {
