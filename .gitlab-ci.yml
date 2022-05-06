@@ -3,12 +3,12 @@ image: node:latest
 stages:
   - build
   - test
-  + - deploy
+  - deploy
 
 build:
   stage: build
   script:
-    - yarn
+    - npm install
   cache:
     paths:
       - node_modules/
@@ -24,10 +24,10 @@ test:
   dependencies:
     - build
   script:
-    - yarn test:ci
-cache:
-  paths:
-    - coverage/
+    - npm run test:ci
+  cache:
+    paths:
+      - coverage/
   artifacts:
     paths:
       - coverage/
@@ -40,13 +40,13 @@ cache:
 pages:
  stage: deploy
  dependencies:
-     - test
+    - test
  script:
-     - mkdir .public
-     - cp -r coverage/* .public
-     - mv .public public
+    - mkdir .public
+    - cp -r coverage/* .public
+    - mv .public public
  artifacts:
    paths:
-       - public
+    - public
  only:
-     - CI
+    - CI
