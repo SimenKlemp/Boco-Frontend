@@ -80,4 +80,30 @@ export default {
   right: -140px;
   background-color: transparent;
 }
+@media(max-width: 420px){
+  .notificationsContainer{
+    right: -125px;
+  }
+}
+@media(max-width: 410px){
+  .notificationsContainer{
+    right: -115px;
+  }
+}
+@media(max-width: 400px){
+  .notificationsContainer{
+    right: -105px;
+  }
+}
+@media(max-width: 390px){
+  .notificationsContainer{
+    right: -95px;
+  }
+}
+
+@media(max-width: 376px){
+  .notificationsContainer{
+    right: -85px;
+  }
+}
 </style>
