@@ -35,16 +35,15 @@ test:
     reports:
       junit:
         - junit.xml
-      cobertura: coverage/cobertura-coverage
+      cobertura: coverage/cobertura-coverage.xml
+  allow_failure: true
 
 pages:
  stage: deploy
  dependencies:
     - test
  script:
-    - mkdir .public
-    - cp -r coverage/* .public
-    - mv .public public
+    - cp -r coverage/* public
  artifacts:
    paths:
     - public
