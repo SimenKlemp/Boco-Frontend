@@ -377,4 +377,12 @@ export default {
   display: flex;
   justify-content: center;
 }
+@media (max-width:420px){
+  #extraPadding{
+    padding-right: 4rem;
+  }
+  .actionInfoText{
+    padding:2rem 3rem 2rem 0;
+  }
+}
 </style>

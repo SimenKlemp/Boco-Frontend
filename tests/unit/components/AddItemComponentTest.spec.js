@@ -33,6 +33,13 @@ describe("AddItemComponent", () => {
       },
     };
     const wrapper = shallowMount(AddItemComponent, {
+      computed: {
+        isFree() {
+          return {
+            price
+          }
+        }
+      },
       global: {
         mocks: {
           $store,

@@ -312,7 +312,7 @@ export default {
       );
     },
     isFree() {
-      return this.item.price === 0;
+      return this.rental.item.price === 0;
     },
     isPending() {
       return this.rental.status === "PENDING";
@@ -480,5 +480,8 @@ p {
 }
 #finishedIcon {
   fill: black;
+}
+.locationCity{
+  display: inline-block;
 }
 </style>

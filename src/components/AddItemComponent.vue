@@ -349,6 +349,7 @@ form {
 
 .checkboxContainer {
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 #priceInfo {
   display: flex;

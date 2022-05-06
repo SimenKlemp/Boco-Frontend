@@ -32,10 +32,14 @@
                 d="M48,9C31.86,9,18.73,22.131,18.73,38.271c0,14.13,23.756,41.948,28.518,47.381L48,86.512l0.752-0.857  c4.762-5.432,28.518-33.24,28.518-47.383C77.27,22.131,64.14,9,48,9z M48,48c-5.374,0-9.73-4.356-9.73-9.73s4.356-9.73,9.73-9.73  s9.73,4.356,9.73,9.73S53.374,48,48,48z"
               ></path>
             </svg>
-            <p>{{ item.postOffice }}</p>
+            <div class="locationText">
+              <span>{{ item.streetAddress }},</span>
+              <div class="locationCity">
+                <p>{{ item.postalCode }} {{ item.postOffice }}</p>
+              </div>
+            </div>
           </div>
         </div>
-
         <h1>{{ item.title }}</h1>
         <div class="price">
           <p id="priceTitle">Dagsleie</p>
@@ -189,6 +193,7 @@ p {
   display: flex;
   height: 1.5rem;
   margin-bottom: 0.5rem;
+  font-size: 14px;
 }
 .positionMarker {
   fill: #fb8500;
@@ -220,6 +225,9 @@ p {
   font-size: 24px;
   margin: 24px 0 10px 0;
 }
+.locationText {
+  margin-bottom: 1rem;
+}
 
 #productImage {
   width: 100%;
@@ -232,10 +240,7 @@ p {
 #descriptionText {
   color: #333333;
 }
-#ratingLocationContainer {
-  display: grid;
-  grid-template-columns: 40% 20% 40%;
-}
+
 #priceTitle {
   font-size: 16px;
   font-weight: 400;
@@ -251,5 +256,12 @@ p {
 }
 #mapContainer {
   margin: 15px 0 10px 15px;
+}
+.locationCity{
+  display:inline-block;
+}
+.locationText{
+  margin-bottom: 0;
+  margin-top: 5px;
 }
 </style>

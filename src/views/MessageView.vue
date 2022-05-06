@@ -197,6 +197,9 @@ export default {
   async mounted() {
     await connect(this.currentRentalId, (message) => {
       this.messages.push(JSON.parse(message.body));
+      setTimeout(() => {
+        this.scrollToEnd();
+      }, 100);
     });
     let chat = await getChat(this.currentRentalId, this.$store.state.token);
     for (let i = 0; i < chat.messages.length; i++) {

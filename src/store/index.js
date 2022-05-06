@@ -113,16 +113,24 @@ export default createStore({
       state.myRentals = rentals;
     },
     SET_MY_RENTALS_ACTIVE(state, rentals) {
-      state.myRentalsActive = rentals;
+      if (rentals !== "") {
+        state.myRentalsActive = rentals;
+      }
     },
     SET_MY_RENTALS_FINISHED(state, rentals) {
-      state.myRentalsFinished = rentals;
+      if (rentals !== "") {
+        state.myRentalsFinished = rentals;
+      }
     },
     SET_MY_RENTALS_OWNER_ACTIVE(state, rentals) {
-      state.currentRentalsOwnerActive = rentals;
+      if (rentals !== "") {
+        state.currentRentalsOwnerActive = rentals;
+      }
     },
     SET_MY_RENTALS_OWNER_FINISHED(state, rentals) {
-      state.currentRentalsOwnerFinished = rentals;
+      if (rentals !== "") {
+        state.currentRentalsOwnerFinished = rentals;
+      }
     },
     SET_MY_NOTIFICATIONS(state, notifications) {
       state.myNotifications = notifications;
