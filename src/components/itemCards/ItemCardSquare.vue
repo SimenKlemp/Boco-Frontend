@@ -136,5 +136,12 @@ img {
   .priceTag{
     bottom: 58px;
   }
+  .itemInfo p{
+    margin:0 0 2px 0;
+  }
+  .itemInfo h4{
+    margin:0;
+    font-size: 14px;
+  }
 }
 </style>
