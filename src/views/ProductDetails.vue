@@ -240,10 +240,7 @@ p {
 #descriptionText {
   color: #333333;
 }
-#ratingLocationContainer {
-  display: grid;
-  grid-template-columns: 40% 20% 40%;
-}
+
 #priceTitle {
   font-size: 16px;
   font-weight: 400;
@@ -259,5 +256,12 @@ p {
 }
 #mapContainer {
   margin: 15px 0 10px 15px;
+}
+.locationCity{
+  display:inline-block;
+}
+.locationText{
+  margin-bottom: 0;
+  margin-top: 5px;
 }
 </style>
