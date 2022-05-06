@@ -45,17 +45,10 @@ export default {
       type: Number,
       required: true,
     },
-    generated: {
-      type: Boolean,
-      default: false,
-    },
   },
   computed: {
     isMe() {
       return this.userId === this.$store.state.userInfo.userId;
-    },
-    currentRental() {
-      return this.$store.state.currentRental;
     },
   },
 };
