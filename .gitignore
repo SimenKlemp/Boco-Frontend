@@ -2,6 +2,7 @@
 node_modules
 /dist
 
+junit.xml
 coverage/**
 
 # local env files

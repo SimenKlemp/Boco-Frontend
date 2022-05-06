@@ -8,7 +8,7 @@ module.exports = {
   },
   "collectCoverageFrom": ["src/**/*.js", "!**/node_modules/**"],
   "coverageReporters": ["html", "text", "text-summary", "cobertura"],
-  "testMatch": ["**/*.test.js"],
+  "testMatch": ["**/*.spec.js"],
   transform: {
     "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
     ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub"
