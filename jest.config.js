@@ -6,7 +6,7 @@ module.exports = {
       isolatedModules: true,
     },
   },
-  "collectCoverageFrom": ["src/**/*.js", "!**/node_modules/**"],
+  "collectCoverageFrom": ["src/**/*.js", "src/**/*.vue", "!**/node_modules/**"],
   "coverageReporters": ["html", "text", "text-summary", "cobertura"],
   "testMatch": ["**/*.spec.js"],
   transform: {
