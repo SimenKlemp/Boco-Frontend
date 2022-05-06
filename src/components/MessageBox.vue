@@ -5,7 +5,7 @@
         v-if="imageId"
         class="profileImage"
         :src="'http://localhost:8085/api/image/' + imageId"
-        alt=""
+        alt="profilbilde"
       />
       <svg
         v-else
@@ -45,17 +45,10 @@ export default {
       type: Number,
       required: true,
     },
-    generated: {
-      type: Boolean,
-      default: false,
-    },
   },
   computed: {
     isMe() {
       return this.userId === this.$store.state.userInfo.userId;
-    },
-    currentRental() {
-      return this.$store.state.currentRental;
     },
   },
 };

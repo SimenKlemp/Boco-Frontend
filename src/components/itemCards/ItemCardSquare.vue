@@ -1,5 +1,5 @@
 <template>
-  <div class="itemCardContainer">
+  <div class="itemCardContainer" tabindex="0" role="button">
     <div class="itemCard">
       <div class="imageContainer">
         <img
@@ -11,6 +11,7 @@
           v-else
           :src="'http://localhost:8085/api/image/' + item.imageId"
           id="cardImage"
+          alt="Gjenstand til leie"
         />
         <p class="priceTag" v-if="!isFree">{{ item.price }} kr/dag</p>
         <p class="priceTag" v-else>GRATIS</p>
