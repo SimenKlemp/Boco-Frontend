@@ -1,7 +1,7 @@
 <template>
   <div id="FeedbackWebPageContainer">
     <form @submit.prevent="submit">
-      <h1>Lag en tilbakemelding:</h1>
+      <h1 id="descriptionTitle">Lag en tilbakemelding:</h1>
       <textarea
         id="description"
         class="mb-4"
