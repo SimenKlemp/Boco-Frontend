@@ -30,57 +30,8 @@ beforeEach(() => {
     push: jest.fn(),
   };
 });
-
-test("Method goToEdit", () => {
-  let wrapper = shallowMount(ItemCardHorizontal, {
-    props: {
-      item: {
-        category: "IT",
-        description: "Dette er vue",
-        imageId: 168,
-        isDeliverable: true,
-        isPickupable: true,
-        itemId: 101,
-        lat: 63.4106,
-        lng: 10.3983,
-        postOffice: "Trondheim",
-        postalCode: "7031",
-        price: 0,
-        publicityDate: "2022-05-04T07:15:32.000+0000",
-        streetAddress: "Holtermanns veg 31B",
-        title: "Vue",
-        user: {
-          email: "magnus@mail.no",
-          imageId: 137,
-          isPerson: true,
-          name: "Magnus Farstad",
-          postOffice: "Trondheim",
-          postalCode: "7031",
-          role: "USER",
-          streetAddress: "Holtermanns veg 31B",
-          userId: 15,
-        },
-      },
-    },
-    global: {
-      mocks: {
-        $store,
-        $router: mockRouter,
-        $route: mockRoute,
-      },
-    },
-  });
-
-  wrapper.vm.goToEdit(null);
-
-  expect(mockRouter.push).toHaveBeenCalledTimes(1);
-  expect(mockRouter.push).toHaveBeenCalledWith({
-    name: "AddItemComponent",
-  });
-});
-
-describe("Successfully renders outcome of switch", () => {
-  test("Successfully returns 'Akseptert'", () => {
+describe("All tests", () => {
+  test("Method goToEdit", () => {
     let wrapper = shallowMount(ItemCardHorizontal, {
       props: {
         item: {
@@ -110,232 +61,282 @@ describe("Successfully renders outcome of switch", () => {
             userId: 15,
           },
         },
-        status: "ACCEPTED",
       },
       global: {
         mocks: {
+          $store,
+          $router: mockRouter,
           $route: mockRoute,
         },
       },
     });
-    let expectedStatus = "ACCEPTED";
-    let statusReceived = wrapper.vm.statusWrapper;
 
-    expect(statusReceived.text).toEqual(expectedStatus.text);
+    wrapper.vm.goToEdit(null);
+
+    expect(mockRouter.push).toHaveBeenCalledTimes(1);
+    expect(mockRouter.push).toHaveBeenCalledWith({
+      name: "AddItemComponent",
+    });
   });
-  test("Successfully returns 'Aktiv'", () => {
-    let wrapper = shallowMount(ItemCardHorizontal, {
-      props: {
-        item: {
-          category: "IT",
-          description: "Dette er vue",
-          imageId: 168,
-          isDeliverable: true,
-          isPickupable: true,
-          itemId: 101,
-          lat: 63.4106,
-          lng: 10.3983,
-          postOffice: "Trondheim",
-          postalCode: "7031",
-          price: 0,
-          publicityDate: "2022-05-04T07:15:32.000+0000",
-          streetAddress: "Holtermanns veg 31B",
-          title: "Vue",
-          user: {
-            email: "magnus@mail.no",
-            imageId: 137,
-            isPerson: true,
-            name: "Magnus Farstad",
+
+  describe("Successfully renders outcome of switch", () => {
+    test("Successfully returns 'Akseptert'", () => {
+      let wrapper = shallowMount(ItemCardHorizontal, {
+        props: {
+          item: {
+            category: "IT",
+            description: "Dette er vue",
+            imageId: 168,
+            isDeliverable: true,
+            isPickupable: true,
+            itemId: 101,
+            lat: 63.4106,
+            lng: 10.3983,
             postOffice: "Trondheim",
             postalCode: "7031",
-            role: "USER",
+            price: 0,
+            publicityDate: "2022-05-04T07:15:32.000+0000",
             streetAddress: "Holtermanns veg 31B",
-            userId: 15,
+            title: "Vue",
+            user: {
+              email: "magnus@mail.no",
+              imageId: 137,
+              isPerson: true,
+              name: "Magnus Farstad",
+              postOffice: "Trondheim",
+              postalCode: "7031",
+              role: "USER",
+              streetAddress: "Holtermanns veg 31B",
+              userId: 15,
+            },
+          },
+          status: "ACCEPTED",
+        },
+        global: {
+          mocks: {
+            $route: mockRoute,
           },
         },
-        status: "ACTIVE",
-      },
-      global: {
-        mocks: {
-          $route: mockRoute,
-        },
-      },
-    });
-    let expectedStatus = "ACTIVE";
-    let statusReceived = wrapper.vm.statusWrapper;
+      });
+      let expectedStatus = "ACCEPTED";
+      let statusReceived = wrapper.vm.statusWrapper;
 
-    expect(statusReceived.text).toEqual(expectedStatus.text);
-  });
-  test("Successfully returns 'Avventer'", () => {
-    let wrapper = shallowMount(ItemCardHorizontal, {
-      props: {
-        item: {
-          category: "IT",
-          description: "Dette er vue",
-          imageId: 168,
-          isDeliverable: true,
-          isPickupable: true,
-          itemId: 101,
-          lat: 63.4106,
-          lng: 10.3983,
-          postOffice: "Trondheim",
-          postalCode: "7031",
-          price: 0,
-          publicityDate: "2022-05-04T07:15:32.000+0000",
-          streetAddress: "Holtermanns veg 31B",
-          title: "Vue",
-          user: {
-            email: "magnus@mail.no",
-            imageId: 137,
-            isPerson: true,
-            name: "Magnus Farstad",
+      expect(statusReceived.text).toEqual(expectedStatus.text);
+    });
+    test("Successfully returns 'Aktiv'", () => {
+      let wrapper = shallowMount(ItemCardHorizontal, {
+        props: {
+          item: {
+            category: "IT",
+            description: "Dette er vue",
+            imageId: 168,
+            isDeliverable: true,
+            isPickupable: true,
+            itemId: 101,
+            lat: 63.4106,
+            lng: 10.3983,
             postOffice: "Trondheim",
             postalCode: "7031",
-            role: "USER",
+            price: 0,
+            publicityDate: "2022-05-04T07:15:32.000+0000",
             streetAddress: "Holtermanns veg 31B",
-            userId: 15,
+            title: "Vue",
+            user: {
+              email: "magnus@mail.no",
+              imageId: 137,
+              isPerson: true,
+              name: "Magnus Farstad",
+              postOffice: "Trondheim",
+              postalCode: "7031",
+              role: "USER",
+              streetAddress: "Holtermanns veg 31B",
+              userId: 15,
+            },
+          },
+          status: "ACTIVE",
+        },
+        global: {
+          mocks: {
+            $route: mockRoute,
           },
         },
-        status: "PENDING",
-      },
-      global: {
-        mocks: {
-          $route: mockRoute,
-        },
-      },
-    });
-    let expectedStatus = "PENDING";
-    let statusReceived = wrapper.vm.statusWrapper;
+      });
+      let expectedStatus = "ACTIVE";
+      let statusReceived = wrapper.vm.statusWrapper;
 
-    expect(statusReceived.text).toEqual(expectedStatus.text);
-  });
-  test("Successfully returns 'Avvist'", () => {
-    let wrapper = shallowMount(ItemCardHorizontal, {
-      props: {
-        item: {
-          category: "IT",
-          description: "Dette er vue",
-          imageId: 168,
-          isDeliverable: true,
-          isPickupable: true,
-          itemId: 101,
-          lat: 63.4106,
-          lng: 10.3983,
-          postOffice: "Trondheim",
-          postalCode: "7031",
-          price: 0,
-          publicityDate: "2022-05-04T07:15:32.000+0000",
-          streetAddress: "Holtermanns veg 31B",
-          title: "Vue",
-          user: {
-            email: "magnus@mail.no",
-            imageId: 137,
-            isPerson: true,
-            name: "Magnus Farstad",
+      expect(statusReceived.text).toEqual(expectedStatus.text);
+    });
+    test("Successfully returns 'Avventer'", () => {
+      let wrapper = shallowMount(ItemCardHorizontal, {
+        props: {
+          item: {
+            category: "IT",
+            description: "Dette er vue",
+            imageId: 168,
+            isDeliverable: true,
+            isPickupable: true,
+            itemId: 101,
+            lat: 63.4106,
+            lng: 10.3983,
             postOffice: "Trondheim",
             postalCode: "7031",
-            role: "USER",
+            price: 0,
+            publicityDate: "2022-05-04T07:15:32.000+0000",
             streetAddress: "Holtermanns veg 31B",
-            userId: 15,
+            title: "Vue",
+            user: {
+              email: "magnus@mail.no",
+              imageId: 137,
+              isPerson: true,
+              name: "Magnus Farstad",
+              postOffice: "Trondheim",
+              postalCode: "7031",
+              role: "USER",
+              streetAddress: "Holtermanns veg 31B",
+              userId: 15,
+            },
+          },
+          status: "PENDING",
+        },
+        global: {
+          mocks: {
+            $route: mockRoute,
           },
         },
-        status: "REJECTED",
-      },
-      global: {
-        mocks: {
-          $route: mockRoute,
-        },
-      },
-    });
-    let expectedStatus = "REJECTED";
-    let statusReceived = wrapper.vm.statusWrapper;
+      });
+      let expectedStatus = "PENDING";
+      let statusReceived = wrapper.vm.statusWrapper;
 
-    expect(statusReceived.text).toEqual(expectedStatus.text);
-  });
-  test("Successfully returns 'Kansellert'", () => {
-    let wrapper = shallowMount(ItemCardHorizontal, {
-      props: {
-        item: {
-          category: "IT",
-          description: "Dette er vue",
-          imageId: 168,
-          isDeliverable: true,
-          isPickupable: true,
-          itemId: 101,
-          lat: 63.4106,
-          lng: 10.3983,
-          postOffice: "Trondheim",
-          postalCode: "7031",
-          price: 0,
-          publicityDate: "2022-05-04T07:15:32.000+0000",
-          streetAddress: "Holtermanns veg 31B",
-          title: "Vue",
-          user: {
-            email: "magnus@mail.no",
-            imageId: 137,
-            isPerson: true,
-            name: "Magnus Farstad",
+      expect(statusReceived.text).toEqual(expectedStatus.text);
+    });
+    test("Successfully returns 'Avvist'", () => {
+      let wrapper = shallowMount(ItemCardHorizontal, {
+        props: {
+          item: {
+            category: "IT",
+            description: "Dette er vue",
+            imageId: 168,
+            isDeliverable: true,
+            isPickupable: true,
+            itemId: 101,
+            lat: 63.4106,
+            lng: 10.3983,
             postOffice: "Trondheim",
             postalCode: "7031",
-            role: "USER",
+            price: 0,
+            publicityDate: "2022-05-04T07:15:32.000+0000",
             streetAddress: "Holtermanns veg 31B",
-            userId: 15,
+            title: "Vue",
+            user: {
+              email: "magnus@mail.no",
+              imageId: 137,
+              isPerson: true,
+              name: "Magnus Farstad",
+              postOffice: "Trondheim",
+              postalCode: "7031",
+              role: "USER",
+              streetAddress: "Holtermanns veg 31B",
+              userId: 15,
+            },
+          },
+          status: "REJECTED",
+        },
+        global: {
+          mocks: {
+            $route: mockRoute,
           },
         },
-        status: "CANCELED",
-      },
-      global: {
-        mocks: {
-          $route: mockRoute,
-        },
-      },
-    });
-    let expectedStatus = "CANCELED";
-    let statusReceived = wrapper.vm.statusWrapper;
+      });
+      let expectedStatus = "REJECTED";
+      let statusReceived = wrapper.vm.statusWrapper;
 
-    expect(statusReceived.text).toEqual(expectedStatus.text);
-  });
-  test("Successfully returns 'Avsluttet'", () => {
-    let wrapper = shallowMount(ItemCardHorizontal, {
-      props: {
-        item: {
-          category: "IT",
-          description: "Dette er vue",
-          imageId: 168,
-          isDeliverable: true,
-          isPickupable: true,
-          itemId: 101,
-          lat: 63.4106,
-          lng: 10.3983,
-          postOffice: "Trondheim",
-          postalCode: "7031",
-          price: 0,
-          publicityDate: "2022-05-04T07:15:32.000+0000",
-          streetAddress: "Holtermanns veg 31B",
-          title: "Vue",
-          user: {
-            email: "magnus@mail.no",
-            imageId: 137,
-            isPerson: true,
-            name: "Magnus Farstad",
+      expect(statusReceived.text).toEqual(expectedStatus.text);
+    });
+    test("Successfully returns 'Kansellert'", () => {
+      let wrapper = shallowMount(ItemCardHorizontal, {
+        props: {
+          item: {
+            category: "IT",
+            description: "Dette er vue",
+            imageId: 168,
+            isDeliverable: true,
+            isPickupable: true,
+            itemId: 101,
+            lat: 63.4106,
+            lng: 10.3983,
             postOffice: "Trondheim",
             postalCode: "7031",
-            role: "USER",
+            price: 0,
+            publicityDate: "2022-05-04T07:15:32.000+0000",
             streetAddress: "Holtermanns veg 31B",
-            userId: 15,
+            title: "Vue",
+            user: {
+              email: "magnus@mail.no",
+              imageId: 137,
+              isPerson: true,
+              name: "Magnus Farstad",
+              postOffice: "Trondheim",
+              postalCode: "7031",
+              role: "USER",
+              streetAddress: "Holtermanns veg 31B",
+              userId: 15,
+            },
+          },
+          status: "CANCELED",
+        },
+        global: {
+          mocks: {
+            $route: mockRoute,
           },
         },
-        status: "FINISHED",
-      },
-      global: {
-        mocks: {
-          $route: mockRoute,
-        },
-      },
-    });
-    let expectedStatus = "FINISHED";
-    let statusReceived = wrapper.vm.statusWrapper;
+      });
+      let expectedStatus = "CANCELED";
+      let statusReceived = wrapper.vm.statusWrapper;
 
-    expect(statusReceived.text).toEqual(expectedStatus.text);
+      expect(statusReceived.text).toEqual(expectedStatus.text);
+    });
+    test("Successfully returns 'Avsluttet'", () => {
+      let wrapper = shallowMount(ItemCardHorizontal, {
+        props: {
+          item: {
+            category: "IT",
+            description: "Dette er vue",
+            imageId: 168,
+            isDeliverable: true,
+            isPickupable: true,
+            itemId: 101,
+            lat: 63.4106,
+            lng: 10.3983,
+            postOffice: "Trondheim",
+            postalCode: "7031",
+            price: 0,
+            publicityDate: "2022-05-04T07:15:32.000+0000",
+            streetAddress: "Holtermanns veg 31B",
+            title: "Vue",
+            user: {
+              email: "magnus@mail.no",
+              imageId: 137,
+              isPerson: true,
+              name: "Magnus Farstad",
+              postOffice: "Trondheim",
+              postalCode: "7031",
+              role: "USER",
+              streetAddress: "Holtermanns veg 31B",
+              userId: 15,
+            },
+          },
+          status: "FINISHED",
+        },
+        global: {
+          mocks: {
+            $route: mockRoute,
+          },
+        },
+      });
+      let expectedStatus = "FINISHED";
+      let statusReceived = wrapper.vm.statusWrapper;
+
+      expect(statusReceived.text).toEqual(expectedStatus.text);
+    });
   });
 });

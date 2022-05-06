@@ -1,5 +1,5 @@
 <template>
-  <div id="checkboxContainer">
+  <div class="checkboxContainer">
     <input
       type="checkbox"
       :checked="modelValue"
@@ -40,7 +40,7 @@ input:checked {
   content: url("../../assets/Group 87.svg");
   border: none;
 }
-#checkboxContainer {
+.checkboxContainer {
   display: flex;
 }
 label {
