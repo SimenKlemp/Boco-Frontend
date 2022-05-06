@@ -12,6 +12,7 @@
           width="22"
           height="22"
           viewBox="0 0 22 22"
+          aria-label="aktiv"
         >
           <g id="noun-timer-2095142" transform="translate(-12.47 -12.47)">
             <path
@@ -39,6 +40,7 @@
           width="20"
           height="20"
           viewBox="0 0 20 20"
+          aria-label="Avventer"
         >
           <g id="_05" data-name="05" transform="translate(-2 -2)">
             <path
@@ -62,6 +64,7 @@
           width="20"
           height="20.004"
           viewBox="0 0 20 20.004"
+          aria-label="Akseptert"
         >
           <g id="noun-checkmark-2573373" transform="translate(-1.002 -0.999)">
             <path

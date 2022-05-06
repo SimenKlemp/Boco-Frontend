@@ -6,6 +6,7 @@
     :value="modelValue"
     @input="$emit('update:modelValue', $event.target.value)"
     :id="uuid"
+    aria-label="søkefelt"
   />
 </template>
 

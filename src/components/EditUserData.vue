@@ -70,7 +70,7 @@
               v-model="state.oldPassword"
               placeholder="Gammelt passord"
             />
-            <button @click="editPassword" type="button">
+            <button @click="editPassword" type="button" aria-label="Endre passord">
               <svg
                 class="sideIconRight"
                 xmlns="http://www.w3.org/2000/svg"
