@@ -6,9 +6,10 @@ module.exports = {
       isolatedModules: true,
     },
   },
-  "collectCoverageFrom": ["src/**/*.js", "src/**/*.vue", "!**/node_modules/**"],
-  "coverageReporters": ["html", "text", "text-summary", "cobertura"],
-  "testMatch": ["**/*.spec.js"],
+  collectCoverage: true,
+  collectCoverageFrom: ["src/**/*.js", "src/**/*.vue", "!**/node_modules/**"],
+  coverageReporters: ["html", "text", "text-summary", "cobertura"],
+  testMatch: ["**/*.spec.js"],
   transform: {
     "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
     ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub"
