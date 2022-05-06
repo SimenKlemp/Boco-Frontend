@@ -52,7 +52,7 @@ export default {
             'Trykk deretter på "legg til bilde" knappen under profilbilde/ikonet',
         },
         {
-          title: "Hvordan bekrefter jeg en leieforsespørsel?",
+          title: "Hvordan godttar jeg en forespørsel?",
           description:
             "Du skal ha fått en notifikasjon som en kan se hvis du trykker å bjelle ikonet." +
             "Her får du en oversikt over alle nylige notifikasjoner, hvis du ikke finner den der kan du trykke på hamburger menyen." +
