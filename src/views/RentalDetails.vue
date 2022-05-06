@@ -481,4 +481,7 @@ p {
 #finishedIcon {
   fill: black;
 }
+.locationCity{
+  display: inline-block;
+}
 </style>
