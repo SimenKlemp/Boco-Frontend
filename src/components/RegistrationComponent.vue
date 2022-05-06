@@ -4,7 +4,7 @@
       <h1>Registrer deg!</h1>
 
       <h2>Personalia</h2>
-      <label>Fullt navn</label>
+      <label class="h3">Fullt navn</label>
       <BaseInput
         id="name"
         class="mb-4"
@@ -15,7 +15,7 @@
       <span v-if="v$.fullname.$error" class="errorMessage">
         {{ v$.email.$errors[0].$message }}
       </span>
-      <label>E-post</label>
+      <label class="h3">E-post</label>
       <BaseInput
         id="email"
         class="mb-4"
@@ -26,7 +26,7 @@
       <span v-if="v$.email.$error" class="errorMessage">
         {{ v$.email.$errors[0].$message }}
       </span>
-      <label>Passord</label>
+      <label class="h3">Passord</label>
       <BaseInput
         id="password"
         class="mb-4"
@@ -163,35 +163,7 @@ export default {
 
 <style scoped>
 form {
-  padding: 0 20px;
-}
-form > * {
-  margin-bottom: 10px;
-}
-
-h1 {
-  color: black;
-  font-weight: 500;
-  font-size: 28px;
-  margin-bottom: 15px;
-}
-h2 {
-  color: black;
-  font-weight: 400;
-  font-size: 25px;
   text-align: left;
-  margin-left: 15px;
-  margin-bottom: 20px;
-}
-.mb-4 {
-  margin-bottom: 20px;
-}
-label {
-  float: left;
-  margin-left: 15px;
-  color: black;
-  font-weight: 500;
-  margin-bottom: 5px;
 }
 button {
   margin-top: 30px;

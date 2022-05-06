@@ -452,12 +452,12 @@ form {
 }
 #sortAndFilterContainer {
   display: grid;
-  grid-template-columns: 30% 50%;
+  grid-template-columns: 40% 50%;
 }
 
 #categoryFilterContainer {
   display: grid;
-  grid-template-columns: 30% 50%;
+  grid-template-columns: 40% 50%;
 }
 
 #categoryFilterContainer #iconContainer {

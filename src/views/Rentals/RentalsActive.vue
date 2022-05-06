@@ -18,7 +18,6 @@ export default {
   computed: {
     allRentals() {
       const rentals = this.rentalsUser.concat(this.rentalsOwner);
-      console.log(rentals);
       rentals.sort((a, b) =>
         a.lastMessage.date < b.lastMessage.date
           ? 1
