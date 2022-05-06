@@ -295,7 +295,7 @@ export default {
       mustBePickable: false,
       page: 0,
       pageSize: 30,
-      sortField: "Pris",
+      sortField: "RELEVANCE",
       searchSentence: this.$store.state.currentSearchSentence,
       sortOptions: [{name: "Pris", value: "PRICE"}, {name: "Relevans", value: "RELEVANCE"}, {name: "Dato publisert", value: "PUBLICITY_DATE"}],
       gridView: true,
