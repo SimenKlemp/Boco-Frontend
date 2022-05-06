@@ -1,5 +1,5 @@
 import LoginComponent from "@/components/LoginComponent";
-import {flushPromises, mount} from "@vue/test-utils";
+import {flushPromises, shallowMount} from "@vue/test-utils";
 import {doLogin} from "@/service/apiService";
 
 
@@ -11,44 +11,68 @@ describe("LoginComponent", () => {
             commit: () => {},
             dispatch: () => {},
             state: {
-                userInfo: [
-                    {   id: 1,
-                        email: "test@test.no",
-                        password: "passord"
-                    }
-                ]
+                token: "token",
+                userInfo: {
+                    email: "frode@test",
+                    imageId: 200,
+                    isPerson: true,
+                    name: "Frode Pedersen",
+                    postOffice: "Trondheim",
+                    postalCode: "7067",
+                    role: "USER",
+                    streetAddress: "Thomas Von Westens gate 2",
+                    userId: 5,
+                },
             },
-        }
+        };
     });
     test("If the page renders", () => {
-        const wrapper = mount(LoginComponent, {
+        const wrapper = shallowMount(LoginComponent, {
             global: {
                 mocks: {
                     $store,
                 },
             },
-        });
-
-        expect(wrapper.login).toMatchSnapshot();
+        })
+        expect(wrapper.exists()).toBe(true);
     });
+
+    test("does h1 exist", () => {
+        const wrapper = shallowMount(LoginComponent, {
+            global: {
+                mocks: {
+                    $store,
+                },
+            },
+        })
+
+        expect(wrapper.find("h1").text()).toBe("Velkommen!")
+    });
+
+    test("sets the correct user to logged in", async () => {
+        const wrapper = shallowMount(LoginComponent, {
+            global: {
+                mocks: {
+                    $store,
+                },
+            },
+        })
+        expect(wrapper.vm.$data.email).toBe("");
+    });
+
+
     test("When login button is clicked and you are a registered user", async () =>{
 
-        const mockRoute = {
-            params: {
-                id: 1
-            }
-        }
         const mockRouter = {
             push: jest.fn()
         }
-        const wrapper = mount(doLogin, {
+        const wrapper = shallowMount(doLogin, {
             id: 1,
             email: "test@test.no",
             passord: "passord",
             global: {
                 mocks: {
                     $store,
-                    $route: mockRoute,
                     $router: mockRouter
                 }
             }
@@ -56,5 +80,11 @@ describe("LoginComponent", () => {
         await wrapper.find(doLogin("test@test.no", "passord"))
        expect(mockRouter.push).toHaveBeenCalledTimes(0)
     });
+
+    test("When you click logg in without registered user, /registration should come up", async () =>{
+        const wrapper = shallowMount(LoginComponent, {
+
+        })
+    })
 
 })

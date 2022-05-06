@@ -44,7 +44,8 @@ describe("HomeComponent", () => {
         expect(home.exists())
     });
 
-    test("Renders a new site when searching", async () => {
+    test(
+        "Renders a new site when searching", async () => {
         const wrapper = mount(HomeComponent, {
             global: {
                 mocks: {
