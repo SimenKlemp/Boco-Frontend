@@ -1,5 +1,9 @@
 import AddItemComponent from "@/components/AddItemComponent";
 import { shallowMount } from "@vue/test-utils";
+import useValidate from "@vuelidate/core";
+import { reactive } from "vue";
+import { required } from "@vuelidate/validators";
+import { useStore } from "vuex";
 
 describe("AddItemComponent", () => {
   let $store;
@@ -41,12 +45,13 @@ describe("AddItemComponent", () => {
         },
       },
       global: {
+        plugins: [useValidate(), useStore, reactive, required],
         mocks: {
           $store,
         },
       },
     });
-    let addItem = wrapper.find("#AddItemComponent");
+    let addItem = wrapper.find(".RegContainer");
 
     expect(addItem.exists()).toBeTruthy;
   });
