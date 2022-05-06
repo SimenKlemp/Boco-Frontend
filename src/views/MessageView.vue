@@ -16,7 +16,7 @@
             v-if="imageId"
             class="profileImage"
             :src="'http://localhost:8085/api/image/' + imageId"
-            alt=""
+            alt="profilbilde"
           />
           <svg
             v-else
@@ -69,13 +69,14 @@
           class="sendMessage"
         />
         <div class="buttonContainer">
-          <button class="button" @click.prevent="submit()">
+          <button class="button" @click.prevent="submit()" aria-label="meldingsknapp">
             <svg
               class="submitImage"
               xmlns="http://www.w3.org/2000/svg"
               width="30"
               height="26.414"
               viewBox="0 0 30 26.414"
+              aria-label="send melding ikon"
             >
               <g
                 id="noun-paper-airplane-1328715"
@@ -158,6 +159,26 @@ export default {
         this.scrollToEnd();
       }, 100);
     },
+    async connectChat() {
+      await connect(this.currentRentalId, (message) => {
+        this.messages.push(JSON.parse(message.body));
+        setTimeout(() => {
+          this.scrollToEnd();
+        }, 100);
+      });
+      let chat = await getChat(this.currentRentalId, this.$store.state.token);
+      for (let i = 0; i < chat.messages.length; i++) {
+        this.messages.push(chat.messages[i]);
+      }
+    },
+    async ratingSent() {
+      let response = await getSent(
+        this.$store.state.currentRental.rentalId,
+        this.$store.state.userInfo.userId,
+        this.$store.state.token
+      );
+      this.giveRating = response.status === 204;
+    },
   },
   computed: {
     isMyItem() {
@@ -195,26 +216,9 @@ export default {
     },
   },
   async mounted() {
-    await connect(this.currentRentalId, (message) => {
-      this.messages.push(JSON.parse(message.body));
-      setTimeout(() => {
-        this.scrollToEnd();
-      }, 100);
-    });
-    let chat = await getChat(this.currentRentalId, this.$store.state.token);
-    for (let i = 0; i < chat.messages.length; i++) {
-      this.messages.push(chat.messages[i]);
-    }
+    await this.connectChat();
     this.$store.dispatch("setItem", this.currentRental.item);
-    let response = await getSent(
-      this.$store.state.currentRental.rentalId,
-      this.$store.state.userInfo.userId,
-      this.$store.state.token
-    );
-    console.log(response.status);
-    console.log(response.status === 204);
-    this.giveRating = response.status === 204;
-    console.log(this.giveRating);
+    await this.ratingSent();
     this.scrollToEnd();
   },
 };

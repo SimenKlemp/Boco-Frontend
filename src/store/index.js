@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 import {
   changeNotification,
   deleteItem,
+  deleteUser,
   doRegisterItem,
   doRentalRequest,
   getAllRatingsOwner,
@@ -337,6 +338,10 @@ export default createStore({
     async storeMeanRating({ commit }) {
       let meanRating = await getMeanRating(this.state.userInfo.userId);
       commit("SET_MEAN_RATING", meanRating);
+    },
+    async deleteUser({ commit }) {
+      await deleteUser(this.state.userInfo.userId, this.state.token);
+      commit("CLEAR_LOCALSTORAGE");
     },
   },
   modules: {},

@@ -1,5 +1,5 @@
 <template>
-  <div class="itemCardContainer">
+  <div class="itemCardContainer" tabindex="0">
     <div class="itemCard">
       <div class="imageContainer">
         <img
@@ -11,6 +11,7 @@
           v-else
           :src="'http://localhost:8085/api/image/' + item.imageId"
           id="adImage"
+          alt="Gjenstand til leie"
         />
       </div>
       <div class="itemMeta">
@@ -21,6 +22,7 @@
               width="25"
               height="25.026"
               viewBox="0 0 25 25.026"
+              aria-label="kalender ikon"
             >
               <g id="noun-calendar-2080653" transform="translate(-2.6 -2.5)">
                 <path
@@ -111,6 +113,7 @@
                   viewBox="0 0 96 96"
                   enable-background="new 0 0 96 96"
                   xml:space="preserve"
+                  aria-label="Posisjons ikon"
                 >
                   <path
                     d="M48,9C31.86,9,18.73,22.131,18.73,38.271c0,14.13,23.756,41.948,28.518,47.381L48,86.512l0.752-0.857  c4.762-5.432,28.518-33.24,28.518-47.383C77.27,22.131,64.14,9,48,9z M48,48c-5.374,0-9.73-4.356-9.73-9.73s4.356-9.73,9.73-9.73  s9.73,4.356,9.73,9.73S53.374,48,48,48z"
@@ -118,9 +121,9 @@
                 </svg>
                 <p>{{ item.postOffice }}</p>
               </div>
-              <h3>{{ item.title }}</h3>
+              <h2>{{ item.title }}</h2>
             </div>
-            <div class="statusContainer">
+            <div class="statusContainer" aria-label="status ikon">
               <svg
                 v-if="statusWrapper === 'Aktiv'"
                 class="statusIcon"
@@ -265,6 +268,7 @@
                   height="13"
                   viewBox="0 0 14 14"
                   id="priceicon"
+                  aria-label="pris ikon"
                 >
                   <g
                     id="noun-coin-3324289"
@@ -282,8 +286,6 @@
                 <label v-if="!isFree">{{ item.price }} kr/dag</label>
                 <label v-else>GRATIS</label>
               </div>
-
-
             </div>
 
             <div class="deliveryInfo" v-if="!deliveryInfoIsEmpty">
@@ -312,20 +314,22 @@
               @click.stop="goToEdit(item)"
               v-if="this.$route.name === 'MyAds'"
               id="editContainer"
+              tabindex="0"
+              aria-label="rediger gjenstand"
           >
             <svg
-                class="statusIcon"
-                xmlns="http://www.w3.org/2000/svg"
-                width="20.065"
-                height="19.599"
-                viewBox="0 0 20.065 19.599"
+              class="statusIcon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20.065"
+              height="19.599"
+              viewBox="0 0 20.065 19.599"
             >
               <path
-                  id="np_edit_4779758_000000"
-                  d="M3.727,5.776H14.9L13.158,7.514H3.727a.009.009,0,0,0-.009.009V20.951a.009.009,0,0,0,.009.009H17.155a.009.009,0,0,0,.009-.009v-8.5L18.9,10.718V20.951A1.752,1.752,0,0,1,17.155,22.7H3.727A1.752,1.752,0,0,1,1.98,20.951V7.523A1.752,1.752,0,0,1,3.727,5.776Zm7.11,8.531A4,4,0,0,0,8.892,13.2l-.067.067-.631,3.685,3.685-.631.067-.067a4,4,0,0,0-1.109-1.945Zm8.579-11.1a.38.38,0,0,0-.536,0L17.628,4.462l3.054,3.054,1.253-1.253a.38.38,0,0,0,0-.536Zm.557,5.017L16.919,5.173,9.7,12.392a5.376,5.376,0,0,1,3.055,3.055Z"
-                  transform="translate(-1.98 -3.099)"
-                  fill="#034363"
-                  fill-rule="evenodd"
+                id="np_edit_4779758_000000"
+                d="M3.727,5.776H14.9L13.158,7.514H3.727a.009.009,0,0,0-.009.009V20.951a.009.009,0,0,0,.009.009H17.155a.009.009,0,0,0,.009-.009v-8.5L18.9,10.718V20.951A1.752,1.752,0,0,1,17.155,22.7H3.727A1.752,1.752,0,0,1,1.98,20.951V7.523A1.752,1.752,0,0,1,3.727,5.776Zm7.11,8.531A4,4,0,0,0,8.892,13.2l-.067.067-.631,3.685,3.685-.631.067-.067a4,4,0,0,0-1.109-1.945Zm8.579-11.1a.38.38,0,0,0-.536,0L17.628,4.462l3.054,3.054,1.253-1.253a.38.38,0,0,0,0-.536Zm.557,5.017L16.919,5.173,9.7,12.392a5.376,5.376,0,0,1,3.055,3.055Z"
+                transform="translate(-1.98 -3.099)"
+                fill="#034363"
+                fill-rule="evenodd"
               />
             </svg>
           </div>
@@ -424,7 +428,7 @@ h4 {
   font-size: 16px;
   font-weight: 400;
 }
-h3 {
+h2 {
   font-size: 17px;
   font-weight: 400;
   margin-top: 2px;
@@ -519,9 +523,9 @@ img {
 .dateInfo label {
   margin-left: 5px;
 }
-#editContainer{
+#editContainer {
   position: absolute;
-  top:15px;
+  top: 15px;
   right: 25px;
 }
 </style>

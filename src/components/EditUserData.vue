@@ -70,7 +70,11 @@
               v-model="state.oldPassword"
               placeholder="Gammelt passord"
             />
-            <button @click="editPassword" type="button">
+            <button
+              @click="editPassword"
+              type="button"
+              aria-label="Endre passord"
+            >
               <svg
                 class="sideIconRight"
                 xmlns="http://www.w3.org/2000/svg"
@@ -99,6 +103,9 @@
             placeholder="Nytt passord"
             v-if="state.passwordPressed"
           />
+          <span v-if="v$.newPassword.$error" class="errorMessage">
+            {{ v$.newPassword.$errors[0].$message }}
+          </span>
           <BaseInput
             id="repeatNewPassword"
             class="mb-4"
@@ -107,6 +114,9 @@
             placeholder="Gjenta nytt passord"
             v-if="state.passwordPressed"
           />
+          <span v-if="v$.repeatNewPassword.$error" class="errorMessage">
+            {{ v$.repeatNewPassword.$errors[0].$message }}
+          </span>
         </div>
         <h2>Adresse</h2>
         <label>Gateadresse</label>
@@ -149,6 +159,12 @@
         id="registerButton"
         :disabled="isError"
       />
+      <BaseButton
+        @click.prevent="deleteUser"
+        text="Slett bruker"
+        id="deleteButton"
+        :disabled="isError"
+      />
     </form>
   </div>
 </template>
@@ -156,7 +172,7 @@
 <script>
 import BaseInput from "@/components/baseTools/BaseInput";
 import BaseButton from "@/components/baseTools/BaseButton";
-import { email, required } from "@vuelidate/validators";
+import { email, minLength, required, sameAs } from "@vuelidate/validators";
 import UploadService, { doEditUser, doLogin } from "@/service/apiService";
 import { computed, reactive } from "vue";
 import useValidate from "@vuelidate/core";
@@ -199,6 +215,12 @@ export default {
         },
         oldPassword: {
           required,
+        },
+        newPassword: {
+          minLength: minLength(6),
+        },
+        repeatNewPassword: {
+          sameAs: sameAs(state.newPassword),
         },
         address: { required },
         postalcode: { required },
@@ -284,8 +306,23 @@ export default {
             }
             await this.$router.push({ name: "MyProfile" });
             this.$emit("routeChange");
+          } else {
+            alert(
+              "Passordet er feil, du må skrive inn passord for å endre brukerdata"
+            );
           }
         });
+      }
+    },
+    async deleteUser() {
+      if (
+        confirm(
+          "Er du sikker på at du vil slette brukeren din? Alt som kommer med brukeren din vil bli slettet"
+        )
+      ) {
+        await this.$router.push({ name: "HomeView" });
+        this.$store.dispatch("deleteUser");
+        this.$store.dispatch("resetState");
       }
     },
     selectImage() {
@@ -370,5 +407,10 @@ label {
 }
 .mb-4 {
   position: relative;
+}
+.errorMessage {
+  color: tomato;
+  margin-top: 5px;
+  text-align: center;
 }
 </style>

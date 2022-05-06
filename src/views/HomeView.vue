@@ -14,6 +14,7 @@
         :key="item.itemId"
         :item="item"
         @click="seeItem(item)"
+        role="button"
       ></ItemCardSquare>
     </div>
   </div>
