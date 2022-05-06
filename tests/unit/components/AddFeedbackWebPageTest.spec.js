@@ -73,8 +73,15 @@ test("form is rendered correctly", async () => {
 
   let descriptionTitle = wrapper.get("#descriptionTitle");
 
+  let descriptionTextArea = wrapper.get("#description");
+
+  let submitButton = wrapper.get("#publish");
+
   expect(feedbackContainer.exists()).toBeTruthy;
   expect($store.state.userInfo.userId).toEqual(12);
   expect(descriptionTitle.exists()).toBeTruthy;
   expect(descriptionTitle.text()).toContain("Lag en tilbakemelding:");
+  expect(descriptionTextArea.exists()).toBeTruthy;
+  expect(submitButton.exists()).toBeTruthy;
+
 });
