@@ -114,7 +114,7 @@
           </g>
         </svg>
         <svg
-          v-if="status === 'Ferdig'"
+          v-if="status === 'Avsluttet'"
           class="statusIcon"
           xmlns="http://www.w3.org/2000/svg"
           width="20"
@@ -159,7 +159,7 @@ export default {
         case "CANCELED":
           return "Kansellert";
         case "FINISHED":
-          return "Ferdig";
+          return "Avsluttet";
         default:
           return "Default";
       }
@@ -184,5 +184,15 @@ strong {
 }
 #statusText {
   display: inline-block;
+}
+@media(max-width: 410px){
+  .statusContainer{
+    font-size: 16px;
+  }
+}
+@media(max-width: 380px){
+  .statusContainer{
+    font-size: 15px;
+  }
 }
 </style>
