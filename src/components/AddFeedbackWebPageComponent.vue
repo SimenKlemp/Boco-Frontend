@@ -46,9 +46,12 @@ export default {
   },
   methods: {
     async submit() {
+
+      console.log("Hei nå er jeg over ifen")
       this.v$.$validate();
       // eslint-disable-next-line no-empty
       if (!this.v$.$error) {
+        console.log("hei nå er jeg inni ifen");
         const feedbackRequest = {
           message: this.state.description,
           userId: this.$store.state.userInfo.userId,
