@@ -1,11 +1,8 @@
-import { shallowMount } from "@vue/test-utils";
-import AddFeedbackWebPageComponent from "@/components/AddFeedbackWebPageComponent";
 import axios from "axios";
 import { doRegisterFeedbackWebPage } from "@/service/apiService";
-
-let mockRouter;
+import { shallowMount } from "@vue/test-utils";
+import AddFeedbackWebPageComponent from "@/components/AddFeedbackWebPageComponent";
 let $store;
-
 jest.mock("axios");
 
 beforeEach(() => {
@@ -27,21 +24,9 @@ beforeEach(() => {
       },
     },
   };
-  mockRouter = {
-    push: jest.fn(),
-  };
 });
 
-test("Submit method works", async () => {
-  const wrapper = shallowMount(AddFeedbackWebPageComponent, {
-    global: {
-      mocks: {
-        $store,
-        $router: mockRouter,
-      },
-    },
-  });
-
+test("Api call is mocked correctly", async () => {
   const expectedFeedbackResponse = { description: "Veldig bra side!" };
 
   axios.post.mockImplementation(() =>
@@ -60,12 +45,36 @@ test("Submit method works", async () => {
   expect(expectedFeedbackResponse.description).toEqual(
     feedbackResponse.data.description
   );
+});
 
-  await wrapper.vm.submit();
-
-  //expect(mockRouter.push).toHaveBeenCalledTimes(1);
-
-  expect(mockRouter.push).toHaveBeenCalledWith({
-    name: "HomeView",
+test("form is rendered correctly", async () => {
+  const wrapper = shallowMount(AddFeedbackWebPageComponent, {
+    props: {
+      user: {
+        email: "magnus@mail.no",
+        imageId: null,
+        isPerson: true,
+        name: "Magnus Farstad",
+        postOffice: "Trondheim",
+        postalCode: "7031",
+        role: "USER",
+        streetAddress: "Holtermanns veg 31B",
+        userId: 15,
+      },
+    },
+    global: {
+      mocks: {
+        $store,
+      },
+    },
   });
+
+  let feedbackContainer = wrapper.get("#FeedbackWebPageContainer");
+
+  let descriptionTitle = wrapper.get("#descriptionTitle");
+
+  expect(feedbackContainer.exists()).toBeTruthy;
+  expect($store.state.userInfo.userId).toEqual(12);
+  expect(descriptionTitle.exists()).toBeTruthy;
+  expect(descriptionTitle.text()).toContain("Lag en tilbakemelding:");
 });
